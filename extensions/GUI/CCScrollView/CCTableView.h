@@ -54,7 +54,7 @@ public:
      * @param table table contains the given cell
      * @param cell  cell that is touched
      */
-    virtual void tableCellTouched(CCTableView* table, CCTableViewCell* cell) = 0;
+    virtual void tableCellTouched(CCTableView* table, CCTableViewCell* cell) {}
 
     /**
      * Delegate to respond a table cell press event.
