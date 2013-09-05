@@ -47,7 +47,8 @@ public:
         kFmtTiff,
         kFmtWebp,
         kFmtRawData,
-        kFmtUnKnown
+        kFmtUnKnown,
+        kFmtGif
     }EImageFormat;
 
     typedef enum
