@@ -76,6 +76,9 @@ protected:
     void setAdjustBackgroundImage(bool adjustBackgroundImage);
     bool m_doesAdjustBackgroundImage;
 
+    virtual CCSize computeContentSize(const CCRect& iBackgroundRect, const CCRect& iTitleRect) const;
+    virtual void layoutTitleLabel();
+
     /** The current title label. */
     CC_SYNTHESIZE_RETAIN(CCNode*, m_titleLabel, TitleLabel);
 
