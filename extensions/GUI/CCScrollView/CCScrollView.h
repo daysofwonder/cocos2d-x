@@ -123,6 +123,9 @@ public:
 
     float getZoomScale();
 
+    void setMinZoomScale(float iMinZoomScale);
+    void setMaxZoomScale(float iMaxZoomScale);
+
     /**
      * Sets a new scale for container in a given duration.
      *
@@ -159,6 +162,22 @@ public:
     bool isBounceable() { return m_bBounceable; }
     void setBounceable(bool bBounceable) { m_bBounceable = bBounceable; }
 
+    // ****
+    // DoW Additions
+    bool forbidWhenZoomedOut() const;
+    void setForbidScrollWhenZoomedOut(bool bForbidScrollWhenZoomedOut);
+
+    bool scrollEnabled() const;
+    void setScrollEnabled(bool iEnable);
+    
+    bool delaysContentTouches() const;
+    void setDelaysContentTouches(bool iDelays);
+    
+    const CCRect& touchInsets() const;
+    void setTouchInsets(const CCRect& iInsets);
+    
+    // ***
+    
     /**
      * size to clip. CCNode boundingBox uses contentSize directly.
      * It's semantically different what it actually means to common scroll views.
