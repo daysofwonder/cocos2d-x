@@ -68,6 +68,9 @@ class CCControlSlider: public CCControl
     CC_SYNTHESIZE_RETAIN(CCSprite*, m_progressSprite, ProgressSprite);
     CC_SYNTHESIZE_RETAIN(CCSprite*, m_backgroundSprite, BackgroundSprite);
 
+    // DoW Addition
+    CC_SYNTHESIZE_RETAIN(CCInvocation*, m_endValueChanged, EndValueChanged);
+    
 public:
     CCControlSlider();
     virtual ~CCControlSlider();
@@ -81,7 +84,8 @@ public:
     * @param thumbItem         CCSprite, that is used as a thumb.
     */
     virtual bool initWithSprites(CCSprite * backgroundSprite, CCSprite* progressSprite, CCSprite* thumbSprite);
-
+    virtual bool initWithSprites(CCSprite * backgroundSprite, CCSprite* progressSprite, CCSprite* thumbSprite, bool isVertical/* = false*/);
+    
     /** 
     * Creates slider with a background filename, a progress filename and a 
     * thumb image filename.
