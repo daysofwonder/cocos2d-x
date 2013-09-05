@@ -69,4 +69,8 @@ CCScene *CCScene::create()
     }
 }
 
+void CCScene::onExitWillStart()
+{
+}
+
 NS_CC_END
