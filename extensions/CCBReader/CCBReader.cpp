@@ -15,9 +15,10 @@
 
 #include <ctype.h>
 
+/*
 #ifdef __CC_PLATFORM_IOS
 #include <UIKit/UIDevice.h>
-#endif
+#endif*/
 
 using namespace std;
 
