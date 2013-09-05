@@ -50,6 +50,17 @@ public:
 
     void setObjectID(unsigned int uIdx);
     unsigned int getObjectID();
+    
+    /**
+     Select. It's up to derived classes to implement the look update
+     */
+    bool isSelected() const;
+    void select(bool iSelect, bool iAnimated);
+    
+protected:
+    virtual void updateSelection(bool iAnimated) {}
+    virtual void wasReset() {}
+    
 private:
     unsigned int m_uIdx;
 };
