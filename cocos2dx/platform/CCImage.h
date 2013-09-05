@@ -29,6 +29,8 @@ THE SOFTWARE.
 
 NS_CC_BEGIN
 
+class CCSize;
+
 /**
  * @addtogroup platform
  * @{
@@ -113,6 +115,18 @@ public:
         ETextAlign      eAlignMask = kAlignCenter,
         const char *    pFontName = 0,
         int             nSize = 0);
+   
+    static void calculateStringSize(const char* pText,
+                                    const char *    pFontName,
+                                    int             nFontSize,
+                                    
+                                    CCSize&         oComputedSize,
+                                    int&            oAdjustedFontSize,
+                                    
+                                    int            nMinFontSize = 10,
+                                    int             nWidth = 0,
+                                    int             nHeight = 0
+                                    );
     
     #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) || (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     
