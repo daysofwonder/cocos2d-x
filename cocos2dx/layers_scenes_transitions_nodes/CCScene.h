@@ -54,6 +54,8 @@ public:
     bool init();
 
     static CCScene *create(void);
+    
+    virtual void onExitWillStart();
 };
 
 // end of scene group
