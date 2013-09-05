@@ -516,4 +516,120 @@ void CCTouchDispatcher::touchesCancelled(CCSet *touches, CCEvent *pEvent)
     }
 }
 
+CCTouchDelegate* CCTouchDispatcher::simulateTouchDown(CCTouch* iTouch)
+{
+    m_bLocked = true;
+    
+    // optimization to prevent a mutable copy when it is not necessary
+    unsigned int uTargetedHandlersCount = m_pTargetedHandlers->count();
+    unsigned int uStandardHandlersCount = m_pStandardHandlers->count();
+    
+    CCEvent* pEvent = NULL; // not used anywhere
+    
+    //
+    // process the target handlers 1st
+    //
+    if (uTargetedHandlersCount > 0)
+    {
+        CCTargetedTouchHandler *pHandler = NULL;
+        CCObject* pObj = NULL;
+        CCARRAY_FOREACH(m_pTargetedHandlers, pObj)
+        {
+            pHandler = (CCTargetedTouchHandler *)(pObj);
+            
+            if (! pHandler)
+            {
+                break;
+            }
+            
+            CCTouchDelegate* delegate = pHandler->getDelegate();
+            bool bClaimed = delegate->ccTouchBegan(iTouch, pEvent);
+            
+            /*if (bClaimed)
+             {
+             pHandler->getClaimedTouches()->addObject(iTouch);
+             }*/
+            
+            if (bClaimed && pHandler->isSwallowsTouches())
+            {
+                return delegate;
+            }
+        }
+    }
+    
+    //
+    // process standard handlers 2nd
+    //
+    if (uStandardHandlersCount > 0)
+    {
+        CCSet* pMutableTouches = new CCSet;
+        pMutableTouches->addObject(iTouch);
+        
+        CCStandardTouchHandler *pHandler = NULL;
+        CCObject* pObj = NULL;
+        CCARRAY_FOREACH(m_pStandardHandlers, pObj)
+        {
+            pHandler = (CCStandardTouchHandler*)(pObj);
+            
+            if (! pHandler)
+            {
+                break;
+            }
+            
+            pHandler->getDelegate()->ccTouchesBegan(pMutableTouches, pEvent);
+        }
+        
+        pMutableTouches->release();
+    }
+    
+    //
+    // Optimization. To prevent a [handlers copy] which is expensive
+    // the add/removes/quit is done after the iterations
+    //
+    m_bLocked = false;
+    if (m_bToRemove)
+    {
+        m_bToRemove = false;
+        for (unsigned int i = 0; i < m_pHandlersToRemove->num; ++i)
+        {
+            forceRemoveDelegate((CCTouchDelegate*)m_pHandlersToRemove->arr[i]);
+        }
+        ccCArrayRemoveAllValues(m_pHandlersToRemove);
+    }
+    
+    if (m_bToAdd)
+    {
+        m_bToAdd = false;
+        CCTouchHandler* pHandler = NULL;
+        CCObject* pObj = NULL;
+        CCARRAY_FOREACH(m_pHandlersToAdd, pObj)
+        {
+            pHandler = (CCTouchHandler*)pObj;
+            if (! pHandler)
+            {
+                break;
+            }
+            
+            if (dynamic_cast<CCTargetedTouchHandler*>(pHandler) != NULL)
+            {
+                forceAddHandler(pHandler, m_pTargetedHandlers);
+            }
+            else
+            {
+                forceAddHandler(pHandler, m_pStandardHandlers);
+            }
+        }
+        
+        m_pHandlersToAdd->removeAllObjects();
+    }
+    
+    if (m_bToQuit)
+    {
+        m_bToQuit = false;
+        forceRemoveAllDelegates();
+    }
+    
+    return NULL;
+}
+
 NS_CC_END
