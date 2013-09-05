@@ -517,6 +517,21 @@ void CCControlButton::setBackgroundSpriteFrameForState(CCSpriteFrame * spriteFra
     this->setBackgroundSpriteForState(sprite, state);
 }
 
+CCSize
+CCControlButton::computeContentSize(const CCRect& iBackgroundRect, const CCRect& iTitleRect) const
+{
+    CCRect maxRect = CCControlUtils::CCRectUnion(iTitleRect, iBackgroundRect);
+    return maxRect.size;
+}
+
+void
+CCControlButton::layoutTitleLabel()
+{
+    if (m_titleLabel != NULL)
+    {
+        m_titleLabel->setPosition(ccp (getContentSize().width / 2, getContentSize().height / 2));
+    }
+}
 
 void CCControlButton::needsLayout()
 {
@@ -553,10 +568,8 @@ void CCControlButton::needsLayout()
     {
         rgbaLabel->setColor(m_currentTitleColor);
     }
-    if (m_titleLabel != NULL)
-    {
-        m_titleLabel->setPosition(ccp (getContentSize().width / 2, getContentSize().height / 2));
-    }
+
+    layoutTitleLabel();
     
     // Update the background sprite
     this->setBackgroundSprite(this->getBackgroundSpriteForState(m_eState));
@@ -612,8 +625,8 @@ void CCControlButton::needsLayout()
         rectBackground = m_backgroundSprite->boundingBox();
     }
 
-    CCRect maxRect = CCControlUtils::CCRectUnion(rectTitle, rectBackground);
-    setContentSize(CCSizeMake(maxRect.size.width, maxRect.size.height));        
+    CCSize newContentSize = computeContentSize(rectTitle, rectBackground);
+    setContentSize(newContentSize);        
     
     if (m_titleLabel != NULL)
     {
