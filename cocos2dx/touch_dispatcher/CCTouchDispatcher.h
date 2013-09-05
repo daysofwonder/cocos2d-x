@@ -145,6 +145,9 @@ public:
     virtual void touchesEnded(CCSet* touches, CCEvent* pEvent);
     virtual void touchesCancelled(CCSet* touches, CCEvent* pEvent);
 
+    // returns targeted delegate that handled the touch
+    virtual CCTouchDelegate* simulateTouchDown(CCTouch* iTouch);
+
 public:
     CCTouchHandler* findHandler(CCTouchDelegate *pDelegate);
 protected:
