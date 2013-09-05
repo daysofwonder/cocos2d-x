@@ -54,7 +54,7 @@ public:
      * @param table table contains the given cell
      * @param cell  cell that is touched
      */
-    virtual void tableCellTouched(CCTableView* table, CCTableViewCell* cell) = 0;
+    virtual void tableCellTouched(CCTableView* table, CCTableViewCell* cell) {}
 
     /**
      * Delegate to respond a table cell press event.
@@ -81,6 +81,10 @@ public:
      * @param cell  cell that is pressed
      */
     virtual void tableCellWillRecycle(CCTableView* table, CCTableViewCell* cell){};
+    
+    // Non pure for backward compatibility
+    virtual bool tableViewWillSelectCell(CCTableView* table, CCTableViewCell* cell, unsigned int iIndex) { return false; }
+    virtual void tableViewDidSelectCell(CCTableView* table, CCTableViewCell* cell, unsigned int iIndex) {}
 
 };
 
@@ -199,6 +203,8 @@ public:
      * reloads data from data source.  the view will be refreshed.
      */
     void reloadData();
+    void reloadData(bool iKeepScrollPos /*= false*/);
+    
     /**
      * Dequeues a free cell if available. nil if not.
      *
@@ -213,6 +219,9 @@ public:
      * @return a cell at a given index
      */
     CCTableViewCell *cellAtIndex(unsigned int idx);
+
+    int selectedCellIndex() const;
+    void selectCellByIndex(int iIndex, bool iAnimated = false); // Deselect all if iIndex < 0
 
 
     virtual void scrollViewDidScroll(CCScrollView* view);
