@@ -404,5 +404,108 @@ void CCEditBox::unregisterScriptEditBoxHandler(void)
     }
 }
 
+// DoW Additions
+CCLabelTTF*
+CCEditBox::getLabel() const
+{
+    return dynamic_cast<CCLabelTTF*>(getTitleLabel());
+}
+
+void
+CCEditBox::setLabel(CCLabelTTF* iLabel)
+{
+    if (iLabel != getTitleLabel())
+    {
+        iLabel->setDimensions(CCSize(0, 0));
+        
+        iLabel->retain();
+        iLabel->removeFromParentAndCleanup(false);
+        
+        setTitleLabel(NULL);
+        setTitleLabelForState(iLabel, CCControlStateNormal);
+        iLabel->release();
+        
+        if (m_pEditBoxImpl != NULL)
+        {
+            const char* fontName = iLabel->getFontName();
+            const float fontSize = iLabel->getFontSize();
+            const ccColor3B fontColor = iLabel->getColor();
+            
+            m_pEditBoxImpl->setFont(fontName, fontSize);
+            m_pEditBoxImpl->setFontColor(fontColor);
+        }
+        
+        needsLayout();
+    }
+}
+
+void CCEditBox::setInputInsets(const CCRect& iInputInsets)
+{
+    assert(iInputInsets.size.width >= 0);
+    assert(iInputInsets.size.height >= 0);
+    
+    m_InputInsets = iInputInsets;
+    
+    needsLayout();
+    
+    if (m_pEditBoxImpl != NULL)
+    {
+        const CCSize& contentSize = getContentSize();
+        CCSize size(contentSize.width - (m_InputInsets.origin.x + m_InputInsets.size.width), contentSize.height - (m_InputInsets.origin.y + m_InputInsets.size.height));
+        m_pEditBoxImpl->setContentSize(size);
+    }
+}
+
+bool
+CCEditBox::clearsOnBeginEditing() const
+{
+    return m_pEditBoxImpl->clearsOnBeginEditing();
+}
+
+void
+CCEditBox::setClearsOnBeginEditing(bool iEnable)
+{
+    m_pEditBoxImpl->setClearsOnBeginEditing(iEnable);
+}
+
+void
+CCEditBox::setClearButtonMode(EditBoxClearButtonMode iMode)
+{
+    if (m_pEditBoxImpl != NULL)
+    {
+        m_pEditBoxImpl->setClearButtonMode(iMode);
+    }
+}
+
+void
+CCEditBox::setAutoCorrectionMode(EditBoxAutoCorrectionMode mode)
+{
+    if (m_pEditBoxImpl != NULL)
+    {
+        m_pEditBoxImpl->setAutoCorrectionMode(mode);
+    }
+}
+
+void
+CCEditBox::layoutTitleLabel()
+{
+    CCLabelTTF* label = getLabel();
+    if (label != NULL)
+    {
+        CCSize size = getContentSize();
+        size.width -= m_InputInsets.getMaxX();
+        size.height -= m_InputInsets.getMaxY();
+        label->setDimensions(size);
+        
+        label->ignoreAnchorPointForPosition(true);
+        
+        CCPoint pos = m_InputInsets.origin;
+        label->setPosition(pos);
+    }
+    else
+    {
+        CCControlButton::layoutTitleLabel();
+    }
+}
 
 NS_CC_EXT_END

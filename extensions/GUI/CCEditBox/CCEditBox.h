@@ -90,11 +90,13 @@ enum EditBoxInputMode
  */
 enum EditBoxInputFlag
 {
+    kEditBoxInputFlagNone = 0,
+    
     /**
      * Indicates that the text entered is confidential data that should be
      * obscured whenever possible. This implies EDIT_BOX_INPUT_FLAG_SENSITIVE.
      */
-    kEditBoxInputFlagPassword = 0,
+    kEditBoxInputFlagPassword = 1,
 
     /**
      * Indicates that the text entered is sensitive data that the
@@ -123,6 +125,21 @@ enum EditBoxInputFlag
 
 };
 
+
+enum EditBoxAutoCorrectionMode
+{
+    KEditBoxAutoCorrectionDefault,
+    KEditBoxAutoCorrectionNo,
+    KEditBoxAutoCorrectionYes
+};
+
+enum EditBoxClearButtonMode
+{
+    kEditBoxClearButtonNever,
+    kEditBoxClearButtonEditing,
+    kEditBoxClearButtonUnlessEditing,
+    kEditBoxClearButtonAlways
+};
 
 class CCEditBox;
 class CCEditBoxImpl;
@@ -335,12 +352,37 @@ public:
      * @param inputFlag One of the EditBoxInputFlag constants.
      */
     void setInputFlag(EditBoxInputFlag inputFlag);
+
+    /**
+     * Set the auto correction mode that is to be applied to the edit box.
+     * @param inputFlag One of the EditBoxInputFlag constants.
+     */
+    void setAutoCorrectionMode(EditBoxAutoCorrectionMode mode);
+
+    void setClearButtonMode(EditBoxClearButtonMode iMode);
     
     /**
      * Set the return type that are to be applied to the edit box.
      * @param returnType One of the CCKeyboardReturnType constants.
      */
     void setReturnType(KeyboardReturnType returnType);
+    
+    const CCRect& getInputInsets() const { return m_InputInsets; }
+    void setInputInsets(const CCRect& iInputInsets);
+    
+    bool clearsOnBeginEditing() const;
+    void setClearsOnBeginEditing(bool iEnable);
+    
+    CCLabelTTF* getLabel() const;
+    void setLabel(CCLabelTTF* iLabel);
+    
+    /**
+     * Returns true if the entire screen must be adjusted to make this edit box
+     * visible when edited.
+     * @return true/false
+     */
+    bool doAnimationWhenKeyboardMove() const;
+    void setDoAnimationWhenKeyboardMove(bool iDo);
     
     /* override functions */
     virtual void setPosition(const CCPoint& pos);
@@ -354,6 +396,8 @@ public:
     virtual void keyboardDidShow(CCIMEKeyboardNotificationInfo& info);
     virtual void keyboardWillHide(CCIMEKeyboardNotificationInfo& info);
     virtual void keyboardDidHide(CCIMEKeyboardNotificationInfo& info);
+    
+    virtual void layoutTitleLabel();
     
     /* callback funtions */
     void touchDownAction(CCObject *sender, CCControlEvent controlEvent);
@@ -380,7 +424,12 @@ protected:
     
     int   m_nMaxLength;
     float m_fAdjustHeight;
-    int   m_nScriptEditBoxHandler;
+
+    int m_nScriptEditBoxHandler;
+    
+    CCRect m_InputInsets;
+    
+    void _updateDisplayedText();
 };
 
 NS_CC_EXT_END

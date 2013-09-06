@@ -62,6 +62,8 @@
 -(void) openKeyboard;
 -(void) closeKeyboard;
 
+-(void) setVisible:(BOOL)iVisible;
+
 @end
 
 NS_CC_EXT_BEGIN
@@ -101,6 +103,20 @@ public:
 	
 	virtual void onEndEditing();
     
+    
+    // DoW Additions
+    virtual void onEnterTransitionDidFinish();
+    virtual void onExitTransitionDidStart();
+    
+    virtual void setAutoCorrectionMode(EditBoxAutoCorrectionMode mode);
+    
+    virtual bool clearsOnBeginEditing() const;
+    virtual void setClearsOnBeginEditing(bool iEnable);
+    
+    virtual void setClearButtonMode(EditBoxClearButtonMode iMode);
+    
+    //
+
 private:
 	void			initInactiveLabels(const CCSize& size);
 	void			setInactiveText(const char* pText);

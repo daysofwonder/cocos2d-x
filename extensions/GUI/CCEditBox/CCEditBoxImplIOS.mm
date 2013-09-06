@@ -110,6 +110,11 @@ static const int CC_EDIT_BOX_PADDING = 5;
     [textField_ setFrame:frame];
 }
 
+-(void) setVisible:(BOOL)iVisible
+{
+    textField_.hidden = !iVisible;
+}
+
 -(void) visit
 {
     
@@ -613,6 +618,87 @@ void CCEditBoxImplIOS::onEndEditing()
 		m_pLabelPlaceHolder->setVisible(false);
 		setInactiveText(getText());
 	}
+}
+
+// DoW Additions
+
+void CCEditBoxImplIOS::onEnterTransitionDidFinish()
+{
+    const BOOL v = getCCEditBox()->isVisible();
+    [m_systemControl setVisible:v];
+}
+
+void CCEditBoxImplIOS::onExitTransitionDidStart()
+{
+    [m_systemControl setVisible:NO];
+}
+
+void CCEditBoxImplIOS::setAutoCorrectionMode(EditBoxAutoCorrectionMode mode)
+{
+    switch (mode)
+    {
+        case KEditBoxAutoCorrectionDefault:
+            m_systemControl.textField.autocorrectionType = UITextAutocorrectionTypeDefault;
+            break;
+            
+        case KEditBoxAutoCorrectionNo:
+            m_systemControl.textField.autocorrectionType = UITextAutocorrectionTypeNo;
+            break;
+            
+        case KEditBoxAutoCorrectionYes:
+            m_systemControl.textField.autocorrectionType = UITextAutocorrectionTypeYes;
+            break;
+            
+        default:
+            break;
+    }
+}
+
+bool CCEditBoxImplIOS::clearsOnBeginEditing() const
+{
+    return m_systemControl.textField.clearsOnBeginEditing;
+}
+
+void
+CCEditBoxImplIOS::setClearsOnBeginEditing(bool iEnable)
+{
+    m_systemControl.textField.clearsOnBeginEditing = iEnable;
+}
+
+void
+CCEditBoxImplIOS::setClearButtonMode(EditBoxClearButtonMode iMode)
+{
+    UITextFieldViewMode mode;
+    
+    switch (iMode)
+    {
+        case kEditBoxClearButtonEditing:
+        {
+            mode = UITextFieldViewModeWhileEditing;
+            break;
+        }
+            
+        case kEditBoxClearButtonUnlessEditing:
+        {
+            mode = UITextFieldViewModeUnlessEditing;
+            break;
+        }
+            
+        case kEditBoxClearButtonAlways:
+        {
+            mode = UITextFieldViewModeAlways;
+            break;
+        }
+            
+        case kEditBoxClearButtonNever:
+        default:
+        {
+            mode = UITextFieldViewModeNever;
+            break;
+        }
+    }
+    
+    m_systemControl.textField.clearButtonMode = mode;
 }
 
 NS_CC_EXT_END
