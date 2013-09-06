@@ -384,6 +384,11 @@ CCControlSwitch* CCControlSwitch::create(CCSprite *maskSprite, CCSprite * onSpri
     return pRet;
 }
 
+bool CCControlSwitch::isVertical() const
+{
+    return m_pSwitchSprite->isVertical();
+}
+
 void CCControlSwitch::setOn(bool isOn)
 {
     setOn(isOn, false);
