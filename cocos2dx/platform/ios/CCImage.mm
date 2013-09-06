@@ -30,7 +30,7 @@ THE SOFTWARE.
 #import <UIKit/UIKit.h>
 
 #include<math.h>
-
+#include "CCGeometry.h"
 
 typedef struct
 {
@@ -414,6 +414,106 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
 }
 
 NS_CC_BEGIN
+
+static id createFont(const char* pFontName, int nFontSize)
+{    
+    NSString * fntName = [NSString stringWithUTF8String:pFontName];
+    
+    id font = [UIFont fontWithName:fntName size:nFontSize];
+    if (font)
+    {
+        return font;
+    }
+    
+    return [UIFont systemFontOfSize:nFontSize];
+}
+
+static CGSize _calculateLinesSizeWithFont(NSArray* listItems, id font, CGSize *constrainSize)
+{
+    CGSize dim = CGSizeZero;
+    CGSize textRect = CGSizeZero;
+    textRect.width = constrainSize->width > 0 ? constrainSize->width
+    : 0x7fffffff;
+    textRect.height = constrainSize->height > 0 ? constrainSize->height
+    : 0x7fffffff;
+    
+    const int n = listItems.count;
+    
+    for (int i=0; i < n; ++i)
+    {
+        NSString* s = [listItems objectAtIndex:i];
+        
+        if ((i != (n - 1)) /*not last line */&& (s.length == 0))
+        {
+            s = @"A";
+        }
+        
+        CGSize tmp = [s sizeWithFont:font constrainedToSize:textRect];
+        
+        if (tmp.width > dim.width)
+        {
+            dim.width = tmp.width;
+        }
+        
+        dim.height += tmp.height;
+    }
+    
+    return dim;
+}
+
+void
+CCImage::calculateStringSize(const char* pText,
+                             const char *    pFontName,
+                             int             nFontSize,
+                             
+                             CCSize&         oComputedSize,
+                             int&             oAdjustedFontSize,
+                             
+                             int            nMinFontSize,
+                             int             nWidth,
+                             int             nHeight
+                             )
+{
+    // create the font
+    id font = createFont(pFontName, nFontSize);
+    
+    NSArray* listItems = [[NSString stringWithUTF8String:pText] componentsSeparatedByString: @"\n"];
+    
+    CGSize widthOnlyConstraint = CGSizeMake(nWidth, 0);
+    CGSize dim = _calculateLinesSizeWithFont(listItems, font, &widthOnlyConstraint);
+    
+    if ((nWidth != 0) || (nHeight != 0))
+    {
+        // We need to fit to constraints
+        while (true)
+        {
+            if (nFontSize <= nMinFontSize)
+            {
+                break;
+            }
+            
+            const bool widthOK = ((nWidth == 0) ||(dim.width <= nWidth));
+            const bool heightOK = ((nHeight == 0) || (dim.height <= nHeight));
+            
+            if (widthOK && heightOK)
+            {
+                break;
+            }
+            
+            --nFontSize;
+            
+            if (nFontSize >= nMinFontSize)
+            {
+                font = [font fontWithSize:nFontSize];
+                dim = _calculateLinesSizeWithFont(listItems, font, &widthOnlyConstraint);
+            }
+        }
+    }
+    
+    oComputedSize.width = dim.width;
+    oComputedSize.height = dim.height;
+    oAdjustedFontSize = nFontSize;
+}
 
 CCImage::CCImage()
 : m_nWidth(0)
