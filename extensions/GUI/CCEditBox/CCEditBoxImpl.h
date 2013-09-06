@@ -65,7 +65,19 @@ public:
 	virtual void setAnchorPoint(const CCPoint& anchorPoint) = 0;
     virtual void visit(void) = 0;
     virtual void onEnter(void) = 0;
+
+    // DoW Additions
+    virtual void onEnterTransitionDidFinish() = 0;
+    virtual void onExitTransitionDidStart() = 0;
+
+    virtual void setAutoCorrectionMode(EditBoxAutoCorrectionMode mode) = 0;
     
+    virtual bool clearsOnBeginEditing() const = 0;
+    virtual void setClearsOnBeginEditing(bool iEnable) = 0;
+    
+    virtual void setClearButtonMode(EditBoxClearButtonMode iMode) = 0;
+
+    //
     
     void setDelegate(CCEditBoxDelegate* pDelegate) { m_pDelegate = pDelegate; };
     CCEditBoxDelegate* getDelegate() { return m_pDelegate; };
