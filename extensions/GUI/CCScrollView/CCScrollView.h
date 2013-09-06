@@ -231,12 +231,6 @@ public:
     void setTouchEnabled(bool e);
 private:
     /**
-     * Relocates the container at the proper offset, in bounds of max/min offsets.
-     *
-     * @param animated If YES, relocation is animated
-     */
-    void relocateContainer(bool animated);
-    /**
      * implements auto-scrolling behavior. change SCROLL_DEACCEL_RATE as needed to choose
      * deacceleration speed. it must be less than 1.0f.
      *
@@ -268,6 +262,13 @@ private:
 protected:
     CCRect getViewRect();
     
+    /**
+     * Relocates the container at the proper offset, in bounds of max/min offsets.
+     *
+     * @param animated If YES, relocation is animated
+     */
+    void relocateContainer(bool animated);
+
     /**
      * current zoom scale
      */

@@ -37,7 +37,7 @@ NS_CC_EXT_BEGIN
 class CCTableViewCell: public CCNode, public CCSortableObject
 {
 public:
-    CCTableViewCell() {}
+    CCTableViewCell(): m_IsSelected(false) {}
     /**
      * The index used internally by SWTableView and its subclasses
      */
@@ -52,17 +52,39 @@ public:
     unsigned int getObjectID();
     
     /**
-     Select. It's up to derived classes to implement the look update
+     * Tells if this cell is selected.
+     *
+     * @return true if this cell is selected
      */
-    bool isSelected() const;
+    bool isSelected() const { return m_IsSelected; }
+
+    /**
+     * Selects this cell. Should not be called by someone else than CCTableView owner
+     *
+     * @param iSelect true to select, false to unselect
+     * @param iAnimated true to perform a selection animation
+     */
     void select(bool iSelect, bool iAnimated);
     
 protected:
+    /**
+     * Updates the look of this cell to reflect the current selection state
+     * Subclasses should override this method if a specific higlight is required on this cell.
+     *
+     * @param iAnimated true to perform a selection animation
+     */
     virtual void updateSelection(bool iAnimated) {}
+
+    /**
+     * Callback called when this cell was just reset.
+     *
+     * Subclasses should override this method in order to purge any cache or data
+     */
     virtual void wasReset() {}
     
 private:
     unsigned int m_uIdx;
+    bool m_IsSelected;
 };
 
 NS_CC_EXT_END

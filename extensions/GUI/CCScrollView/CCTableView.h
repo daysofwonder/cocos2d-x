@@ -82,10 +82,26 @@ public:
      */
     virtual void tableCellWillRecycle(CCTableView* table, CCTableViewCell* cell){};
     
-    // Non pure for backward compatibility
+    /**
+     * Delegate called when a cell is about to be selected (ie after a touchdown on this cell)
+     *
+     * @param table table contains the given cell
+     * @param cell  cell about to be selected
+     * @param iIndex index of the cell
+     *
+     * @return true to confirm selection. If so, tableView->selectedCellIndex() returns this cell's index and delegate tableViewDidSelectCell is called just after
+     */
     virtual bool tableViewWillSelectCell(CCTableView* table, CCTableViewCell* cell, unsigned int iIndex) { return false; }
-    virtual void tableViewDidSelectCell(CCTableView* table, CCTableViewCell* cell, unsigned int iIndex) {}
 
+    /**
+     * Delegate called when a cell was just selected
+     *
+     * @param table table contains the given cell
+     * @param cell  cell about to be selected
+     * @param iIndex index of the cell
+     *
+     */
+    virtual void tableViewDidSelectCell(CCTableView* table, CCTableViewCell* cell, unsigned int iIndex) {}
 };
 
 
@@ -201,9 +217,10 @@ public:
     void removeCellAtIndex(unsigned int idx);
     /**
      * reloads data from data source.  the view will be refreshed.
+     *
+     * @param iKeepScrollPos if true, then current scroll position is being preserved (as much as could)
      */
-    void reloadData();
-    void reloadData(bool iKeepScrollPos /*= false*/);
+    void reloadData(bool iKeepScrollPos = false);
     
     /**
      * Dequeues a free cell if available. nil if not.
@@ -220,7 +237,20 @@ public:
      */
     CCTableViewCell *cellAtIndex(unsigned int idx);
 
-    int selectedCellIndex() const;
+    /**
+     * Returns the selected cell index.
+     *
+     * @return the selected cell index or < 0 if no cell selected
+     */
+    int selectedCellIndex() const { return m_SelectedCellIndex; }
+
+    /**
+     * Selects a cell given its index
+     *
+     * @param iIndex the cell's index to select
+     * @param iAnimated if true, then an animation is beig played for selection
+     *
+     */
     void selectCellByIndex(int iIndex, bool iAnimated = false); // Deselect all if iIndex < 0
 
 
@@ -240,6 +270,11 @@ protected:
      */
     CCTableViewVerticalFillOrder m_eVordering;
 
+    /**
+     * currently selected cell. < 0 means no selection.
+     */
+    int m_SelectedCellIndex;
+    
     /**
      * index set to query the indexes of the cells used.
      */
