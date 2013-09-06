@@ -30,6 +30,8 @@ NS_CC_EXT_BEGIN
 void CCTableViewCell::reset()
 {
     m_uIdx = CC_INVALID_INDEX;
+    
+    wasReset();
 }
 
 void CCTableViewCell::setObjectID(unsigned int uIdx)
@@ -50,6 +52,16 @@ unsigned int CCTableViewCell::getIdx()
 void CCTableViewCell::setIdx(unsigned int uIdx)
 {
     m_uIdx = uIdx;
+}
+
+void
+CCTableViewCell::select(bool iSelect, bool iAnimated)
+{
+    if (m_IsSelected != iSelect)
+    {
+        m_IsSelected = iSelect;
+        updateSelection(iAnimated);
+    }
 }
 
 NS_CC_EXT_END
