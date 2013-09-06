@@ -116,6 +116,21 @@ public:
         const char *    pFontName = 0,
         int             nSize = 0);
    
+    /**
+     @brief    Calculates the string size and adjusts font size to fit string to dimensions constraints.
+     @param  pText       the text to calculate its size (cannot be nil).
+     @param  pFontName   the name of the font used to draw the text. If nil, use the default system font.
+     @param  nFontSize   the initial font size, if 0, use the system default size.
+     
+     @param  oComputedSize in output, the actual size of the string after font size adjustments
+     @param oAdjustedFontSize in output , the adjusted font size so that the text can fit inside nWidth, nHeight
+     
+     @param nMinFontSize the minimum font size to be used for adjustment. Hence the text may not fit inside size constraints
+     if nMinFontSize too high
+     
+     @param  nWidth      the max allowed width, if 0, there's no constraint on the width.
+     @param  nHeight     the max allowed height, if 0, there's no constraint on the height.
+     */
     static void calculateStringSize(const char* pText,
                                     const char *    pFontName,
                                     int             nFontSize,
