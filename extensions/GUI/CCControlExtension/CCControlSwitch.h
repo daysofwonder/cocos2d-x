@@ -51,21 +51,17 @@ class CCControlSwitch : public CCControl
 public:
     CCControlSwitch();
     virtual ~CCControlSwitch();
-    /** Initializes a switch with a mask sprite, on/off sprites for on/off states and a thumb sprite. */
-    bool initWithMaskSprite(CCSprite *maskSprite, CCSprite * onSprite, CCSprite * offSprite, CCSprite * thumbSprite);
+    /** Initializes a switch with a mask sprite, on/off sprites for on/off states and a thumb sprite. Pass true to isVertical to create a vertical slider */
+    bool initWithMaskSprite(CCSprite *maskSprite, CCSprite * onSprite, CCSprite * offSprite, CCSprite * thumbSprite, bool isVertical = false);
 
-    /** Creates a switch with a mask sprite, on/off sprites for on/off states and a thumb sprite. */
-    static CCControlSwitch* create(CCSprite *maskSprite, CCSprite * onSprite, CCSprite * offSprite, CCSprite * thumbSprite);
+    /** Creates a switch with a mask sprite, on/off sprites for on/off states and a thumb sprite. Pass true to isVertical to create a vertical slider */
+    static CCControlSwitch* create(CCSprite *maskSprite, CCSprite * onSprite, CCSprite * offSprite, CCSprite * thumbSprite, bool isVertical = false);
 
-    // Vertical addition
-    static CCControlSwitch* create(CCSprite *maskSprite, CCSprite * onSprite, CCSprite * offSprite, CCSprite * thumbSprite, bool iIsVertical);
+    /** Initializes a switch with a mask sprite, on/off sprites for on/off states, a thumb sprite and an on/off labels. Pass true to isVertical to create a vertical slider*/
+    bool initWithMaskSprite(CCSprite *maskSprite, CCSprite * onSprite, CCSprite * offSprite, CCSprite * thumbSprite, CCLabelTTF* onLabel, CCLabelTTF* offLabel, bool isVertical = false);
 
-
-    /** Initializes a switch with a mask sprite, on/off sprites for on/off states, a thumb sprite and an on/off labels. */
-    bool initWithMaskSprite(CCSprite *maskSprite, CCSprite * onSprite, CCSprite * offSprite, CCSprite * thumbSprite, CCLabelTTF* onLabel, CCLabelTTF* offLabel);
-
-    /** Creates a switch with a mask sprite, on/off sprites for on/off states, a thumb sprite and an on/off labels. */
-    static CCControlSwitch* create(CCSprite *maskSprite, CCSprite * onSprite, CCSprite * offSprite, CCSprite * thumbSprite, CCLabelTTF* onLabel, CCLabelTTF* offLabel);
+    /** Creates a switch with a mask sprite, on/off sprites for on/off states, a thumb sprite and an on/off labels. Pass true to isVertical to create a vertical slider */
+    static CCControlSwitch* create(CCSprite *maskSprite, CCSprite * onSprite, CCSprite * offSprite, CCSprite * thumbSprite, CCLabelTTF* onLabel, CCLabelTTF* offLabel, bool isVertical = false);
 
 
     /**
@@ -80,6 +76,8 @@ public:
     void setOn(bool isOn);
     bool isOn(void) { return m_bOn; }
     bool hasMoved() { return m_bMoved; }
+    bool isVertical() const;
+    
     virtual void setEnabled(bool enabled);
 
     CCPoint locationFromTouch(CCTouch* touch);
@@ -92,7 +90,7 @@ public:
 protected:
     /** Sprite which represents the view. */
     CCControlSwitchSprite* m_pSwitchSprite;
-    float m_fInitialTouchXPosition;
+    float m_fInitialTouchPosition;
     
     bool m_bMoved;
     /** A Boolean value that determines the off/on state of the switch. */
