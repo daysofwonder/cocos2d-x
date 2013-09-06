@@ -28,6 +28,7 @@
 
 #include "cocos2d.h"
 #include "ExtensionMacros.h"
+#include "HitTestProtocol.h"
 
 NS_CC_EXT_BEGIN
 
@@ -58,7 +59,7 @@ public:
  * ScrollView support for cocos2d for iphone.
  * It provides scroll view functionalities to cocos2d projects natively.
  */
-class CCScrollView : public CCLayer
+class CCScrollView : public CCLayer, public HitTestProtocol
 {
 public:
     CCScrollView();
@@ -66,6 +67,17 @@ public:
 
     bool init();
     virtual void registerWithTouchDispatcher();
+    
+    virtual bool isEnabled();
+    virtual void setIsEnabled(bool iEnabled);
+
+    virtual bool isTouchInside(const CCPoint& iLocation) override;
+
+    virtual bool ccPreTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
+    virtual bool ccPreTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
+    
+    virtual bool ccPreTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
+    virtual bool ccPreTouchCancelled(CCTouch *pTouch, CCEvent *pEvent);
 
     /**
      * Returns an autoreleased scroll view object.
@@ -161,22 +173,18 @@ public:
     bool isTouchMoved() { return m_bTouchMoved; }
     bool isBounceable() { return m_bBounceable; }
     void setBounceable(bool bBounceable) { m_bBounceable = bBounceable; }
-
-    // ****
-    // DoW Additions
-    bool forbidWhenZoomedOut() const;
-    void setForbidScrollWhenZoomedOut(bool bForbidScrollWhenZoomedOut);
-
-    bool scrollEnabled() const;
-    void setScrollEnabled(bool iEnable);
     
-    bool delaysContentTouches() const;
-    void setDelaysContentTouches(bool iDelays);
+    bool scrollEnabled() const { return m_bScrollEnabled; }
+    void setScrollEnabled(bool iEnabled) { m_bScrollEnabled = iEnabled; }
     
-    const CCRect& touchInsets() const;
-    void setTouchInsets(const CCRect& iInsets);
+    bool forbidWhenZoomedOut() const { return m_bForbidScrollWhenZoomedOut; }
+    void setForbidScrollWhenZoomedOut(bool bForbidScrollWhenZoomedOut) { m_bForbidScrollWhenZoomedOut = bForbidScrollWhenZoomedOut; }
     
-    // ***
+    bool delaysContentTouches() const { return m_bDelaysContentTouches; }
+    void setDelaysContentTouches(bool iDelay) { m_bDelaysContentTouches = iDelay; }
+    
+    const CCRect& touchInsets() const { return m_TouchInsets; }
+    void setTouchInsets(const CCRect& iInsets) { m_TouchInsets = iInsets; }
     
     /**
      * size to clip. CCNode boundingBox uses contentSize directly.
@@ -188,7 +196,8 @@ public:
 
     CCNode * getContainer();
     void setContainer(CCNode * pContainer);
-
+    void updateContainerOffset();
+    
     /**
      * direction allowed to scroll. CCScrollViewDirectionBoth by default.
      */
@@ -308,7 +317,13 @@ protected:
      */
     bool m_bBounceable;
 
+    /**
+     * Determines whether the scroll view can be scrolled when current zoom scale equals min zoom scale
+     */
+    bool m_bForbidScrollWhenZoomedOut;
     bool m_bClippingToBounds;
+    bool m_bDelaysContentTouches;
+    bool m_bScrollEnabled;
 
     /**
      * scroll speed
@@ -336,11 +351,16 @@ protected:
      * max and min scale
      */
     float m_fMinScale, m_fMaxScale;
-    /**
-     * scissor rect for parent, just for restoring GL_SCISSOR_BOX
-     */
-    CCRect m_tParentScissorRect;
-    bool m_bScissorRestored;
+    
+protected:
+    CCPoint m_InitialDelayedTouchPosition;
+    CCTouch* m_DelayedTouch;
+    CCTouchDelegate* m_DelayedHitChild;
+    
+    CCRect  m_TouchInsets;
+    
+    void onStillTouchDown(float iDelay);
+    void unscheduleStillTouchDown();
 };
 
 // end of GUI group
