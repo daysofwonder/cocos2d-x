@@ -32,6 +32,8 @@
 
 #include "CCControl.h"
 #include "CCInvocation.h"
+#include "CCNodeLoaderListener.h"
+#include "CCControlLoader.h"
 
 NS_CC_EXT_BEGIN
 
@@ -42,7 +44,7 @@ NS_CC_EXT_BEGIN
  * @{
  */
 
-class CCControlSlider: public CCControl
+class CCControlSlider: public CCControl, public CCNodeLoaderListener
 {
     //maunally put in the setters
     /** Contains the receiver¡¯s current value. */
@@ -62,15 +64,16 @@ class CCControlSlider: public CCControl
 
     CC_SYNTHESIZE(float, m_minimumAllowedValue, MinimumAllowedValue);
     CC_SYNTHESIZE(float, m_maximumAllowedValue, MaximumAllowedValue);
+    CC_SYNTHESIZE_RETAIN(CCInvocation*, m_endValueChanged, EndValueChanged);
 
     // maybe this should be read-only
     CC_SYNTHESIZE_RETAIN(CCSprite*, m_thumbSprite, ThumbSprite);
     CC_SYNTHESIZE_RETAIN(CCSprite*, m_progressSprite, ProgressSprite);
     CC_SYNTHESIZE_RETAIN(CCSprite*, m_backgroundSprite, BackgroundSprite);
 
-    // DoW Addition
-    CC_SYNTHESIZE_RETAIN(CCInvocation*, m_endValueChanged, EndValueChanged);
-    
+    bool    m_isVertical;
+    CCRect  m_SlideInsets;
+
 public:
     CCControlSlider();
     virtual ~CCControlSlider();
@@ -82,15 +85,16 @@ public:
     * @param backgroundSprite  CCSprite, that is used as a background.
     * @param progressSprite    CCSprite, that is used as a progress bar.
     * @param thumbItem         CCSprite, that is used as a thumb.
+    * @param isVertical        bool, indicating whether this slider is vertical or horizontal
     */
-    virtual bool initWithSprites(CCSprite * backgroundSprite, CCSprite* progressSprite, CCSprite* thumbSprite);
-    virtual bool initWithSprites(CCSprite * backgroundSprite, CCSprite* progressSprite, CCSprite* thumbSprite, bool isVertical/* = false*/);
-    
+    virtual bool initWithSprites(CCSprite * backgroundSprite, CCSprite* progressSprite, CCSprite* thumbSprite, bool isVertical = false);
+
+
     /** 
     * Creates slider with a background filename, a progress filename and a 
     * thumb image filename.
     */
-    static CCControlSlider* create(const char* bgFile, const char* progressFile, const char* thumbFile);
+    static CCControlSlider* create(const char* bgFile, const char* progressFile, const char* thumbFile, bool isVertical = false);
 
     /** 
     * Creates a slider with a given background sprite and a progress bar and a
@@ -98,10 +102,31 @@ public:
     *
     * @see initWithBackgroundSprite:progressSprite:thumbMenuItem:
     */
-    static CCControlSlider* create(CCSprite * backgroundSprite, CCSprite* pogressSprite, CCSprite* thumbSprite);
+    static CCControlSlider* create(CCSprite * backgroundSprite, CCSprite* pogressSprite, CCSprite* thumbSprite, bool isVertical = false);
 
+    bool isVertical() const { return m_isVertical; }
+    CCRect slideArea();
+    
     virtual void needsLayout();
+    
+    // Overridden from CCNodeLoaderListener
+    virtual void onNodeLoaded(CCNode * pNode, CCNodeLoader * pNodeLoader);
+
 protected:
+    friend class CCControlSliderLoader;
+    
+    enum EComponentTags
+    {
+        kThumbTag = 1,
+        kProgressTag = 2,
+        kBackgroundTag = 3
+    };
+    
+    void postInit();
+    
+    static CCControlSlider* createForLoad();
+    bool initForLoad();
+    
     void sliderBegan(CCPoint location);
     void sliderMoved(CCPoint location);
     void sliderEnded(CCPoint location);
@@ -112,6 +137,20 @@ protected:
 
 /** Returns the value for the given location. */
     float valueForLocation(CCPoint location);
+};
+
+class CCControlSliderLoader : public CCControlLoader
+{
+public:
+    CCB_STATIC_NEW_AUTORELEASE_OBJECT_METHOD(CCControlSliderLoader, loader);
+    
+    virtual CCControlSlider* createCCNode(cocos2d::CCNode * pParent, cocos2d::extension::CCBReader * pCCBReader)
+    {
+        return CCControlSlider::createForLoad();
+    }
+    
+    virtual void onHandlePropTypeCheck(CCNode * pNode, CCNode * pParent, const char * pPropertyName, bool pCheck, CCBReader * pCCBReader);
+    virtual void onHandlePropTypeFloat(CCNode * pNode, CCNode * pParent, const char* pPropertyName, float pFloat, CCBReader * pCCBReader);
 };
 
 // end of GUI group
