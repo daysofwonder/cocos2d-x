@@ -2450,6 +2450,7 @@
 					"CC_SPRITEBATCHNODE_RENDER_SUBPIXEL=1",
 					"DEBUG=1",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/..\"",
 					"\"$(SRCROOT)/../kazmath/include\"",
@@ -2481,6 +2482,7 @@
 					"CC_SPRITEBATCHNODE_RENDER_SUBPIXEL=1",
 					"NDEBUG=1",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/..\"",
 					"\"$(SRCROOT)/../kazmath/include\"",
