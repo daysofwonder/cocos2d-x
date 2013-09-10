@@ -97,6 +97,15 @@ public:
     virtual void openKeyboard();
     virtual void closeKeyboard();
     virtual void onEnter(void);
+    
+    // DoW Additions
+    virtual void onEnterTransitionDidFinish() override;
+    virtual void onExitTransitionDidStart() override;
+    virtual void setAutoCorrectionMode(EditBoxAutoCorrectionMode mode) override;
+    virtual bool clearsOnBeginEditing() const override;
+    virtual void setClearsOnBeginEditing(bool iEnable) override;
+    virtual void setClearButtonMode(EditBoxClearButtonMode iMode) override;
+    
 private:
     NSPoint    convertDesignCoordToScreenCoord(const CCPoint& designCoord, bool bInRetinaMode);
     void       adjustTextFieldPosition();
