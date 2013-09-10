@@ -412,6 +412,49 @@ void CCEditBoxImplMac::onEnter(void)
     adjustTextFieldPosition();
 }
 
+void
+CCEditBoxImplMac::onEnterTransitionDidFinish()
+{
+    
+}
+
+void
+CCEditBoxImplMac::onExitTransitionDidStart()
+{
+    
+}
+
+
+void
+CCEditBoxImplMac::setAutoCorrectionMode(EditBoxAutoCorrectionMode mode)
+{
+    
+}
+
+
+bool
+CCEditBoxImplMac::clearsOnBeginEditing() const
+{
+    
+}
+
+
+void
+CCEditBoxImplMac::setClearsOnBeginEditing(bool iEnable)
+{
+    
+}
+
+
+void
+CCEditBoxImplMac::setClearButtonMode(EditBoxClearButtonMode iMode)
+{
+    
+}
+
+
+
+
 NS_CC_EXT_END
 
 #endif // #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
