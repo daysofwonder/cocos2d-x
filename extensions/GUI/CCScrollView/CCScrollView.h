@@ -59,7 +59,7 @@ public:
  * ScrollView support for cocos2d for iphone.
  * It provides scroll view functionalities to cocos2d projects natively.
  */
-class CCScrollView : public CCLayer, public HitTestProtocol
+class CCScrollView : public CCLayer, public CCActionTweenDelegate, public HitTestProtocol
 {
 public:
     CCScrollView();
@@ -68,6 +68,8 @@ public:
     bool init();
     virtual void registerWithTouchDispatcher();
     
+    virtual void updateTweenAction(float value, const char* key);
+
     virtual bool isEnabled();
     virtual void setIsEnabled(bool iEnabled);
 
