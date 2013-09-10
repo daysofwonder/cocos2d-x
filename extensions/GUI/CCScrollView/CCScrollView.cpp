@@ -952,4 +952,12 @@ CCRect CCScrollView::getViewRect()
     return CCRectMake(screenPos.x, screenPos.y, m_tViewSize.width*scaleX, m_tViewSize.height*scaleY);
 }
 
+void CCScrollView::updateTweenAction(float value, const char* key)
+{
+    if (strcmp(key, "zoomScale") == 0)
+    {
+        setZoomScale(value);
+    }
+}
+
 NS_CC_EXT_END
