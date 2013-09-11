@@ -26,6 +26,7 @@
 #include <spine/CCSkeletonAnimation.h>
 #include <spine/extension.h>
 #include <spine/spine-cocos2dx.h>
+#include <algorithm>
 
 USING_NS_CC;
 using std::min;
