@@ -83,7 +83,12 @@ protected:
     CC_SYNTHESIZE_RETAIN(CCNode*, m_titleLabel, TitleLabel);
 
     /** The current background sprite. */
-    CC_SYNTHESIZE_RETAIN(CCScale9Sprite*, m_backgroundSprite, BackgroundSprite);
+    //CC_SYNTHESIZE_RETAIN(CCScale9Sprite*, m_backgroundSprite, BackgroundSprite);
+    // Re-write backgroundSprite accessors to make them virtual, and thus overridable
+private: CCScale9Sprite* m_backgroundSprite;
+public: virtual CCScale9Sprite* getBackgroundSprite(void) const { return m_backgroundSprite; }
+    
+private: virtual void setBackgroundSprite(CCScale9Sprite* iSprite);
 
     /** The prefered size of the button, if label is larger it will be expanded. */
     CC_PROPERTY(CCSize, m_preferredSize, PreferredSize);

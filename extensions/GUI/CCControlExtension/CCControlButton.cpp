@@ -477,6 +477,25 @@ CCScale9Sprite* CCControlButton::getBackgroundSpriteForState(CCControlState stat
     return (CCScale9Sprite*)m_backgroundSpriteDispatchTable->objectForKey(CCControlStateNormal);
 }
 
+void CCControlButton::setBackgroundSprite(CCScale9Sprite* iSprite)
+{
+    if (m_backgroundSprite != iSprite)
+    {
+        if ((m_backgroundSprite != NULL) && (m_backgroundSprite->getParent() == this))
+        {
+            m_backgroundSprite->removeFromParentAndCleanup(false);
+        }
+        
+        CC_SAFE_RETAIN(iSprite);
+        CC_SAFE_RELEASE(m_backgroundSprite);
+        m_backgroundSprite = iSprite;
+    }
+    
+    if ((m_backgroundSprite != NULL) && (m_backgroundSprite->getParent() != this))
+    {
+        addChild(m_backgroundSprite);
+    }
+}
 
 void CCControlButton::setBackgroundSpriteForState(CCScale9Sprite* sprite, CCControlState state)
 {
@@ -492,7 +511,10 @@ void CCControlButton::setBackgroundSpriteForState(CCScale9Sprite* sprite, CCCont
     m_backgroundSpriteDispatchTable->setObject(sprite, state);
     sprite->setVisible(false);
     sprite->setAnchorPoint(ccp(0.5f, 0.5f));
-    addChild(sprite);
+    
+    // DO NOT add the background sprite right now.
+    // It will be done layer by setBackgroundSprite method.
+    //addChild(sprite);
 
     if (this->m_preferredSize.width != 0 || this->m_preferredSize.height != 0)
     {
