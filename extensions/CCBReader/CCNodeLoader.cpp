@@ -863,6 +863,13 @@ CCNode * CCNodeLoader::parsePropTypeCCBFile(CCNode * pNode, CCNode * pParent, CC
 
     /* Change path extension to .ccbi. */
     std::string ccbFileWithoutPathExtension = CCBReader::deletePathExtension(ccbFileName.c_str());
+    
+    // If not specified, simply returns null node with no log warning
+    if (ccbFileWithoutPathExtension.empty())
+    {
+        return NULL;
+    }
+    
     ccbFileName = ccbFileWithoutPathExtension + ".ccbi";
     
     // Load sub file
