@@ -135,6 +135,9 @@ bool CCLabelTTF::initWithString(const char *string, const char *fontName, float 
         this->setShaderProgram(CCShaderCache::sharedShaderCache()->programForKey(SHADER_PROGRAM));
         
         m_tDimensions = CCSizeMake(dimensions.width, dimensions.height);
+        CCAssert(m_tDimensions.width >= 0, "m_tDimensions.width cannot be negative");
+        CCAssert(m_tDimensions.height >= 0, "m_tDimensions.height cannot be negative");
+        
         m_hAlignment  = hAlignment;
         m_vAlignment  = vAlignment;
         m_pFontName   = new std::string(fontName);
@@ -241,6 +244,8 @@ void CCLabelTTF::setDimensions(const CCSize &dim)
     if (dim.width != m_tDimensions.width || dim.height != m_tDimensions.height)
     {
         m_tDimensions = dim;
+        CCAssert(m_tDimensions.width >= 0, "m_tDimensions.width cannot be negative");
+        CCAssert(m_tDimensions.height >= 0, "m_tDimensions.height cannot be negative");
         
         // Force update
         if (m_string.size() > 0)
@@ -476,6 +481,9 @@ ccFontDefinition *CCLabelTTF::getTextDefinition()
 void CCLabelTTF::_updateWithTextDefinition(ccFontDefinition & textDefinition, bool mustUpdateTexture)
 {
     m_tDimensions = CCSizeMake(textDefinition.m_dimensions.width, textDefinition.m_dimensions.height);
+    CCAssert(m_tDimensions.width >= 0, "m_tDimensions.width cannot be negative");
+    CCAssert(m_tDimensions.height >= 0, "m_tDimensions.height cannot be negative");
+    
     m_hAlignment  = textDefinition.m_alignment;
     m_vAlignment  = textDefinition.m_vertAlignment;
     
