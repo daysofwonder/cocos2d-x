@@ -30,8 +30,10 @@ void CCScrollViewLoader::onHandlePropTypeCheck(CCNode * pNode, CCNode * pParent,
 
 void CCScrollViewLoader::onHandlePropTypeCCBFile(CCNode * pNode, CCNode * pParent, const char * pPropertyName, CCNode * pCCBFileNode, CCBReader * pCCBReader) {
     if(strcmp(pPropertyName, PROPERTY_CONTAINER) == 0) {
-        ((CCScrollView *)pNode)->setContainer(pCCBFileNode);
-		((CCScrollView *)pNode)->updateInset();
+        if (pCCBFileNode != NULL) {
+            ((CCScrollView *)pNode)->setContainer(pCCBFileNode);
+            ((CCScrollView *)pNode)->updateInset();            
+        }
     } else {
         CCNodeLoader::onHandlePropTypeCCBFile(pNode, pParent, pPropertyName, pCCBFileNode, pCCBReader);
     }
