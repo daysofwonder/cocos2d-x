@@ -197,8 +197,9 @@ void CCControlButton::setEnabled(bool enabled)
 
 void CCControlButton::setSelected(bool enabled)
 {
+    m_eState = enabled ? CCControlStateSelected : CCControlStateNormal;
+    
     CCControl::setSelected(enabled);
-    needsLayout();
 }
 
 void CCControlButton::setHighlighted(bool enabled)
@@ -209,7 +210,7 @@ void CCControlButton::setHighlighted(bool enabled)
     }
     else
     {
-        m_eState = CCControlStateNormal;
+        m_eState = enabled ? CCControlStateSelected : CCControlStateNormal;
     }
     
     CCControl::setHighlighted(enabled);
