@@ -647,13 +647,14 @@ void CCControlButton::needsLayout()
     {
         rectBackground = m_backgroundSprite->boundingBox();
     }
-
-    CCSize newContentSize = computeContentSize(rectTitle, rectBackground);
+    
+    CCSize newContentSize = computeContentSize(rectBackground, rectTitle);
     setContentSize(newContentSize);        
     
     if (m_titleLabel != NULL)
     {
-        m_titleLabel->setPosition(ccp(getContentSize().width/2, getContentSize().height/2));
+        layoutTitleLabel();
+        
         // Make visible the background and the label
         m_titleLabel->setVisible(true);
     }
