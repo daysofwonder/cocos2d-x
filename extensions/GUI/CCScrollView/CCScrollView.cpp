@@ -464,14 +464,24 @@ CCNode * CCScrollView::getContainer()
 
 void CCScrollView::setContainer(CCNode * pContainer)
 {
+    /*
     // Make sure that 'm_pContainer' has a non-NULL value since there are
     // lots of logic that use 'm_pContainer'.
+    // DoW: I don't agree: if we return right now, we may leave the scroll view
+     // with a non null container, which is not also the expected behavior
     if (NULL == pContainer)
-        return;
+        return;*/
 
     this->removeAllChildrenWithCleanup(true);
     this->m_pContainer = pContainer;
 
+    // Previous container removed, new container set up,
+    // It's now safe to return if new installed container is NULL
+    if (pContainer == NULL)
+    {
+        return;
+    }
+    
     this->m_pContainer->ignoreAnchorPointForPosition(false);
     this->m_pContainer->setAnchorPoint(ccp(0.0f, 0.0f));
 
