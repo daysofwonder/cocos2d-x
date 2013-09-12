@@ -74,6 +74,10 @@ static id s_sharedDirectorCaller;
         displayLink = [NSClassFromString(@"CADisplayLink") displayLinkWithTarget:self selector:@selector(doCaller:)];
         [displayLink setFrameInterval: self.interval];
         [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    
+        // Call immediately once mainLoop to avoid black screen between
+        // Now and first call to doCaller:
+        cocos2d::CCDirector::sharedDirector()->mainLoop();
 }
 
 -(void) setAnimationInterval:(double)intervalNew
