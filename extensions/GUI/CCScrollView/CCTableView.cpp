@@ -309,7 +309,7 @@ void CCTableView::_addCellIfNecessary(CCTableViewCell * cell)
 void CCTableView::_updateContentSize()
 {
     CCSize size = CCSizeZero;
-    unsigned int cellsCount = m_pDataSource->numberOfCellsInTableView(this);
+    unsigned int cellsCount = (m_pDataSource != NULL) ? m_pDataSource->numberOfCellsInTableView(this) : 0;
 
     if (cellsCount > 0)
     {
@@ -347,7 +347,13 @@ CCPoint CCTableView::_offsetFromIndex(unsigned int index)
 {
     CCPoint offset = this->__offsetFromIndex(index);
 
-    const CCSize cellSize = m_pDataSource->tableCellSizeForIndex(this, index);
+    CCSize cellSize;
+    
+    if (m_pDataSource != NULL)
+    {
+        cellSize = m_pDataSource->tableCellSizeForIndex(this, index);
+    }
+    
     if (m_eVordering == kCCTableViewFillTopDown)
     {
         offset.y = this->getContainer()->getContentSize().height - offset.y - cellSize.height;
@@ -461,7 +467,7 @@ void CCTableView::_setIndexForCell(unsigned int index, CCTableViewCell *cell)
 }
 
 void CCTableView::_updateCellPositions() {
-    int cellsCount = m_pDataSource->numberOfCellsInTableView(this);
+    int cellsCount = (m_pDataSource != NULL) ? m_pDataSource->numberOfCellsInTableView(this) : 0;
     m_vCellsPositions.resize(cellsCount + 1, 0.0);
 
     if (cellsCount > 0)
@@ -489,7 +495,7 @@ void CCTableView::_updateCellPositions() {
 
 void CCTableView::scrollViewDidScroll(CCScrollView* view)
 {
-    unsigned int uCountOfItems = m_pDataSource->numberOfCellsInTableView(this);
+    unsigned int uCountOfItems = (m_pDataSource != NULL) ? m_pDataSource->numberOfCellsInTableView(this) : 0;
     if (0 == uCountOfItems)
     {
         return;
