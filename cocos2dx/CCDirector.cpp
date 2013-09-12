@@ -591,6 +591,11 @@ void CCDirector::replaceScene(CCScene *pScene)
     m_pobScenesStack->replaceObjectAtIndex(index - 1, pScene);
 
     m_pNextScene = pScene;
+    
+    if (m_pRunningScene != NULL)
+    {
+        m_pRunningScene->onExitWillStart();
+    }
 }
 
 void CCDirector::pushScene(CCScene *pScene)
@@ -601,6 +606,11 @@ void CCDirector::pushScene(CCScene *pScene)
 
     m_pobScenesStack->addObject(pScene);
     m_pNextScene = pScene;
+    
+    if (m_pRunningScene != NULL)
+    {
+        m_pRunningScene->onExitWillStart();
+    }
 }
 
 void CCDirector::popScene(void)
@@ -618,6 +628,11 @@ void CCDirector::popScene(void)
     {
         m_bSendCleanupToScene = true;
         m_pNextScene = (CCScene*)m_pobScenesStack->objectAtIndex(c - 1);
+    }
+    
+    if (m_pRunningScene != NULL)
+    {
+        m_pRunningScene->onExitWillStart();
     }
 }
 
