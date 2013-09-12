@@ -150,9 +150,14 @@ void CCTouchDispatcher::addStandardDelegate(CCTouchDelegate *pDelegate, int nPri
     }
 }
 
+CCTouchHandler* CCTouchDispatcher::createTargetedTouchHandler(CCTouchDelegate *pDelegate, int nPriority, bool bSwallowsTouches)
+{
+    return CCTargetedTouchHandler::handlerWithDelegate(pDelegate, nPriority, bSwallowsTouches);
+}
+
 void CCTouchDispatcher::addTargetedDelegate(CCTouchDelegate *pDelegate, int nPriority, bool bSwallowsTouches)
 {    
-    CCTouchHandler *pHandler = CCTargetedTouchHandler::handlerWithDelegate(pDelegate, nPriority, bSwallowsTouches);
+    CCTouchHandler *pHandler = createTargetedTouchHandler(pDelegate, nPriority, bSwallowsTouches);
     if (! m_bLocked)
     {
         forceAddHandler(pHandler, m_pTargetedHandlers);
