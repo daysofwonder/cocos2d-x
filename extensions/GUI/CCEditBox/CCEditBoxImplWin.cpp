@@ -290,6 +290,37 @@ void CCEditBoxImplWin::onEnter(void)
 
 }
 
+
+void CCEditBoxImplWin::onEnterTransitionDidFinish()
+{
+
+}
+
+void CCEditBoxImplWin::onExitTransitionDidStart()
+{
+
+}
+
+void CCEditBoxImplWin::setAutoCorrectionMode(EditBoxAutoCorrectionMode mode)
+{
+
+}
+ 
+bool CCEditBoxImplWin::clearsOnBeginEditing() const
+{
+	return false;
+}
+
+void CCEditBoxImplWin::setClearsOnBeginEditing(bool iEnable)
+{
+
+}
+
+void CCEditBoxImplWin::setClearButtonMode(EditBoxClearButtonMode iMode)
+{
+
+}
+
 NS_CC_EXT_END
 
 #endif /* (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) */
