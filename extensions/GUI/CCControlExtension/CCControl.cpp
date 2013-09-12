@@ -206,8 +206,14 @@ void CCControl::removeTargetWithActionForControlEvent(CCObject* target, SEL_CCCo
     else
     {
             //normally we would use a predicate, but this won't work here. Have to do it manually
+
+            // array cannot be modified while parsing it: make a readonly copy of it
+            // CCInvocation'copy not implemented, then we cannot use eventInvocationList->copy
+            CCArray copiedList;
+            copiedList.addObjectsFromArray(eventInvocationList);
+            
             CCObject* pObj = NULL;
-            CCARRAY_FOREACH(eventInvocationList, pObj)
+            CCARRAY_FOREACH(&copiedList, pObj)
             {
                 CCInvocation *invocation = (CCInvocation*)pObj;
                 bool shouldBeRemoved=true;
