@@ -118,7 +118,9 @@ void CCTouchDispatcher::forceAddHandler(CCTouchHandler *pHandler, CCArray *pArra
  
              if (h->getDelegate() == pHandler->getDelegate())
              {
-                 CCAssert(0, "");
+                 // No need to assert on redundant addition
+                 // just ignore it
+                 //CCAssert(0, "");
                  return;
              }
          }
