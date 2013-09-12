@@ -151,7 +151,9 @@ public:
 public:
     CCTouchHandler* findHandler(CCTouchDelegate *pDelegate);
 protected:
-    void forceRemoveDelegate(CCTouchDelegate *pDelegate);
+    virtual CCTouchHandler* createTargetedTouchHandler(CCTouchDelegate *pDelegate, int nPriority, bool bSwallowsTouches);
+    virtual void forceRemoveDelegate(CCTouchDelegate *pDelegate);
+    
     void forceAddHandler(CCTouchHandler *pHandler, CCArray* pArray);
     void forceRemoveAllDelegates(void);
     void rearrangeHandlers(CCArray* pArray);
