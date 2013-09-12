@@ -400,8 +400,12 @@ bool CCLayer::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 
     CC_UNUSED_PARAM(pTouch);
     CC_UNUSED_PARAM(pEvent);
-    CCAssert(false, "Layer#ccTouchBegan override me");
-    return true;
+    
+    // No need to override if script installed!
+    // CCAssert(false, "Layer#ccTouchBegan override me");
+    
+    // If not handled by script, then we can safely say it's not handled at all
+    return false;
 }
 
 void CCLayer::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
