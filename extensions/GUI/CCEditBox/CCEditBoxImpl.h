@@ -77,6 +77,10 @@ public:
     
     virtual void setClearButtonMode(EditBoxClearButtonMode iMode) = 0;
 
+    virtual void needsLayout() = 0;
+    virtual CCLabelTTF* getLabel() const = 0;
+    virtual void setLabel(CCLabelTTF* iLabel) = 0;
+    
     //
     
     void setDelegate(CCEditBoxDelegate* pDelegate) { m_pDelegate = pDelegate; };

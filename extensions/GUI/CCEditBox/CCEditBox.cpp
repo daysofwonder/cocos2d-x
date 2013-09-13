@@ -408,35 +408,13 @@ void CCEditBox::unregisterScriptEditBoxHandler(void)
 CCLabelTTF*
 CCEditBox::getLabel() const
 {
-    return dynamic_cast<CCLabelTTF*>(getTitleLabel());
+    return (m_pEditBoxImpl != NULL) ? m_pEditBoxImpl->getLabel() : NULL;
 }
 
 void
 CCEditBox::setLabel(CCLabelTTF* iLabel)
 {
-    if (iLabel != getTitleLabel())
-    {
-        iLabel->setDimensions(CCSize(0, 0));
-        
-        iLabel->retain();
-        iLabel->removeFromParentAndCleanup(false);
-        
-        setTitleLabel(NULL);
-        setTitleLabelForState(iLabel, CCControlStateNormal);
-        iLabel->release();
-        
-        if (m_pEditBoxImpl != NULL)
-        {
-            const char* fontName = iLabel->getFontName();
-            const float fontSize = iLabel->getFontSize();
-            const ccColor3B fontColor = iLabel->getColor();
-            
-            m_pEditBoxImpl->setFont(fontName, fontSize);
-            m_pEditBoxImpl->setFontColor(fontColor);
-        }
-        
-        needsLayout();
-    }
+    m_pEditBoxImpl->setLabel(iLabel);
 }
 
 void CCEditBox::setInputInsets(const CCRect& iInputInsets)
@@ -446,14 +424,29 @@ void CCEditBox::setInputInsets(const CCRect& iInputInsets)
     
     m_InputInsets = iInputInsets;
     
-    needsLayout();
-    
     if (m_pEditBoxImpl != NULL)
     {
+        m_pEditBoxImpl->needsLayout();
+        
+        /*
         const CCSize& contentSize = getContentSize();
         CCSize size(contentSize.width - (m_InputInsets.origin.x + m_InputInsets.size.width), contentSize.height - (m_InputInsets.origin.y + m_InputInsets.size.height));
-        m_pEditBoxImpl->setContentSize(size);
+        m_pEditBoxImpl->setContentSize(size);*/
     }
+}
+
+CCRect CCEditBox::inputLocalBounds() const
+{
+    CCRect bounds;
+    
+    bounds.origin = m_InputInsets.origin;
+    
+    const CCSize& cSize = getContentSize();
+    
+    bounds.size.width = cSize.width - m_InputInsets.getMaxX();
+    bounds.size.height = cSize.height - m_InputInsets.getMaxY();
+    
+    return bounds;
 }
 
 bool

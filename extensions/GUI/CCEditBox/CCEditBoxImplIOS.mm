@@ -33,7 +33,7 @@
 
 #define getEditBoxImplIOS() ((cocos2d::extension::CCEditBoxImplIOS*)editBox_)
 
-static const int CC_EDIT_BOX_PADDING = 5;
+static const int CC_EDIT_BOX_PADDING = 0;
 
 @implementation CustomUITextField
 - (CGRect)textRectForBounds:(CGRect)bounds {
@@ -306,11 +306,8 @@ void CCEditBoxImplIOS::initInactiveLabels(const CCSize& size)
 {
 	const char* pDefaultFontName = [[m_systemControl.textField.font fontName] UTF8String];
 
-	m_pLabel = CCLabelTTF::create("", "", 0.0f);
-    m_pLabel->setAnchorPoint(ccp(0, 0.5f));
-    m_pLabel->setColor(ccWHITE);
-    m_pLabel->setVisible(false);
-    m_pEditBox->addChild(m_pLabel, kLabelZOrder);
+	CCLabelTTF* label = CCLabelTTF::create("", "", 0.0f);
+    setLabel(label);
 	
     m_pLabelPlaceHolder = CCLabelTTF::create("", "", 0.0f);
 	// align the text vertically center
@@ -323,7 +320,15 @@ void CCEditBoxImplIOS::initInactiveLabels(const CCSize& size)
 }
 
 void CCEditBoxImplIOS::placeInactiveLabels() {
+    
+    CCRect inputBox = m_pEditBox->inputLocalBounds();
+    inputBox.origin.x += CC_EDIT_BOX_PADDING;
+    inputBox.origin.y += CC_EDIT_BOX_PADDING;
+    inputBox.size.width -= 2 * CC_EDIT_BOX_PADDING;
+    inputBox.size.height -= 2 * CC_EDIT_BOX_PADDING;
+    
     m_pLabel->setPosition(ccp(CC_EDIT_BOX_PADDING, m_tContentSize.height / 2.0f));
+    
     m_pLabelPlaceHolder->setPosition(ccp(CC_EDIT_BOX_PADDING, m_tContentSize.height / 2.0f));
 }
 
@@ -371,10 +376,17 @@ void CCEditBoxImplIOS::setFont(const char* pFontName, int fontSize)
 		[m_systemControl.textField setFont:textFont];
     }
 
-	m_pLabel->setFontName(pFontName);
-	m_pLabel->setFontSize(fontSize);
-	m_pLabelPlaceHolder->setFontName(pFontName);
-	m_pLabelPlaceHolder->setFontSize(fontSize);
+    if (m_pLabel != nullptr)
+    {
+        m_pLabel->setFontName(pFontName);
+        m_pLabel->setFontSize(fontSize);        
+    }
+    
+    if (m_pLabelPlaceHolder != NULL)
+    {
+        m_pLabelPlaceHolder->setFontName(pFontName);
+        m_pLabelPlaceHolder->setFontSize(fontSize);        
+    }
 }
 
 void CCEditBoxImplIOS::setFontColor(const ccColor3B& color)
@@ -535,7 +547,7 @@ static CGPoint convertDesignCoordToScreenCoord(const CCPoint& designCoord, bool 
 void CCEditBoxImplIOS::setPosition(const CCPoint& pos)
 {
 	m_obPosition = pos;
-	adjustTextFieldPosition();
+    needsLayout();
 }
 
 void CCEditBoxImplIOS::setVisible(bool visible)
@@ -546,7 +558,8 @@ void CCEditBoxImplIOS::setVisible(bool visible)
 void CCEditBoxImplIOS::setContentSize(const CCSize& size)
 {
     m_tContentSize = size;
-    CCLOG("[Edit text] content size = (%f, %f)", size.width, size.height);
+
+    /*CCLOG("[Edit text] content size = (%f, %f)", size.width, size.height);
     placeInactiveLabels();
     CCEGLViewProtocol* eglView = CCEGLView::sharedOpenGLView();
     CGSize controlSize = CGSizeMake(size.width * eglView->getScaleX(),size.height * eglView->getScaleY());
@@ -556,7 +569,8 @@ void CCEditBoxImplIOS::setContentSize(const CCSize& size)
         controlSize.width /= 2.0f;
         controlSize.height /= 2.0f;
     }
-    [m_systemControl setContentSize:controlSize];
+    [m_systemControl setContentSize:controlSize];*/
+    needsLayout();
 }
 
 void CCEditBoxImplIOS::setAnchorPoint(const CCPoint& anchorPoint)
@@ -582,12 +596,14 @@ void CCEditBoxImplIOS::onEnter(void)
 
 void CCEditBoxImplIOS::adjustTextFieldPosition()
 {
-	CCSize contentSize = m_pEditBox->getContentSize();
-	CCRect rect = CCRectMake(0, 0, contentSize.width, contentSize.height);
+	CCRect localBox = m_pEditBox->inputLocalBounds();
+	CCRect rect = CCRectMake(localBox.origin.x, localBox.origin.y, localBox.size.width, localBox.size.height);
     rect = CCRectApplyAffineTransform(rect, m_pEditBox->nodeToWorldTransform());
 	
 	CCPoint designCoord = ccp(rect.origin.x, rect.origin.y + rect.size.height);
     [m_systemControl setPosition:convertDesignCoordToScreenCoord(designCoord, m_bInRetinaMode)];
+    
+    [m_systemControl setContentSize:CGSizeMake(rect.size.width, rect.size.height)];
 }
 
 void CCEditBoxImplIOS::openKeyboard()
@@ -699,6 +715,48 @@ CCEditBoxImplIOS::setClearButtonMode(EditBoxClearButtonMode iMode)
     }
     
     m_systemControl.textField.clearButtonMode = mode;
+}
+
+CCLabelTTF*
+CCEditBoxImplIOS::getLabel() const
+{
+    return m_pLabel;
+}
+
+void
+CCEditBoxImplIOS::setLabel(CCLabelTTF* iLabel)
+{
+    if (m_pLabel != iLabel)
+    {
+        if (m_pLabel != NULL)
+        {
+            m_pLabel->removeFromParentAndCleanup(true);
+            CC_SAFE_RELEASE(m_pLabel);
+        }
+        
+        m_pLabel = iLabel;
+        CC_SAFE_RETAIN(m_pLabel);
+        
+        if (m_pLabel != NULL)
+        {
+            m_pLabel->removeFromParentAndCleanup(true);
+            
+            m_pLabel->setAnchorPoint(ccp(0, 0.5f));
+            m_pLabel->setColor(ccWHITE);
+            m_pLabel->setVisible(false);
+            m_pEditBox->addChild(m_pLabel, kLabelZOrder);
+            
+            // Update the native text field accordingly
+            setFont(m_pLabel->getFontName(), m_pLabel->getFontSize());
+            setFontColor(m_pLabel->getDisplayedColor());
+        }
+    }
+}
+
+void CCEditBoxImplIOS::needsLayout()
+{
+    placeInactiveLabels();
+    adjustTextFieldPosition();
 }
 
 NS_CC_EXT_END
