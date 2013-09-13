@@ -453,6 +453,24 @@ CCEditBoxImplMac::setClearButtonMode(EditBoxClearButtonMode iMode)
 }
 
 
+void
+CCEditBoxImplMac::needsLayout()
+{
+    
+}
+
+CCLabelTTF*
+CCEditBoxImplMac::getLabel() const
+{
+    return nullptr;
+}
+
+void
+CCEditBoxImplMac::setLabel(CCLabelTTF* iLabel)
+{
+    
+}
+
 
 
 NS_CC_EXT_END

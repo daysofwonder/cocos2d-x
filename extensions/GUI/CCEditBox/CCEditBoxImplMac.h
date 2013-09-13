@@ -105,7 +105,10 @@ public:
     virtual bool clearsOnBeginEditing() const override;
     virtual void setClearsOnBeginEditing(bool iEnable) override;
     virtual void setClearButtonMode(EditBoxClearButtonMode iMode) override;
-    
+    virtual void needsLayout() override;
+    virtual CCLabelTTF* getLabel() const override;
+    virtual void setLabel(CCLabelTTF* iLabel) override;
+
 private:
     NSPoint    convertDesignCoordToScreenCoord(const CCPoint& designCoord, bool bInRetinaMode);
     void       adjustTextFieldPosition();
