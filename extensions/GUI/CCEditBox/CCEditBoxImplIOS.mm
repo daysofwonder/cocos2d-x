@@ -307,6 +307,8 @@ void CCEditBoxImplIOS::initInactiveLabels(const CCSize& size)
 	const char* pDefaultFontName = [[m_systemControl.textField.font fontName] UTF8String];
 
 	CCLabelTTF* label = CCLabelTTF::create("", "", 0.0f);
+    label->setColor(ccWHITE);
+
     setLabel(label);
 	
     m_pLabelPlaceHolder = CCLabelTTF::create("", "", 0.0f);
@@ -327,7 +329,8 @@ void CCEditBoxImplIOS::placeInactiveLabels() {
     inputBox.size.width -= 2 * CC_EDIT_BOX_PADDING;
     inputBox.size.height -= 2 * CC_EDIT_BOX_PADDING;
     
-    m_pLabel->setPosition(ccp(CC_EDIT_BOX_PADDING, m_tContentSize.height / 2.0f));
+    m_pLabel->setPosition(ccp(inputBox.origin.x, inputBox.getMidY()));
+    m_pLabel->setDimensions(inputBox.size);
     
     m_pLabelPlaceHolder->setPosition(ccp(CC_EDIT_BOX_PADDING, m_tContentSize.height / 2.0f));
 }
@@ -742,7 +745,9 @@ CCEditBoxImplIOS::setLabel(CCLabelTTF* iLabel)
             m_pLabel->removeFromParentAndCleanup(true);
             
             m_pLabel->setAnchorPoint(ccp(0, 0.5f));
-            m_pLabel->setColor(ccWHITE);
+            m_pLabel->setHorizontalAlignment(kCCTextAlignmentLeft);
+            m_pLabel->setVerticalAlignment(kCCVerticalTextAlignmentCenter);
+            
             m_pLabel->setVisible(false);
             m_pEditBox->addChild(m_pLabel, kLabelZOrder);
             

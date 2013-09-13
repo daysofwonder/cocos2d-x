@@ -427,11 +427,6 @@ void CCEditBox::setInputInsets(const CCRect& iInputInsets)
     if (m_pEditBoxImpl != NULL)
     {
         m_pEditBoxImpl->needsLayout();
-        
-        /*
-        const CCSize& contentSize = getContentSize();
-        CCSize size(contentSize.width - (m_InputInsets.origin.x + m_InputInsets.size.width), contentSize.height - (m_InputInsets.origin.y + m_InputInsets.size.height));
-        m_pEditBoxImpl->setContentSize(size);*/
     }
 }
 
