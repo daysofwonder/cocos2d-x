@@ -321,6 +321,21 @@ void CCEditBoxImplWin::setClearButtonMode(EditBoxClearButtonMode iMode)
 
 }
 
+void CCEditBoxImplWin::needsLayout()
+{
+
+}
+
+CCLabelTTF* CCEditBoxImplWin::getLabel() const
+{
+	return m_pLabel;
+}
+
+void CCEditBoxImplWin::setLabel(CCLabelTTF* iLabel)
+{
+	m_pLabel = iLabel;
+}
+
 NS_CC_EXT_END
 
 #endif /* (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) */
