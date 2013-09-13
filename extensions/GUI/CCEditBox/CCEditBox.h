@@ -370,6 +370,8 @@ public:
     const CCRect& getInputInsets() const { return m_InputInsets; }
     void setInputInsets(const CCRect& iInputInsets);
     
+    CCRect inputLocalBounds() const;
+    
     bool clearsOnBeginEditing() const;
     void setClearsOnBeginEditing(bool iEnable);
     

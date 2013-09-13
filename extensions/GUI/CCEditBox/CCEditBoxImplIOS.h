@@ -115,6 +115,11 @@ public:
     
     virtual void setClearButtonMode(EditBoxClearButtonMode iMode);
     
+    virtual void needsLayout();
+
+    virtual CCLabelTTF* getLabel() const;
+    virtual void setLabel(CCLabelTTF* iLabel);
+
     //
 
 private:
