@@ -33,13 +33,10 @@
 
 #define getEditBoxImplIOS() ((cocos2d::extension::CCEditBoxImplIOS*)editBox_)
 
-static const int CC_EDIT_BOX_PADDING = 0;
-
 @implementation CustomUITextField
 - (CGRect)textRectForBounds:(CGRect)bounds {
-    float padding = CC_EDIT_BOX_PADDING * cocos2d::CCEGLView::sharedOpenGLView()->getScaleX() / [[EAGLView sharedEGLView] contentScaleFactor ];
-    return CGRectMake(bounds.origin.x + padding, bounds.origin.y + padding,
-                      bounds.size.width - padding*2, bounds.size.height - padding*2);
+    return CGRectMake(bounds.origin.x, bounds.origin.y,
+                      bounds.size.width, bounds.size.height);
 }
 - (CGRect)editingRectForBounds:(CGRect)bounds {
     return [self textRectForBounds:bounds];
@@ -324,15 +321,11 @@ void CCEditBoxImplIOS::initInactiveLabels(const CCSize& size)
 void CCEditBoxImplIOS::placeInactiveLabels() {
     
     CCRect inputBox = m_pEditBox->inputLocalBounds();
-    inputBox.origin.x += CC_EDIT_BOX_PADDING;
-    inputBox.origin.y += CC_EDIT_BOX_PADDING;
-    inputBox.size.width -= 2 * CC_EDIT_BOX_PADDING;
-    inputBox.size.height -= 2 * CC_EDIT_BOX_PADDING;
     
     m_pLabel->setPosition(ccp(inputBox.origin.x, inputBox.getMidY()));
     m_pLabel->setDimensions(inputBox.size);
     
-    m_pLabelPlaceHolder->setPosition(ccp(CC_EDIT_BOX_PADDING, m_tContentSize.height / 2.0f));
+    m_pLabelPlaceHolder->setPosition(ccp(0, m_tContentSize.height / 2.0f));
 }
 
 void CCEditBoxImplIOS::setInactiveText(const char* pText)
@@ -348,7 +341,7 @@ void CCEditBoxImplIOS::setInactiveText(const char* pText)
 		m_pLabel->setString(getText());
 	
 	// Clip the text width to fit to the text box
-	float fMaxWidth = m_pEditBox->getContentSize().width - CC_EDIT_BOX_PADDING * 2;
+	float fMaxWidth = m_pEditBox->getContentSize().width;
 	CCRect clippingRect = m_pLabel->getTextureRect();
 	if(clippingRect.size.width > fMaxWidth) {
 		clippingRect.size.width = fMaxWidth;
