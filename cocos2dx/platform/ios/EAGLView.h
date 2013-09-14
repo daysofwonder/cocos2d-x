@@ -92,13 +92,11 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
     //fsaa addition
     BOOL                    multisampling_;
     unsigned int               requestedSamples_;
-    BOOL                    isUseUITextField;
 @private
     NSString *              markedText_;
     CGRect                  caretRect_;
     CGRect                  originalRect_;
     NSNotification*         keyboardShowNotification_;
-    BOOL                    isKeyboardShown_;
 }
 
 @property(nonatomic, readonly) UITextPosition *beginningOfDocument;

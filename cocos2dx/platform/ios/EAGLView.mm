@@ -88,7 +88,6 @@ static EAGLView *view = 0;
 @synthesize pixelFormat=pixelformat_, depthFormat=depthFormat_;
 @synthesize context=context_;
 @synthesize multiSampling=multiSampling_;
-@synthesize isKeyboardShown=isKeyboardShown_;
 @synthesize keyboardShowNotification = keyboardShowNotification_;
 + (Class) layerClass
 {
@@ -134,7 +133,6 @@ static EAGLView *view = 0;
 {
     if((self = [super initWithFrame:frame]))
     {
-        isUseUITextField = YES;
         pixelformat_ = format;
         depthFormat_ = depth;
         multiSampling_ = sampling;
@@ -371,33 +369,12 @@ static EAGLView *view = 0;
         return ret;
 }
 
-
--(void) handleTouchesAfterKeyboardShow
-{
-    NSArray *subviews = self.subviews;
-    
-    for(UIView* view in subviews)
-    {
-        if([view isKindOfClass:NSClassFromString(@"CustomUITextField")])
-        {
-            if ([view isFirstResponder])
-            {
-                [view resignFirstResponder];
-                return;
-            }
-        }
-    }
-}
-
 // Pass the touches to the superview
 #pragma mark EAGLView - Touch Delegate
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (isKeyboardShown_)
-    {
-        [self handleTouchesAfterKeyboardShow];
-        return;
-    }
+    UIView* responder = [self firstChildResponder];
+    [responder resignFirstResponder];
     
     int ids[IOS_MAX_TOUCHES_COUNT] = {0};
     float xs[IOS_MAX_TOUCHES_COUNT] = {0.0f};
@@ -415,10 +392,6 @@ static EAGLView *view = 0;
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (isKeyboardShown_)
-    {
-        return;
-    }
     int ids[IOS_MAX_TOUCHES_COUNT] = {0};
     float xs[IOS_MAX_TOUCHES_COUNT] = {0.0f};
     float ys[IOS_MAX_TOUCHES_COUNT] = {0.0f};
@@ -434,12 +407,7 @@ static EAGLView *view = 0;
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    if (isKeyboardShown_)
-    {
-        return;
-    }
-    
+{    
     int ids[IOS_MAX_TOUCHES_COUNT] = {0};
     float xs[IOS_MAX_TOUCHES_COUNT] = {0.0f};
     float ys[IOS_MAX_TOUCHES_COUNT] = {0.0f};
@@ -455,12 +423,7 @@ static EAGLView *view = 0;
 }
     
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    if (isKeyboardShown_)
-    {
-        return;
-    }
-    
+{    
     int ids[IOS_MAX_TOUCHES_COUNT] = {0};
     float xs[IOS_MAX_TOUCHES_COUNT] = {0.0f};
     float ys[IOS_MAX_TOUCHES_COUNT] = {0.0f};
@@ -478,28 +441,51 @@ static EAGLView *view = 0;
 #pragma mark -
 #pragma mark UIView - Responder
 
+static UIView* firstDescendentResponder(UIView* iRoot, bool iExcludingRoot)
+{
+    if (!iExcludingRoot && [iRoot isFirstResponder])
+    {
+        return iRoot;
+    }
+    
+    NSArray *subviews = iRoot.subviews;
+    
+    for(UIView* view in subviews)
+    {
+        UIView* responder = firstDescendentResponder(view, false);
+        if (responder != nil)
+        {
+            return responder;
+        }
+    }
+    
+    return nil;
+}
+
+-(UIView*) firstChildResponder
+{
+    return firstDescendentResponder(self, true);
+}
+
 - (BOOL)canBecomeFirstResponder
 {
     if (nil != markedText_) {
         [markedText_ release];
     }
     markedText_ = nil;
-    if (isUseUITextField)
-    {
-        return NO;
-    }
-    return YES;
+
+    UIView* responder = [self firstChildResponder];
+    
+    return (responder == nil);
 }
 
 - (BOOL)becomeFirstResponder
 {
-    isUseUITextField = NO;
     return [super becomeFirstResponder];
 }
 
 - (BOOL)resignFirstResponder
 {
-    isUseUITextField = YES;
     return [super resignFirstResponder];
 }
 
@@ -847,7 +833,6 @@ static EAGLView *view = 0;
         caretRect_ = end;
         caretRect_.origin.y = viewSize.height - (caretRect_.origin.y + caretRect_.size.height + [UIFont smallSystemFontSize]);
         caretRect_.size.height = 0;
-        isKeyboardShown_ = YES;
     }
     else if (UIKeyboardWillHideNotification == type)
     {
@@ -857,7 +842,6 @@ static EAGLView *view = 0;
     {
         caretRect_ = CGRectZero;
         dispatcher->dispatchKeyboardDidHide(notiInfo);
-        isKeyboardShown_ = NO;
     }
 }
 
