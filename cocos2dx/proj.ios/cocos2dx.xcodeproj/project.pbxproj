@@ -315,6 +315,8 @@
 		4EF8999916E207E70040A527 /* CCTMXTiledMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EF8998D16E207E70040A527 /* CCTMXTiledMap.h */; };
 		4EF8999A16E207E70040A527 /* CCTMXXMLParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8998E16E207E70040A527 /* CCTMXXMLParser.cpp */; };
 		4EF8999B16E207E70040A527 /* CCTMXXMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EF8998F16E207E70040A527 /* CCTMXXMLParser.h */; };
+		740F8E2A17E3CDDD009961C7 /* Cocos2DNativeView.h in Headers */ = {isa = PBXBuildFile; fileRef = 740F8E2917E3CDDD009961C7 /* Cocos2DNativeView.h */; };
+		740F8E2B17E3CDDD009961C7 /* Cocos2DNativeView.h in Headers */ = {isa = PBXBuildFile; fileRef = 740F8E2917E3CDDD009961C7 /* Cocos2DNativeView.h */; };
 		7421E36D17D7E41F00884070 /* CCAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1551A355158F2ADE00E66CFE /* CCAction.cpp */; };
 		7421E36E17D7E41F00884070 /* CCActionCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1551A357158F2ADE00E66CFE /* CCActionCamera.cpp */; };
 		7421E36F17D7E41F00884070 /* CCActionCatmullRom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1551A359158F2ADE00E66CFE /* CCActionCatmullRom.cpp */; };
@@ -939,6 +941,7 @@
 		4EF8998D16E207E70040A527 /* CCTMXTiledMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTMXTiledMap.h; sourceTree = "<group>"; };
 		4EF8998E16E207E70040A527 /* CCTMXXMLParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCTMXXMLParser.cpp; sourceTree = "<group>"; };
 		4EF8998F16E207E70040A527 /* CCTMXXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTMXXMLParser.h; sourceTree = "<group>"; };
+		740F8E2917E3CDDD009961C7 /* Cocos2DNativeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cocos2DNativeView.h; sourceTree = "<group>"; };
 		7421E4A717D7E41F00884070 /* libcocos2dxC++11.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libcocos2dxC++11.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D43F7F8915C7D8BA00D713FC /* CCTouch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCTouch.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1350,6 +1353,7 @@
 				1551A492158F2ADE00E66CFE /* EAGLView.h */,
 				1551A493158F2ADE00E66CFE /* EAGLView.mm */,
 				1551A4A0158F2ADE00E66CFE /* OpenGL_Internal.h */,
+				740F8E2917E3CDDD009961C7 /* Cocos2DNativeView.h */,
 				1551A4A1158F2ADE00E66CFE /* Simulation */,
 			);
 			path = ios;
@@ -1793,6 +1797,7 @@
 				4698CFAA174CBB700066A57B /* CCTextureETC.h in Headers */,
 				37EEEBF9175DDF3A003C1193 /* CCComponent.h in Headers */,
 				37EEEBFB175DDF3A003C1193 /* CCComponentContainer.h in Headers */,
+				740F8E2A17E3CDDD009961C7 /* Cocos2DNativeView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1973,6 +1978,7 @@
 				7421E4A117D7E41F00884070 /* CCTextureETC.h in Headers */,
 				7421E4A217D7E41F00884070 /* CCComponent.h in Headers */,
 				7421E4A317D7E41F00884070 /* CCComponentContainer.h in Headers */,
+				740F8E2B17E3CDDD009961C7 /* Cocos2DNativeView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
