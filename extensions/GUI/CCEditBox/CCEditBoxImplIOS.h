@@ -35,10 +35,17 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "Cocos2DNativeView.h"
 
-@interface CustomUITextField : UITextField
+@class EditBoxImplIOS;
+
+@interface CustomUITextField : UITextField<Cocos2DNativeView>
 {
+@protected
+    EditBoxImplIOS* impl_;
 }
+
+-(id) initWithFrame:(CGRect)frame impl:(EditBoxImplIOS*)iImpl;
 
 @end
 

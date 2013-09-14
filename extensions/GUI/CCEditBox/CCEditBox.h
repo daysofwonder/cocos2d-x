@@ -355,10 +355,14 @@ public:
 
     /**
      * Set the auto correction mode that is to be applied to the edit box.
-     * @param inputFlag One of the EditBoxInputFlag constants.
+     * @param mode One of the EditBoxAutoCorrectionMode constants.
      */
     void setAutoCorrectionMode(EditBoxAutoCorrectionMode mode);
 
+    /**
+     * Set the clear button mode that is to be applied to the edit box.
+     * @param iMode One of the EditBoxClearButtonMode constants.
+     */
     void setClearButtonMode(EditBoxClearButtonMode iMode);
     
     /**
@@ -367,15 +371,55 @@ public:
      */
     void setReturnType(KeyboardReturnType returnType);
     
+    /**
+     * Returns the input insets.
+     * It defines the area where the text field appears within
+     * the bounds. Defaults are (origin(0, 0), size(0, 0), eg there's no padding around
+     * the text field
+     * @return input insets
+     */
     const CCRect& getInputInsets() const { return m_InputInsets; }
+
+    /**
+     * Sets the input insets.
+     *
+     * @param iInputInsets the new input insets
+     */
     void setInputInsets(const CCRect& iInputInsets);
-    
+
+    /**
+     * Computes the input bounds according to the input insets and the edit box's content size
+     *
+     * @return the input bounds
+     */
     CCRect inputLocalBounds() const;
-    
+
+    /**
+     * Tells if the current content is cleared when beginning editing
+     *
+     * @return true if current content is cleared, false otherwise
+     */
     bool clearsOnBeginEditing() const;
+
+    /**
+     * Set up the clear on Begin Editing Behavior
+     *
+     * @param iEnable true to enable this behavior, false otherwise
+     */
     void setClearsOnBeginEditing(bool iEnable);
-    
+
+    /**
+     * Returns the label to be used for displaying string when this edit box is not being edited.
+     *
+     * @return the current label
+     */
     CCLabelTTF* getLabel() const;
+
+    /**
+     * Sets the label to be used for displaying string when this edit box is not being edited.
+     *
+     * @param iLabel the new label
+     */
     void setLabel(CCLabelTTF* iLabel);
     
     /**
@@ -383,8 +427,8 @@ public:
      * visible when edited.
      * @return true/false
      */
-    bool doAnimationWhenKeyboardMove() const;
-    void setDoAnimationWhenKeyboardMove(bool iDo);
+    bool doAnimationWhenKeyboardMove() const { return m_DoAnimationWhenKeyboardMove; }
+    void setDoAnimationWhenKeyboardMove(bool iDo) { m_DoAnimationWhenKeyboardMove = iDo; }
     
     /* override functions */
     virtual void setPosition(const CCPoint& pos);
@@ -398,9 +442,7 @@ public:
     virtual void keyboardDidShow(CCIMEKeyboardNotificationInfo& info);
     virtual void keyboardWillHide(CCIMEKeyboardNotificationInfo& info);
     virtual void keyboardDidHide(CCIMEKeyboardNotificationInfo& info);
-    
-    virtual void layoutTitleLabel();
-    
+        
     /* callback funtions */
     void touchDownAction(CCObject *sender, CCControlEvent controlEvent);
     
@@ -429,6 +471,7 @@ protected:
 
     int m_nScriptEditBoxHandler;
     
+    bool   m_DoAnimationWhenKeyboardMove;
     CCRect m_InputInsets;
     
     void _updateDisplayedText();
