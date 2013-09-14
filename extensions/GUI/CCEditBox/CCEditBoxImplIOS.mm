@@ -34,13 +34,23 @@
 #define getEditBoxImplIOS() ((cocos2d::extension::CCEditBoxImplIOS*)editBox_)
 
 @implementation CustomUITextField
-- (CGRect)textRectForBounds:(CGRect)bounds {
-    return CGRectMake(bounds.origin.x, bounds.origin.y,
-                      bounds.size.width, bounds.size.height);
+
+-(id) initWithFrame:(CGRect)frame impl:(EditBoxImplIOS*)iImpl
+{
+    if (self = [self initWithFrame:frame])
+    {
+        impl_ = iImpl;
+    }
+    
+    return self;
 }
-- (CGRect)editingRectForBounds:(CGRect)bounds {
-    return [self textRectForBounds:bounds];
+
+-(cocos2d::CCNode*) cocos2dNode
+{
+    cocos2d::extension::CCEditBoxImplIOS* impl = (cocos2d::extension::CCEditBoxImplIOS*) impl_.editBox;
+    return impl->getCCEditBox();
 }
+
 @end
 
 
@@ -66,7 +76,7 @@
     {
         if (self == nil) break;
         editState_ = NO;
-        self.textField = [[[CustomUITextField alloc] initWithFrame: frameRect] autorelease];
+        self.textField = [[[CustomUITextField alloc] initWithFrame: frameRect impl:self] autorelease];
         if (!textField_) break;
         [textField_ setTextColor:[UIColor whiteColor]];
         textField_.font = [UIFont systemFontOfSize:frameRect.size.height*2/3]; //TODO need to delete hard code here.
@@ -133,7 +143,25 @@
 {
     if (sender == textField_) {
         [sender resignFirstResponder];
+        
+        getEditBoxImplIOS()->setText(getEditBoxImplIOS()->getText());
+        
+        cocos2d::extension::CCEditBoxDelegate* pDelegate = getEditBoxImplIOS()->getDelegate();
+        if (pDelegate != NULL)
+        {
+            pDelegate->editBoxReturn(getEditBoxImplIOS()->getCCEditBox());
+        }
+        
+        cocos2d::extension::CCEditBox*  pEditBox= getEditBoxImplIOS()->getCCEditBox();
+        if (NULL != pEditBox && 0 != pEditBox->getScriptEditBoxHandler())
+        {
+            cocos2d::CCScriptEngineProtocol* pEngine = cocos2d::CCScriptEngineManager::sharedManager()->getScriptEngine();
+            pEngine->executeEvent(pEditBox->getScriptEditBoxHandler(), "return",pEditBox);
+        }
+        
+        return YES;
     }
+    
     return NO;
 }
 
@@ -177,7 +205,6 @@
     if (pDelegate != NULL)
     {
         pDelegate->editBoxEditingDidEnd(getEditBoxImplIOS()->getCCEditBox());
-        pDelegate->editBoxReturn(getEditBoxImplIOS()->getCCEditBox());
     }
     
     cocos2d::extension::CCEditBox*  pEditBox= getEditBoxImplIOS()->getCCEditBox();
@@ -185,7 +212,6 @@
     {
         cocos2d::CCScriptEngineProtocol* pEngine = cocos2d::CCScriptEngineManager::sharedManager()->getScriptEngine();
         pEngine->executeEvent(pEditBox->getScriptEditBoxHandler(), "ended",pEditBox);
-        pEngine->executeEvent(pEditBox->getScriptEditBoxHandler(), "return",pEditBox);
     }
 	
 	if(editBox_ != nil)
@@ -322,10 +348,17 @@ void CCEditBoxImplIOS::placeInactiveLabels() {
     
     CCRect inputBox = m_pEditBox->inputLocalBounds();
     
+    m_pLabel->ignoreAnchorPointForPosition(false);
+    m_pLabel->setAnchorPoint(ccp(0, 0.5f));
+    
+    m_pLabel->setHorizontalAlignment(kCCTextAlignmentLeft);
+    m_pLabel->setVerticalAlignment(kCCVerticalTextAlignmentCenter);
+
     m_pLabel->setPosition(ccp(inputBox.origin.x, inputBox.getMidY()));
     m_pLabel->setDimensions(inputBox.size);
-    
-    m_pLabelPlaceHolder->setPosition(ccp(0, m_tContentSize.height / 2.0f));
+
+    m_pLabelPlaceHolder->setPosition(ccp(inputBox.origin.x, inputBox.getMidY()));
+    m_pLabelPlaceHolder->setDimensions(inputBox.size);
 }
 
 void CCEditBoxImplIOS::setInactiveText(const char* pText)
@@ -578,7 +611,9 @@ void CCEditBoxImplIOS::setAnchorPoint(const CCPoint& anchorPoint)
 
 void CCEditBoxImplIOS::visit(void)
 {
-    
+    // Update at every frame, to track possible
+    // position changes in ancestors
+    adjustTextFieldPosition();
 }
 
 void CCEditBoxImplIOS::onEnter(void)
@@ -618,6 +653,8 @@ void CCEditBoxImplIOS::closeKeyboard()
 
 void CCEditBoxImplIOS::onEndEditing()
 {
+    [m_systemControl.textField endEditing:YES];
+    
 	m_systemControl.textField.hidden = YES;
 	if(strlen(getText()) == 0)
 	{
@@ -736,10 +773,6 @@ CCEditBoxImplIOS::setLabel(CCLabelTTF* iLabel)
         if (m_pLabel != NULL)
         {
             m_pLabel->removeFromParentAndCleanup(true);
-            
-            m_pLabel->setAnchorPoint(ccp(0, 0.5f));
-            m_pLabel->setHorizontalAlignment(kCCTextAlignmentLeft);
-            m_pLabel->setVerticalAlignment(kCCVerticalTextAlignmentCenter);
             
             m_pLabel->setVisible(false);
             m_pEditBox->addChild(m_pLabel, kLabelZOrder);

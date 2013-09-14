@@ -41,6 +41,7 @@ CCEditBox::CCEditBox(void)
 , m_nMaxLength(0)
 , m_fAdjustHeight(0.0f)
 , m_nScriptEditBoxHandler(0)
+, m_DoAnimationWhenKeyboardMove(true)
 {
 }
 
@@ -348,45 +349,49 @@ static CCRect getRect(CCNode * pNode)
 
 void CCEditBox::keyboardWillShow(CCIMEKeyboardNotificationInfo& info)
 {
-    // CCLOG("CCEditBox::keyboardWillShow");
-    CCRect rectTracked = getRect(this);
-	// some adjustment for margin between the keyboard and the edit box.
-	rectTracked.origin.y -= 4;
-
-    // if the keyboard area doesn't intersect with the tracking node area, nothing needs to be done.
-    if (!rectTracked.intersectsRect(info.end))
+    if (doAnimationWhenKeyboardMove())
     {
-        CCLOG("needn't to adjust view layout.");
-        return;
-    }
-    
-    // assume keyboard at the bottom of screen, calculate the vertical adjustment.
-    m_fAdjustHeight = info.end.getMaxY() - rectTracked.getMinY();
-    // CCLOG("CCEditBox:needAdjustVerticalPosition(%f)", m_fAdjustHeight);
-    
-    if (m_pEditBoxImpl != NULL)
-    {
-        m_pEditBoxImpl->doAnimationWhenKeyboardMove(info.duration, m_fAdjustHeight);
+        // CCLOG("CCEditBox::keyboardWillShow");
+        CCRect rectTracked = getRect(this);
+        // some adjustment for margin between the keyboard and the edit box.
+        rectTracked.origin.y -= 4;
+        
+        // if the keyboard area doesn't intersect with the tracking node area, nothing needs to be done.
+        if (!rectTracked.intersectsRect(info.end))
+        {
+            CCLOG("needn't to adjust view layout.");
+            return;
+        }
+        
+        // assume keyboard at the bottom of screen, calculate the vertical adjustment.
+        m_fAdjustHeight = info.end.getMaxY() - rectTracked.getMinY();
+        // CCLOG("CCEditBox:needAdjustVerticalPosition(%f)", m_fAdjustHeight);
+        
+        if (m_pEditBoxImpl != NULL)
+        {
+            m_pEditBoxImpl->doAnimationWhenKeyboardMove(info.duration, m_fAdjustHeight);
+        }        
     }
 }
 
 void CCEditBox::keyboardDidShow(CCIMEKeyboardNotificationInfo& info)
 {
-	
 }
 
 void CCEditBox::keyboardWillHide(CCIMEKeyboardNotificationInfo& info)
 {
-    // CCLOG("CCEditBox::keyboardWillHide");
-    if (m_pEditBoxImpl != NULL)
+    if (doAnimationWhenKeyboardMove())
     {
-        m_pEditBoxImpl->doAnimationWhenKeyboardMove(info.duration, -m_fAdjustHeight);
+        // CCLOG("CCEditBox::keyboardWillHide");
+        if (m_pEditBoxImpl != NULL)
+        {
+            m_pEditBoxImpl->doAnimationWhenKeyboardMove(info.duration, -m_fAdjustHeight);
+        }        
     }
 }
 
 void CCEditBox::keyboardDidHide(CCIMEKeyboardNotificationInfo& info)
 {
-	
 }
 
 void CCEditBox::registerScriptEditBoxHandler(int handler)
@@ -471,28 +476,6 @@ CCEditBox::setAutoCorrectionMode(EditBoxAutoCorrectionMode mode)
     if (m_pEditBoxImpl != NULL)
     {
         m_pEditBoxImpl->setAutoCorrectionMode(mode);
-    }
-}
-
-void
-CCEditBox::layoutTitleLabel()
-{
-    CCLabelTTF* label = getLabel();
-    if (label != NULL)
-    {
-        CCSize size = getContentSize();
-        size.width -= m_InputInsets.getMaxX();
-        size.height -= m_InputInsets.getMaxY();
-        label->setDimensions(size);
-        
-        label->ignoreAnchorPointForPosition(true);
-        
-        CCPoint pos = m_InputInsets.origin;
-        label->setPosition(pos);
-    }
-    else
-    {
-        CCControlButton::layoutTitleLabel();
     }
 }
 
