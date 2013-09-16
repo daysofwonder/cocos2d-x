@@ -1,7 +1,7 @@
 #include "CCLayerLoader.h"
 
-
-
+// Depending on cocosbuilder's version, the property is either touchEnabled or isTouchEnabled...
+#define OLD_PROPERTY_TOUCH_ENABLED "touchEnabled"
 
 #define PROPERTY_TOUCH_ENABLED "isTouchEnabled"
 #define PROPERTY_ACCELEROMETER_ENABLED "isAccelerometerEnabled"
@@ -11,7 +11,7 @@
 NS_CC_EXT_BEGIN
 
 void CCLayerLoader::onHandlePropTypeCheck(CCNode * pNode, CCNode * pParent, const char * pPropertyName, bool pCheck, CCBReader * pCCBReader) {
-    if(strcmp(pPropertyName, PROPERTY_TOUCH_ENABLED) == 0) {
+    if((strcmp(pPropertyName, PROPERTY_TOUCH_ENABLED) == 0) || (strcmp(pPropertyName, OLD_PROPERTY_TOUCH_ENABLED) == 0)) {
         ((CCLayer *)pNode)->setTouchEnabled(pCheck);
     } else if(strcmp(pPropertyName, PROPERTY_ACCELEROMETER_ENABLED) == 0) {
         ((CCLayer *)pNode)->setAccelerometerEnabled(pCheck);
