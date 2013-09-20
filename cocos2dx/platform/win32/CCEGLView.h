@@ -52,10 +52,15 @@ public:
     void setMenuResource(LPCWSTR menu);
     void setWndProc(CUSTOM_WND_PROC proc);
 
-private:
+protected:
     virtual bool Create();
     bool initGL();
     void destroyGL();
+	void initTouch();
+	static CCEGLView* s_pMainWindow;
+	static const WCHAR* kWindowClassName;
+	static LRESULT CALLBACK _WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+
 public:
     virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -82,8 +87,6 @@ public:
     static CCEGLView* sharedOpenGLView();
 
 protected:
-
-private:
     bool m_bCaptured;
     HWND m_hWnd;
     HDC  m_hDC;
