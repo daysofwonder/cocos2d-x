@@ -692,6 +692,13 @@ const std::vector<std::string>& CCFileUtils::getSearchPaths()
     return m_searchPathArray;
 }
 
+static const char kSeparator =
+#ifdef _WIN32
+'\\';
+#else
+'/';
+#endif
+
 void CCFileUtils::setSearchPaths(const std::vector<std::string>& searchPaths)
 {
     bool bExistDefaultRootPath = false;
@@ -707,9 +714,9 @@ void CCFileUtils::setSearchPaths(const std::vector<std::string>& searchPaths)
             strPrefix = m_strDefaultResRootPath;
         }
         path = strPrefix+(*iter);
-        if (path.length() > 0 && path[path.length()-1] != '/')
+		if (path.length() > 0 && path[path.length() - 1] != kSeparator)
         {
-            path += "/";
+			path += kSeparator;
         }
         if (!bExistDefaultRootPath && path == m_strDefaultResRootPath)
         {

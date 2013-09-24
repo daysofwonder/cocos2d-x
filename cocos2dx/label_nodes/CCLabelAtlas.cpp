@@ -93,8 +93,19 @@ CCLabelAtlas* CCLabelAtlas::create(const char *string, const char *fntFile)
 
 bool CCLabelAtlas::initWithString(const char *theString, const char *fntFile)
 {
-  std::string pathStr = CCFileUtils::sharedFileUtils()->fullPathForFilename(fntFile);
-  std::string relPathStr = pathStr.substr(0, pathStr.find_last_of("/"))+"/";
+  const std::string pathStr = CCFileUtils::sharedFileUtils()->fullPathForFilename(fntFile);
+  const size_t lastSlash = pathStr.find_last_of('/');
+  const size_t lastBackSlash = pathStr.find_last_of('\\');
+  std::string relPathStr;
+  if (lastBackSlash != std::string::npos && (lastBackSlash > lastSlash || lastSlash == std::string::npos)) {
+	  // standard windows separator
+	  relPathStr = pathStr.substr(0, lastBackSlash+1);
+  }
+  else {
+	  assert(lastSlash != std::string::npos);
+	  relPathStr = pathStr.substr(0, lastSlash + 1);
+  }
+  //std::string relPathStr = pathStr.substr(0, pathStr.find_last_of("/"))+"/";
   CCDictionary *dict = CCDictionary::createWithContentsOfFile(pathStr.c_str());
   
   CCAssert(((CCString*)dict->objectForKey("version"))->intValue() == 1, "Unsupported version. Upgrade cocos2d version");

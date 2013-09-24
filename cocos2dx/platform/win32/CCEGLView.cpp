@@ -161,10 +161,10 @@ static bool glew_dynamic_binding()
 //////////////////////////////////////////////////////////////////////////
 // impliment CCEGLView
 //////////////////////////////////////////////////////////////////////////
-static CCEGLView* s_pMainWindow = NULL;
-static const WCHAR* kWindowClassName = L"Cocos2dxWin32";
+CCEGLView* CCEGLView::s_pMainWindow = NULL;
+const WCHAR* CCEGLView::kWindowClassName = L"Cocos2dxWin32";
 
-static LRESULT CALLBACK _WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK CCEGLView::_WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     if (s_pMainWindow && s_pMainWindow->getHWnd() == hWnd)
     {
@@ -175,6 +175,8 @@ static LRESULT CALLBACK _WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM 
         return DefWindowProc(hWnd, uMsg, wParam, lParam);
     }
 }
+
+CCEGLView* s_pEglView = NULL;
 
 CCEGLView::CCEGLView()
 : m_bCaptured(false)
@@ -188,11 +190,20 @@ CCEGLView::CCEGLView()
 , m_bSupportTouch(false)
 {
     strcpy(m_szViewName, "Cocos2dxWin32");
+	CC_ASSERT(!s_pEglView);
+	s_pEglView = this;
 }
 
 CCEGLView::~CCEGLView()
 {
+	CC_ASSERT(this == s_pEglView);
+	s_pEglView = NULL;
+}
 
+CCEGLView* CCEGLView::sharedOpenGLView()
+{
+	CC_ASSERT(s_pEglView);
+	return s_pEglView;
 }
 
 bool CCEGLView::initGL()
@@ -320,15 +331,20 @@ bool CCEGLView::Create()
         bRet = true;
     } while (0);
 
-#if(_MSC_VER >= 1600)
-    m_bSupportTouch = CheckTouchSupport();
-    if(m_bSupportTouch)
-	{
-	    m_bSupportTouch = (s_pfRegisterTouchWindowFunction(m_hWnd, 0) != 0);
-    }
-#endif /* #if(_MSC_VER >= 1600) */
+	initTouch();
 
     return bRet;
+}
+
+void CCEGLView::initTouch()
+{
+#if(_MSC_VER >= 1600)
+	m_bSupportTouch = CheckTouchSupport();
+	if (m_bSupportTouch)
+	{
+		m_bSupportTouch = (s_pfRegisterTouchWindowFunction(m_hWnd, 0) != 0);
+	}
+#endif /* #if(_MSC_VER >= 1600) */
 }
 
 LRESULT CCEGLView::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -568,7 +584,7 @@ void CCEGLView::end()
     }
     s_pMainWindow = NULL;
     UnregisterClass(kWindowClassName, GetModuleHandle(NULL));
-    delete this;
+    //delete this; // now that is really dangerous
 }
 
 void CCEGLView::swapBuffers()
@@ -717,20 +733,5 @@ void CCEGLView::setScissorInPoints(float x , float y , float w , float h)
               (GLsizei)(h * m_fScaleY * m_fFrameZoomFactor));
 }
 
-CCEGLView* CCEGLView::sharedOpenGLView()
-{
-    static CCEGLView* s_pEglView = NULL;
-    if (s_pEglView == NULL)
-    {
-        s_pEglView = new CCEGLView();
-		if(!s_pEglView->Create())
-		{
-			delete s_pEglView;
-			s_pEglView = NULL;
-		}
-    }
-
-    return s_pEglView;
-}
 
 NS_CC_END
