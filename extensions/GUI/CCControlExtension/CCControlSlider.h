@@ -32,8 +32,8 @@
 
 #include "CCControl.h"
 #include "CCInvocation.h"
-#include "CCNodeLoaderListener.h"
-#include "CCControlLoader.h"
+#include "CCBReader/CCNodeLoaderListener.h"
+#include "CCBReader/CCControlLoader.h"
 
 NS_CC_EXT_BEGIN
 

@@ -14,7 +14,7 @@
 #include "CCControlButtonLoader.h"
 #include "CCParticleSystemQuadLoader.h"
 #include "CCScrollViewLoader.h"
-#include "CCControlSlider.h"
+#include "GUI/CCControlExtension/CCControlSlider.h"
 
 
 NS_CC_EXT_BEGIN
