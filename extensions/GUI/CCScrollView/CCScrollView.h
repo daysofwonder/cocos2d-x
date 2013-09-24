@@ -28,7 +28,7 @@
 
 #include "cocos2d.h"
 #include "ExtensionMacros.h"
-#include "HitTestProtocol.h"
+#include "GUI/CCControlExtension/HitTestProtocol.h"
 
 NS_CC_EXT_BEGIN
 
@@ -73,7 +73,7 @@ public:
     virtual bool isEnabled();
     virtual void setIsEnabled(bool iEnabled);
 
-    virtual bool isTouchInside(const CCPoint& iLocation) override;
+    virtual bool isTouchInside(const CCPoint& iLocation);
 
     virtual bool ccPreTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
     virtual bool ccPreTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
