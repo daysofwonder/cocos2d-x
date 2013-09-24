@@ -295,6 +295,62 @@ void CCEditBoxImplAndroid::closeKeyboard()
 	
 }
 
+// DoW Additions
+void
+CCEditBoxImplAndroid::onEnterTransitionDidFinish()
+{
+    
+}
+
+void
+CCEditBoxImplAndroid::onExitTransitionDidStart()
+{
+    
+}
+
+void
+CCEditBoxImplAndroid::setAutoCorrectionMode(EditBoxAutoCorrectionMode mode)
+{
+    
+}
+
+bool
+CCEditBoxImplAndroid::clearsOnBeginEditing() const
+{
+    return false;
+}
+
+void
+CCEditBoxImplAndroid::setClearsOnBeginEditing(bool iEnable)
+{
+    
+}
+
+void
+CCEditBoxImplAndroid::setClearButtonMode(EditBoxClearButtonMode iMode)
+{
+    
+}
+
+void
+CCEditBoxImplAndroid::needsLayout()
+{
+    
+}
+
+CCLabelTTF*
+CCEditBoxImplAndroid::getLabel() const
+{
+    return m_pLabel;
+}
+
+void
+CCEditBoxImplAndroid::setLabel(CCLabelTTF* iLabel)
+{
+    
+}
+
+
 NS_CC_EXT_END
 
 #endif /* #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) */

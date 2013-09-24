@@ -68,6 +68,22 @@ public:
     virtual void openKeyboard();
     virtual void closeKeyboard();
     
+    // DoW Additions
+    virtual void onEnterTransitionDidFinish();
+    virtual void onExitTransitionDidStart();
+    
+    virtual void setAutoCorrectionMode(EditBoxAutoCorrectionMode mode);
+    
+    virtual bool clearsOnBeginEditing() const;
+    virtual void setClearsOnBeginEditing(bool iEnable);
+    
+    virtual void setClearButtonMode(EditBoxClearButtonMode iMode);
+    
+    virtual void needsLayout();
+    
+    virtual CCLabelTTF* getLabel() const;
+    virtual void setLabel(CCLabelTTF* iLabel);
+
 private:
     CCLabelTTF* m_pLabel;
     CCLabelTTF* m_pLabelPlaceHolder;
