@@ -15,7 +15,7 @@
 #include "CCParticleSystemQuadLoader.h"
 #include "CCScrollViewLoader.h"
 
-
+#include "GUI/CCControlExtension/CCControlSlider.h"
 
 NS_CC_EXT_BEGIN
 
@@ -42,6 +42,8 @@ void CCNodeLoaderLibrary::registerDefaultCCNodeLoaders() {
     this->registerCCNodeLoader("CCMenuItemImage", CCMenuItemImageLoader::loader());
     this->registerCCNodeLoader("CCControlButton", CCControlButtonLoader::loader());
     this->registerCCNodeLoader("CCParticleSystemQuad", CCParticleSystemQuadLoader::loader());
+    this->registerCCNodeLoader("CCControlSlider", CCControlSliderLoader::loader());
+
 }
 
 void CCNodeLoaderLibrary::registerCCNodeLoader(const char * pClassName, CCNodeLoader * pCCNodeLoader) {
