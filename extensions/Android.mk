@@ -42,6 +42,8 @@ GUI/CCControlExtension/CCInvocation.cpp \
 GUI/CCControlExtension/CCScale9Sprite.cpp \
 GUI/CCControlExtension/CCControlPotentiometer.cpp \
 GUI/CCControlExtension/CCControlStepper.cpp \
+GUI/CCControlExtension/CCSceneGraphTouchDispatcher.cpp \
+GUI/CCControlExtension/HitTestProtocol.cpp \
 GUI/CCScrollView/CCScrollView.cpp \
 GUI/CCScrollView/CCTableView.cpp \
 GUI/CCScrollView/CCTableViewCell.cpp \
