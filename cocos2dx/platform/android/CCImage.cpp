@@ -235,6 +235,24 @@ bool CCImage::initWithStringShadowStroke(
 	    return bRet;
 }
 
+void CCImage::calculateStringSize(const char* pText,
+                                const char *    pFontName,
+                                int             nFontSize,
+                                
+                                CCSize&         oComputedSize,
+                                int&            oAdjustedFontSize,
+                                
+                                int            nMinFontSize,
+                                int             nWidth,
+                                int             nHeight
+                                )
+{
+#pragma warning "TODO"
+    
+    oComputedSize.width = oComputedSize.height = 0;
+    oAdjustedFontSize = nFontSize;
+}
+
 NS_CC_END
 
 // swap the alpha channel in an 32 bit image (from ARGB to RGBA)
