@@ -170,7 +170,7 @@ CCSceneGraphTouchDispatcher::_dispatchTouchToTargetedDelegates(CCNode* iNode, un
         if (handler != NULL)
         {
             HitTestProtocol* proto = dynamic_cast<HitTestProtocol*>(iNode);
-            if ((proto != nullptr) && _dispatchPreTouchToTargetedDelegate(delegate, proto, handler, uIndex, iTouch, iEvent, pMutableTouches, iSetACopy))
+            if ((proto != NULL) && _dispatchPreTouchToTargetedDelegate(delegate, proto, handler, uIndex, iTouch, iEvent, pMutableTouches, iSetACopy))
             {
                 return true;
             }
