@@ -34,6 +34,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetricsInt;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.text.TextPaint;
@@ -101,6 +102,70 @@ public class Cocos2dxBitmap {
 									 
 	}
 
+	static public class TextSize
+	{
+		private int fWidth;
+		private int fHeight;
+		private int fAdjustedFontSize;
+		
+		public TextSize(int width, int height, int adjustedFontSize)
+		{
+			fWidth = width;
+			fHeight = height;
+			fAdjustedFontSize = adjustedFontSize;
+		}
+		
+		int getWidth() { return fWidth; }
+		int getHeight() { return fHeight; }
+		int getAdjustedFontSize() { return fAdjustedFontSize; }
+	}
+	
+	public static TextSize computeTextSize(String pString,  final String pFontName, int pFontSize, final int pMinFontSize, final int pWidth, final int pHeight)
+	{
+		pString = Cocos2dxBitmap.refactorString(pString);
+		
+		Paint paint = Cocos2dxBitmap.newPaint(pFontName, pFontSize, HORIZONTALALIGN_CENTER);
+		TextProperty textProperty = Cocos2dxBitmap.computeTextProperty(pString, pWidth, 0, paint);
+		
+		int width = textProperty.mMaxWidth;
+		int height = textProperty.mTotalHeight;
+		
+	    if ((pWidth != 0) || (pHeight != 0))
+	    {
+	        // We need to fit to constraints
+	        while (true)
+	        {
+	            if (pFontSize <= pMinFontSize)
+	            {
+	                break;
+	            }
+	            
+	            final boolean widthOK = ((pWidth == 0) ||(width <= pWidth));
+	            final boolean heightOK = ((pHeight == 0) || (height <= pHeight));
+	            
+	            if (widthOK && heightOK)
+	            {
+	                break;
+	            }
+	            
+	            --pFontSize;
+	            
+	            if (pFontSize >= pMinFontSize)
+	            {
+	        		paint.setTextSize(pFontSize);
+	        		textProperty = Cocos2dxBitmap.computeTextProperty(pString, pWidth, 0, paint);
+	        		
+	        		width = textProperty.mMaxWidth;
+	        		height = textProperty.mTotalHeight;
+	            }
+	        }
+	    }
+
+		TextSize textSize = new TextSize(width, height, pFontSize);
+		
+		return textSize;
+	}
+	
 	public static void createTextBitmapShadowStroke(String pString,  final String pFontName, final int pFontSize,
 													final float fontTintR, final float fontTintG, final float fontTintB,
 													final int pAlignment, final int pWidth, final int pHeight, final boolean shadow,

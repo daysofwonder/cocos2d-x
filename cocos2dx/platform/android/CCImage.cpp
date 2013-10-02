@@ -79,6 +79,12 @@ public:
     									float strokeColorB 		= 0.0,
     									float strokeSize 		= 0.0 )
     {
+    	/* public static void createTextBitmapShadowStroke(String pString,  final String pFontName, final int pFontSize,
+		final float fontTintR, final float fontTintG, final float fontTintB,
+		final int pAlignment, final int pWidth, final int pHeight, final boolean shadow,
+		final float shadowDX, final float shadowDY, final float shadowBlur, final boolean stroke,
+		final float strokeR, final float strokeG, final float strokeB, final float strokeSize) */
+
            JniMethodInfo methodInfo;
            if (! JniHelper::getStaticMethodInfo(methodInfo, "org/cocos2dx/lib/Cocos2dxBitmap", "createTextBitmapShadowStroke",
                "(Ljava/lang/String;Ljava/lang/String;IFFFIIIZFFFZFFFF)V"))
@@ -247,10 +253,93 @@ void CCImage::calculateStringSize(const char* pText,
                                 int             nHeight
                                 )
 {
-#pragma warning "TODO"
-    
-    oComputedSize.width = oComputedSize.height = 0;
-    oAdjustedFontSize = nFontSize;
+    // public static TextSize computeTextSize(String pString,  final String pFontName, final int pFontSize, final int pMinFontSize, int pWidth, final int pHeight)
+
+      JniMethodInfo methodInfo;
+      if (! JniHelper::getStaticMethodInfo(methodInfo, "org/cocos2dx/lib/Cocos2dxBitmap", "computeTextSize",
+          "(Ljava/lang/String;Ljava/lang/String;IIII)Lorg/cocos2dx/lib/Cocos2dxBitmap$TextSize;"))
+      {
+          CCLOG("%s %d: error to get methodInfo", __FILE__, __LINE__);
+          return;
+      }
+
+      // Do a full lookup for the font path using CCFileUtils in case the given font name is a relative path to a font file asset,
+      // or the path has been mapped to a different location in the app package:
+      std::string fullPathOrFontName = CCFileUtils::sharedFileUtils()->fullPathForFilename(pFontName);
+
+	   // If the path name returned includes the 'assets' dir then that needs to be removed, because the android.content.Context
+	   // requires this portion of the path to be omitted for assets inside the app package.
+	   if (fullPathOrFontName.find("assets/") == 0)
+	   {
+          fullPathOrFontName = fullPathOrFontName.substr(strlen("assets/"));	// Chop out the 'assets/' portion of the path.
+      }
+
+	  jobject obj;
+	  {
+	      jstring jstrText = methodInfo.env->NewStringUTF(pText);
+	      jstring jstrFont = methodInfo.env->NewStringUTF(fullPathOrFontName.c_str());
+
+	      obj = methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID, jstrText,
+	          jstrFont, nFontSize, nMinFontSize, nWidth, nHeight);
+
+	      methodInfo.env->DeleteLocalRef(methodInfo.classID);
+
+	      methodInfo.env->DeleteLocalRef(jstrText);
+	      methodInfo.env->DeleteLocalRef(jstrFont);
+	  }
+
+
+      // This object is a TextSize
+
+      // Get width
+	  jint width;
+	  {
+	      if (! JniHelper::getMethodInfo(methodInfo, "org/cocos2dx/lib/Cocos2dxBitmap$TextSize", "getWidth",
+	          "()I"))
+	      {
+	          CCLOG("%s %d: error to get methodInfo", __FILE__, __LINE__);
+	          return;
+	      }
+
+	    width = methodInfo.env->CallIntMethod(obj, methodInfo.methodID);
+	    methodInfo.env->DeleteLocalRef(methodInfo.classID);
+	  }
+
+      // Get height
+	  jint height;
+	  {
+	       if (! JniHelper::getMethodInfo(methodInfo, "org/cocos2dx/lib/Cocos2dxBitmap$TextSize", "getHeight",
+	           "()I"))
+	       {
+	           CCLOG("%s %d: error to get methodInfo", __FILE__, __LINE__);
+	           return;
+	       }
+
+	      height = methodInfo.env->CallIntMethod(obj, methodInfo.methodID);
+	      methodInfo.env->DeleteLocalRef(methodInfo.classID);
+	  }
+
+      // Get adjusted font size
+	  jint adjustedFontSize;
+	  {
+	       if (! JniHelper::getMethodInfo(methodInfo, "org/cocos2dx/lib/Cocos2dxBitmap$TextSize", "getAdjustedFontSize",
+	           "()I"))
+	       {
+	           CCLOG("%s %d: error to get methodInfo", __FILE__, __LINE__);
+	           return;
+	       }
+
+	       adjustedFontSize = methodInfo.env->CallIntMethod(obj, methodInfo.methodID);
+	       methodInfo.env->DeleteLocalRef(methodInfo.classID);
+	  }
+
+	  /*
+	  oComputedSize.width = oComputedSize.height = 0;
+	  oAdjustedFontSize = nFontSize;*/
+
+	  oComputedSize.width = width;
+	  oComputedSize.height = height;
+	  oAdjustedFontSize = adjustedFontSize;
 }
 
 NS_CC_END
