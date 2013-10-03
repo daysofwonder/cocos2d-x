@@ -31,6 +31,7 @@
 #include "jni/Java_org_cocos2dx_lib_Cocos2dxBitmap.h"
 #include "jni/Java_org_cocos2dx_lib_Cocos2dxHelper.h"
 
+#define kLabelZOrder  9999
 
 NS_CC_EXT_BEGIN
 
@@ -68,12 +69,13 @@ static const int CC_EDIT_BOX_PADDING = 5;
 bool CCEditBoxImplAndroid::initWithSize(const CCSize& size)
 {
     int fontSize = getFontSizeAccordingHeightJni(size.height-12);
-    m_pLabel = CCLabelTTF::create("", "", size.height-12);
+    CCLabelTTF* label = CCLabelTTF::create("", "", size.height-12);
 	// align the text vertically center
-    m_pLabel->setAnchorPoint(ccp(0, 0.5f));
-    m_pLabel->setPosition(ccp(CC_EDIT_BOX_PADDING, size.height / 2.0f));
-    m_pLabel->setColor(m_colText);
-    m_pEditBox->addChild(m_pLabel);
+    label->setAnchorPoint(ccp(0, 0.5f));
+    label->setPosition(ccp(CC_EDIT_BOX_PADDING, size.height / 2.0f));
+    label->setColor(m_colText);
+
+    setLabel(label);
 	
     m_pLabelPlaceHolder = CCLabelTTF::create("", "", size.height-12);
 	// align the text vertically center
@@ -81,7 +83,7 @@ bool CCEditBoxImplAndroid::initWithSize(const CCSize& size)
     m_pLabelPlaceHolder->setPosition(ccp(CC_EDIT_BOX_PADDING, size.height / 2.0f));
     m_pLabelPlaceHolder->setVisible(false);
     m_pLabelPlaceHolder->setColor(m_colPlaceHolder);
-    m_pEditBox->addChild(m_pLabelPlaceHolder);
+    m_pEditBox->addChild(m_pLabelPlaceHolder, kLabelZOrder);
     
     m_EditSize = size;
     return true;
@@ -159,6 +161,7 @@ void CCEditBoxImplAndroid::setText(const char* pText)
         if (m_strText.length() > 0)
         {
             m_pLabelPlaceHolder->setVisible(false);
+            m_pLabel->setVisible(true);
 			
             std::string strToShow;
 			
@@ -189,9 +192,8 @@ void CCEditBoxImplAndroid::setText(const char* pText)
         else
         {
             m_pLabelPlaceHolder->setVisible(true);
-            m_pLabel->setString("");
+            m_pLabel->setVisible(false);
         }
-		
     }
 }
 
@@ -215,8 +217,8 @@ void CCEditBoxImplAndroid::setPlaceHolder(const char* pText)
 }
 
 void CCEditBoxImplAndroid::setPosition(const CCPoint& pos)
-{ // don't need to be implemented on android platform.
-	
+{
+    needsLayout();
 }
 
 void CCEditBoxImplAndroid::setVisible(bool visible)
@@ -225,8 +227,8 @@ void CCEditBoxImplAndroid::setVisible(bool visible)
 }
 
 void CCEditBoxImplAndroid::setContentSize(const CCSize& size)
-{ // don't need to be implemented on android platform.
-	
+{
+	needsLayout();
 }
 
 void CCEditBoxImplAndroid::setAnchorPoint(const CCPoint& anchorPoint)
@@ -333,9 +335,27 @@ CCEditBoxImplAndroid::setClearButtonMode(EditBoxClearButtonMode iMode)
 }
 
 void
+CCEditBoxImplAndroid::placeInactiveLabels()
+{
+    CCRect inputBox = m_pEditBox->inputLocalBounds();
+    
+    m_pLabel->ignoreAnchorPointForPosition(false);
+    m_pLabel->setAnchorPoint(ccp(0, 0.5f));
+    
+    m_pLabel->setHorizontalAlignment(kCCTextAlignmentLeft);
+    m_pLabel->setVerticalAlignment(kCCVerticalTextAlignmentCenter);
+    
+    m_pLabel->setPosition(ccp(inputBox.origin.x, inputBox.getMidY()));
+    m_pLabel->setDimensions(inputBox.size);
+    
+    m_pLabelPlaceHolder->setPosition(ccp(inputBox.origin.x, inputBox.getMidY()));
+    m_pLabelPlaceHolder->setDimensions(inputBox.size);
+}
+
+void
 CCEditBoxImplAndroid::needsLayout()
 {
-    
+	placeInactiveLabels();
 }
 
 CCLabelTTF*
@@ -347,7 +367,29 @@ CCEditBoxImplAndroid::getLabel() const
 void
 CCEditBoxImplAndroid::setLabel(CCLabelTTF* iLabel)
 {
-    
+    if (m_pLabel != iLabel)
+    {
+        if (m_pLabel != NULL)
+        {
+            m_pLabel->removeFromParentAndCleanup(true);
+            CC_SAFE_RELEASE(m_pLabel);
+        }
+
+        m_pLabel = iLabel;
+        CC_SAFE_RETAIN(m_pLabel);
+
+        if (m_pLabel != NULL)
+        {
+            m_pLabel->removeFromParentAndCleanup(true);
+
+            m_pLabel->setVisible(false);
+            m_pEditBox->addChild(m_pLabel, kLabelZOrder);
+
+            // Update the native text field accordingly
+            setFont(m_pLabel->getFontName(), m_pLabel->getFontSize());
+            setFontColor(m_pLabel->getDisplayedColor());
+        }
+    }
 }
 
 

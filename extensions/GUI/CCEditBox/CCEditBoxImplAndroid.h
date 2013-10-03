@@ -85,6 +85,9 @@ public:
     virtual void setLabel(CCLabelTTF* iLabel);
 
 private:
+    
+    void placeInactiveLabels();
+    
     CCLabelTTF* m_pLabel;
     CCLabelTTF* m_pLabelPlaceHolder;
     EditBoxInputMode    m_eEditBoxInputMode;
