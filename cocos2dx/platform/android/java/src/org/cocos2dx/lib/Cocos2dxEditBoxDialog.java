@@ -158,11 +158,16 @@ public class Cocos2dxEditBoxDialog extends Dialog {
 
 		final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT);
 
-		this.mTextViewTitle = new TextView(this.getContext());
-		final LinearLayout.LayoutParams textviewParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-		textviewParams.leftMargin = textviewParams.rightMargin = this.convertDipsToPixels(10);
-		this.mTextViewTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
-		layout.addView(this.mTextViewTitle, textviewParams);
+		if (this.mTitle.length() != 0)
+		{
+			this.mTextViewTitle = new TextView(this.getContext());
+			final LinearLayout.LayoutParams textviewParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+			textviewParams.leftMargin = textviewParams.rightMargin = this.convertDipsToPixels(10);
+			this.mTextViewTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
+			layout.addView(this.mTextViewTitle, textviewParams);
+			
+			this.mTextViewTitle.setText(this.mTitle);
+		}
 
 		this.mInputEditText = new EditText(this.getContext());
 		final LinearLayout.LayoutParams editTextParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -174,7 +179,6 @@ public class Cocos2dxEditBoxDialog extends Dialog {
 
 		this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-		this.mTextViewTitle.setText(this.mTitle);
 		this.mInputEditText.setText(this.mMessage);
 
 		int oldImeOptions = this.mInputEditText.getImeOptions();
