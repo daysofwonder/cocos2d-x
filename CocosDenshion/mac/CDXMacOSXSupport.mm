@@ -48,6 +48,9 @@ OSStatus AudioSessionGetProperty(UInt32 inID, UInt32 *ioDataSize, void *outData)
 
 - (id)initWithContentsOfURL:(NSURL *)theUrl error:(NSError **)outError {
 	if ((self = [super init])) {
+        
+        url = [theUrl retain];
+        
 		_player = [[NSSound alloc] initWithContentsOfURL:theUrl byReference:YES];
 		if (_player != nil) {
 			_player.delegate = self;
@@ -70,6 +73,7 @@ OSStatus AudioSessionGetProperty(UInt32 inID, UInt32 *ioDataSize, void *outData)
 
 
 -(void) dealloc {
+    [url release];
 	[_player release];
 	[super dealloc];
 }	
