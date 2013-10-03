@@ -334,22 +334,25 @@ CCEditBoxImplAndroid::setClearButtonMode(EditBoxClearButtonMode iMode)
     
 }
 
+static void _setupLabel(CCLabelTTF* iLabel, const CCRect& iInnerBounds)
+{
+    iLabel->ignoreAnchorPointForPosition(false);
+    iLabel->setAnchorPoint(ccp(0, 0.5f));
+    
+    iLabel->setHorizontalAlignment(kCCTextAlignmentLeft);
+    iLabel->setVerticalAlignment(kCCVerticalTextAlignmentCenter);
+    
+    iLabel->setPosition(ccp(iInnerBounds.origin.x, iInnerBounds.getMidY()));
+    iLabel->setDimensions(iInnerBounds.size);
+}
+
 void
 CCEditBoxImplAndroid::placeInactiveLabels()
 {
     CCRect inputBox = m_pEditBox->inputLocalBounds();
     
-    m_pLabel->ignoreAnchorPointForPosition(false);
-    m_pLabel->setAnchorPoint(ccp(0, 0.5f));
-    
-    m_pLabel->setHorizontalAlignment(kCCTextAlignmentLeft);
-    m_pLabel->setVerticalAlignment(kCCVerticalTextAlignmentCenter);
-    
-    m_pLabel->setPosition(ccp(inputBox.origin.x, inputBox.getMidY()));
-    m_pLabel->setDimensions(inputBox.size);
-    
-    m_pLabelPlaceHolder->setPosition(ccp(inputBox.origin.x, inputBox.getMidY()));
-    m_pLabelPlaceHolder->setDimensions(inputBox.size);
+    _setupLabel(m_pLabel, inputBox);
+    _setupLabel(m_pLabelPlaceHolder, inputBox);
 }
 
 void
