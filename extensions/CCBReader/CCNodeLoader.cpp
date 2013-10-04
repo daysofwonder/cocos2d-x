@@ -361,7 +361,7 @@ CCPoint CCNodeLoader::parsePropTypePosition(CCNode * pNode, CCNode * pParent, CC
     
     CCSize containerSize = pCCBReader->getAnimationManager()->getContainerSize(pParent);
     
-    CCPoint pt = getAbsolutePosition(ccp(x,y), type, containerSize, pPropertyName);
+    CCPoint pt = processPropTypePosition(pNode, ccp(x, y), type, containerSize, pPropertyName);
     pNode->setPosition(pt);
     
     if (pCCBReader->getAnimatedProperties()->find(pPropertyName) != pCCBReader->getAnimatedProperties()->end())
@@ -376,7 +376,19 @@ CCPoint CCNodeLoader::parsePropTypePosition(CCNode * pNode, CCNode * pParent, CC
     return pt;
 }
 
-CCPoint CCNodeLoader::parsePropTypePoint(CCNode * pNode, CCNode * pParent, CCBReader * pCCBReader) 
+CCPoint
+CCNodeLoader::processPropTypePosition(CCNode* node, const CCPoint& pos, int ntype, const CCSize& containerSize, const char* pPropertyName)
+{
+    return getAbsolutePosition(pos, ntype, containerSize, pPropertyName);
+}
+
+CCSize
+CCNodeLoader::processPropTypeSize(CCNode* node, const CCSize& size, int ntype, const CCSize& containerSize)
+{
+    return getAbsoluteSize(size, ntype, containerSize);
+}
+
+CCPoint CCNodeLoader::parsePropTypePoint(CCNode * pNode, CCNode * pParent, CCBReader * pCCBReader)
 {
     float x = pCCBReader->readFloat();
     float y = pCCBReader->readFloat();
@@ -399,51 +411,9 @@ CCSize CCNodeLoader::parsePropTypeSize(CCNode * pNode, CCNode * pParent, CCBRead
 
     CCSize containerSize = pCCBReader->getAnimationManager()->getContainerSize(pParent);
 
-    switch (type) 
-    {
-        case kCCBSizeTypeAbsolute: 
-        {
-            /* Nothing. */
-            break;
-        }
-        case kCCBSizeTypeRelativeContainer: 
-        {
-            width = containerSize.width - width;
-            height = containerSize.height - height;
-            break;
-        }
-        case kCCBSizeTypePercent: 
-        {
-            width = (int)(containerSize.width * width / 100.0f);
-            height = (int)(containerSize.height * height / 100.0f);
-            break;
-        }
-        case kCCBSizeTypeHorizontalPercent: 
-        {
-            width = (int)(containerSize.width * width / 100.0f);
-            break;
-        }
-        case kCCBSizeTypeVerticalPercent: 
-        {
-            height = (int)(containerSize.height * height / 100.0f);
-            break;
-        }
-        case kCCBSizeTypeMultiplyResolution:
-        {
-            float resolutionScale = CCBReader::getResolutionScale();
-            
-            width *= resolutionScale;
-            height *= resolutionScale;
-            break;
-        }
-        default:
-        {
-            CCLog("Unknown CCB type.");
-        }
-            break;
-    }
+    CCSize size = processPropTypeSize(pNode, CCSize(width, height), type, containerSize);
     
-    return CCSize(width, height);
+    return size;
 }
 
 

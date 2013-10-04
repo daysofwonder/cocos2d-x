@@ -59,4 +59,56 @@ void setRelativeScale(CCNode *pNode, float fScaleX, float fScaleY, int nType, co
     pNode->setScaleY(fScaleY);
 }
 
+CCSize getAbsoluteSize(const CCSize& size, int ntype, const CCSize& containerSize)
+{
+    float width = size.width;
+    float height = size.height;
+    
+    switch (ntype)
+    {
+        case kCCBSizeTypeAbsolute:
+        {
+            /* Nothing. */
+            break;
+        }
+        case kCCBSizeTypeRelativeContainer:
+        {
+            width = containerSize.width - width;
+            height = containerSize.height - height;
+            break;
+        }
+        case kCCBSizeTypePercent:
+        {
+            width = (int)(containerSize.width * width / 100.0f);
+            height = (int)(containerSize.height * height / 100.0f);
+            break;
+        }
+        case kCCBSizeTypeHorizontalPercent:
+        {
+            width = (int)(containerSize.width * width / 100.0f);
+            break;
+        }
+        case kCCBSizeTypeVerticalPercent:
+        {
+            height = (int)(containerSize.height * height / 100.0f);
+            break;
+        }
+        case kCCBSizeTypeMultiplyResolution:
+        {
+            float resolutionScale = CCBReader::getResolutionScale();
+            
+            width *= resolutionScale;
+            height *= resolutionScale;
+            break;
+        }
+        default:
+        {
+            CCLog("Unknown CCB type.");
+        }
+            break;
+    }
+    
+    return CCSize(width, height);
+}
+
 NS_CC_EXT_END
