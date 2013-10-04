@@ -116,6 +116,10 @@ class CCNodeLoader : public CCObject {
         virtual void onHandlePropTypeBlockCCControl(CCNode * pNode, CCNode * pParent, const char* pPropertyName, BlockCCControlData * pBlockCCControlData, CCBReader * pCCBReader);
         virtual void onHandlePropTypeCCBFile(CCNode * pNode, CCNode * pParent, const char* pPropertyName, CCNode * pCCBFileNode, CCBReader * pCCBReader);
 
+        // Dow Additions
+        virtual CCPoint processPropTypePosition(CCNode * pNode, const CCPoint& pos, int ntype, const CCSize& containerSize, const char* pPropertyName);
+        virtual CCSize processPropTypeSize(CCNode * pNode, const CCSize& size, int ntype, const CCSize& containerSize);
+    
 protected:
         CCDictionary* m_pCustomProperties;
 };
