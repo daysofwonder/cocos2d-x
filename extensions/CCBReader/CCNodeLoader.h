@@ -117,8 +117,8 @@ class CCNodeLoader : public CCObject {
         virtual void onHandlePropTypeCCBFile(CCNode * pNode, CCNode * pParent, const char* pPropertyName, CCNode * pCCBFileNode, CCBReader * pCCBReader);
 
         // Dow Additions
-        virtual CCPoint processPropTypePosition(CCNode * pNode, const CCPoint& pos, int ntype, const CCSize& containerSize, const char* pPropertyName);
-        virtual CCSize processPropTypeSize(CCNode * pNode, const CCSize& size, int ntype, const CCSize& containerSize);
+        virtual CCPoint processPropTypePosition(CCNode * pNode, CCNode* pParent, const CCPoint& pos, int ntype, const CCSize& containerSize, const char* pPropertyName);
+        virtual CCSize processPropTypeSize(CCNode * pNode, CCNode* pParent, const CCSize& size, int ntype, const CCSize& containerSize);
     
 protected:
         CCDictionary* m_pCustomProperties;

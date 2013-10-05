@@ -4,6 +4,7 @@
 #include "CCBAnimationManager.h"
 #include "CCData.h"
 #include "CCNode+CCBRelativePositioning.h"
+#include "CCNodeLoaderListener.h"
 
 using namespace std;
 
@@ -361,7 +362,7 @@ CCPoint CCNodeLoader::parsePropTypePosition(CCNode * pNode, CCNode * pParent, CC
     
     CCSize containerSize = pCCBReader->getAnimationManager()->getContainerSize(pParent);
     
-    CCPoint pt = processPropTypePosition(pNode, ccp(x, y), type, containerSize, pPropertyName);
+    CCPoint pt = processPropTypePosition(pNode, pParent, ccp(x, y), type, containerSize, pPropertyName);
     pNode->setPosition(pt);
     
     if (pCCBReader->getAnimatedProperties()->find(pPropertyName) != pCCBReader->getAnimatedProperties()->end())
@@ -377,14 +378,26 @@ CCPoint CCNodeLoader::parsePropTypePosition(CCNode * pNode, CCNode * pParent, CC
 }
 
 CCPoint
-CCNodeLoader::processPropTypePosition(CCNode* node, const CCPoint& pos, int ntype, const CCSize& containerSize, const char* pPropertyName)
+CCNodeLoader::processPropTypePosition(CCNode* node, CCNode* parent, const CCPoint& pos, int ntype, const CCSize& containerSize, const char* pPropertyName)
 {
+    CCNodeLoaderListener* listener = dynamic_cast<CCNodeLoaderListener*>(parent);
+    if (listener != nullptr)
+    {
+        listener->onChildPositionParsed(parent, node, pos, ntype, containerSize, pPropertyName);
+    }
+    
     return getAbsolutePosition(pos, ntype, containerSize, pPropertyName);
 }
 
 CCSize
-CCNodeLoader::processPropTypeSize(CCNode* node, const CCSize& size, int ntype, const CCSize& containerSize)
+CCNodeLoader::processPropTypeSize(CCNode* node, CCNode* parent, const CCSize& size, int ntype, const CCSize& containerSize)
 {
+    CCNodeLoaderListener* listener = dynamic_cast<CCNodeLoaderListener*>(parent);
+    if (listener != nullptr)
+    {
+        listener->onChildSizeParsed(parent, node, size, ntype, containerSize);
+    }
+    
     return getAbsoluteSize(size, ntype, containerSize);
 }
 
@@ -411,7 +424,7 @@ CCSize CCNodeLoader::parsePropTypeSize(CCNode * pNode, CCNode * pParent, CCBRead
 
     CCSize containerSize = pCCBReader->getAnimationManager()->getContainerSize(pParent);
 
-    CCSize size = processPropTypeSize(pNode, CCSize(width, height), type, containerSize);
+    CCSize size = processPropTypeSize(pNode, pParent, CCSize(width, height), type, containerSize);
     
     return size;
 }
