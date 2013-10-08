@@ -345,6 +345,10 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
 	
 	do {
 		NSString * string  = [NSString stringWithUTF8String:pText];
+        if (string == NULL)
+        {
+            string = [NSString stringWithCString:pText encoding:NSISOLatin1StringEncoding];
+        }
 		
 		// font
 		NSFont *font = [[NSFontManager sharedFontManager]
