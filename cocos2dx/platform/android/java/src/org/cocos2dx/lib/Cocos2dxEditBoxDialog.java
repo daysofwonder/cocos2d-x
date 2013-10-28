@@ -83,29 +83,34 @@ public class Cocos2dxEditBoxDialog extends Dialog {
 	private final int kEditBoxInputModeSingleLine = 6;
 
 	/**
+	 * Indicates that the text entered has no particular input flags.
+	 */
+	private final int kEditBoxInputFlagNone = 0;
+	
+	/**
 	 * Indicates that the text entered is confidential data that should be obscured whenever possible. This implies EDIT_BOX_INPUT_FLAG_SENSITIVE.
 	 */
-	private final int kEditBoxInputFlagPassword = 0;
+	private final int kEditBoxInputFlagPassword = 1;
 
 	/**
 	 * Indicates that the text entered is sensitive data that the implementation must never store into a dictionary or table for use in predictive, auto-completing, or other accelerated input schemes. A credit card number is an example of sensitive data.
 	 */
-	private final int kEditBoxInputFlagSensitive = 1;
+	private final int kEditBoxInputFlagSensitive = 2;
 
 	/**
 	 * This flag is a hint to the implementation that during text editing, the initial letter of each word should be capitalized.
 	 */
-	private final int kEditBoxInputFlagInitialCapsWord = 2;
+	private final int kEditBoxInputFlagInitialCapsWord = 3;
 
 	/**
 	 * This flag is a hint to the implementation that during text editing, the initial letter of each sentence should be capitalized.
 	 */
-	private final int kEditBoxInputFlagInitialCapsSentence = 3;
+	private final int kEditBoxInputFlagInitialCapsSentence = 4;
 
 	/**
 	 * Capitalize all characters automatically.
 	 */
-	private final int kEditBoxInputFlagInitialCapsAllCharacters = 4;
+	private final int kEditBoxInputFlagInitialCapsAllCharacters = 5;
 
 	private final int kKeyboardReturnTypeDefault = 0;
 	private final int kKeyboardReturnTypeDone = 1;
@@ -214,6 +219,8 @@ public class Cocos2dxEditBoxDialog extends Dialog {
 
 		if (this.mIsMultiline) {
 			this.mInputModeContraints |= InputType.TYPE_TEXT_FLAG_MULTI_LINE;
+		} else {
+			this.mInputEditText.setSingleLine();
 		}
 
 		this.mInputEditText.setInputType(this.mInputModeContraints | this.mInputFlagConstraints);
@@ -234,6 +241,8 @@ public class Cocos2dxEditBoxDialog extends Dialog {
 			case kEditBoxInputFlagInitialCapsAllCharacters:
 				this.mInputFlagConstraints = InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS;
 				break;
+				
+			case kEditBoxInputFlagNone:
 			default:
 				break;
 		}
@@ -241,9 +250,7 @@ public class Cocos2dxEditBoxDialog extends Dialog {
 		this.mInputEditText.setInputType(this.mInputFlagConstraints | this.mInputModeContraints);
 
 		switch (this.mReturnType) {
-			case kKeyboardReturnTypeDefault:
-				this.mInputEditText.setImeOptions(oldImeOptions | EditorInfo.IME_ACTION_NONE);
-				break;
+			case kKeyboardReturnTypeDefault: // Default should trigger an action, otherwise it won't work on nexus
 			case kKeyboardReturnTypeDone:
 				this.mInputEditText.setImeOptions(oldImeOptions | EditorInfo.IME_ACTION_DONE);
 				break;
