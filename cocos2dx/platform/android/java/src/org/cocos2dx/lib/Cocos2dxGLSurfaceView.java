@@ -32,6 +32,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
+import android.view.View;
+import android.app.Activity;
 
 public class Cocos2dxGLSurfaceView extends GLSurfaceView {
 	// ===========================================================
@@ -179,6 +181,16 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
 		//super.onPause();
 	}
 
+	private View getFocusedChild()
+	{
+		Activity activity = (Activity) Cocos2dxActivity.getContext();
+		
+		View content = activity.findViewById(android.R.id.content);
+		
+		View v = content.findFocus();
+		return (v != this) ? v : null;
+	}
+	
 	@Override
 	public boolean onTouchEvent(final MotionEvent pMotionEvent) {
 		// these data are used in ACTION_MOVE and ACTION_CANCEL
@@ -195,31 +207,49 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
 
 		switch (pMotionEvent.getAction() & MotionEvent.ACTION_MASK) {
 			case MotionEvent.ACTION_POINTER_DOWN:
+			{
 				final int indexPointerDown = pMotionEvent.getAction() >> MotionEvent.ACTION_POINTER_ID_SHIFT;
 				final int idPointerDown = pMotionEvent.getPointerId(indexPointerDown);
 				final float xPointerDown = pMotionEvent.getX(indexPointerDown);
 				final float yPointerDown = pMotionEvent.getY(indexPointerDown);
 
+				// Make sure current view releases focus
+				View child = getFocusedChild();
+				if (child != null)
+				{
+					child.clearFocus();
+				}
+				
 				this.queueEvent(new Runnable() {
 					@Override
 					public void run() {
 						Cocos2dxGLSurfaceView.this.mCocos2dxRenderer.handleActionDown(idPointerDown, xPointerDown, yPointerDown);
 					}
 				});
+			}
 				break;
 
 			case MotionEvent.ACTION_DOWN:
+			{
 				// there are only one finger on the screen
 				final int idDown = pMotionEvent.getPointerId(0);
 				final float xDown = xs[0];
 				final float yDown = ys[0];
 
+				// Make sure current view releases focus
+				View child = getFocusedChild();
+				if (child != null)
+				{
+					child.clearFocus();
+				}
+				
 				this.queueEvent(new Runnable() {
 					@Override
 					public void run() {
 						Cocos2dxGLSurfaceView.this.mCocos2dxRenderer.handleActionDown(idDown, xDown, yDown);
 					}
 				});
+			}
 				break;
 
 			case MotionEvent.ACTION_MOVE:
