@@ -608,7 +608,9 @@ void CCTableView::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
 
     if (m_pTouchedCell){
 		CCRect bb = this->boundingBox();
-		bb.origin = m_pParent->convertToWorldSpace(bb.origin);
+        
+        // Convert bbox in world space
+        bb = CCRectApplyAffineTransform(bb, getParent()->nodeToWorldTransform());
 
 		if (bb.containsPoint(pTouch->getLocation()) && m_pTableViewDelegate != NULL)
         {
