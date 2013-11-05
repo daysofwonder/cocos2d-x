@@ -572,7 +572,7 @@ static CGPoint convertDesignCoordToScreenCoord(const CCPoint& designCoord, bool 
         screenPos.x = screenPos.x / 2.0f;
         screenPos.y = screenPos.y / 2.0f;
     }
-    CCLOG("[EditBox] pos x = %f, y = %f", screenGLPos.x, screenGLPos.y);
+    //CCLOG("[EditBox] pos x = %f, y = %f", screenGLPos.x, screenGLPos.y); JFS: STOP the insanity
     return screenPos;
 }
 

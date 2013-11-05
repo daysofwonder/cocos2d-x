@@ -268,6 +268,18 @@ bool CCEditBoxImplMac::initWithSize(const CCSize& size)
 
 void CCEditBoxImplMac::setFont(const char* pFontName, int fontSize)
 {
+#if 1
+    if(pFontName == NULL) {
+    		return;
+    }
+    NSString * fntName = [NSString stringWithUTF8String:pFontName];
+    NSFont *textFont = [NSFont fontWithName:fntName size:fontSize];
+    
+    if(textFont != nil) {
+     		[m_pSysEdit.textField setFont:textFont];
+    }
+
+#else
     //TODO:
 //	if(pFontName == NULL)
 //		return;
@@ -275,6 +287,7 @@ void CCEditBoxImplMac::setFont(const char* pFontName, int fontSize)
 //	UIFont *textFont = [UIFont fontWithName:fntName size:fontSize];
 //	if(textFont != nil)
 //		[m_pSysEdit.textField setFont:textFont];
+#endif
 }
 
 void CCEditBoxImplMac::setPlaceholderFont(const char* pFontName, int fontSize)
@@ -359,9 +372,13 @@ NSPoint CCEditBoxImplMac::convertDesignCoordToScreenCoord(const CCPoint& designC
 
 void CCEditBoxImplMac::adjustTextFieldPosition()
 {
+#if 1
+    CCRect rect = m_pEditBox->inputLocalBounds();
+#else
 	CCSize contentSize = m_pEditBox->getContentSize();
+    
 	CCRect rect = CCRectMake(0, 0, contentSize.width, contentSize.height);
-
+#endif
     rect = CCRectApplyAffineTransform(rect, m_pEditBox->nodeToWorldTransform());
 	
 	CCPoint designCoord = ccp(rect.origin.x, rect.origin.y + rect.size.height);
@@ -456,7 +473,19 @@ CCEditBoxImplMac::setClearButtonMode(EditBoxClearButtonMode iMode)
 void
 CCEditBoxImplMac::needsLayout()
 {
+#if 0
+    CCEditBox* editBox = getCCEditBox();
+    assert(editBox);
+    const CCRect inside = editBox->inputLocalBounds();
     
+    //m_pSysEdit->setContentSize(inside.size);
+    CCPoint pos;
+    pos.x = inside.origin.x;
+    pos.y = inside.origin.y + inside.size.height/2;
+    //[m_pSysEdit setPosition: pos];
+    setPosition(pos);
+    //updateAxWindow();
+#endif
 }
 
 CCLabelTTF*
