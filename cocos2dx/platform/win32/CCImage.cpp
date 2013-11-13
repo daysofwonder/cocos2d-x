@@ -421,10 +421,17 @@ bool CCImage::initWithString(
             for (int x = 0; x < m_nWidth; ++x)
             {
                 COLORREF& clr = *pPixel;
+#if 1
+				const uint32_t level = GetRValue(clr);
+				if (level != 0) {
+					clr = (level << 24) | 0x00FFFFFF;
+				}
+#else
                 if (GetRValue(clr) || GetGValue(clr) || GetBValue(clr))
                 {
                     clr |= 0xff000000;
                 }
+#endif
                 ++pPixel;
             }
         }
