@@ -338,6 +338,10 @@ unsigned int CCActionManager::numberOfRunningActionsInTarget(CCObject *pTarget)
 // main loop
 void CCActionManager::update(float dt)
 {
+	if (m_pCurrentTarget != nullptr) {
+		assert(m_pCurrentTarget == nullptr); //JFS reentrance protection
+	}
+
     for (tHashElement *elt = m_pTargets; elt != NULL; )
     {
         m_pCurrentTarget = elt;
