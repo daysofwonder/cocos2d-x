@@ -179,9 +179,7 @@ CCBAnimationManagerDelegate* CCBAnimationManager::getDelegate()
 void CCBAnimationManager::setDelegate(CCBAnimationManagerDelegate *pDelegate)
 {
 	CCObject* oldDelegate = dynamic_cast<CCObject*>(mDelegate);
-	assert(oldDelegate != nullptr || mDelegate == nullptr);
 	CCObject* newDelegate = dynamic_cast<CCObject*>(pDelegate);
-	assert(newDelegate != nullptr || pDelegate == nullptr);
 
 	CC_SAFE_RELEASE(oldDelegate);
     mDelegate = pDelegate;
