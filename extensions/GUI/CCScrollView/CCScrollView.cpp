@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 #include "CCScrollView.h"
-#include "CCControl.h"
+#include "GUI/CCControlExtension/CCControl.h"
 
 NS_CC_EXT_BEGIN
 
@@ -1072,7 +1072,7 @@ void CCScrollView::updateScrollBarsPositions()
         if (m_HorizontalScrollBar != NULL)
         {
             const float widthRatio = m_tViewSize.width / contentSize.width;
-            if (widthRatio < 1.f)
+            if ((widthRatio < 1.f) && m_bScrollEnabled)
             {
                 // Size
                 CCSize barSize = m_HorizontalScrollBar->getContentSize();
@@ -1083,6 +1083,8 @@ void CCScrollView::updateScrollBarsPositions()
                 CCPoint pos = m_HorizontalScrollBar->getPosition();
                 const float xRatio = -offset.x / contentSize.width;
                 pos.x = xRatio * m_tViewSize.width;
+                pos.y = 8;
+                
                 m_HorizontalScrollBar->ignoreAnchorPointForPosition(true);
                 m_HorizontalScrollBar->setPosition(pos);
                 
@@ -1097,7 +1099,7 @@ void CCScrollView::updateScrollBarsPositions()
         if (m_VerticalScrollBar != NULL)
         {
             const float heightRatio = m_tViewSize.height / contentSize.height;
-            if (heightRatio < 1.f)
+            if ((heightRatio < 1.f) && m_bScrollEnabled)
             {
                 // Size
                 CCSize barSize = m_VerticalScrollBar->getContentSize();
@@ -1108,8 +1110,11 @@ void CCScrollView::updateScrollBarsPositions()
                 CCPoint pos = m_VerticalScrollBar->getPosition();
                 const float yRatio = -offset.y / contentSize.height;
                 pos.y = yRatio * m_tViewSize.height;
-                m_HorizontalScrollBar->ignoreAnchorPointForPosition(true);
-                m_HorizontalScrollBar->setPosition(pos);
+                
+                pos.x = m_tViewSize.width - barSize.width - 8;
+                
+                m_VerticalScrollBar->ignoreAnchorPointForPosition(true);
+                m_VerticalScrollBar->setPosition(pos);
                 
                 m_VerticalScrollBar->setVisible(true);
             }
