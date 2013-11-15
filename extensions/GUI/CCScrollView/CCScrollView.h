@@ -54,6 +54,14 @@ public:
     virtual void scrollViewDidZoom(CCScrollView* view) {}
 };
 
+class CCControl;
+
+class CCScrollBarFactory : public CCObject
+{
+public:
+    virtual CCControl* createHorizontalScrollBar(CCScrollView* iScrollView) = 0;
+    virtual CCControl* createVerticalScrollBar(CCScrollView* iScrollView) = 0;
+};
 
 /**
  * ScrollView support for cocos2d for iphone.
@@ -231,6 +239,25 @@ public:
     virtual void addChild(CCNode * child, int zOrder);
     virtual void addChild(CCNode * child);
     void setTouchEnabled(bool e);
+    
+    /**
+     * Scrollbar management
+     */
+    static void setDefaultScrollBarFactory(CCScrollBarFactory* iFactory);
+    void setScrollBarFactory(CCScrollBarFactory* iFactory);
+    
+    enum FScrollbarsFlags
+    {
+        fNoScrollBars = 0,
+        
+        fHorizontalScrollBar = 1 << 0,
+        fVerticalScrollBar = 1 << 1
+    };
+    
+    unsigned int scrollBarsFlags() const { return m_ScrollBarsFlags; }
+    
+    void setScrollBarsFlags(unsigned int iScrollbarFlags);
+    
 private:
     /**
      * implements auto-scrolling behavior. change SCROLL_DEACCEL_RATE as needed to choose
@@ -356,11 +383,21 @@ protected:
     float m_fMinScale, m_fMaxScale;
     
 protected:
+    CCControl* createScrollBar(bool iHorizontal);
+    void updateScrollBarsPositions();
+    
     CCPoint m_InitialDelayedTouchPosition;
     CCTouch* m_DelayedTouch;
     CCTouchDelegate* m_DelayedHitChild;
     
     CCRect  m_TouchInsets;
+    
+    CCScrollBarFactory* m_ScrollBarFactory;
+    static CCScrollBarFactory* s_DefaultScrollBarFactory;
+    
+    unsigned int m_ScrollBarsFlags;
+    CCControl* m_HorizontalScrollBar;
+    CCControl* m_VerticalScrollBar;
     
     void onStillTouchDown(float iDelay);
     void unscheduleStillTouchDown();

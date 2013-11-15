@@ -24,6 +24,7 @@
  ****************************************************************************/
 
 #include "CCScrollView.h"
+#include "CCControl.h"
 
 NS_CC_EXT_BEGIN
 
@@ -39,6 +40,7 @@ static float convertDistanceFromPointToInch(float pointDis)
     return pointDis * factor / CCDevice::getDPI();
 }
 
+CCScrollBarFactory* CCScrollView::s_DefaultScrollBarFactory = NULL;
 
 CCScrollView::CCScrollView()
 : m_fZoomScale(0.0f)
@@ -58,7 +60,11 @@ CCScrollView::CCScrollView()
 , m_bScrollEnabled(true)
 , m_bDelaysContentTouches(false),
 m_DelayedHitChild(NULL),
-m_DelayedTouch(NULL)
+m_DelayedTouch(NULL),
+m_ScrollBarFactory(NULL),
+m_HorizontalScrollBar(NULL),
+m_VerticalScrollBar(NULL),
+m_ScrollBarsFlags(fNoScrollBars)
 {
 
 }
@@ -69,6 +75,10 @@ CCScrollView::~CCScrollView()
     
     unscheduleStillTouchDown();
     CC_SAFE_RELEASE(m_pTouches);
+    
+    CC_SAFE_RELEASE(m_ScrollBarFactory);
+    CC_SAFE_RELEASE(m_HorizontalScrollBar);
+    CC_SAFE_RELEASE(m_VerticalScrollBar);
 }
 
 CCScrollView* CCScrollView::create(CCSize size, CCNode* container/* = NULL*/)
@@ -349,6 +359,7 @@ void CCScrollView::setContentOffset(CCPoint offset, bool animated/* = false*/)
         }
 
         m_pContainer->setPosition(offset);
+        updateScrollBarsPositions();
 
         if (m_pDelegate != NULL)
         {
@@ -402,6 +413,8 @@ void CCScrollView::setZoomScale(float s)
         }
         this->setContentOffset(ccpAdd(m_pContainer->getPosition(),offset));
         relocateContainer(false);
+        
+        updateScrollBarsPositions();
     }
 }
 
@@ -455,6 +468,8 @@ void CCScrollView::setViewSize(CCSize size)
     CCLayer::setContentSize(size);
     
     updateContainerOffset();
+    
+    updateScrollBarsPositions();
 }
 
 CCNode * CCScrollView::getContainer()
@@ -597,6 +612,8 @@ void CCScrollView::deaccelerateScrolling(float dt)
         this->unschedule(schedule_selector(CCScrollView::deaccelerateScrolling));
         this->relocateContainer(true);
     }
+    
+    updateScrollBarsPositions();
 }
 
 void CCScrollView::stoppedAnimatedScroll(CCNode * node)
@@ -635,6 +652,7 @@ void CCScrollView::setContentSize(const CCSize & size)
     {
         this->getContainer()->setContentSize(size);
 		this->updateInset();
+        updateScrollBarsPositions();
     }
 }
 
@@ -967,6 +985,151 @@ void CCScrollView::updateTweenAction(float value, const char* key)
     if (strcmp(key, "zoomScale") == 0)
     {
         setZoomScale(value);
+    }
+}
+
+void CCScrollView::setDefaultScrollBarFactory(CCScrollBarFactory* iFactory)
+{
+    if (s_DefaultScrollBarFactory != iFactory)
+    {
+        CC_SAFE_RELEASE(s_DefaultScrollBarFactory);
+        s_DefaultScrollBarFactory = iFactory;
+        CC_SAFE_RETAIN(s_DefaultScrollBarFactory);
+    }
+}
+
+void CCScrollView::setScrollBarFactory(CCScrollBarFactory* iFactory)
+{
+    if (m_ScrollBarFactory != iFactory)
+    {
+        CC_SAFE_RELEASE(m_ScrollBarFactory);
+        m_ScrollBarFactory = iFactory;
+        CC_SAFE_RETAIN(m_ScrollBarFactory);
+    }
+}
+
+CCControl* CCScrollView::createScrollBar(bool iHorizontal)
+{
+    CCScrollBarFactory* factory = (m_ScrollBarFactory != NULL) ? m_ScrollBarFactory : s_DefaultScrollBarFactory;
+    if (factory != NULL)
+    {
+        CCControl* scrollBar = iHorizontal ? factory->createHorizontalScrollBar(this) : factory->createVerticalScrollBar(this);
+        if (scrollBar != NULL)
+        {
+            CCLayer::addChild(scrollBar);
+            return scrollBar;
+        }
+    }
+
+    return NULL;
+}
+
+void CCScrollView::setScrollBarsFlags(unsigned int iScrollbarsFlags)
+{
+    if (m_ScrollBarsFlags != iScrollbarsFlags)
+    {
+        m_ScrollBarsFlags = iScrollbarsFlags;
+        
+        if (m_ScrollBarsFlags & fHorizontalScrollBar)
+        {
+            if (m_HorizontalScrollBar == NULL)
+            {
+                m_HorizontalScrollBar = createScrollBar(true);
+                CC_SAFE_RETAIN(m_HorizontalScrollBar);;
+            }
+        }
+        else if (m_HorizontalScrollBar != NULL)
+        {
+            m_HorizontalScrollBar->removeFromParentAndCleanup(true);
+            CC_SAFE_RELEASE_NULL(m_HorizontalScrollBar);
+        }
+        
+        if (m_ScrollBarsFlags & fVerticalScrollBar)
+        {
+            if (m_VerticalScrollBar == NULL)
+            {
+                m_VerticalScrollBar = createScrollBar(false);
+                CC_SAFE_RETAIN(m_VerticalScrollBar);
+            }
+        }
+        else if (m_VerticalScrollBar != NULL)
+        {
+            m_VerticalScrollBar->removeFromParentAndCleanup(true);
+            CC_SAFE_RELEASE_NULL(m_VerticalScrollBar);
+        }
+        
+        updateScrollBarsPositions();
+    }
+}
+
+void CCScrollView::updateScrollBarsPositions()
+{
+    if (m_pContainer != NULL)
+    {
+        const CCPoint& offset = m_pContainer->getPosition();
+        const CCSize& contentSize = m_pContainer->getContentSize();
+        
+        if (m_HorizontalScrollBar != NULL)
+        {
+            const float widthRatio = m_tViewSize.width / contentSize.width;
+            if (widthRatio < 1.f)
+            {
+                // Size
+                CCSize barSize = m_HorizontalScrollBar->getContentSize();
+                barSize.width = (1.f - widthRatio) * m_tViewSize.width;
+                m_HorizontalScrollBar->setContentSize(barSize);
+                
+                // Position
+                CCPoint pos = m_HorizontalScrollBar->getPosition();
+                const float xRatio = -offset.x / contentSize.width;
+                pos.x = xRatio * m_tViewSize.width;
+                m_HorizontalScrollBar->ignoreAnchorPointForPosition(true);
+                m_HorizontalScrollBar->setPosition(pos);
+                
+                m_HorizontalScrollBar->setVisible(true);
+            }
+            else
+            {
+                m_HorizontalScrollBar->setVisible(false);
+            }
+        }
+        
+        if (m_VerticalScrollBar != NULL)
+        {
+            const float heightRatio = m_tViewSize.height / contentSize.height;
+            if (heightRatio < 1.f)
+            {
+                // Size
+                CCSize barSize = m_VerticalScrollBar->getContentSize();
+                barSize.height = (1.f - heightRatio) * m_tViewSize.height;
+                m_VerticalScrollBar->setContentSize(barSize);
+                
+                // Position
+                CCPoint pos = m_VerticalScrollBar->getPosition();
+                const float yRatio = -offset.y / contentSize.height;
+                pos.y = yRatio * m_tViewSize.height;
+                m_HorizontalScrollBar->ignoreAnchorPointForPosition(true);
+                m_HorizontalScrollBar->setPosition(pos);
+                
+                m_VerticalScrollBar->setVisible(true);
+            }
+            else
+            {
+                m_VerticalScrollBar->setVisible(false);
+            }
+        }
+    }
+    else
+    {
+        if (m_HorizontalScrollBar != NULL)
+        {
+            m_HorizontalScrollBar->setVisible(false);
+        }
+        
+        if (m_VerticalScrollBar != NULL)
+        {
+            m_VerticalScrollBar->setVisible(false);
+        }
     }
 }
 

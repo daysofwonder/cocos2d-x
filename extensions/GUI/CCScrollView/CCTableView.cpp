@@ -61,6 +61,8 @@ bool CCTableView::initWithViewSize(CCSize size, CCNode* container/* = NULL*/)
         m_eVordering      = kCCTableViewFillBottomUp;
         this->setDirection(kCCScrollViewDirectionVertical);
 
+        setScrollBarsFlags(fVerticalScrollBar);
+        
         CCScrollView::setDelegate(this);
         return true;
     }
