@@ -1008,12 +1008,88 @@ void CCScrollView::setScrollBarFactory(CCScrollBarFactory* iFactory)
     }
 }
 
-CCControl* CCScrollView::createScrollBar(bool iHorizontal)
+CCScrollBar::CCScrollBar(CCScrollView* iOwner, bool iIsHorizontal)
+: m_Owner(iOwner), m_IsHorizontal(iIsHorizontal), m_InitialTouchPos(0), m_InitialScrollPos(0)
+{
+    
+}
+
+bool
+CCScrollBar::init()
+{
+    if (CCControl::init())
+    {
+        setTouchEnabled(true);
+        
+        return true;
+    }
+    
+    return false;
+}
+
+bool
+CCScrollBar::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
+{
+    if (CCControl::ccTouchBegan(pTouch, pEvent))
+    {
+        return true;
+    }
+    
+    CCPoint worldLoc = pTouch->getLocation();
+    
+    CCPoint locInParentSpace = getParent()->convertToNodeSpace(worldLoc);
+    CCRect bBox = boundingBox();
+    if (!bBox.containsPoint(locInParentSpace))
+    {
+        return false;
+    }
+    
+    const CCPoint scrollPos = m_Owner->getContentOffset();
+    
+    if (isHorizontal())
+    {
+        m_InitialTouchPos = worldLoc.x;
+        m_InitialScrollPos = scrollPos.x;
+    }
+    else
+    {
+        m_InitialTouchPos = worldLoc.y;
+        m_InitialScrollPos = scrollPos.y;
+    }
+    
+    return true;
+}
+
+void
+CCScrollBar::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
+{
+    CCPoint worldLoc = pTouch->getLocation();
+    
+    const float newPos = isHorizontal() ? worldLoc.x : worldLoc.y;
+    
+    const float delta = m_InitialTouchPos - newPos;
+    const float newScrollPos = m_InitialScrollPos + delta;
+    
+    CCPoint scrollPos = m_Owner->getContentOffset();
+    if (isHorizontal())
+    {
+        scrollPos.x = newScrollPos;
+    }
+    else
+    {
+        scrollPos.y = newScrollPos;
+    }
+    
+    m_Owner->setContentOffset(scrollPos);
+}
+
+
+CCScrollBar* CCScrollView::createScrollBar(bool iHorizontal)
 {
     CCScrollBarFactory* factory = (m_ScrollBarFactory != NULL) ? m_ScrollBarFactory : s_DefaultScrollBarFactory;
     if (factory != NULL)
     {
-        CCControl* scrollBar = iHorizontal ? factory->createHorizontalScrollBar(this) : factory->createVerticalScrollBar(this);
+        CCScrollBar* scrollBar = iHorizontal ? factory->createHorizontalScrollBar(this) : factory->createVerticalScrollBar(this);
         if (scrollBar != NULL)
         {
             CCLayer::addChild(scrollBar);

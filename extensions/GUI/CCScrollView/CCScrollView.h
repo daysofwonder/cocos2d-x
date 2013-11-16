@@ -29,6 +29,7 @@
 #include "cocos2d.h"
 #include "ExtensionMacros.h"
 #include "GUI/CCControlExtension/HitTestProtocol.h"
+#include "GUI/CCControlExtension/CCControl.h"
 
 NS_CC_EXT_BEGIN
 
@@ -54,13 +55,34 @@ public:
     virtual void scrollViewDidZoom(CCScrollView* view) {}
 };
 
-class CCControl;
+// subclass for rendering
+class CCScrollBar : public CCControl
+{
+public:
+    
+    CCScrollView* owner() const { return m_Owner; }
+    bool isHorizontal() const { return m_IsHorizontal; }
+    
+    virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
+    virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
+    
+protected:
+    CCScrollBar(CCScrollView* iOwner, bool iIsHorizontal);
+    
+    bool init();
+    
+private:
+    CCScrollView* m_Owner;
+    bool          m_IsHorizontal;
+    float         m_InitialTouchPos;
+    float         m_InitialScrollPos;
+};
 
 class CCScrollBarFactory : public CCObject
 {
 public:
-    virtual CCControl* createHorizontalScrollBar(CCScrollView* iScrollView) = 0;
-    virtual CCControl* createVerticalScrollBar(CCScrollView* iScrollView) = 0;
+    virtual CCScrollBar* createHorizontalScrollBar(CCScrollView* iScrollView) = 0;
+    virtual CCScrollBar* createVerticalScrollBar(CCScrollView* iScrollView) = 0;
 };
 
 /**
@@ -383,7 +405,7 @@ protected:
     float m_fMinScale, m_fMaxScale;
     
 protected:
-    CCControl* createScrollBar(bool iHorizontal);
+    CCScrollBar* createScrollBar(bool iHorizontal);
     void updateScrollBarsPositions();
     
     CCPoint m_InitialDelayedTouchPosition;
@@ -396,8 +418,8 @@ protected:
     static CCScrollBarFactory* s_DefaultScrollBarFactory;
     
     unsigned int m_ScrollBarsFlags;
-    CCControl* m_HorizontalScrollBar;
-    CCControl* m_VerticalScrollBar;
+    CCScrollBar* m_HorizontalScrollBar;
+    CCScrollBar* m_VerticalScrollBar;
     
     void onStillTouchDown(float iDelay);
     void unscheduleStillTouchDown();
