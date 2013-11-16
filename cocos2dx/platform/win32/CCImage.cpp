@@ -442,4 +442,47 @@ bool CCImage::initWithString(
     return bRet;
 }
 
+
+void CCImage::calculateStringSize(const char* pText,
+	const char *    pFontName,
+	int             nFontSize,
+	cocos2d::CCSize&         oComputedSize,
+	int&            oAdjustedFontSize,
+	int            nMinFontSize,
+	int             nWidth,
+	int             nHeight
+	)
+{
+	assert(pText);
+	wchar_t * pwszBuffer = 0;
+	int nLen = strlen(pText);
+	// utf-8 to utf-16
+	int nBufLen = nLen + 1;
+	pwszBuffer = new wchar_t[nBufLen];
+	if (!pwszBuffer) {
+		return;
+	}
+	memset(pwszBuffer, 0, sizeof(wchar_t) *nBufLen);
+	nLen = MultiByteToWideChar(CP_UTF8, 0, pText, nLen, pwszBuffer, nBufLen);
+
+	BitmapDC& dc = sharedBitmapDC();
+	SIZE calcSize;
+	while (nFontSize >= nMinFontSize) {
+		if (!dc.setFont(pFontName, nFontSize)) {
+			CCLog("Can't found font(%s), use system default", pFontName);
+		}
+		const SIZE calcSize = dc.sizeWithText(pwszBuffer, nLen, 0, nWidth);
+		oComputedSize.width = calcSize.cx;
+		oComputedSize.height = calcSize.cy;
+		if ((nWidth != 0 && calcSize.cx>nWidth) || (nHeight != 0 && calcSize.cy>nHeight)) {
+			nFontSize--;
+		}
+		else {
+			break;
+		}
+	}
+	oAdjustedFontSize = nFontSize;
+}
+
+
 NS_CC_END
