@@ -1158,10 +1158,8 @@ CCScrollBar::updatePositionAndSize()
                 barPos.x = viewSize.width - barSize.width - 8;
             }
             
-            setContentSize(barSize);
-            
-            ignoreAnchorPointForPosition(true);
-            setPosition(barPos);
+            setThumbSize(barSize);
+            setThumbPos(barPos);
             
             setVisible(true);
         }
@@ -1174,6 +1172,19 @@ CCScrollBar::updatePositionAndSize()
     {
         setVisible(false);
     }
+}
+
+void
+CCScrollBar::setThumbPos(const CCPoint& iPos)
+{
+    ignoreAnchorPointForPosition(true);
+    setPosition(iPos);
+}
+
+void
+CCScrollBar::setThumbSize(const CCSize& iSize)
+{
+    setContentSize(iSize);
 }
 
 CCScrollBar* CCScrollView::createScrollBar(bool iHorizontal)

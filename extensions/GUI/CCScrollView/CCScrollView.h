@@ -73,6 +73,9 @@ protected:
     
     bool init();
     
+    virtual void setThumbPos(const CCPoint& iPos);
+    virtual void setThumbSize(const CCSize& iSize);
+    
 private:
     CCScrollView* m_Owner;
     bool          m_IsHorizontal;
