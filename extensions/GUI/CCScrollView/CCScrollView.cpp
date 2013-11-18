@@ -1101,6 +1101,80 @@ CCScrollBar::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
     m_Owner->setContentOffset(scrollPos);
 }
 
+static bool _computeScrollBarPosAndSize(float iViewSize, float iTotalSize, float iOffset, float& oPos, float& oBarSize)
+{
+    if (iTotalSize == 0)
+    {
+        return false;
+    }
+    
+    const float ratio = iViewSize / iTotalSize;
+    if (ratio >= 1.f)
+    {
+        return false;
+    }
+    
+    // Size
+    oBarSize = ratio * iViewSize;
+    
+    // Position
+    
+    // Compute relative center
+    const float posCoeff = -iOffset / iTotalSize;
+    oPos = posCoeff * iViewSize;
+    
+    return true;
+}
+
+
+void
+CCScrollBar::updatePositionAndSize()
+{
+    CCNode* container = m_Owner->getContainer();
+    if (container != NULL)
+    {
+        const CCPoint& offset = container->getPosition();
+        const CCSize& contentSize = container->getContentSize();
+        const CCSize viewSize = m_Owner->getViewSize();
+        
+        float pos, size;
+        if (_computeScrollBarPosAndSize(isHorizontal() ? viewSize.width : viewSize.height, isHorizontal() ? contentSize.width : contentSize.height, isHorizontal() ? offset.x : offset.y, pos, size))
+        {
+            CCSize barSize = getContentSize();
+            CCPoint barPos = getPosition();
+            
+            if (isHorizontal())
+            {
+                barSize.width = size;
+                
+                barPos.x = pos;
+                barPos.y = 8;
+            }
+            else
+            {
+                barSize.height = size;
+                
+                barPos.y = pos;
+                barPos.x = viewSize.width - barSize.width - 8;
+            }
+            
+            setContentSize(barSize);
+            
+            ignoreAnchorPointForPosition(true);
+            setPosition(barPos);
+            
+            setVisible(true);
+        }
+        else
+        {
+            setVisible(false);
+        }
+    }
+    else
+    {
+        setVisible(false);
+    }
+}
 
 CCScrollBar* CCScrollView::createScrollBar(bool iHorizontal)
 {
@@ -1174,97 +1248,16 @@ void CCScrollView::setScrollBarsFlags(unsigned int iScrollbarsFlags)
     }
 }
 
-static bool _computeScrollBarPosAndSize(float iViewSize, float iTotalSize, float iOffset, float& oPos, float& oBarSize)
-{
-    if (iTotalSize == 0)
-    {
-        return false;
-    }
-    
-    const float ratio = iViewSize / iTotalSize;
-    if (ratio >= 1.f)
-    {
-        return false;
-    }
-
-    // Size
-    oBarSize = ratio * iViewSize;
-    
-    // Position
-    
-    // Compute relative center
-    const float posCoeff = -iOffset / iTotalSize;
-    oPos = posCoeff * iViewSize;
-    
-    return true;
-}
-
 void CCScrollView::updateScrollBarsPositions()
 {
-    if (m_pContainer != NULL)
+    if (m_HorizontalScrollBar != NULL)
     {
-        const CCPoint& offset = m_pContainer->getPosition();
-        const CCSize& contentSize = m_pContainer->getContentSize();
-        
-        if (m_HorizontalScrollBar != NULL)
-        {
-            float pos, size;
-            if (_computeScrollBarPosAndSize(m_tViewSize.width, contentSize.width, offset.x, pos, size))
-            {
-                CCSize barSize = m_VerticalScrollBar->getContentSize();
-                barSize.width = size;
-                m_HorizontalScrollBar->setContentSize(barSize);
-                
-                CCPoint barPos = m_VerticalScrollBar->getPosition();
-                barPos.x = pos;
-                barPos.y = 8;
-                
-                m_HorizontalScrollBar->ignoreAnchorPointForPosition(true);
-                m_HorizontalScrollBar->setPosition(barPos);
-                
-                m_HorizontalScrollBar->setVisible(true);
-            }
-            else
-            {
-                m_HorizontalScrollBar->setVisible(false);
-            }
-        }
-        
-        if (m_VerticalScrollBar != NULL)
-        {
-            float pos, size;
-            if (_computeScrollBarPosAndSize(m_tViewSize.height, contentSize.height, offset.y, pos, size))
-            {
-                CCSize barSize = m_VerticalScrollBar->getContentSize();
-                barSize.height = size;
-                m_VerticalScrollBar->setContentSize(barSize);
-                
-                CCPoint barPos = m_VerticalScrollBar->getPosition();
-                barPos.y = pos;
-                barPos.x = m_tViewSize.width - barSize.width - 8;
-                
-                m_VerticalScrollBar->ignoreAnchorPointForPosition(true);
-                m_VerticalScrollBar->setPosition(barPos);
-                
-                m_VerticalScrollBar->setVisible(true);
-            }
-            else
-            {
-                m_VerticalScrollBar->setVisible(false);
-            }
-        }
+        m_HorizontalScrollBar->updatePositionAndSize();
     }
-    else
+    
+    if (m_VerticalScrollBar != NULL)
     {
-        if (m_HorizontalScrollBar != NULL)
-        {
-            m_HorizontalScrollBar->setVisible(false);
-        }
-        
-        if (m_VerticalScrollBar != NULL)
-        {
-            m_VerticalScrollBar->setVisible(false);
-        }
+        m_VerticalScrollBar->updatePositionAndSize();
     }
 }
 
