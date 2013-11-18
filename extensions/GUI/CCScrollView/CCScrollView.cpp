@@ -1121,41 +1121,56 @@ CCScrollBar* CCScrollView::createScrollBar(bool iHorizontal)
     return NULL;
 }
 
+void CCScrollView::updateScrollBars()
+{
+    if ((m_ScrollBarsFlags & fHorizontalScrollBar) && scrollEnabled())
+    {
+        if (m_HorizontalScrollBar == NULL)
+        {
+            m_HorizontalScrollBar = createScrollBar(true);
+            CC_SAFE_RETAIN(m_HorizontalScrollBar);;
+        }
+    }
+    else if (m_HorizontalScrollBar != NULL)
+    {
+        m_HorizontalScrollBar->removeFromParentAndCleanup(true);
+        CC_SAFE_RELEASE_NULL(m_HorizontalScrollBar);
+    }
+    
+    if ((m_ScrollBarsFlags & fVerticalScrollBar) && scrollEnabled())
+    {
+        if (m_VerticalScrollBar == NULL)
+        {
+            m_VerticalScrollBar = createScrollBar(false);
+            CC_SAFE_RETAIN(m_VerticalScrollBar);
+        }
+    }
+    else if (m_VerticalScrollBar != NULL)
+    {
+        m_VerticalScrollBar->removeFromParentAndCleanup(true);
+        CC_SAFE_RELEASE_NULL(m_VerticalScrollBar);
+    }
+    
+    updateScrollBarsPositions();
+}
+
+void CCScrollView::setScrollEnabled(bool iEnabled)
+{
+    if (iEnabled != m_bScrollEnabled)
+    {
+        m_bScrollEnabled = iEnabled;
+        
+        updateScrollBars();
+    }
+}
+
 void CCScrollView::setScrollBarsFlags(unsigned int iScrollbarsFlags)
 {
     if (m_ScrollBarsFlags != iScrollbarsFlags)
     {
         m_ScrollBarsFlags = iScrollbarsFlags;
         
-        if (m_ScrollBarsFlags & fHorizontalScrollBar)
-        {
-            if (m_HorizontalScrollBar == NULL)
-            {
-                m_HorizontalScrollBar = createScrollBar(true);
-                CC_SAFE_RETAIN(m_HorizontalScrollBar);;
-            }
-        }
-        else if (m_HorizontalScrollBar != NULL)
-        {
-            m_HorizontalScrollBar->removeFromParentAndCleanup(true);
-            CC_SAFE_RELEASE_NULL(m_HorizontalScrollBar);
-        }
-        
-        if (m_ScrollBarsFlags & fVerticalScrollBar)
-        {
-            if (m_VerticalScrollBar == NULL)
-            {
-                m_VerticalScrollBar = createScrollBar(false);
-                CC_SAFE_RETAIN(m_VerticalScrollBar);
-            }
-        }
-        else if (m_VerticalScrollBar != NULL)
-        {
-            m_VerticalScrollBar->removeFromParentAndCleanup(true);
-            CC_SAFE_RELEASE_NULL(m_VerticalScrollBar);
-        }
-        
-        updateScrollBarsPositions();
+        updateScrollBars();
     }
 }
 

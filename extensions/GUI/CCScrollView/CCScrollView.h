@@ -207,7 +207,7 @@ public:
     void setBounceable(bool bBounceable) { m_bBounceable = bBounceable; }
     
     bool scrollEnabled() const { return m_bScrollEnabled; }
-    void setScrollEnabled(bool iEnabled) { m_bScrollEnabled = iEnabled; }
+    void setScrollEnabled(bool iEnabled);
     
     bool forbidWhenZoomedOut() const { return m_bForbidScrollWhenZoomedOut; }
     void setForbidScrollWhenZoomedOut(bool bForbidScrollWhenZoomedOut) { m_bForbidScrollWhenZoomedOut = bForbidScrollWhenZoomedOut; }
@@ -406,6 +406,7 @@ protected:
     
 protected:
     CCScrollBar* createScrollBar(bool iHorizontal);
+    void updateScrollBars();
     void updateScrollBarsPositions();
     
     CCPoint m_InitialDelayedTouchPosition;
