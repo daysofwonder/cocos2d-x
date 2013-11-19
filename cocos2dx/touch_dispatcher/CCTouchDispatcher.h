@@ -74,7 +74,7 @@ public:
     virtual void touchesMoved(CCSet* touches, CCEvent* pEvent) = 0;
     virtual void touchesEnded(CCSet* touches, CCEvent* pEvent) = 0;
     virtual void touchesCancelled(CCSet* touches, CCEvent* pEvent) = 0;
-    virtual void wheel(float iMouseX, float iMouseY, float iDetaX, float iDeltaY, float iDeltaZ) {}
+    virtual void wheel(const CCPoint& iWorldMousePosition, float iDeltaX, float iDeltaY, float iDeltaZ) {}
     
     virtual ~EGLTouchDelegate() {}
 };

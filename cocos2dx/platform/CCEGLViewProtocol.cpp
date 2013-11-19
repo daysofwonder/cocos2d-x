@@ -345,7 +345,7 @@ void CCEGLViewProtocol::handleWheel(float iMouseX, float iMouseY, float iDeltaX,
     const float x = (iMouseX - m_obViewPortRect.origin.x) / m_fScaleX;
     const float y = (iMouseY - m_obViewPortRect.origin.y) / m_fScaleY;
     
-    m_pDelegate->wheel(x, y, iDeltaX, iDeltaY, iDeltaZ);
+    m_pDelegate->wheel(CCPoint(x, y), iDeltaX, iDeltaY, iDeltaZ);
 }
 
 const CCRect& CCEGLViewProtocol::getViewPortRect() const

@@ -539,9 +539,9 @@ bool _dispatchWheel(CCNode* iRoot, const CCPoint& iWorldMouseLocation, float iDe
 }
 
 void
-CCSceneGraphTouchDispatcher::wheel(float iMouseX, float iMouseY, float iDeltaX, float iDeltaY, float iDeltaZ)
+CCSceneGraphTouchDispatcher::wheel(const CCPoint& iWorldMousePosition, float iDeltaX, float iDeltaY, float iDeltaZ)
 {
-    const CCPoint worldLoc = CCDirector::sharedDirector()->convertToGL(CCPoint(iMouseX, iMouseY));
+    const CCPoint worldLoc = CCDirector::sharedDirector()->convertToGL(iWorldMousePosition);
     
     _dispatchWheel(CCDirector::sharedDirector()->getRunningScene(), worldLoc, iDeltaX, iDeltaY, iDeltaZ);
 }
