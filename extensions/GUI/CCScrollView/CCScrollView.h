@@ -302,6 +302,8 @@ public:
     int getScrollBarZOrder() const { return m_ScrollBarZOrder; }
     void setScrollBarZOrder(int ZOrder);
     
+    virtual bool scrollEnabledOnTouch() const { return true; }
+    
 private:
     /**
      * implements auto-scrolling behavior. change SCROLL_DEACCEL_RATE as needed to choose

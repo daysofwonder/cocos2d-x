@@ -608,6 +608,11 @@ void CCTableView::scrollViewDidScroll(CCScrollView* view)
     }
 }
 
+bool CCTableView::scrollEnabledOnTouch() const
+{
+    return m_VerticalScrollBar == NULL;
+}
+
 void CCTableView::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
 {
     if (!this->isVisible()) {

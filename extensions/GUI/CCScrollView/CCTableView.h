@@ -262,6 +262,8 @@ public:
     virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent);
 
+    virtual bool scrollEnabledOnTouch() const;
+    
 protected:
 
     CCTableViewCell *m_pTouchedCell;

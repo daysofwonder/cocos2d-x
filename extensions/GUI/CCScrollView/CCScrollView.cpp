@@ -181,7 +181,7 @@ bool CCScrollView::isTouchInside(const CCPoint& iLocation)
 
 bool CCScrollView::ccPreTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
-    if (m_bDelaysContentTouches && m_bScrollEnabled && (m_pTouches->count() == 0) && isTouchInside(pTouch->getLocation()))
+    if (m_bDelaysContentTouches && m_bScrollEnabled && scrollEnabledOnTouch() && (m_pTouches->count() == 0) && isTouchInside(pTouch->getLocation()))
     {
         if ((m_HorizontalScrollBar != NULL) && m_HorizontalScrollBar->isVisible() && m_HorizontalScrollBar->isTouchInside(pTouch))
         {
@@ -802,7 +802,7 @@ void CCScrollView::visit()
 
 bool CCScrollView::ccTouchBegan(CCTouch* touch, CCEvent* event)
 {
-    if (!this->isVisible() || !m_bScrollEnabled)
+    if (!this->isVisible() || !m_bScrollEnabled || !scrollEnabledOnTouch())
     {
         return false;
     }
@@ -846,7 +846,7 @@ bool CCScrollView::ccTouchBegan(CCTouch* touch, CCEvent* event)
 
 void CCScrollView::ccTouchMoved(CCTouch* touch, CCEvent* event)
 {
-    if (!this->isVisible() || !m_bScrollEnabled)
+    if (!this->isVisible() || !m_bScrollEnabled || !scrollEnabledOnTouch())
     {
         return;
     }
@@ -927,7 +927,7 @@ void CCScrollView::ccTouchMoved(CCTouch* touch, CCEvent* event)
 
 void CCScrollView::ccTouchEnded(CCTouch* touch, CCEvent* event)
 {
-    if (!this->isVisible() || !m_bScrollEnabled)
+    if (!this->isVisible() || !m_bScrollEnabled || !scrollEnabledOnTouch())
     {
         return;
     }
@@ -954,7 +954,7 @@ void CCScrollView::ccTouchEnded(CCTouch* touch, CCEvent* event)
 
 void CCScrollView::ccTouchCancelled(CCTouch* touch, CCEvent* event)
 {
-    if (!this->isVisible() || !m_bScrollEnabled)
+    if (!this->isVisible() || !m_bScrollEnabled || !scrollEnabledOnTouch())
     {
         return;
     }
@@ -1173,7 +1173,10 @@ CCScrollBar::updatePositionAndSize()
     if (container != NULL)
     {
         const CCPoint& offset = container->getPosition();
-        const CCSize& contentSize = container->getContentSize();
+        CCSize contentSize = container->getContentSize();
+        contentSize.width *= container->getScaleX();
+        contentSize.height *= container->getScaleY();
+        
         const CCSize viewSize = m_Owner->getViewSize();
         
         const unsigned int flags = m_Owner->scrollBarsFlags();
