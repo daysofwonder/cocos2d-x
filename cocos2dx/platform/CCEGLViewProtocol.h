@@ -127,7 +127,8 @@ public:
     virtual void handleTouchesMove(int num, int ids[], float xs[], float ys[]);
     virtual void handleTouchesEnd(int num, int ids[], float xs[], float ys[]);
     virtual void handleTouchesCancel(int num, int ids[], float xs[], float ys[]);
-
+    virtual void handleWheel(float iMouseX, float iMouseY, float iDetaX, float iDeltaY, float iDeltaZ);
+    
     /**
      * Get the opengl view port rectangle.
      */

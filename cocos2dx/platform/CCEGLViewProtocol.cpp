@@ -340,6 +340,14 @@ void CCEGLViewProtocol::handleTouchesCancel(int num, int ids[], float xs[], floa
     m_pDelegate->touchesCancelled(&set, NULL);
 }
 
+void CCEGLViewProtocol::handleWheel(float iMouseX, float iMouseY, float iDeltaX, float iDeltaY, float iDeltaZ)
+{
+    const float x = (iMouseX - m_obViewPortRect.origin.x) / m_fScaleX;
+    const float y = (iMouseY - m_obViewPortRect.origin.y) / m_fScaleY;
+    
+    m_pDelegate->wheel(x, y, iDeltaX, iDeltaY, iDeltaZ);
+}
+
 const CCRect& CCEGLViewProtocol::getViewPortRect() const
 {
     return m_obViewPortRect;

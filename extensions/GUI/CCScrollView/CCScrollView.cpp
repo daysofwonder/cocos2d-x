@@ -179,6 +179,46 @@ bool CCScrollView::isTouchInside(const CCPoint& iLocation)
     return bBox.containsPoint(touchLocation);
 }
 
+bool CCScrollView::wheel(const CCPoint& iWorldMouseLocation, float iDeltaX, float iDeltaY, float iDeltaZ)
+{
+    if ((m_pContainer != NULL) && isTouchInside(iWorldMouseLocation))
+    {
+        CCPoint offset = getContentOffset();
+        
+        switch (m_eDirection)
+        {
+            case kCCScrollViewDirectionBoth:
+            {
+                offset.x += iDeltaX;
+                offset.y -= iDeltaY;
+                break;
+            }
+
+            case kCCScrollViewDirectionHorizontal:
+            {
+                offset.x += iDeltaX;
+                break;
+            }
+
+            case kCCScrollViewDirectionVertical:
+            {
+                offset.y -= iDeltaY;
+                break;
+            }
+                
+            default:
+                break;
+        }
+        
+        setContentOffset(offset);
+        relocateContainer(false);
+        
+        return true;
+    }
+    
+    return false;
+}
+
 bool CCScrollView::ccPreTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
     if (m_bDelaysContentTouches && m_bScrollEnabled && scrollEnabledOnTouch() && (m_pTouches->count() == 0) && isTouchInside(pTouch->getLocation()))
@@ -802,7 +842,7 @@ void CCScrollView::visit()
 
 bool CCScrollView::ccTouchBegan(CCTouch* touch, CCEvent* event)
 {
-    if (!this->isVisible() || !m_bScrollEnabled || !scrollEnabledOnTouch())
+    if (!this->isVisible() || !m_bScrollEnabled)
     {
         return false;
     }
@@ -820,27 +860,31 @@ bool CCScrollView::ccTouchBegan(CCTouch* touch, CCEvent* event)
         m_pTouches->addObject(touch);
     }
 
-    if (m_pTouches->count() == 1)
-    { // scrolling
-        if (m_bForbidScrollWhenZoomedOut && (getZoomScale() <= m_fMinZoomScale))
-        {
-            return true;
-        }
-        
-        m_tTouchPoint     = this->convertTouchToNodeSpace(touch);
-        m_bTouchMoved     = false;
-        m_bDragging     = true; //dragging started
-        m_tScrollDistance = ccp(0.0f, 0.0f);
-        m_fTouchLength    = 0.0f;
-    }
-    else if (m_pTouches->count() == 2)
+    if (scrollEnabledOnTouch())
     {
-        m_tTouchPoint  = ccpMidpoint(this->convertTouchToNodeSpace((CCTouch*)m_pTouches->objectAtIndex(0)),
-                                   this->convertTouchToNodeSpace((CCTouch*)m_pTouches->objectAtIndex(1)));
-        m_fTouchLength = ccpDistance(m_pContainer->convertTouchToNodeSpace((CCTouch*)m_pTouches->objectAtIndex(0)),
-                                   m_pContainer->convertTouchToNodeSpace((CCTouch*)m_pTouches->objectAtIndex(1)));
-        m_bDragging  = false;
-    } 
+        if (m_pTouches->count() == 1)
+        { // scrolling
+            if (m_bForbidScrollWhenZoomedOut && (getZoomScale() <= m_fMinZoomScale))
+            {
+                return true;
+            }
+            
+            m_tTouchPoint     = this->convertTouchToNodeSpace(touch);
+            m_bTouchMoved     = false;
+            m_bDragging     = true; //dragging started
+            m_tScrollDistance = ccp(0.0f, 0.0f);
+            m_fTouchLength    = 0.0f;
+        }
+        else if (m_pTouches->count() == 2)
+        {
+            m_tTouchPoint  = ccpMidpoint(this->convertTouchToNodeSpace((CCTouch*)m_pTouches->objectAtIndex(0)),
+                                         this->convertTouchToNodeSpace((CCTouch*)m_pTouches->objectAtIndex(1)));
+            m_fTouchLength = ccpDistance(m_pContainer->convertTouchToNodeSpace((CCTouch*)m_pTouches->objectAtIndex(0)),
+                                         m_pContainer->convertTouchToNodeSpace((CCTouch*)m_pTouches->objectAtIndex(1)));
+            m_bDragging  = false;
+        }
+    }
+
     return true;
 }
 
@@ -927,10 +971,11 @@ void CCScrollView::ccTouchMoved(CCTouch* touch, CCEvent* event)
 
 void CCScrollView::ccTouchEnded(CCTouch* touch, CCEvent* event)
 {
-    if (!this->isVisible() || !m_bScrollEnabled || !scrollEnabledOnTouch())
+    if (!this->isVisible() || !m_bScrollEnabled)
     {
         return;
     }
+    
     if (m_pTouches->containsObject(touch))
     {
         if (m_pTouches->count() == 1 && m_bTouchMoved)
@@ -954,11 +999,12 @@ void CCScrollView::ccTouchEnded(CCTouch* touch, CCEvent* event)
 
 void CCScrollView::ccTouchCancelled(CCTouch* touch, CCEvent* event)
 {
-    if (!this->isVisible() || !m_bScrollEnabled || !scrollEnabledOnTouch())
+    if (!this->isVisible() || !m_bScrollEnabled)
     {
         return;
     }
-    m_pTouches->removeObject(touch); 
+    m_pTouches->removeObject(touch);
+    
     if (m_pTouches->count() == 0)
     {
         m_bDragging = false;    

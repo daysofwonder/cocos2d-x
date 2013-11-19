@@ -424,6 +424,19 @@ static EAGLView *view;
 }
 
 -(void) scrollWheel:(NSEvent *)theEvent {
+    
+    NSPoint event_location = [theEvent locationInWindow];
+	NSPoint local_point = [self convertPoint:event_location fromView:nil];
+	
+	const float x = local_point.x / frameZoomFactor_;
+	const float y = ([self getHeight] - local_point.y) / frameZoomFactor_;
+    
+    const float dX = [theEvent deltaX];
+    const float dY = [theEvent deltaY];
+    const float dZ = [theEvent deltaZ];
+    
+	cocos2d::CCDirector::sharedDirector()->getOpenGLView()->handleWheel(x, y, dX, dY, dZ);
+    
 	DISPATCH_EVENT(theEvent, _cmd);
 	[super scrollWheel:theEvent];
 }

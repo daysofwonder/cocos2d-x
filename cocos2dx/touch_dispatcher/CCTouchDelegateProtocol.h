@@ -35,6 +35,7 @@ class CCTouch;
 class CCEvent;
 class CCSet;
 class CCTouchDispatcher;
+class CCPoint;
 
 /**
  * @addtogroup input
@@ -64,6 +65,7 @@ public:
      virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent) {CC_UNUSED_PARAM(pTouches); CC_UNUSED_PARAM(pEvent);}
      virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent) {CC_UNUSED_PARAM(pTouches); CC_UNUSED_PARAM(pEvent);}
 
+    virtual bool wheel(const CCPoint& iWorldMouseLocation, float iDetaX, float iDeltaY, float iDeltaZ) { return false; }
 };
 /**
  @brief

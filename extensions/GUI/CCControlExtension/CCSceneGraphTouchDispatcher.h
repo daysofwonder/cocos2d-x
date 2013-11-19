@@ -29,6 +29,7 @@ public:
     virtual void touchesMoved(CCSet* touches, CCEvent* pEvent);
     virtual void touchesEnded(CCSet* touches, CCEvent* pEvent);
     virtual void touchesCancelled(CCSet* touches, CCEvent* pEvent);
+    virtual void wheel(float iMouseX, float iMouseY, float iDetaX, float iDeltaY, float iDeltaZ);
     
     virtual CCTouchDelegate* simulateTouchDown(CCTouch* iTouch);
 

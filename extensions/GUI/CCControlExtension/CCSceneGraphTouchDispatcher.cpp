@@ -501,6 +501,52 @@ CCSceneGraphTouchDispatcher::touchesCancelled(CCSet* touches, CCEvent* pEvent)
 }
 
 static
+bool _dispatchWheel(CCNode* iRoot, const CCPoint& iWorldMouseLocation, float iDeltaX, float iDeltaY, float iDeltaZ)
+{
+    if (!_isNodeEligibleForHitDispatch(iRoot))
+    {
+        return false;
+    }
+    
+    CCArray* children = iRoot->getChildren();
+    const int childrenCount = (children != NULL) ? children->count() : 0;
+    
+    if (childrenCount > 0)
+    {
+        iRoot->sortAllChildren();
+        
+        // Iterate reverse
+        for (int i = childrenCount - 1; i >= 0; --i)
+        {
+            CCNode* child = static_cast<CCNode*>(children->objectAtIndex(i));
+            if (_dispatchWheel(child, iWorldMouseLocation, iDeltaX, iDeltaY, iDeltaZ))
+            {
+                return true;
+            }
+        }
+    }
+    
+    CCTouchDelegate* delegate = dynamic_cast<CCTouchDelegate*>(iRoot);
+    if ((delegate != NULL) && (CCDirector::sharedDirector()->getTouchDispatcher()->findHandler(delegate) != NULL))
+    {
+        if (delegate->wheel(iWorldMouseLocation, iDeltaX, iDeltaY, iDeltaZ))
+        {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+void
+CCSceneGraphTouchDispatcher::wheel(float iMouseX, float iMouseY, float iDeltaX, float iDeltaY, float iDeltaZ)
+{
+    const CCPoint worldLoc = CCDirector::sharedDirector()->convertToGL(CCPoint(iMouseX, iMouseY));
+    
+    _dispatchWheel(CCDirector::sharedDirector()->getRunningScene(), worldLoc, iDeltaX, iDeltaY, iDeltaZ);
+}
+
+static
 CCTouchDelegate* _simulateTouchDown(CCNode* iRoot, CCTouch* iTouch, bool iIncludingRoot)
 {
     if (!_isNodeEligibleForHitDispatch(iRoot))

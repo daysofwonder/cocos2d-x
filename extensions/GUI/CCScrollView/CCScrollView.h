@@ -253,7 +253,8 @@ public:
     virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent);
-
+    virtual bool wheel(const CCPoint& iWorldMouseLocation, float iDetaX, float iDeltaY, float iDeltaZ);
+    
     virtual void setContentSize(const CCSize & size);
     virtual const CCSize& getContentSize() const;
 
