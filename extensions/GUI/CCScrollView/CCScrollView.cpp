@@ -1148,24 +1148,8 @@ CCScrollBar::updatePositionAndSize()
         float pos, size;
         if (_computeScrollBarPosAndSize(isHorizontal() ? viewSize.width : viewSize.height, isHorizontal() ? contentSize.width : contentSize.height, isHorizontal() ? offset.x : offset.y, pos, size))
         {
-            CCNode* t = thumb();
-            
-            CCSize thumbSize = t->getContentSize();
-            CCPoint thumbPos = t->getPosition();
-            
-            if (isHorizontal())
-            {
-                thumbSize.width = size;
-                thumbPos.x = pos;
-            }
-            else
-            {
-                thumbSize.height = size;
-                thumbPos.y = pos;
-            }
-            
-            setThumbSize(thumbSize);
-            setThumbPos(thumbPos);
+            setThumbSize(size);
+            setThumbPos(pos);
             
             CCPoint myPos = getPosition();
             if (isHorizontal())
@@ -1174,6 +1158,8 @@ CCScrollBar::updatePositionAndSize()
             }
             else
             {
+                CCNode* t = thumb();
+                const CCSize& thumbSize = t->getContentSize();
                 myPos.x = viewSize.width - thumbSize.width - 8;
             }
             
@@ -1193,18 +1179,41 @@ CCScrollBar::updatePositionAndSize()
 }
 
 void
-CCScrollBar::setThumbPos(const CCPoint& iPos)
+CCScrollBar::setThumbPos(float iPos)
 {
     auto* t = thumb();
     
     t->ignoreAnchorPointForPosition(true);
-    t->setPosition(iPos);
+    
+    CCPoint pos = t->getPosition();
+    if (isHorizontal())
+    {
+        pos.x = iPos;
+    }
+    else
+    {
+        pos.y = iPos;
+    }
+    
+    t->setPosition(pos);
 }
 
 void
-CCScrollBar::setThumbSize(const CCSize& iSize)
+CCScrollBar::setThumbSize(float iSize)
 {
-    thumb()->setContentSize(iSize);
+    CCNode* t = thumb();
+    CCSize size = t->getContentSize();
+    
+    if (isHorizontal())
+    {
+        size.width = iSize;
+    }
+    else
+    {
+        size.height = iSize;
+    }
+    
+    t->setContentSize(size);
 }
 
 CCScrollBar* CCScrollView::createScrollBar(bool iHorizontal)

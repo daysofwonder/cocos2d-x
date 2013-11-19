@@ -74,8 +74,8 @@ protected:
     bool init();
     
     virtual CCNode* thumb();
-    virtual void setThumbPos(const CCPoint& iPos);
-    virtual void setThumbSize(const CCSize& iSize);
+    virtual void setThumbPos(float iPos);
+    virtual void setThumbSize(float iSize);
     
 private:
     CCScrollView* m_Owner;
