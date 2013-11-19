@@ -68,6 +68,8 @@ public:
     
     virtual void updatePositionAndSize();
     
+    virtual bool isTouchInside(CCTouch* iTouch) override;
+    
 protected:
     CCScrollBar(CCScrollView* iOwner, bool iIsHorizontal);
     
@@ -279,12 +281,26 @@ public:
         fNoScrollBars = 0,
         
         fHorizontalScrollBar = 1 << 0,
-        fVerticalScrollBar = 1 << 1
+        fVerticalScrollBar = 1 << 1,
+        
+        fTopHorizontalScrollBar = fHorizontalScrollBar | 1 << 2,
+        fLeftVerticalScrollBar = fVerticalScrollBar | 1 << 3,
+        
+        fAlwaysVisibleHorizontalScrollBar = fHorizontalScrollBar | 1 << 4,
+        fAlwaysVisibleVerticalScrollBar = fVerticalScrollBar | 1 << 5
     };
     
     unsigned int scrollBarsFlags() const { return m_ScrollBarsFlags; }
-    
     void setScrollBarsFlags(unsigned int iScrollbarFlags);
+    
+    float getHorizontalScrollBarMargin() const { return m_HorizontalScrollBarMargin; }
+    void setHorizontalScrollBarMargin(float iMargin);
+
+    float getVerticalScrollBarMargin() const { return m_VerticalScrollBarMargin; }
+    void setVerticalScrollBarMargin(float iMargin);
+    
+    int getScrollBarZOrder() const { return m_ScrollBarZOrder; }
+    void setScrollBarZOrder(int ZOrder);
     
 private:
     /**
@@ -427,6 +443,9 @@ protected:
     unsigned int m_ScrollBarsFlags;
     CCScrollBar* m_HorizontalScrollBar;
     CCScrollBar* m_VerticalScrollBar;
+    float        m_HorizontalScrollBarMargin;
+    float       m_VerticalScrollBarMargin;
+    int         m_ScrollBarZOrder;
     
     void onStillTouchDown(float iDelay);
     void unscheduleStillTouchDown();

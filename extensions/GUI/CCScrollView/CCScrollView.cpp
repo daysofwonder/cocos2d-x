@@ -64,7 +64,10 @@ m_DelayedTouch(NULL),
 m_ScrollBarFactory(NULL),
 m_HorizontalScrollBar(NULL),
 m_VerticalScrollBar(NULL),
-m_ScrollBarsFlags(fNoScrollBars)
+m_ScrollBarsFlags(fNoScrollBars),
+m_HorizontalScrollBarMargin(0),
+m_VerticalScrollBarMargin(0),
+m_ScrollBarZOrder(0)
 {
 
 }
@@ -180,6 +183,16 @@ bool CCScrollView::ccPreTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
     if (m_bDelaysContentTouches && m_bScrollEnabled && (m_pTouches->count() == 0) && isTouchInside(pTouch->getLocation()))
     {
+        if ((m_HorizontalScrollBar != NULL) && m_HorizontalScrollBar->isVisible() && m_HorizontalScrollBar->isTouchInside(pTouch))
+        {
+            return false;
+        }
+
+        if ((m_VerticalScrollBar != NULL) && m_VerticalScrollBar->isVisible() && m_VerticalScrollBar->isTouchInside(pTouch))
+        {
+            return false;
+        }
+        
         if (m_DelayedTouch != pTouch)
         {
             CC_SAFE_RELEASE(m_DelayedTouch);
@@ -1034,6 +1047,18 @@ CCScrollBar::thumb()
 }
 
 bool
+CCScrollBar::isTouchInside(CCTouch* iTouch)
+{
+    CCPoint worldLoc = iTouch->getLocation();
+    
+    CCNode* t = thumb();
+    
+    CCPoint locInParentSpace = t->getParent()->convertToNodeSpace(worldLoc);
+    CCRect bBox = t->boundingBox();
+    return bBox.containsPoint(locInParentSpace);
+}
+
+bool
 CCScrollBar::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
     if (CCControl::ccTouchBegan(pTouch, pEvent))
@@ -1041,16 +1066,14 @@ CCScrollBar::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
         return true;
     }
     
-    CCPoint worldLoc = pTouch->getLocation();
-    
-    CCNode* t = thumb();
-    
-    CCPoint locInParentSpace = t->getParent()->convertToNodeSpace(worldLoc);
-    CCRect bBox = t->boundingBox();
-    if (!bBox.containsPoint(locInParentSpace))
+    if (!isTouchInside(pTouch))
     {
         return false;
     }
+    
+    CCPoint worldLoc = pTouch->getLocation();
+    CCNode* t = thumb();
+    CCPoint locInParentSpace = t->getParent()->convertToNodeSpace(worldLoc);
     
     const CCPoint scrollPos = m_Owner->getContentOffset();
     
@@ -1071,6 +1094,15 @@ CCScrollBar::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 void
 CCScrollBar::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 {
+    const CCSize& contentSize = m_Owner->getContentSize();
+    const CCSize& viewSize = m_Owner->getViewSize();
+    
+    const float ratio = isHorizontal() ? (contentSize.width / viewSize.width) : (contentSize.height / viewSize.height);
+    if (ratio < 1.f)
+    {
+        return;
+    }
+    
     CCPoint worldLoc = pTouch->getLocation();
     CCPoint locInParentSpace = getParent()->convertToNodeSpace(worldLoc);
     
@@ -1078,10 +1110,6 @@ CCScrollBar::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
     
     const float delta = m_InitialTouchPos - newPos;
     
-    const CCSize& contentSize = m_Owner->getContentSize();
-    const CCSize& viewSize = m_Owner->getViewSize();
-    
-    const float ratio = isHorizontal() ? (contentSize.width / viewSize.width) : (contentSize.height / viewSize.height);
     float newScrollPos = m_InitialScrollPos + (delta * ratio);
     
     // clamp pos
@@ -1111,6 +1139,9 @@ CCScrollBar::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 
 static bool _computeScrollBarPosAndSize(float iViewSize, float iTotalSize, float iOffset, float& oPos, float& oBarSize)
 {
+    oPos = 0;
+    oBarSize = iViewSize;
+    
     if (iTotalSize == 0)
     {
         return false;
@@ -1145,8 +1176,12 @@ CCScrollBar::updatePositionAndSize()
         const CCSize& contentSize = container->getContentSize();
         const CCSize viewSize = m_Owner->getViewSize();
         
+        const unsigned int flags = m_Owner->scrollBarsFlags();
+        
+        const bool alwaysVisible = isHorizontal() ? ((flags & CCScrollView::fAlwaysVisibleHorizontalScrollBar) == CCScrollView::fAlwaysVisibleHorizontalScrollBar) : ((flags & CCScrollView::fAlwaysVisibleVerticalScrollBar) == CCScrollView::fAlwaysVisibleVerticalScrollBar);
+        
         float pos, size;
-        if (_computeScrollBarPosAndSize(isHorizontal() ? viewSize.width : viewSize.height, isHorizontal() ? contentSize.width : contentSize.height, isHorizontal() ? offset.x : offset.y, pos, size))
+        if (_computeScrollBarPosAndSize(isHorizontal() ? viewSize.width : viewSize.height, isHorizontal() ? contentSize.width : contentSize.height, isHorizontal() ? offset.x : offset.y, pos, size) || alwaysVisible)
         {
             setThumbSize(size);
             setThumbPos(pos);
@@ -1154,13 +1189,31 @@ CCScrollBar::updatePositionAndSize()
             CCPoint myPos = getPosition();
             if (isHorizontal())
             {
-                myPos.y = 8;
+                const float margin = m_Owner->getHorizontalScrollBarMargin();
+                if ((flags & CCScrollView::fTopHorizontalScrollBar) == CCScrollView::fTopHorizontalScrollBar)
+                {
+                    CCNode* t = thumb();
+                    const CCSize& thumbSize = t->getContentSize();
+                    myPos.y = viewSize.height - thumbSize.height - margin;
+                }
+                else
+                {
+                    myPos.y = margin;
+                }
             }
             else
             {
-                CCNode* t = thumb();
-                const CCSize& thumbSize = t->getContentSize();
-                myPos.x = viewSize.width - thumbSize.width - 8;
+                const float margin = m_Owner->getVerticalScrollBarMargin();
+                if ((flags & CCScrollView::fLeftVerticalScrollBar) == CCScrollView::fLeftVerticalScrollBar)
+                {
+                    myPos.x = margin;
+                }
+                else
+                {
+                    CCNode* t = thumb();
+                    const CCSize& thumbSize = t->getContentSize();
+                    myPos.x = viewSize.width - thumbSize.width - margin;
+                }
             }
             
             setPosition(myPos);
@@ -1227,12 +1280,55 @@ CCScrollBar* CCScrollView::createScrollBar(bool iHorizontal)
             // Watch out: call the fully featured one
             // otherwise it will indirectly call the one overriden in CCScrollView,
             // and then add the scrollbar to the container!
-            CCLayer::addChild(scrollBar, +100, -1);
+            CCLayer::addChild(scrollBar, m_ScrollBarZOrder, -1);
             return scrollBar;
         }
     }
 
     return NULL;
+}
+
+void
+CCScrollView::setHorizontalScrollBarMargin(float iMargin)
+{
+    if (m_HorizontalScrollBarMargin != iMargin)
+    {
+        m_HorizontalScrollBarMargin = iMargin;
+        updateScrollBarsPositions();
+    }
+}
+
+void
+CCScrollView::setVerticalScrollBarMargin(float iMargin)
+{
+    if (m_VerticalScrollBarMargin != iMargin)
+    {
+        m_VerticalScrollBarMargin = iMargin;
+        updateScrollBarsPositions();
+    }
+}
+
+void
+CCScrollView::setScrollBarZOrder(int iZOrder)
+{
+    if (m_ScrollBarZOrder != iZOrder)
+    {
+        m_ScrollBarZOrder = iZOrder;
+        
+        if (m_HorizontalScrollBar != NULL)
+        {
+            m_HorizontalScrollBar->removeFromParentAndCleanup(true);
+            CC_SAFE_RELEASE_NULL(m_HorizontalScrollBar);
+        }
+        
+        if (m_VerticalScrollBar != NULL)
+        {
+            m_VerticalScrollBar->removeFromParentAndCleanup(true);
+            CC_SAFE_RELEASE_NULL(m_VerticalScrollBar);
+        }
+        
+        updateScrollBars();
+    }
 }
 
 void CCScrollView::updateScrollBars()
@@ -1242,7 +1338,7 @@ void CCScrollView::updateScrollBars()
         if (m_HorizontalScrollBar == NULL)
         {
             m_HorizontalScrollBar = createScrollBar(true);
-            CC_SAFE_RETAIN(m_HorizontalScrollBar);;
+            CC_SAFE_RETAIN(m_HorizontalScrollBar);
         }
     }
     else if (m_HorizontalScrollBar != NULL)
