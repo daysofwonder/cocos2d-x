@@ -73,6 +73,7 @@ protected:
     
     bool init();
     
+    virtual CCNode* thumb();
     virtual void setThumbPos(const CCPoint& iPos);
     virtual void setThumbSize(const CCSize& iSize);
     

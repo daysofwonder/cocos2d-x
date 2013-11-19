@@ -1027,6 +1027,12 @@ CCScrollBar::init()
     return false;
 }
 
+CCNode*
+CCScrollBar::thumb()
+{
+    return this;
+}
+
 bool
 CCScrollBar::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
@@ -1037,8 +1043,10 @@ CCScrollBar::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
     
     CCPoint worldLoc = pTouch->getLocation();
     
-    CCPoint locInParentSpace = getParent()->convertToNodeSpace(worldLoc);
-    CCRect bBox = boundingBox();
+    CCNode* t = thumb();
+    
+    CCPoint locInParentSpace = t->getParent()->convertToNodeSpace(worldLoc);
+    CCRect bBox = t->boundingBox();
     if (!bBox.containsPoint(locInParentSpace))
     {
         return false;
@@ -1140,26 +1148,36 @@ CCScrollBar::updatePositionAndSize()
         float pos, size;
         if (_computeScrollBarPosAndSize(isHorizontal() ? viewSize.width : viewSize.height, isHorizontal() ? contentSize.width : contentSize.height, isHorizontal() ? offset.x : offset.y, pos, size))
         {
-            CCSize barSize = getContentSize();
-            CCPoint barPos = getPosition();
+            CCNode* t = thumb();
+            
+            CCSize thumbSize = t->getContentSize();
+            CCPoint thumbPos = t->getPosition();
             
             if (isHorizontal())
             {
-                barSize.width = size;
-                
-                barPos.x = pos;
-                barPos.y = 8;
+                thumbSize.width = size;
+                thumbPos.x = pos;
             }
             else
             {
-                barSize.height = size;
-                
-                barPos.y = pos;
-                barPos.x = viewSize.width - barSize.width - 8;
+                thumbSize.height = size;
+                thumbPos.y = pos;
             }
             
-            setThumbSize(barSize);
-            setThumbPos(barPos);
+            setThumbSize(thumbSize);
+            setThumbPos(thumbPos);
+            
+            CCPoint myPos = getPosition();
+            if (isHorizontal())
+            {
+                myPos.y = 8;
+            }
+            else
+            {
+                myPos.x = viewSize.width - thumbSize.width - 8;
+            }
+            
+            setPosition(myPos);
             
             setVisible(true);
         }
@@ -1177,14 +1195,16 @@ CCScrollBar::updatePositionAndSize()
 void
 CCScrollBar::setThumbPos(const CCPoint& iPos)
 {
-    ignoreAnchorPointForPosition(true);
-    setPosition(iPos);
+    auto* t = thumb();
+    
+    t->ignoreAnchorPointForPosition(true);
+    t->setPosition(iPos);
 }
 
 void
 CCScrollBar::setThumbSize(const CCSize& iSize)
 {
-    setContentSize(iSize);
+    thumb()->setContentSize(iSize);
 }
 
 CCScrollBar* CCScrollView::createScrollBar(bool iHorizontal)
