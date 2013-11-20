@@ -408,7 +408,7 @@ void CCEditBoxImplIOS::setFont(const char* pFontName, int fontSize)
 		[m_systemControl.textField setFont:textFont];
     }
 
-    if (m_pLabel != nullptr)
+    if (m_pLabel != NULL)
     {
         m_pLabel->setFontName(pFontName);
         m_pLabel->setFontSize(fontSize);        

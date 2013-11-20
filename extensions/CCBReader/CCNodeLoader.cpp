@@ -381,7 +381,7 @@ CCPoint
 CCNodeLoader::processPropTypePosition(CCNode* node, CCNode* parent, const CCPoint& pos, int ntype, const CCSize& containerSize, const char* pPropertyName)
 {
     CCNodeLoaderListener* listener = dynamic_cast<CCNodeLoaderListener*>(parent);
-    if (listener != nullptr)
+    if (listener != NULL)
     {
         listener->onChildPositionParsed(parent, node, pos, ntype, containerSize, pPropertyName);
     }
@@ -393,7 +393,7 @@ CCSize
 CCNodeLoader::processPropTypeSize(CCNode* node, CCNode* parent, const CCSize& size, int ntype, const CCSize& containerSize)
 {
     CCNodeLoaderListener* listener = dynamic_cast<CCNodeLoaderListener*>(parent);
-    if (listener != nullptr)
+    if (listener != NULL)
     {
         listener->onChildSizeParsed(parent, node, size, ntype, containerSize);
     }

@@ -491,7 +491,7 @@ CCEditBoxImplMac::needsLayout()
 CCLabelTTF*
 CCEditBoxImplMac::getLabel() const
 {
-    return nullptr;
+    return NULL;
 }
 
 void
