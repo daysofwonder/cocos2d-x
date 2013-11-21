@@ -55,6 +55,8 @@ public:
         return m_startupScriptFilename;
     }
 
+	virtual void timerCallback() {}
+
 protected:
     HINSTANCE           m_hInstance;
     HACCEL              m_hAccelTable;
