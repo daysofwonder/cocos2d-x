@@ -32,6 +32,7 @@ NS_CC_BEGIN
 
 // record the zip on the resource path
 static ZipFile *s_pZipFile = NULL;
+static ZipFile *s_pObbFile = NULL;
 
 CCFileUtils* CCFileUtils::sharedFileUtils()
 {
@@ -41,6 +42,12 @@ CCFileUtils* CCFileUtils::sharedFileUtils()
         s_sharedFileUtils->init();
         std::string resourcePath = getApkPath();
         s_pZipFile = new ZipFile(resourcePath, "assets/");
+
+        std::string obbPath = getObbPath();
+        if (!obbPath.empty())
+        {
+        	s_pObbFile = new ZipFile(obbPath, "assets/");
+        }
     }
     return s_sharedFileUtils;
 }
@@ -52,6 +59,7 @@ CCFileUtilsAndroid::CCFileUtilsAndroid()
 CCFileUtilsAndroid::~CCFileUtilsAndroid()
 {
     CC_SAFE_DELETE(s_pZipFile);
+    CC_SAFE_DELETE(s_pObbFile);
 }
 
 bool CCFileUtilsAndroid::init()
@@ -81,7 +89,11 @@ bool CCFileUtilsAndroid::isFileExist(const std::string& strFilePath)
         if (s_pZipFile->fileExists(strPath))
         {
             bFound = true;
-        } 
+        }
+        else if ((s_pObbFile != NULL) && (s_pObbFile->fileExists(strPath)))
+        {
+        	bFound = true;
+        }
     }
     else
     {
@@ -123,7 +135,14 @@ unsigned char* CCFileUtilsAndroid::getFileData(const char* pszFileName, const ch
     if (fullPath[0] != '/')
     {
         //CCLOG("GETTING FILE RELATIVE DATA: %s", pszFileName);
-        pData = s_pZipFile->getFileData(fullPath.c_str(), pSize);
+        if (s_pZipFile->fileExists(fullPath))
+        {
+        	pData = s_pZipFile->getFileData(fullPath.c_str(), pSize);
+        }
+        else if ((s_pObbFile != NULL) && (s_pObbFile->fileExists(fullPath)))
+        {
+        	pData = s_pObbFile->getFileData(fullPath.c_str(), pSize);
+        }
     }
     else
     {

@@ -19,11 +19,16 @@ using namespace cocos2d;
 using namespace std;
 
 string g_apkPath;
+string g_ObbPath;
 
 extern "C" {
 
     JNIEXPORT void JNICALL Java_org_cocos2dx_lib_Cocos2dxHelper_nativeSetApkPath(JNIEnv*  env, jobject thiz, jstring apkPath) {
         g_apkPath = JniHelper::jstring2string(apkPath);
+    }
+
+    JNIEXPORT void JNICALL Java_org_cocos2dx_lib_Cocos2dxHelper_nativeSetObbPath(JNIEnv*  env, jobject thiz, jstring obbPath) {
+    	g_ObbPath = JniHelper::jstring2string(obbPath);
     }
 
     JNIEXPORT void JNICALL Java_org_cocos2dx_lib_Cocos2dxHelper_nativeSetEditTextDialogResult(JNIEnv * env, jobject obj, jbyteArray text) {
@@ -49,6 +54,10 @@ extern "C" {
 
 const char * getApkPath() {
     return g_apkPath.c_str();
+}
+
+const char * getObbPath() {
+    return g_ObbPath.c_str();
 }
 
 void showDialogJNI(const char * pszMsg, const char * pszTitle) {
