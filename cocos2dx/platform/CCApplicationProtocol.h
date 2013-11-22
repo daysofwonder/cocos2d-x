@@ -63,6 +63,10 @@ public:
      @brief Get target platform
      */
     virtual TargetPlatform getTargetPlatform() = 0;
+    
+    
+    virtual void timerCallback() {} //JFS:  not = 0 , so as not to modify ALL platforms
+
 };
 
 // end of platform group
