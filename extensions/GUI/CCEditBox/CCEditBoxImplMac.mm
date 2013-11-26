@@ -411,7 +411,9 @@ void CCEditBoxImplMac::setAnchorPoint(const CCPoint& anchorPoint)
 
 void CCEditBoxImplMac::visit(void)
 {
-    
+    // Update at every frame, to track possible
+    // position changes in ancestors
+    adjustTextFieldPosition();
 }
 
 void CCEditBoxImplMac::openKeyboard()
