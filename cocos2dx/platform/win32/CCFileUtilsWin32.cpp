@@ -110,6 +110,8 @@ string CCFileUtilsWin32::getWritablePath()
             {
                 string ret((char*)app_data_path);
 
+				ret += "\\Days of Wonder";
+
                 // Adding executable filename, e.g. C:\Documents and Settings\username\Local Settings\Application Data\MyGame.exe
                 ret += base_name;
 
