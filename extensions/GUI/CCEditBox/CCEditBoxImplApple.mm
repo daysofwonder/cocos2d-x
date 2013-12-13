@@ -74,6 +74,46 @@
     // Mac
     #define NativeTextFieldDelegate NSTextFieldDelegate
 
+    static NSRect adjustedFrameToVerticallyCenterText(NSTextFieldCell* iCell, const NSRect& frame)
+    {
+        // super would normally draw text at the top of the cell
+        NSInteger offset = floor((NSHeight(frame) -
+                                  ([[iCell font] ascender] - [[iCell font] descender])) / 2);
+        return NSInsetRect(frame, 0.0, offset);
+    }
+
+    @interface CustomTextCell : NSTextFieldCell
+    @end
+
+    @implementation CustomTextCell
+
+
+    - (void)editWithFrame:(NSRect)aRect inView:(NSView *)controlView
+                   editor:(NSText *)editor delegate:(id)delegate event:(NSEvent *)event
+    {
+        [super editWithFrame:adjustedFrameToVerticallyCenterText(self, aRect)
+                      inView:controlView editor:editor delegate:delegate event:event];
+    }
+
+    - (void)selectWithFrame:(NSRect)aRect inView:(NSView *)controlView
+                     editor:(NSText *)editor delegate:(id)delegate
+                      start:(NSInteger)start length:(NSInteger)length
+    {
+        
+        [super selectWithFrame:adjustedFrameToVerticallyCenterText(self, aRect)
+                        inView:controlView editor:editor delegate:delegate
+                         start:start length:length];
+    }
+
+    - (void)drawInteriorWithFrame:(NSRect)frame inView:(NSView *)view
+    {
+        [super drawInteriorWithFrame:
+         adjustedFrameToVerticallyCenterText(self, frame) inView:view];
+    }
+
+
+    @end
+
     @interface CustomNSTextField : NSTextField
     {
     }
@@ -82,23 +122,18 @@
 
     @implementation CustomNSTextField
 
-/*
-    - (CGRect)textRectForBounds:(CGRect)bounds
-    {
-        float padding = 5.0f;
-        return CGRectMake(bounds.origin.x + padding, bounds.origin.y + padding,
-                          bounds.size.width - padding*2, bounds.size.height - padding*2);
-    }
+        +(void)load
+        {
+            [self setCellClass:[CustomTextCell class]];
+        }
 
-    - (CGRect)editingRectForBounds:(CGRect)bounds {
-        return [self textRectForBounds:bounds];
-    }*/
+        - (void)setup
+        {
+            [self setBordered:NO];
+            [self setHidden:YES];
+            [self setWantsLayer:YES];
+        }
 
-    - (void)setup {
-        [self setBordered:NO];
-        [self setHidden:YES];
-        [self setWantsLayer:YES];
-    }
 
     @end
 
@@ -138,6 +173,7 @@
         [textField_ setTextColor:[NSColor whiteColor]];
         textField_.font = [NSFont systemFontOfSize:frameRect.size.height*2/3]; //TODO need to delete hard code here.
         textField_.backgroundColor = [NSColor clearColor];
+        //textField_.backgroundColor = [NSColor redColor];
         [(CustomNSTextField*)textField_ setup];
 #endif
         
@@ -163,6 +199,15 @@
 -(void) setContentSize:(NativeSize) size
 {
     NativeRect frame = [textField_ frame];
+    
+#if !TARGET_OS_IPHONE
+    // Mac
+    const float s = cocos2d::CCDirector::sharedDirector()->getContentScaleFactor();
+    
+    size.width *= s;
+    size.height *= s;
+#endif
+    
     frame.size = size;
     [textField_ setFrame:frame];
 }
@@ -715,8 +760,7 @@ NativePoint CCEditBoxImplApple::convertDesignCoordToScreenCoord(const CCPoint& d
     NativeRect frame = [m_systemControl.textField frame];
     CGFloat height = frame.size.height;
     
-    //TODO: I don't know why here needs to substract `height`.
-    NSPoint screenPos = NSMakePoint(screenGLPos.x, screenGLPos.y-height);
+    NSPoint screenPos = NSMakePoint(screenGLPos.x, screenGLPos.y - height);
 #endif
     
     if (m_bInRetinaMode)
