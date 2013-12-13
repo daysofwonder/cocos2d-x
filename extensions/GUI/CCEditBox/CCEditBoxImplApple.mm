@@ -529,16 +529,20 @@ void CCEditBoxImplApple::setInactiveText(const char* pText)
 	}
 }
 
-void CCEditBoxImplApple::setFont(const char* pFontName, int fontSize)
+void CCEditBoxImplApple::updateFontOfNativeTextField()
 {
+    const char* fontName = m_pLabel->getFontName();
+    const float fontSize = m_pLabel->getFontSize();
+    
     bool isValidFontName = true;
-	if(pFontName == NULL || strlen(pFontName) == 0) {
+	if(fontName == NULL || strlen(fontName) == 0) {
         isValidFontName = false;
     }
-
+    
+    NSString * fntName = [NSString stringWithUTF8String:fontName];
+    
 #if TARGET_OS_IPHONE
     float retinaFactor = m_bInRetinaMode ? 2.0f : 1.0f;
-	NSString * fntName = [NSString stringWithUTF8String:pFontName];
     float scaleFactor = CCEGLView::sharedOpenGLView()->getScaleX();
     UIFont *textFont = nil;
     if (isValidFontName) {
@@ -548,17 +552,31 @@ void CCEditBoxImplApple::setFont(const char* pFontName, int fontSize)
     if (!isValidFontName || textFont == nil){
         textFont = [UIFont systemFontOfSize:fontSize * scaleFactor / retinaFactor];
     }
-
+    
 #else
     // Mac
-    NSString * fntName = [NSString stringWithUTF8String:pFontName];
-    NSFont *textFont = [NSFont fontWithName:fntName size:fontSize];
+    
+    // Take into account overall scaling
+    CCNode* parent = m_pEditBox->getParent();
+    CCRect worldBox = m_pEditBox->boundingBox();
+    
+    if (parent != NULL)
+    {
+        worldBox = CCRectApplyAffineTransform(worldBox, parent->nodeToWorldTransform());
+    }
+    
+    const float scale = worldBox.size.width / m_pEditBox->getContentSize().width;
+    const float fSize = float(fontSize) * scale * CC_CONTENT_SCALE_FACTOR();
+    NSFont *textFont = [NSFont fontWithName:fntName size:fSize];
 #endif
     
     if(textFont != nil) {
         [m_systemControl.textField setFont:textFont];
     }
-    
+}
+
+void CCEditBoxImplApple::setFont(const char* pFontName, int fontSize)
+{
     if (m_pLabel != NULL)
     {
         m_pLabel->setFontName(pFontName);
@@ -570,6 +588,8 @@ void CCEditBoxImplApple::setFont(const char* pFontName, int fontSize)
         m_pLabelPlaceHolder->setFontName(pFontName);
         m_pLabelPlaceHolder->setFontSize(fontSize);        
     }
+    
+    updateFontOfNativeTextField();
 }
 
 void CCEditBoxImplApple::setFontColor(const ccColor3B& color)
@@ -830,6 +850,8 @@ void CCEditBoxImplApple::openKeyboard()
 	m_pLabel->setVisible(false);
 	m_pLabelPlaceHolder->setVisible(false);
 
+    updateFontOfNativeTextField();
+    
 	m_systemControl.textField.hidden = NO;
     [m_systemControl openKeyboard];
 }

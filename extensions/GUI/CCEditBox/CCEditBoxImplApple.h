@@ -145,6 +145,7 @@ private:
 	void			setInactiveText(const char* pText);
 	void			adjustTextFieldPosition();
     void            placeInactiveLabels();
+    void            updateFontOfNativeTextField();
     
     NativePoint convertDesignCoordToScreenCoord(const CCPoint& designCoord) const;
     
