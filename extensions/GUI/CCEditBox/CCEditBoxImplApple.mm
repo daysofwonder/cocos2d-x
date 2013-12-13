@@ -128,7 +128,6 @@
 		textField_.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         textField_.backgroundColor = [UIColor clearColor];
         textField_.borderStyle = UITextBorderStyleNone;
-        textField_.delegate = self;
         textField_.hidden = true;
 		textField_.returnKeyType = UIReturnKeyDefault;
         [textField_ addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
@@ -140,9 +139,9 @@
         textField_.font = [NSFont systemFontOfSize:frameRect.size.height*2/3]; //TODO need to delete hard code here.
         textField_.backgroundColor = [NSColor clearColor];
         [(CustomNSTextField*)textField_ setup];
-        textField_.delegate = self;
 #endif
         
+        textField_.delegate = self;
     }
     
     return self;
@@ -288,6 +287,21 @@
 {
     return [self textFieldShouldEndEditing:(NativeTextField*) control];
 }
+
+- (void)controlTextDidChange:(NSNotification *)aNotification
+{
+    [self textChanged];
+}
+
+-(void)controlTextDidEndEditing:(NSNotification *)notification
+{
+    // See if it was due to a return
+    if ( [[[notification userInfo] objectForKey:@"NSTextMovement"] intValue] == NSReturnTextMovement )
+    {
+        [self textFieldShouldReturn:textField_];
+    }
+}
+
 #endif
 
 /**
