@@ -220,12 +220,13 @@ static NSFileManager* s_fileManager = [NSFileManager defaultManager];
 
 std::string CCFileUtilsMac::getWritablePath()
 {
-    // save to document folder
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    std::string strRet = [documentsDirectory UTF8String];
-    strRet.append("/");
-    return strRet;
+    NSString *fullPath = [documentsDirectory stringByAppendingPathComponent: [[NSBundle mainBundle] bundleIdentifier]];
+    [[NSFileManager defaultManager]  createDirectoryAtPath: fullPath withIntermediateDirectories: NO attributes:nil error: nil];
+    std::string result([fullPath UTF8String]);
+    result.append("/");
+    return result;
 }
 
 bool CCFileUtilsMac::isFileExist(const std::string& strFilePath)
