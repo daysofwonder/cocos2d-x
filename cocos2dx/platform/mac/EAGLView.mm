@@ -40,7 +40,6 @@ THE SOFTWARE.
 #import "CCEventDispatcher.h"
 #import "CCEGLView.h"
 
-
 //USING_NS_CC;
 static EAGLView *view;
 
@@ -321,6 +320,8 @@ static EAGLView *view;
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
+    [[self window] makeFirstResponder:self];
+    
 	NSPoint event_location = [theEvent locationInWindow];
 	NSPoint local_point = [self convertPoint:event_location fromView:nil];
 	
@@ -499,4 +500,6 @@ static EAGLView *view;
 {
 	DISPATCH_EVENT(theEvent, _cmd);
 }
+
+
 @end

@@ -87,7 +87,6 @@
 
     @implementation CustomTextCell
 
-
     - (void)editWithFrame:(NSRect)aRect inView:(NSView *)controlView
                    editor:(NSText *)editor delegate:(id)delegate event:(NSEvent *)event
     {
@@ -133,7 +132,6 @@
             [self setHidden:YES];
             [self setWantsLayer:YES];
         }
-
 
     @end
 
@@ -220,7 +218,12 @@
 -(void) openKeyboard
 {
     [[EAGLView sharedEGLView] addSubview:textField_];
+    
+#if TARGET_OS_IPHONE
     [textField_ becomeFirstResponder];
+#else
+    [textField_.window makeFirstResponder:textField_];
+#endif
 }
 
 -(void) closeKeyboard
@@ -341,9 +344,16 @@
 -(void)controlTextDidEndEditing:(NSNotification *)notification
 {
     // See if it was due to a return
-    if ( [[[notification userInfo] objectForKey:@"NSTextMovement"] intValue] == NSReturnTextMovement )
+    const int v = [[[notification userInfo] objectForKey:@"NSTextMovement"] intValue];
+    
+    if ( v == NSReturnTextMovement )
     {
         [self textFieldShouldReturn:textField_];
+    }
+    else
+    {
+        [self textFieldShouldEndEditing:textField_];
+        [self closeKeyboard];
     }
 }
 
@@ -598,6 +608,7 @@ void CCEditBoxImplApple::setFontColor(const ccColor3B& color)
     m_systemControl.textField.textColor = [UIColor colorWithRed:color.r / 255.0f green:color.g / 255.0f blue:color.b / 255.0f alpha:1.0f];
 #else
     m_systemControl.textField.textColor = [NSColor colorWithCalibratedRed:color.r / 255.0f green:color.g / 255.0f blue:color.b / 255.0f alpha:1.0f];
+    //m_systemControl.textField.textColor = [NSColor redColor];
 #endif
     
 	m_pLabel->setColor(color);
