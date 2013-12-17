@@ -110,13 +110,9 @@
          adjustedFrameToVerticallyCenterText(self, frame) inView:view];
     }
 
-
     @end
 
     @interface CustomNSTextField : NSTextField
-    {
-    }
-
     @end
 
     @implementation CustomNSTextField
@@ -126,14 +122,8 @@
             [self setCellClass:[CustomTextCell class]];
         }
 
-        - (void)setup
-        {
-            [self setBordered:NO];
-            [self setHidden:YES];
-            [self setWantsLayer:YES];
-        }
-
     @end
+
 
 #endif
 
@@ -166,13 +156,7 @@
         [textField_ addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
 #else
         // Mac
-        textField_ = [[CustomNSTextField alloc] initWithFrame: frameRect];
-        
-        [textField_ setTextColor:[NSColor whiteColor]];
-        textField_.font = [NSFont systemFontOfSize:frameRect.size.height*2/3]; //TODO need to delete hard code here.
-        textField_.backgroundColor = [NSColor clearColor];
-        //textField_.backgroundColor = [NSColor redColor];
-        [(CustomNSTextField*)textField_ setup];
+        [self createTextField:frameRect secured:NO];
 #endif
         
         textField_.delegate = self;
@@ -180,6 +164,26 @@
     
     return self;
 }
+
+#if !TARGET_OS_IPHONE
+
+-(void) createTextField:(CGRect)frameRect secured:(BOOL)secured
+{
+    [textField_ removeFromSuperview];
+    
+    textField_ = secured ? [[NSSecureTextField alloc] initWithFrame: frameRect] : [[CustomNSTextField alloc] initWithFrame: frameRect];
+    
+    [textField_ setTextColor:[NSColor whiteColor]];
+    textField_.font = [NSFont systemFontOfSize:frameRect.size.height*2/3]; //TODO need to delete hard code here.
+    textField_.backgroundColor = [NSColor clearColor];
+    //textField_.backgroundColor = [NSColor redColor];
+    
+    [textField_ setBordered:NO];
+    [textField_ setHidden:YES];
+    [textField_ setWantsLayer:YES];
+}
+
+#endif
 
 -(void) doAnimationWhenKeyboardMoveWithDuration:(float)duration distance:(float)distance
 {
@@ -693,7 +697,37 @@ void CCEditBoxImplApple::setInputFlag(EditBoxInputFlag inputFlag)
     }
 #else
     // Mac
-    // TODO
+    switch (inputFlag)
+    {
+        case kEditBoxInputFlagPassword:
+        {
+            if (![m_systemControl isKindOfClass:[NSSecureTextField class]])
+            {
+                CGRect r = m_systemControl.textField.frame;
+                [m_systemControl createTextField:r secured:YES];
+                updateFontOfNativeTextField();
+                
+                const ccColor3B& color = m_pLabel->getColor();
+                m_systemControl.textField.textColor = [NSColor colorWithCalibratedRed:color.r / 255.0f green:color.g / 255.0f blue:color.b / 255.0f alpha:1.0f];
+            }
+            break;
+        }
+
+        default:
+        {
+            if ([m_systemControl isKindOfClass:[NSSecureTextField class]])
+            {
+                CGRect r = m_systemControl.textField.frame;
+                [m_systemControl createTextField:r secured:NO];
+                updateFontOfNativeTextField();
+                
+                const ccColor3B& color = m_pLabel->getColor();
+                m_systemControl.textField.textColor = [NSColor colorWithCalibratedRed:color.r / 255.0f green:color.g / 255.0f blue:color.b / 255.0f alpha:1.0f];
+            }
+            break;
+        }
+            
+    }
 #endif
 }
 
