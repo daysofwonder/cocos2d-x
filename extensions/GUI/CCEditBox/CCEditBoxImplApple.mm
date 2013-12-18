@@ -84,9 +84,26 @@
 
 
     @interface CustomNSTextField : NSTextField
+    {
+    }
+    @property(assign, nonatomic) BOOL clearsOnBeginEditing;
     @end
 
     @implementation CustomNSTextField
+
+        @synthesize clearsOnBeginEditing;
+
+        -(BOOL) becomeFirstResponder
+        {
+            [super becomeFirstResponder];
+            
+            if (self.clearsOnBeginEditing)
+            {
+                [self setStringValue:@""];
+            }
+            
+            return YES;
+        }
 
     @end
 
@@ -406,6 +423,35 @@
         cocos2d::CCScriptEngineProtocol* pEngine = cocos2d::CCScriptEngineManager::sharedManager()->getScriptEngine();
         pEngine->executeEvent(pEditBox->getScriptEditBoxHandler(), "changed",pEditBox);
     }
+}
+
+-(BOOL) clearsOnBeginEditing
+{
+#if TARGET_OS_IPHONE
+    return textField_.clearsOnBeginEditing;
+#else
+    if ([textField_ isKindOfClass:[CustomNSTextField class]])
+    {
+        return [(CustomNSTextField*)textField_ clearsOnBeginEditing];
+    }
+    else
+    {
+        return YES; // secured
+    }
+    
+#endif
+}
+
+-(void) setClearsOnBeginEditing:(BOOL)clear
+{
+#if TARGET_OS_IPHONE
+    textField_.clearsOnBeginEditing = clear;
+#else
+    if ([textField_ isKindOfClass:[CustomNSTextField class]])
+    {
+        ((CustomNSTextField*)textField_).clearsOnBeginEditing = clear;
+    }
+#endif
 }
 
 @end
@@ -966,22 +1012,13 @@ void CCEditBoxImplApple::setAutoCorrectionMode(EditBoxAutoCorrectionMode mode)
 
 bool CCEditBoxImplApple::clearsOnBeginEditing() const
 {
-#if TARGET_OS_IPHONE
-    return m_systemControl.textField.clearsOnBeginEditing;
-#else
-    // Mac TODO
-    return false;
-#endif
+    return [m_systemControl clearsOnBeginEditing];
 }
 
 void
 CCEditBoxImplApple::setClearsOnBeginEditing(bool iEnable)
 {
-#if TARGET_OS_IPHONE
-    m_systemControl.textField.clearsOnBeginEditing = iEnable;
-#else
-    // Mac TODO
-#endif
+    [m_systemControl setClearsOnBeginEditing:iEnable];
 }
 
 void
