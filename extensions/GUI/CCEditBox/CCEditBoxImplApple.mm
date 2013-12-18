@@ -74,53 +74,19 @@
     // Mac
     #define NativeTextFieldDelegate NSTextFieldDelegate
 
-    static NSRect adjustedFrameToVerticallyCenterText(NSTextFieldCell* iCell, const NSRect& frame)
+    static NSRect adjustedFrameToVerticallyCenterText(NSFont* font, const NSRect& frame)
     {
         // super would normally draw text at the top of the cell
         NSInteger offset = floor((NSHeight(frame) -
-                                  ([[iCell font] ascender] - [[iCell font] descender])) / 2);
+                                  ([font ascender] - [font descender])) / 2);
         return NSInsetRect(frame, 0.0, offset);
     }
 
-    @interface CustomTextCell : NSTextFieldCell
-    @end
-
-    @implementation CustomTextCell
-
-    - (void)editWithFrame:(NSRect)aRect inView:(NSView *)controlView
-                   editor:(NSText *)editor delegate:(id)delegate event:(NSEvent *)event
-    {
-        [super editWithFrame:adjustedFrameToVerticallyCenterText(self, aRect)
-                      inView:controlView editor:editor delegate:delegate event:event];
-    }
-
-    - (void)selectWithFrame:(NSRect)aRect inView:(NSView *)controlView
-                     editor:(NSText *)editor delegate:(id)delegate
-                      start:(NSInteger)start length:(NSInteger)length
-    {
-        
-        [super selectWithFrame:adjustedFrameToVerticallyCenterText(self, aRect)
-                        inView:controlView editor:editor delegate:delegate
-                         start:start length:length];
-    }
-
-    - (void)drawInteriorWithFrame:(NSRect)frame inView:(NSView *)view
-    {
-        [super drawInteriorWithFrame:
-         adjustedFrameToVerticallyCenterText(self, frame) inView:view];
-    }
-
-    @end
 
     @interface CustomNSTextField : NSTextField
     @end
 
     @implementation CustomNSTextField
-
-        +(void)load
-        {
-            [self setCellClass:[CustomTextCell class]];
-        }
 
     @end
 
@@ -128,6 +94,11 @@
 #endif
 
 @interface EditBoxImplApple()<NativeTextFieldDelegate>
+{
+#if !TARGET_OS_IPHONE
+    NativeRect m_Frame;
+#endif
+}
 @end
 
 @implementation EditBoxImplApple
@@ -171,10 +142,14 @@
 {
     [textField_ removeFromSuperview];
     
+    NSFont* font = [NSFont systemFontOfSize:frameRect.size.height*2/3];
+    
+    m_Frame = frameRect;
+    frameRect = adjustedFrameToVerticallyCenterText(font, frameRect);
     textField_ = secured ? [[NSSecureTextField alloc] initWithFrame: frameRect] : [[CustomNSTextField alloc] initWithFrame: frameRect];
     
     [textField_ setTextColor:[NSColor whiteColor]];
-    textField_.font = [NSFont systemFontOfSize:frameRect.size.height*2/3]; //TODO need to delete hard code here.
+    textField_.font = font; //TODO need to delete hard code here.
     textField_.backgroundColor = [NSColor clearColor];
     //textField_.backgroundColor = [NSColor redColor];
     
@@ -185,6 +160,26 @@
 
 #endif
 
+-(NativeRect) frame
+{
+#if TARGET_OS_IPHONE
+    return textField_.frame;
+#else
+    return m_Frame;
+#endif
+}
+
+-(void) setFrame:(NativeRect)frame
+{
+#if TARGET_OS_IPHONE
+    textField_.frame = frame;
+#else
+    m_Frame = frame;
+    frame = adjustedFrameToVerticallyCenterText(textField_.font, frame);
+    textField_.frame = frame;
+#endif
+}
+
 -(void) doAnimationWhenKeyboardMoveWithDuration:(float)duration distance:(float)distance
 {
     id eglView = [EAGLView sharedEGLView];
@@ -193,14 +188,15 @@
 
 -(void) setPosition:(NativePoint) pos
 {
-    NativeRect frame = [textField_ frame];
+    NativeRect frame = [self frame];
     frame.origin = pos;
-    [textField_ setFrame:frame];
+    
+    [self setFrame:frame];
 }
 
 -(void) setContentSize:(NativeSize) size
 {
-    NativeRect frame = [textField_ frame];
+    NativeRect frame = [self frame];
     
 #if !TARGET_OS_IPHONE
     // Mac
@@ -211,7 +207,8 @@
 #endif
     
     frame.size = size;
-    [textField_ setFrame:frame];
+    
+    [self setFrame:frame];
 }
 
 -(void) setVisible:(BOOL)iVisible
@@ -822,7 +819,7 @@ NativePoint CCEditBoxImplApple::convertDesignCoordToScreenCoord(const CCPoint& d
     
     CGPoint screenPos = CGPointMake(screenGLPos.x, viewH - screenGLPos.y);
 #else
-    NativeRect frame = [m_systemControl.textField frame];
+    NativeRect frame = [m_systemControl frame];
     CGFloat height = frame.size.height;
     
     NSPoint screenPos = NSMakePoint(screenGLPos.x, screenGLPos.y - height);
@@ -884,10 +881,10 @@ void CCEditBoxImplApple::adjustTextFieldPosition()
 	CCRect rect = CCRectMake(localBox.origin.x, localBox.origin.y, localBox.size.width, localBox.size.height);
     rect = CCRectApplyAffineTransform(rect, m_pEditBox->nodeToWorldTransform());
 	
+    [m_systemControl setContentSize:CGSizeMake(rect.size.width, rect.size.height)];
+    
 	CCPoint designCoord = ccp(rect.origin.x, rect.origin.y + rect.size.height);
     [m_systemControl setPosition:convertDesignCoordToScreenCoord(designCoord)];
-    
-    [m_systemControl setContentSize:CGSizeMake(rect.size.width, rect.size.height)];
 }
 
 void CCEditBoxImplApple::openKeyboard()
@@ -896,6 +893,7 @@ void CCEditBoxImplApple::openKeyboard()
 	m_pLabelPlaceHolder->setVisible(false);
 
     updateFontOfNativeTextField();
+    adjustTextFieldPosition();
     
 	m_systemControl.textField.hidden = NO;
     [m_systemControl openKeyboard];
