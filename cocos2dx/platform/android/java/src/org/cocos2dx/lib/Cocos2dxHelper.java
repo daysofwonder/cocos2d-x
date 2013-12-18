@@ -24,6 +24,7 @@ THE SOFTWARE.
 package org.cocos2dx.lib;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.Throwable;
 import java.util.Locale;
 
 import android.app.Activity;
@@ -229,7 +230,11 @@ public class Cocos2dxHelper {
 	}
 
 	public static void terminateProcess() {
-		android.os.Process.killProcess(android.os.Process.myPid());
+		try {
+			android.os.Process.killProcess(android.os.Process.myPid());
+		} catch (Throwable e) {
+			/* Nothing. */
+		}
 	}
 
 	private static void showDialog(final String pTitle, final String pMessage) {
