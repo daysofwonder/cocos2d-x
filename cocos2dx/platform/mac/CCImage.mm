@@ -384,7 +384,7 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
 		
 		NSMutableParagraphStyle *paragraphStyle = [[[NSMutableParagraphStyle alloc] init] autorelease];
 		[paragraphStyle setParagraphStyle:[NSParagraphStyle defaultParagraphStyle]];
-		[paragraphStyle setLineBreakMode:NSLineBreakByCharWrapping];
+		[paragraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
 		[paragraphStyle setAlignment:align];
 
 		// attribute
