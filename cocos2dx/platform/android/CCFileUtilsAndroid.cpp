@@ -86,13 +86,13 @@ bool CCFileUtilsAndroid::isFileExist(const std::string& strFilePath)
             strPath.insert(0, m_strDefaultResRootPath);
         }
 
-        if (s_pZipFile->fileExists(strPath))
-        {
-            bFound = true;
-        }
-        else if ((s_pObbFile != NULL) && (s_pObbFile->fileExists(strPath)))
+        if ((s_pObbFile != NULL) && (s_pObbFile->fileExists(strPath)))
         {
         	bFound = true;
+        }
+        else if (s_pZipFile->fileExists(strPath))
+        {
+            bFound = true;
         }
     }
     else
@@ -135,13 +135,13 @@ unsigned char* CCFileUtilsAndroid::getFileData(const char* pszFileName, const ch
     if (fullPath[0] != '/')
     {
         //CCLOG("GETTING FILE RELATIVE DATA: %s", pszFileName);
-        if (s_pZipFile->fileExists(fullPath))
-        {
-        	pData = s_pZipFile->getFileData(fullPath.c_str(), pSize);
-        }
-        else if ((s_pObbFile != NULL) && (s_pObbFile->fileExists(fullPath)))
+        if ((s_pObbFile != NULL) && (s_pObbFile->fileExists(fullPath)))
         {
         	pData = s_pObbFile->getFileData(fullPath.c_str(), pSize);
+        }
+        else if (s_pZipFile->fileExists(fullPath))
+        {
+        	pData = s_pZipFile->getFileData(fullPath.c_str(), pSize);
         }
     }
     else
