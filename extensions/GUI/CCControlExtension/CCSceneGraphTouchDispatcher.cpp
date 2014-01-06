@@ -546,6 +546,23 @@ CCSceneGraphTouchDispatcher::wheel(const CCPoint& iWorldMousePosition, float iDe
     _dispatchWheel(CCDirector::sharedDirector()->getRunningScene(), worldLoc, iDeltaX, iDeltaY, iDeltaZ);
 }
 
+void
+CCSceneGraphTouchDispatcher::mouseMoved(const CCPoint& iWorldMousePosition)
+{
+}
+
+void
+CCSceneGraphTouchDispatcher::secondaryMouseDown(const CCPoint& iWorldMousePosition, int iButtonID)
+{
+    
+}
+
+void
+CCSceneGraphTouchDispatcher::secondaryMouseUp(const CCPoint& iWorldMousePosition, int iButtonID)
+{
+    
+}
+
 static
 CCTouchDelegate* _simulateTouchDown(CCNode* iRoot, CCTouch* iTouch, bool iIncludingRoot)
 {

@@ -348,6 +348,30 @@ void CCEGLViewProtocol::handleWheel(float iMouseX, float iMouseY, float iDeltaX,
     m_pDelegate->wheel(CCPoint(x, y), iDeltaX, iDeltaY, iDeltaZ);
 }
 
+void CCEGLViewProtocol::handleMouseMoved(float iMouseX, float iMouseY)
+{
+    const float x = (iMouseX - m_obViewPortRect.origin.x) / m_fScaleX;
+    const float y = (iMouseY - m_obViewPortRect.origin.y) / m_fScaleY;
+    
+    m_pDelegate->mouseMoved(CCPoint(x, y));
+}
+
+void CCEGLViewProtocol::handleSecondaryMouseDown(float iMouseX, float iMouseY, int iButtonID)
+{
+    const float x = (iMouseX - m_obViewPortRect.origin.x) / m_fScaleX;
+    const float y = (iMouseY - m_obViewPortRect.origin.y) / m_fScaleY;
+    
+    m_pDelegate->secondaryMouseDown(CCPoint(x, y), iButtonID);
+}
+
+void CCEGLViewProtocol::handleSecondaryMouseUp(float iMouseX, float iMouseY, int iButtonID)
+{
+    const float x = (iMouseX - m_obViewPortRect.origin.x) / m_fScaleX;
+    const float y = (iMouseY - m_obViewPortRect.origin.y) / m_fScaleY;
+    
+    m_pDelegate->secondaryMouseUp(CCPoint(x, y), iButtonID);
+}
+
 const CCRect& CCEGLViewProtocol::getViewPortRect() const
 {
     return m_obViewPortRect;

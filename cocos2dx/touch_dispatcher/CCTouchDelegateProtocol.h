@@ -65,7 +65,12 @@ public:
      virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent) {CC_UNUSED_PARAM(pTouches); CC_UNUSED_PARAM(pEvent);}
      virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent) {CC_UNUSED_PARAM(pTouches); CC_UNUSED_PARAM(pEvent);}
 
-    virtual bool wheel(const CCPoint& iWorldMouseLocation, float iDetaX, float iDeltaY, float iDeltaZ) { return false; }
+    // Desktop specific
+    virtual bool wheel(const CCPoint& iWorldMouseLocation, float iDeltaX, float iDeltaY, float iDeltaZ) { return false; }
+    virtual bool secondaryButtonDown(const CCPoint& iWorldMouseLocation, int iButtonID) { return false; }
+    virtual bool secondaryButtonUp(const CCPoint& iWorldMouseLocation, int iButtonID) { return false; }
+    
+    virtual bool mouseMoved(const CCPoint& iWorldMouseLocation) { return false; }
 };
 /**
  @brief

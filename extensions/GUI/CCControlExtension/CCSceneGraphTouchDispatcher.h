@@ -29,10 +29,15 @@ public:
     virtual void touchesMoved(CCSet* touches, CCEvent* pEvent);
     virtual void touchesEnded(CCSet* touches, CCEvent* pEvent);
     virtual void touchesCancelled(CCSet* touches, CCEvent* pEvent);
-    virtual void wheel(const CCPoint& iWorldMousePosition, float iDeltaX, float iDeltaY, float iDeltaZ);
     
     virtual CCTouchDelegate* simulateTouchDown(CCTouch* iTouch);
 
+    // Desktop specific
+    virtual void wheel(const CCPoint& iWorldMousePosition, float iDeltaX, float iDeltaY, float iDeltaZ);
+    virtual void mouseMoved(const CCPoint& iWorldMousePosition);
+    virtual void secondaryMouseDown(const CCPoint& iWorldMousePosition, int iButtonID);
+    virtual void secondaryMouseUp(const CCPoint& iWorldMousePosition, int iButtonID);
+    
 protected:
     CCSceneGraphTouchDispatcher();
 

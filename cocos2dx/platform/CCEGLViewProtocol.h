@@ -127,7 +127,12 @@ public:
     virtual void handleTouchesMove(int num, int ids[], float xs[], float ys[]);
     virtual void handleTouchesEnd(int num, int ids[], float xs[], float ys[]);
     virtual void handleTouchesCancel(int num, int ids[], float xs[], float ys[]);
-    virtual void handleWheel(float iMouseX, float iMouseY, float iDetaX, float iDeltaY, float iDeltaZ);
+    
+    // Desktop specific
+    virtual void handleWheel(float iMouseX, float iMouseY, float iDeltaX, float iDeltaY, float iDeltaZ);
+    virtual void handleMouseMoved(float iMouseX, float iMouseY);
+    virtual void handleSecondaryMouseDown(float iMouseX, float iMouseY, int iButtonID);
+    virtual void handleSecondaryMouseUp(float iMouseX, float iMouseY, int iButtonID);
     
     /**
      * Get the opengl view port rectangle.

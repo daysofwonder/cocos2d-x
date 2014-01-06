@@ -74,7 +74,12 @@ public:
     virtual void touchesMoved(CCSet* touches, CCEvent* pEvent) = 0;
     virtual void touchesEnded(CCSet* touches, CCEvent* pEvent) = 0;
     virtual void touchesCancelled(CCSet* touches, CCEvent* pEvent) = 0;
+    
+    // Desktop specific
     virtual void wheel(const CCPoint& iWorldMousePosition, float iDeltaX, float iDeltaY, float iDeltaZ) {}
+    virtual void mouseMoved(const CCPoint& iWorldMousePosition) {}
+    virtual void secondaryMouseDown(const CCPoint& iWorldMousePosition, int iButtonID) {}
+    virtual void secondaryMouseUp(const CCPoint& iWorldMousePosition, int iButtonID) {}
     
     virtual ~EGLTouchDelegate() {}
 };
