@@ -66,7 +66,7 @@ CCSceneGraphTouchDispatcher::create()
 }
 
 CCSceneGraphTouchDispatcher::CCSceneGraphTouchDispatcher()
-: m_TrackedTouchHandler(NULL)
+: m_TrackedTouchHandler(NULL), m_MouseTracker(NULL)
 {}
 
 CCTouchHandler*
@@ -83,6 +83,11 @@ CCSceneGraphTouchDispatcher::forceRemoveDelegate(CCTouchDelegate *pDelegate)
         m_TrackedTouchHandler = NULL;
     }
 
+    if ((m_MouseTracker != NULL) && (m_MouseTracker == pDelegate))
+    {
+        m_MouseTracker = NULL;
+    }
+    
     CCTouchDispatcher::forceRemoveDelegate(pDelegate);
 }
 
@@ -500,6 +505,12 @@ CCSceneGraphTouchDispatcher::touchesCancelled(CCSet* touches, CCEvent* pEvent)
     dispatchTouches(touches, pEvent, CCTOUCHCANCELLED);
 }
 
+void
+CCSceneGraphTouchDispatcher::setMouseTracker(CCTouchDelegate* iTracker)
+{
+    m_MouseTracker = iTracker;
+}
+
 static
 bool _dispatchWheel(CCNode* iRoot, const CCPoint& iWorldMouseLocation, float iDeltaX, float iDeltaY, float iDeltaZ)
 {
@@ -546,21 +557,172 @@ CCSceneGraphTouchDispatcher::wheel(const CCPoint& iWorldMousePosition, float iDe
     _dispatchWheel(CCDirector::sharedDirector()->getRunningScene(), worldLoc, iDeltaX, iDeltaY, iDeltaZ);
 }
 
+bool
+CCSceneGraphTouchDispatcher::_dispatchMouseMoved(CCNode* iRoot, const CCPoint& iWorldMousePosition)
+{
+    if (!_isNodeEligibleForHitDispatch(iRoot))
+    {
+        return false;
+    }
+    
+    // First parse children
+    CCArray* children = iRoot->getChildren();
+    const int childrenCount = (children != NULL) ? children->count() : 0;
+    
+    if (childrenCount > 0)
+    {
+        iRoot->sortAllChildren();
+        
+        // Iterate reverse
+        for (int i = childrenCount - 1; i >= 0; --i)
+        {
+            CCNode* child = static_cast<CCNode*>(children->objectAtIndex(i));
+            if (_dispatchMouseMoved(child, iWorldMousePosition))
+            {
+                return true;
+            }
+        }
+    }
+
+    
+    // Then this node
+    CCTouchDelegate* delegate = dynamic_cast<CCTouchDelegate*>(iRoot);
+    if (delegate != NULL)
+    {
+        CCTouchHandler* handler = findHandler(m_pTargetedHandlers, delegate);
+        if (handler != NULL)
+        {
+            assert(handler->getDelegate() == delegate);
+            if (delegate->mouseMoved(iWorldMousePosition))
+            {
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
+
 void
 CCSceneGraphTouchDispatcher::mouseMoved(const CCPoint& iWorldMousePosition)
 {
+    if ((m_MouseTracker == NULL) || !m_MouseTracker->mouseMoved(iWorldMousePosition))
+    {
+        CCNode* root = CCDirector::sharedDirector()->getRunningScene();
+        _dispatchMouseMoved(root, iWorldMousePosition);
+    }
+}
+
+bool
+CCSceneGraphTouchDispatcher::_dispatchSecondaryButtonDown(CCNode* iRoot, const CCPoint& iWorldMousePosition, int iButtonID)
+{
+    if (!_isNodeEligibleForHitDispatch(iRoot))
+    {
+        return false;
+    }
+    
+    // First parse children
+    CCArray* children = iRoot->getChildren();
+    const int childrenCount = (children != NULL) ? children->count() : 0;
+    
+    if (childrenCount > 0)
+    {
+        iRoot->sortAllChildren();
+        
+        // Iterate reverse
+        for (int i = childrenCount - 1; i >= 0; --i)
+        {
+            CCNode* child = static_cast<CCNode*>(children->objectAtIndex(i));
+            if (_dispatchSecondaryButtonDown(child, iWorldMousePosition, iButtonID))
+            {
+                return true;
+            }
+        }
+    }
+    
+    
+    // Then this node
+    CCTouchDelegate* delegate = dynamic_cast<CCTouchDelegate*>(iRoot);
+    if (delegate != NULL)
+    {
+        CCTouchHandler* handler = findHandler(m_pTargetedHandlers, delegate);
+        if (handler != NULL)
+        {
+            assert(handler->getDelegate() == delegate);
+            if (delegate->secondaryButtonDown(iWorldMousePosition, iButtonID))
+            {
+                return true;
+            }
+        }
+    }
+    
+    return false;
 }
 
 void
-CCSceneGraphTouchDispatcher::secondaryMouseDown(const CCPoint& iWorldMousePosition, int iButtonID)
+CCSceneGraphTouchDispatcher::secondaryButtonDown(const CCPoint& iWorldMousePosition, int iButtonID)
 {
+    if ((m_MouseTracker == NULL) || !m_MouseTracker->secondaryButtonDown(iWorldMousePosition, iButtonID))
+    {
+        CCNode* root = CCDirector::sharedDirector()->getRunningScene();
+        _dispatchSecondaryButtonDown(root, iWorldMousePosition, iButtonID);
+    }
+}
+
+bool
+CCSceneGraphTouchDispatcher::_dispatchSecondaryButtonUp(CCNode* iRoot, const CCPoint& iWorldMousePosition, int iButtonID)
+{
+    if (!_isNodeEligibleForHitDispatch(iRoot))
+    {
+        return false;
+    }
     
+    // First parse children
+    CCArray* children = iRoot->getChildren();
+    const int childrenCount = (children != NULL) ? children->count() : 0;
+    
+    if (childrenCount > 0)
+    {
+        iRoot->sortAllChildren();
+        
+        // Iterate reverse
+        for (int i = childrenCount - 1; i >= 0; --i)
+        {
+            CCNode* child = static_cast<CCNode*>(children->objectAtIndex(i));
+            if (_dispatchSecondaryButtonUp(child, iWorldMousePosition, iButtonID))
+            {
+                return true;
+            }
+        }
+    }
+    
+    
+    // Then this node
+    CCTouchDelegate* delegate = dynamic_cast<CCTouchDelegate*>(iRoot);
+    if (delegate != NULL)
+    {
+        CCTouchHandler* handler = findHandler(m_pTargetedHandlers, delegate);
+        if (handler != NULL)
+        {
+            assert(handler->getDelegate() == delegate);
+            if (delegate->secondaryButtonUp(iWorldMousePosition, iButtonID))
+            {
+                return true;
+            }
+        }
+    }
+    
+    return false;
 }
 
 void
-CCSceneGraphTouchDispatcher::secondaryMouseUp(const CCPoint& iWorldMousePosition, int iButtonID)
+CCSceneGraphTouchDispatcher::secondaryButtonUp(const CCPoint& iWorldMousePosition, int iButtonID)
 {
-    
+    if ((m_MouseTracker == NULL) || !m_MouseTracker->secondaryButtonDown(iWorldMousePosition, iButtonID))
+    {
+        CCNode* root = CCDirector::sharedDirector()->getRunningScene();
+        _dispatchSecondaryButtonUp(root, iWorldMousePosition, iButtonID);
+    }
 }
 
 static

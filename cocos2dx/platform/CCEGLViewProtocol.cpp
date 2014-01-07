@@ -356,20 +356,20 @@ void CCEGLViewProtocol::handleMouseMoved(float iMouseX, float iMouseY)
     m_pDelegate->mouseMoved(CCPoint(x, y));
 }
 
-void CCEGLViewProtocol::handleSecondaryMouseDown(float iMouseX, float iMouseY, int iButtonID)
+void CCEGLViewProtocol::handleSecondaryButtonDown(float iMouseX, float iMouseY, int iButtonID)
 {
     const float x = (iMouseX - m_obViewPortRect.origin.x) / m_fScaleX;
     const float y = (iMouseY - m_obViewPortRect.origin.y) / m_fScaleY;
     
-    m_pDelegate->secondaryMouseDown(CCPoint(x, y), iButtonID);
+    m_pDelegate->secondaryButtonDown(CCPoint(x, y), iButtonID);
 }
 
-void CCEGLViewProtocol::handleSecondaryMouseUp(float iMouseX, float iMouseY, int iButtonID)
+void CCEGLViewProtocol::handleSecondaryButtonUp(float iMouseX, float iMouseY, int iButtonID)
 {
     const float x = (iMouseX - m_obViewPortRect.origin.x) / m_fScaleX;
     const float y = (iMouseY - m_obViewPortRect.origin.y) / m_fScaleY;
     
-    m_pDelegate->secondaryMouseUp(CCPoint(x, y), iButtonID);
+    m_pDelegate->secondaryButtonUp(CCPoint(x, y), iButtonID);
 }
 
 const CCRect& CCEGLViewProtocol::getViewPortRect() const

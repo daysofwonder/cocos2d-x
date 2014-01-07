@@ -33,10 +33,14 @@ public:
     virtual CCTouchDelegate* simulateTouchDown(CCTouch* iTouch);
 
     // Desktop specific
+    virtual CCTouchDelegate* getMouseTracker() { return m_MouseTracker; }
+    virtual void setMouseTracker(CCTouchDelegate* iTracker);
+    
     virtual void wheel(const CCPoint& iWorldMousePosition, float iDeltaX, float iDeltaY, float iDeltaZ);
+    
     virtual void mouseMoved(const CCPoint& iWorldMousePosition);
-    virtual void secondaryMouseDown(const CCPoint& iWorldMousePosition, int iButtonID);
-    virtual void secondaryMouseUp(const CCPoint& iWorldMousePosition, int iButtonID);
+    virtual void secondaryButtonDown(const CCPoint& iWorldMousePosition, int iButtonID);
+    virtual void secondaryButtonUp(const CCPoint& iWorldMousePosition, int iButtonID);
     
 protected:
     CCSceneGraphTouchDispatcher();
@@ -54,8 +58,12 @@ protected:
     
     bool _dispatchPreTouchToTargetedDelegate(CCTouchDelegate* iDelegate, HitTestProtocol* iProtocol, CCSceneGraphTargetedTouchHandler* iHandler, unsigned int uIndex, CCTouch* iTouch, CCEvent* iEvent, CCSet* pMutableTouches, bool iSetACopy);
     
+    bool _dispatchMouseMoved(CCNode* iRoot, const CCPoint& iWorldMousePosition);
+    bool _dispatchSecondaryButtonDown(CCNode* iRoot, const CCPoint& iWorldMousePosition, int iButtonID);
+    bool _dispatchSecondaryButtonUp(CCNode* iRoot, const CCPoint& iWorldMousePosition, int iButtonID);
+    
     CCTargetedTouchHandler* m_TrackedTouchHandler;
-
+    CCTouchDelegate*         m_MouseTracker;
 };
 
 NS_CC_EXT_END

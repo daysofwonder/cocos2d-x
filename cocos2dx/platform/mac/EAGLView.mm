@@ -345,7 +345,7 @@ static EAGLView *view;
 	NSPoint local_point = [self convertPoint:event_location fromView:nil];
 	
 	float x = local_point.x;
-	float y = [self getHeight] - local_point.y;
+	float y = /*[self getHeight] -*/ local_point.y;
     
 	x /= frameZoomFactor_;
 	y /= frameZoomFactor_;
@@ -400,13 +400,10 @@ static EAGLView *view;
 	NSPoint local_point = [self convertPoint:event_location fromView:nil];
 	
 	float x = local_point.x / frameZoomFactor_;
-	float y = ([self getHeight] - local_point.y) / frameZoomFactor_;
+	float y = (/*[self getHeight] - */local_point.y) / frameZoomFactor_;
 
     
-	cocos2d::CCDirector::sharedDirector()->getOpenGLView()->handleSecondaryMouseDown(x, y, 0);
-    
-	// pass the event along to the next responder (like your NSWindow subclass)
-	//[super rightMouseDown:theEvent];
+	cocos2d::CCDirector::sharedDirector()->getOpenGLView()->handleSecondaryButtonDown(x, y, 0);
 }
 
 - (void)rightMouseDragged:(NSEvent *)theEvent {
@@ -421,12 +418,9 @@ static EAGLView *view;
 	NSPoint local_point = [self convertPoint:event_location fromView:nil];
 	
 	float x = local_point.x / frameZoomFactor_;
-	float y = ([self getHeight] - local_point.y) / frameZoomFactor_;
+	float y = (/*[self getHeight] -*/ local_point.y) / frameZoomFactor_;
     
-    
-	cocos2d::CCDirector::sharedDirector()->getOpenGLView()->handleSecondaryMouseUp(x, y, 0);
-    
-	//[super rightMouseUp:theEvent];
+	cocos2d::CCDirector::sharedDirector()->getOpenGLView()->handleSecondaryButtonUp(x, y, 0);
 }
 
 - (void)otherMouseDown:(NSEvent *)theEvent {

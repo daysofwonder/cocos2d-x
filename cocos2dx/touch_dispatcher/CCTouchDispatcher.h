@@ -66,6 +66,7 @@ struct ccTouchHandlerHelperData {
     int  m_type;
 };
 
+class CCTouchDelegate;
 
 class CC_DLL EGLTouchDelegate
 {
@@ -76,10 +77,13 @@ public:
     virtual void touchesCancelled(CCSet* touches, CCEvent* pEvent) = 0;
     
     // Desktop specific
+    virtual CCTouchDelegate* getMouseTracker() { return NULL; }
+    virtual void setMouseTracker(CCTouchDelegate* iTracker) {}
+    
     virtual void wheel(const CCPoint& iWorldMousePosition, float iDeltaX, float iDeltaY, float iDeltaZ) {}
     virtual void mouseMoved(const CCPoint& iWorldMousePosition) {}
-    virtual void secondaryMouseDown(const CCPoint& iWorldMousePosition, int iButtonID) {}
-    virtual void secondaryMouseUp(const CCPoint& iWorldMousePosition, int iButtonID) {}
+    virtual void secondaryButtonDown(const CCPoint& iWorldMousePosition, int iButtonID) {}
+    virtual void secondaryButtonUp(const CCPoint& iWorldMousePosition, int iButtonID) {}
     
     virtual ~EGLTouchDelegate() {}
 };
