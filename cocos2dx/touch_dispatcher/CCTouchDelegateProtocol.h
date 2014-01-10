@@ -71,6 +71,12 @@ public:
     virtual bool secondaryButtonUp(const CCPoint& iWorldMouseLocation, int iButtonID) { return false; }
     
     virtual bool mouseMoved(const CCPoint& iWorldMouseLocation) { return false; }
+    
+    // Rollover system
+    virtual bool isMouseOver(const CCPoint& iWorldMouseLocation) { return false; }
+    virtual void onMouseEnter(const CCPoint& iWorldMouseLocation) {}
+    virtual void onMouseOver(const CCPoint& iWorldMouseLocation) {}
+    virtual void onMouseExit(const CCPoint& iWorldMouseLocation) {}
 };
 /**
  @brief

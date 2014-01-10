@@ -62,8 +62,11 @@ protected:
     bool _dispatchSecondaryButtonDown(CCNode* iRoot, const CCPoint& iWorldMousePosition, int iButtonID);
     bool _dispatchSecondaryButtonUp(CCNode* iRoot, const CCPoint& iWorldMousePosition, int iButtonID);
     
+    CCTouchDelegate* _dispatchMouseOver(CCNode* iRoot, const CCPoint& iWorldMousePosition);
+    
     CCTargetedTouchHandler* m_TrackedTouchHandler;
-    CCTouchDelegate*         m_MouseTracker;
+    CCTouchDelegate*        m_MouseTracker;
+    CCTouchDelegate*        m_MouseOverDelegate;
 };
 
 NS_CC_EXT_END

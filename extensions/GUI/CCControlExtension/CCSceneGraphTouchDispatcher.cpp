@@ -66,7 +66,7 @@ CCSceneGraphTouchDispatcher::create()
 }
 
 CCSceneGraphTouchDispatcher::CCSceneGraphTouchDispatcher()
-: m_TrackedTouchHandler(NULL), m_MouseTracker(NULL)
+: m_TrackedTouchHandler(NULL), m_MouseTracker(NULL), m_MouseOverDelegate(NULL)
 {}
 
 CCTouchHandler*
@@ -83,9 +83,14 @@ CCSceneGraphTouchDispatcher::forceRemoveDelegate(CCTouchDelegate *pDelegate)
         m_TrackedTouchHandler = NULL;
     }
 
-    if ((m_MouseTracker != NULL) && (m_MouseTracker == pDelegate))
+    if (m_MouseTracker == pDelegate)
     {
         m_MouseTracker = NULL;
+    }
+    
+    if (m_MouseOverDelegate == pDelegate)
+    {
+        m_MouseOverDelegate = NULL;
     }
     
     CCTouchDispatcher::forceRemoveDelegate(pDelegate);
@@ -603,6 +608,53 @@ CCSceneGraphTouchDispatcher::_dispatchMouseMoved(CCNode* iRoot, const CCPoint& i
     return false;
 }
 
+CCTouchDelegate*
+CCSceneGraphTouchDispatcher::_dispatchMouseOver(CCNode* iRoot, const CCPoint& iWorldMousePosition)
+{
+    if (!_isNodeEligibleForHitDispatch(iRoot))
+    {
+        return NULL;
+    }
+    
+    // First parse children
+    CCArray* children = iRoot->getChildren();
+    const int childrenCount = (children != NULL) ? children->count() : 0;
+    
+    if (childrenCount > 0)
+    {
+        iRoot->sortAllChildren();
+        
+        // Iterate reverse
+        for (int i = childrenCount - 1; i >= 0; --i)
+        {
+            CCNode* child = static_cast<CCNode*>(children->objectAtIndex(i));
+            CCTouchDelegate* delegate = _dispatchMouseOver(child, iWorldMousePosition);
+            if (delegate != NULL)
+            {
+                return delegate;
+            }
+        }
+    }
+    
+    
+    // Then this node
+    CCTouchDelegate* delegate = dynamic_cast<CCTouchDelegate*>(iRoot);
+    if (delegate != NULL)
+    {
+        CCTouchHandler* handler = findHandler(m_pTargetedHandlers, delegate);
+        if (handler != NULL)
+        {
+            assert(handler->getDelegate() == delegate);
+            if (delegate->isMouseOver(iWorldMousePosition))
+            {
+                return delegate;
+            }
+        }
+    }
+    
+    return NULL;
+}
+
 void
 CCSceneGraphTouchDispatcher::mouseMoved(const CCPoint& iWorldMousePosition)
 {
@@ -610,6 +662,26 @@ CCSceneGraphTouchDispatcher::mouseMoved(const CCPoint& iWorldMousePosition)
     {
         CCNode* root = CCDirector::sharedDirector()->getRunningScene();
         _dispatchMouseMoved(root, iWorldMousePosition);
+        
+        CCTouchDelegate* mouseOverDelegate = _dispatchMouseOver(root, iWorldMousePosition);
+        if (mouseOverDelegate != m_MouseOverDelegate)
+        {
+            if (m_MouseOverDelegate != NULL)
+            {
+                m_MouseOverDelegate->onMouseExit(iWorldMousePosition);
+            }
+            
+            m_MouseOverDelegate = mouseOverDelegate;
+            if (m_MouseOverDelegate != NULL)
+            {
+                m_MouseOverDelegate->onMouseEnter(iWorldMousePosition);
+            }
+        }
+        
+        if (m_MouseOverDelegate != NULL)
+        {
+            m_MouseOverDelegate->onMouseOver(iWorldMousePosition);
+        }
     }
 }
 
