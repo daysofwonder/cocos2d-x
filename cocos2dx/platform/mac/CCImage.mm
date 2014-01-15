@@ -336,6 +336,35 @@ static bool _isValidFontName(const char *fontName)
     return ret;
 }
 
+static NSString* wordWrap(float iWidth, NSString* string, NSDictionary* attributes)
+{
+    NSMutableString *lineBreak = [[[NSMutableString alloc] init] autorelease];
+    NSUInteger length = [string length];
+    NSRange range = NSMakeRange(0, 1);
+    NSUInteger lastBreakLocation = 0;
+    NSUInteger nbInsertedChars = 0;
+    
+    for (NSUInteger i = 0; i < length; i++) {
+        range.location = i;
+        NSString *character = [string substringWithRange:range];
+        [lineBreak appendString:character];
+        if ([@"!?.,-= " rangeOfString:character].location != NSNotFound)
+        {
+            lastBreakLocation = i;
+        }
+        
+        float width = [lineBreak sizeWithAttributes:attributes].width;
+        
+        if (width > iWidth)
+        {
+            [lineBreak insertString:@"\r\n" atIndex:(lastBreakLocation > 0) ? (lastBreakLocation + nbInsertedChars) : [lineBreak length] - 1];
+            nbInsertedChars += 2;
+        }
+    }
+    
+    return lineBreak;
+}
+
 static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAlign, const char * pFontName, int nSize, tImageInfo* pInfo, cocos2d::ccColor3B* pStrokeColor)
 {
     bool bRet = false;
@@ -396,22 +425,7 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
 		// linebreak
 		if (pInfo->width > 0) {
 			if ([string sizeWithAttributes:tokenAttributesDict].width > pInfo->width) {
-				NSMutableString *lineBreak = [[[NSMutableString alloc] init] autorelease];
-				NSUInteger length = [string length];
-				NSRange range = NSMakeRange(0, 1);
-				NSUInteger width = 0;
-				NSUInteger lastBreakLocation = 0;
-				for (NSUInteger i = 0; i < length; i++) {
-					range.location = i;
-					NSString *character = [string substringWithRange:range];
-					[lineBreak appendString:character];
-					if ([@"!?.,-= " rangeOfString:character].location != NSNotFound) { lastBreakLocation = i; }
-					width = [lineBreak sizeWithAttributes:tokenAttributesDict].width;
-					if (width > pInfo->width) {
-						[lineBreak insertString:@"\r\n" atIndex:(lastBreakLocation > 0) ? lastBreakLocation : [lineBreak length] - 1];
-					}
-				}
-				string = lineBreak;
+                string = wordWrap(pInfo->width, string, tokenAttributesDict);
 			}
 		}
 
