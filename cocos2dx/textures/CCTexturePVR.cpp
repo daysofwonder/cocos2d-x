@@ -531,6 +531,9 @@ bool CCTexturePVR::unpackPVRv3Data(unsigned char* dataPointer, unsigned int data
 
 bool CCTexturePVR::createGLTexture()
 {
+    // GG DoW: Purge last GL Error !!!
+    glGetError();
+    
     unsigned int width = m_uWidth;
     unsigned int height = m_uHeight;
     GLenum err;
