@@ -683,6 +683,14 @@ CCSceneGraphTouchDispatcher::mouseMoved(const CCPoint& iWorldMousePosition)
             m_MouseOverDelegate->onMouseOver(iWorldMousePosition);
         }
     }
+    else
+    {
+        if (m_MouseOverDelegate != NULL)
+        {
+            m_MouseOverDelegate->onMouseExit(iWorldMousePosition);
+            m_MouseOverDelegate = NULL;
+        }
+    }
 }
 
 bool
