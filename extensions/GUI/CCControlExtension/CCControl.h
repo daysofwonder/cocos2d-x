@@ -117,6 +117,8 @@ public:
     virtual bool isOpacityModifyRGB();
     virtual void setOpacityModifyRGB(bool bOpacityModifyRGB);
 
+    virtual bool isMouseOver(const CCPoint& iWorldMouseLocation);
+    
 protected:
     bool m_bEnabled;
     bool m_bSelected;
@@ -194,7 +196,8 @@ public:
     */
     virtual bool isTouchInside(CCTouch * touch);
 
-
+    bool hitTest(const CCPoint& iWorldPosition);
+    
 protected:
     /**
      * Returns an CCInvocation object able to construct messages using a given 

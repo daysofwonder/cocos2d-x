@@ -273,6 +273,24 @@ bool CCControl::isTouchInside(CCTouch* touch)
     return bBox.containsPoint(touchLocation);
 }
 
+bool CCControl::hitTest(const CCPoint& iWorldPosition)
+{
+    CCTouch touch;
+    CCPoint p = CCDirector::sharedDirector()->convertToUI(iWorldPosition);
+    
+    touch.setTouchInfo(0, p.x, p.y);
+    
+    // Redirect the call to the only hit test virtual method
+    // defined by cocos2d-x...
+    return isTouchInside(&touch);
+}
+
+bool
+CCControl::isMouseOver(const CCPoint& iWorldMouseLocation)
+{
+    return isEnabled() && hitTest(iWorldMouseLocation);
+}
+
 CCArray* CCControl::dispatchListforControlEvent(CCControlEvent controlEvent)
 {
     CCArray* invocationList = (CCArray*)m_pDispatchTable->objectForKey(controlEvent);
