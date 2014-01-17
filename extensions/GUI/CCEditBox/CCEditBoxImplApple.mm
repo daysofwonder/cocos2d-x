@@ -217,10 +217,10 @@
     
 #if !TARGET_OS_IPHONE
     // Mac
-    const float s = cocos2d::CCDirector::sharedDirector()->getContentScaleFactor();
+    cocos2d::CCEGLView* glView = cocos2d::CCEGLView::sharedOpenGLView();
     
-    size.width *= s;
-    size.height *= s;
+    size.width *= glView->getScaleX();
+    size.height *= glView->getScaleY();
 #endif
     
     frame.size = size;
@@ -598,9 +598,10 @@ void CCEditBoxImplApple::updateFontOfNativeTextField()
     
     NSString * fntName = [NSString stringWithUTF8String:fontName];
     
+    float scaleFactor = CCEGLView::sharedOpenGLView()->getScaleX();
+    
 #if TARGET_OS_IPHONE
     float retinaFactor = m_bInRetinaMode ? 2.0f : 1.0f;
-    float scaleFactor = CCEGLView::sharedOpenGLView()->getScaleX();
     UIFont *textFont = nil;
     if (isValidFontName) {
         textFont = [UIFont fontWithName:fntName size:fontSize * scaleFactor / retinaFactor];
@@ -623,7 +624,7 @@ void CCEditBoxImplApple::updateFontOfNativeTextField()
     }
     
     const float scale = worldBox.size.width / m_pEditBox->getContentSize().width;
-    const float fSize = float(fontSize) * scale * CC_CONTENT_SCALE_FACTOR();
+    const float fSize = float(fontSize) * scale * scaleFactor;
     NSFont *textFont = [NSFont fontWithName:fntName size:fSize];
 #endif
     
