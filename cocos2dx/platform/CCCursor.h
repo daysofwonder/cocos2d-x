@@ -8,6 +8,7 @@ NS_CC_BEGIN
 
 class CCImage;
 class CCPoint;
+class CCArray;
 
 class CC_DLL CCCursor : public CCObject
 {
@@ -24,7 +25,7 @@ protected:
 class CC_DLL CCCursorManager
 {
 public:
-    virtual ~CCCursorManager() {}
+    virtual ~CCCursorManager();
     
     static CCCursorManager* sharedCursorManager() { return s_Instance; }
     static void setSharedCursorManager(CCCursorManager* iManager);
@@ -34,13 +35,21 @@ public:
     
     virtual CCCursor* getCurrentCursor() = 0;
     virtual void setCurrentCursor(CCCursor* iCursor) = 0;
+
+    void push(CCCursor* iCursor);
+    void pop();
     
     CCCursor* createCursorFromImageFile(const std::string& iImageName, const CCPoint& iHotspot);
     
     virtual CCCursor* createCursorFromImage(CCImage* iImage, const CCPoint& iHotspot) = 0;
     
+protected:
+    CCCursorManager();
+    
 private:
     static CCCursorManager* s_Instance;
+    
+    CCArray* m_CursorStack;
 };
 
 
