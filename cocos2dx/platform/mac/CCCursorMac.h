@@ -1,0 +1,35 @@
+#ifndef __CCCURSORMAC_H__
+#define __CCCURSORMAC_H__
+
+#include "platform/CCCursor.h"
+#include <AppKit/AppKit.h>
+
+NS_CC_BEGIN
+
+class CCCursorMac;
+
+class CCCursorManagerMac : public CCCursorManager
+{
+public:
+    CCCursorManagerMac();
+    virtual ~CCCursorManagerMac();
+    
+    virtual void showCurrentCursor();
+    virtual void hideCurrentCursor();
+    
+    virtual CCCursor* getCurrentCursor();
+    virtual void setCurrentCursor(CCCursor* iCursor);
+    
+    virtual CCCursor* createCursorFromImage(CCImage* iImage, const CCPoint& iHotspot);
+    
+    NSCursor* getCurrentNativeCursor();
+    
+private:
+    
+    CCCursorMac* m_CurrentCursor;
+};
+
+
+NS_CC_END
+
+#endif /* __CCCURSORMAC_H__ */

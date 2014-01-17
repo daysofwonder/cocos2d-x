@@ -39,6 +39,7 @@ THE SOFTWARE.
 #import "CCWindow.h"
 #import "CCEventDispatcher.h"
 #import "CCEGLView.h"
+#import "platform/mac/CCCursorMac.h"
 
 //USING_NS_CC;
 static EAGLView *view;
@@ -525,5 +526,21 @@ static EAGLView *view;
 	DISPATCH_EVENT(theEvent, _cmd);
 }
 
+-(void) resetCursorRects
+{
+    [super resetCursorRects];
+    
+    cocos2d::CCCursorManagerMac* manager = dynamic_cast<cocos2d::CCCursorManagerMac*>(cocos2d::CCCursorManager::sharedCursorManager());
+    NSCursor* cursor = (manager != NULL) ? manager->getCurrentNativeCursor() : NULL;
+    if (cursor != NULL)
+    {
+        NSRect b = self.bounds;
+        [self addCursorRect:b cursor:cursor];
+    }
+    else
+    {
+        [self discardCursorRects];
+    }
+}
 
 @end

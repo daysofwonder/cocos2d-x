@@ -97,7 +97,7 @@ platform/android/jni/JniHelper.cpp \
 platform/android/jni/IMEJni.cpp \
 platform/android/jni/TouchesJni.cpp \
 platform/android/jni/DPIJni.cpp \
-platform/CCCursorVoid.cpp \
+platform/CCCursor.cpp \
 script_support/CCScriptSupport.cpp \
 shaders/ccShaders.cpp \
 shaders/CCGLProgram.cpp \
