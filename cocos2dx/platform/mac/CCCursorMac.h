@@ -11,22 +11,15 @@ class CCCursorMac;
 class CCCursorManagerMac : public CCCursorManager
 {
 public:
-    CCCursorManagerMac();
-    virtual ~CCCursorManagerMac();
-    
     virtual void showCurrentCursor();
     virtual void hideCurrentCursor();
-    
-    virtual CCCursor* getCurrentCursor();
-    virtual void setCurrentCursor(CCCursor* iCursor);
     
     virtual CCCursor* createCursorFromImage(CCImage* iImage, const CCPoint& iHotspot);
     
     NSCursor* getCurrentNativeCursor();
     
 private:
-    
-    CCCursorMac* m_CurrentCursor;
+    virtual void _updateCurrentCursor();
 };
 
 

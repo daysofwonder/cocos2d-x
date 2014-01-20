@@ -33,8 +33,8 @@ public:
     virtual void showCurrentCursor() = 0;
     virtual void hideCurrentCursor() = 0;
     
-    virtual CCCursor* getCurrentCursor() = 0;
-    virtual void setCurrentCursor(CCCursor* iCursor) = 0;
+    CCCursor* getCurrentCursor() { return m_CurrentCursor; }
+    void setCurrentCursor(CCCursor* iCursor);
 
     void push(CCCursor* iCursor);
     void pop();
@@ -46,9 +46,12 @@ public:
 protected:
     CCCursorManager();
     
+    virtual void _updateCurrentCursor() = 0;
+    
 private:
     static CCCursorManager* s_Instance;
     
+    CCCursor* m_CurrentCursor;
     CCArray* m_CursorStack;
 };
 

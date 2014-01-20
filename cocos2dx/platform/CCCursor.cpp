@@ -22,6 +22,19 @@ CCCursorManager::setSharedCursorManager(CCCursorManager* iManager)
     }
 }
 
+void
+CCCursorManager::setCurrentCursor(CCCursor *iCursor)
+{
+    if (iCursor != m_CurrentCursor)
+    {
+        CC_SAFE_RELEASE(m_CurrentCursor);
+        m_CurrentCursor = iCursor;
+        CC_SAFE_RETAIN(m_CurrentCursor);
+        
+        _updateCurrentCursor();
+    }
+}
+
 CCCursor*
 CCCursorManager::createCursorFromImageFile(const std::string& iImageName, const CCPoint& iHotspot)
 {
@@ -38,13 +51,14 @@ CCCursorManager::createCursorFromImageFile(const std::string& iImageName, const 
 }
 
 CCCursorManager::CCCursorManager()
-: m_CursorStack(NULL)
+: m_CursorStack(NULL), m_CurrentCursor(NULL)
 {
     
 }
 
 CCCursorManager::~CCCursorManager()
 {
+    CC_SAFE_RELEASE(m_CurrentCursor);
     CC_SAFE_RELEASE(m_CursorStack);
 }
 

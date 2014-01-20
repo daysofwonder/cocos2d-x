@@ -57,17 +57,6 @@ CCCursorMac::init(CCImage* iImage, const CCPoint& iHotspot)
     return true;
 }
 
-CCCursorManagerMac::CCCursorManagerMac()
-: m_CurrentCursor(NULL)
-{
-    
-}
-
-CCCursorManagerMac::~CCCursorManagerMac()
-{
-    CC_SAFE_RELEASE(m_CurrentCursor);
-}
-
 void
 CCCursorManagerMac::showCurrentCursor()
 {
@@ -80,31 +69,19 @@ CCCursorManagerMac::hideCurrentCursor()
     [NSCursor hide];
 }
 
-CCCursor*
-CCCursorManagerMac::getCurrentCursor()
-{
-    return m_CurrentCursor;
-}
 
 NSCursor*
 CCCursorManagerMac::getCurrentNativeCursor()
 {
-    return (m_CurrentCursor != NULL) ? m_CurrentCursor->nativeCursor() : nil;
+    CCCursorMac* cursor = static_cast<CCCursorMac*>(getCurrentCursor());
+    return (cursor != NULL) ? cursor->nativeCursor() : nil;
 }
 
 void
-CCCursorManagerMac::setCurrentCursor(CCCursor* iCursor)
+CCCursorManagerMac::_updateCurrentCursor()
 {
-    if (iCursor != m_CurrentCursor)
-    {
-        CC_SAFE_RELEASE(m_CurrentCursor);
-        CC_ASSERT((iCursor == NULL) || (dynamic_cast<CCCursorMac*>(iCursor) != NULL));
-        m_CurrentCursor = (CCCursorMac*) iCursor;
-        CC_SAFE_RETAIN(m_CurrentCursor);
-        
-        EAGLView* view = [EAGLView sharedEGLView];
-        [view.window invalidateCursorRectsForView:view];
-    }
+    EAGLView* view = [EAGLView sharedEGLView];
+    [view.window invalidateCursorRectsForView:view];
 }
 
 CCCursor*
