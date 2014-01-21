@@ -380,19 +380,12 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
         }
 		
 		// font
-		NSFont *font = [[NSFontManager sharedFontManager]
-						 fontWithFamily:[NSString stringWithUTF8String:pFontName]
-						traits:NSUnboldFontMask | NSUnitalicFontMask
-						 weight:0
-						 size:nSize];
-		
-		if (font == nil) {
-			font = [[NSFontManager sharedFontManager]
-					fontWithFamily:@"Arial"
-					traits:NSUnboldFontMask | NSUnitalicFontMask
-					weight:0
-					size:nSize];
-		}
+        NSFont* font = [NSFont fontWithName:[NSString stringWithUTF8String:pFontName] size:nSize];
+        if (font == nil)
+        {
+            font = [NSFont systemFontOfSize:nSize];
+        }
+        
 		CC_BREAK_IF(!font);
 		
 		// color
