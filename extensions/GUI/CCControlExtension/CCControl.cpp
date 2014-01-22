@@ -288,7 +288,7 @@ bool CCControl::hitTest(const CCPoint& iWorldPosition)
 bool
 CCControl::isMouseOver(const CCPoint& iWorldMouseLocation)
 {
-    return isEnabled() && hitTest(iWorldMouseLocation);
+    return hitTest(iWorldMouseLocation);
 }
 
 CCArray* CCControl::dispatchListforControlEvent(CCControlEvent controlEvent)

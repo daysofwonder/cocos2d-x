@@ -645,7 +645,7 @@ CCSceneGraphTouchDispatcher::_dispatchMouseOver(CCNode* iRoot, const CCPoint& iW
         if (handler != NULL)
         {
             assert(handler->getDelegate() == delegate);
-            if (delegate->isMouseOver(iWorldMousePosition))
+            if (delegate->canHandleMouseOver() && delegate->isMouseOver(iWorldMousePosition))
             {
                 return delegate;
             }
