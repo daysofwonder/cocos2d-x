@@ -22,10 +22,6 @@ public:
 
     HCURSOR getHandle() { return m_hCursor; }
 
-    void GetMaskBitmaps(CCImage* iImage,
-        HBITMAP &hAndMaskBitmap,
-        HBITMAP &hXorMaskBitmap);
-
 protected:
     HCURSOR m_hCursor;
 };
