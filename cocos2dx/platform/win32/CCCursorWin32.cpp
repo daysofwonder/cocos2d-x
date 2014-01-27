@@ -15,12 +15,11 @@ CCCursorManagerWin32::hideCurrentCursor() {
 }
 
 CCCursor* CCCursorManagerWin32::createCursorFromImage(CCImage* iImage, const CCPoint& iHotspot) {
-    m_currentCursor = new CCCursorWin32(iImage, iHotspot);
-    return m_currentCursor;
+    return new CCCursorWin32(iImage, iHotspot);
 }
 
 void CCCursorManagerWin32::_updateCurrentCursor() {
-    SetCursor(m_currentCursor->getHandle());
+    SetCursor(((CCCursorWin32*)getCurrentCursor())->getHandle());
 }
 
 

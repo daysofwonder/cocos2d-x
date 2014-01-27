@@ -29,7 +29,7 @@ protected:
 class CC_DLL CCCursorManagerWin32 : public CCCursorManager
 {
 public:
-    CCCursorManagerWin32() : m_currentCursor(NULL) {}
+    CCCursorManagerWin32() {}
     virtual ~CCCursorManagerWin32() {}
 
     virtual void showCurrentCursor();
@@ -43,8 +43,6 @@ public:
 protected:
 
     virtual void _updateCurrentCursor();
-
-    CCCursorWin32 *m_currentCursor;
 };
 
 
