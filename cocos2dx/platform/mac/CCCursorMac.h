@@ -11,6 +11,9 @@ class CCCursorMac;
 class CCCursorManagerMac : public CCCursorManager
 {
 public:
+    CCCursorManagerMac();
+    virtual ~CCCursorManagerMac();
+    
     virtual void showCurrentCursor();
     virtual void hideCurrentCursor();
     
@@ -20,6 +23,8 @@ public:
     
 private:
     virtual void _updateCurrentCursor();
+    
+    CCCursorUpdater* m_Updater;
 };
 
 

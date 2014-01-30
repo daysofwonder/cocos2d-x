@@ -57,6 +57,18 @@ CCCursorMac::init(CCImage* iImage, const CCPoint& iHotspot)
     return true;
 }
 
+CCCursorManagerMac::CCCursorManagerMac()
+{
+    m_Updater = CCCursorUpdater::create();
+    m_Updater->retain();
+}
+
+CCCursorManagerMac::~CCCursorManagerMac()
+{
+    m_Updater->terminate();
+    m_Updater->release();
+}
+
 void
 CCCursorManagerMac::showCurrentCursor()
 {

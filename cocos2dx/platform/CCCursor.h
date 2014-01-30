@@ -46,6 +46,7 @@ public:
 protected:
     CCCursorManager();
     
+    friend class CCCursorUpdater;
     virtual void _updateCurrentCursor() = 0;
     
 private:
@@ -53,6 +54,23 @@ private:
     
     CCCursor* m_CurrentCursor;
     CCArray* m_CursorStack;
+};
+
+// This is a helper class that can be used
+// by any platform that need to refresh regularly the cursor...
+class CC_DLL CCCursorUpdater : public CCObject
+{
+public:
+    static CCCursorUpdater* create();
+    
+    void terminate();
+    
+private:
+    CCCursorUpdater();
+    void _init();
+    
+    void _update(float);
+    
 };
 
 

@@ -1,6 +1,8 @@
 #include "platform/CCCursor.h"
 #include "platform/CCImage.h"
 #include "cocoa/CCArray.h"
+#include "CCDirector.h"
+#include "CCScheduler.h"
 
 NS_CC_BEGIN
 
@@ -101,6 +103,44 @@ CCCursorManager::pop()
         setCurrentCursor(NULL);
     }
 }
+
+CCCursorUpdater*
+CCCursorUpdater::create()
+{
+    CCCursorUpdater* updater = new CCCursorUpdater;
+    updater->_init();
+    updater->autorelease();
+    
+    return updater;
+}
+
+void
+CCCursorUpdater::_init()
+{
+    const float kRefreshInterval = 1;
+    CCDirector::sharedDirector()->getScheduler()->scheduleSelector((SEL_SCHEDULE) &CCCursorUpdater::_update, this, kRefreshInterval, false);
+}
+
+void
+CCCursorUpdater::terminate()
+{
+    CCDirector::sharedDirector()->getScheduler()->unscheduleAllForTarget(this);
+}
+
+CCCursorUpdater::CCCursorUpdater()
+{}
+
+void
+CCCursorUpdater::_update(float)
+{
+    CCCursorManager* manager = CCCursorManager::sharedCursorManager();
+    CC_ASSERT(manager != NULL);
+    if (manager != NULL)
+    {
+        manager->_updateCurrentCursor();
+    }
+}
+
 
 NS_CC_END
 
