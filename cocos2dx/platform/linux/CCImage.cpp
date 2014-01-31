@@ -462,4 +462,19 @@ bool CCImage::initWithString(
 	return bRet;
 }
 
+void CCImage::calculateStringSize(const char* pText,
+                                    const char *    pFontName,
+                                    int             nFontSize,
+
+                                    CCSize&         oComputedSize,
+                                    int&            oAdjustedFontSize,
+
+                                    int            nMinFontSize,
+                                    int             nWidth,
+                                    int             nHeight
+                                    )
+{
+//TODO
+}
+
 NS_CC_END
