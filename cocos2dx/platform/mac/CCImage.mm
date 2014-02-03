@@ -841,10 +841,12 @@ bool CCImage::initWithImageData(void * pData,
         {
             bRet = _initWithRawData(pData, nDataLen, nWidth, nHeight, nBitsPerComponent, false);
         }
+#if 0
         else if (eFmt == kFmtWebp)
         {
             bRet = _initWithWebpData(pData, nDataLen);
         }
+#endif
         else
         {
             bRet = _initWithData(pData, nDataLen, &info, 1.0f, 1.0f);//m_dScaleX, m_dScaleY);
