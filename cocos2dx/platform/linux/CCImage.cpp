@@ -475,6 +475,10 @@ void CCImage::calculateStringSize(const char* pText,
                                     )
 {
 //TODO
+    std::string text(pText);
+    oComputedSize.height=nFontSize;
+    oComputedSize.width=nFontSize*text.size();
+    oAdjustedFontSize=nFontSize;
 }
 
 NS_CC_END

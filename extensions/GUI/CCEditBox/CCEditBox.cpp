@@ -1,19 +1,19 @@
 /****************************************************************************
  Copyright (c) 2010-2012 cocos2d-x.org
  Copyright (c) 2012 James Chen
- 
+
  http://www.cocos2d-x.org
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -54,20 +54,22 @@ CCEditBox::~CCEditBox(void)
 
 void CCEditBox::touchDownAction(CCObject *sender, CCControlEvent controlEvent)
 {
-    m_pEditBoxImpl->openKeyboard();
+    if (m_pEditBoxImpl) {
+        m_pEditBoxImpl->openKeyboard();
+    }
 }
 
 CCEditBox* CCEditBox::create(const CCSize& size, CCScale9Sprite* pNormal9SpriteBg, CCScale9Sprite* pPressed9SpriteBg/* = NULL*/, CCScale9Sprite* pDisabled9SpriteBg/* = NULL*/)
 {
     CCEditBox* pRet = new CCEditBox();
-    
+
     if (pRet != NULL && pRet->initWithSizeAndBackgroundSprite(size, pNormal9SpriteBg))
     {
         if (pPressed9SpriteBg != NULL)
         {
             pRet->setBackgroundSpriteForState(pPressed9SpriteBg, CCControlStateHighlighted);
         }
-        
+
         if (pDisabled9SpriteBg != NULL)
         {
             pRet->setBackgroundSpriteForState(pDisabled9SpriteBg, CCControlStateDisabled);
@@ -78,7 +80,7 @@ CCEditBox* CCEditBox::create(const CCSize& size, CCScale9Sprite* pNormal9SpriteB
     {
         CC_SAFE_DELETE(pRet);
     }
-    
+
     return pRet;
 }
 
@@ -87,13 +89,15 @@ bool CCEditBox::initWithSizeAndBackgroundSprite(const CCSize& size, CCScale9Spri
     if (CCControlButton::initWithBackgroundSprite(pPressed9SpriteBg))
     {
         m_pEditBoxImpl = __createSystemEditBox(this);
-        m_pEditBoxImpl->initWithSize(size);
-        
+        if (m_pEditBoxImpl) {
+            m_pEditBoxImpl->initWithSize(size);
+        }
+
         this->setZoomOnTouchDown(false);
         this->setPreferredSize(size);
         this->setPosition(ccp(0, 0));
         this->addTargetWithActionForControlEvent(this, cccontrol_selector(CCEditBox::touchDownAction), CCControlEventTouchUpInside);
-        
+
         return true;
     }
     return false;
@@ -133,7 +137,7 @@ const char* CCEditBox::getText(void)
 		if(pText != NULL)
 			return pText;
     }
-    
+
     return "";
 }
 
@@ -355,22 +359,22 @@ void CCEditBox::keyboardWillShow(CCIMEKeyboardNotificationInfo& info)
         CCRect rectTracked = getRect(this);
         // some adjustment for margin between the keyboard and the edit box.
         rectTracked.origin.y -= 4;
-        
+
         // if the keyboard area doesn't intersect with the tracking node area, nothing needs to be done.
         if (!rectTracked.intersectsRect(info.end))
         {
             CCLOG("needn't to adjust view layout.");
             return;
         }
-        
+
         // assume keyboard at the bottom of screen, calculate the vertical adjustment.
         m_fAdjustHeight = info.end.getMaxY() - rectTracked.getMinY();
         // CCLOG("CCEditBox:needAdjustVerticalPosition(%f)", m_fAdjustHeight);
-        
+
         if (m_pEditBoxImpl != NULL)
         {
             m_pEditBoxImpl->doAnimationWhenKeyboardMove(info.duration, m_fAdjustHeight);
-        }        
+        }
     }
 }
 
@@ -386,7 +390,7 @@ void CCEditBox::keyboardWillHide(CCIMEKeyboardNotificationInfo& info)
         if (m_pEditBoxImpl != NULL)
         {
             m_pEditBoxImpl->doAnimationWhenKeyboardMove(info.duration, -m_fAdjustHeight);
-        }        
+        }
     }
 }
 
@@ -419,16 +423,18 @@ CCEditBox::getLabel() const
 void
 CCEditBox::setLabel(CCLabelTTF* iLabel)
 {
-    m_pEditBoxImpl->setLabel(iLabel);
+    if (m_pEditBoxImpl != NULL) {
+        m_pEditBoxImpl->setLabel(iLabel);
+    }
 }
 
 void CCEditBox::setInputInsets(const CCRect& iInputInsets)
 {
     assert(iInputInsets.size.width >= 0);
     assert(iInputInsets.size.height >= 0);
-    
+
     m_InputInsets = iInputInsets;
-    
+
     if (m_pEditBoxImpl != NULL)
     {
         m_pEditBoxImpl->needsLayout();
@@ -438,27 +444,33 @@ void CCEditBox::setInputInsets(const CCRect& iInputInsets)
 CCRect CCEditBox::inputLocalBounds() const
 {
     CCRect bounds;
-    
+
     bounds.origin = m_InputInsets.origin;
-    
+
     const CCSize& cSize = getContentSize();
-    
+
     bounds.size.width = cSize.width - m_InputInsets.getMaxX();
     bounds.size.height = cSize.height - m_InputInsets.getMaxY();
-    
+
     return bounds;
 }
 
 bool
 CCEditBox::clearsOnBeginEditing() const
 {
-    return m_pEditBoxImpl->clearsOnBeginEditing();
+    if (m_pEditBoxImpl != NULL) {
+        return m_pEditBoxImpl->clearsOnBeginEditing();
+    } else {
+        return false;
+    }
 }
 
 void
 CCEditBox::setClearsOnBeginEditing(bool iEnable)
 {
-    m_pEditBoxImpl->setClearsOnBeginEditing(iEnable);
+    if (m_pEditBoxImpl != NULL) {
+        m_pEditBoxImpl->setClearsOnBeginEditing(iEnable);
+    }
 }
 
 void

@@ -44,7 +44,7 @@ bool CCFileUtilsLinux::init()
     fullpath[length] = '\0';
     std::string appPath = fullpath;
     m_strDefaultResRootPath = appPath.substr(0, appPath.find_last_of("/"));
-    m_strDefaultResRootPath += "/../../../Resources/";
+    m_strDefaultResRootPath += "/../Resources/";
 
     // Set writable path to $XDG_CONFIG_HOME or ~/.config/<app name>/ if $XDG_CONFIG_HOME not exists.
     const char* xdg_config_path = getenv("XDG_CONFIG_HOME");
@@ -85,7 +85,7 @@ bool CCFileUtilsLinux::isFileExist(const std::string& strFilePath)
     { // Not absolute path, add the default root path at the beginning.
         strPath.insert(0, m_strDefaultResRootPath);
     }
-    
+
     struct stat sts;
     return (stat(strPath.c_str(), &sts) != -1) ? true : false;
 }
