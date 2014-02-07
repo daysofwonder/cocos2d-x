@@ -72,6 +72,10 @@ Config of cocos2d-x project, per target platform.
 #if defined(WIN32) && defined(_WINDOWS)
     #undef  CC_TARGET_PLATFORM
     #define CC_TARGET_PLATFORM         CC_PLATFORM_WIN32
+
+	// Disable DLL Export missing
+	#pragma warning(disable: 4251)
+
 #endif
 
 // linux
