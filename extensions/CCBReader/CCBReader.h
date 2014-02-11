@@ -105,7 +105,7 @@ enum
     kCCBKeyframeEasingBackInOut,
 };
 
-enum
+enum CCBPositionType
 {
     kCCBPositionTypeRelativeBottomLeft,
     kCCBPositionTypeRelativeTopLeft,
@@ -115,7 +115,7 @@ enum
     kCCBPositionTypeMultiplyResolution,
 };
 
-enum
+enum CCBSizeType
 {
     kCCBSizeTypeAbsolute,
     kCCBSizeTypePercent,
