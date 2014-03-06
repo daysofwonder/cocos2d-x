@@ -42,6 +42,11 @@ typedef enum {
     kCCTableViewFillBottomUp
 } CCTableViewVerticalFillOrder;
 
+typedef enum {
+    kCCTableViewFirstLinePositionTop,
+    kCCTableViewFirstLinePositionBottom
+} CCTableViewFirstLinePosition;
+
 /**
  * Sole purpose of this delegate is to single touch event in this version.
  */
@@ -195,7 +200,9 @@ public:
     void setVerticalFillOrder(CCTableViewVerticalFillOrder order);
     CCTableViewVerticalFillOrder getVerticalFillOrder();
 
-
+    void setFisrtLinePosition(CCTableViewFirstLinePosition position);
+    CCTableViewFirstLinePosition getFisrtLinePosition();
+    
     bool initWithViewSize(CCSize size, CCNode* container = NULL);
     /**
      * Updates the content of the cell at a given index.
@@ -272,6 +279,8 @@ protected:
      */
     CCTableViewVerticalFillOrder m_eVordering;
 
+    CCTableViewFirstLinePosition m_eFisrtLinePosition;
+    
     /**
      * currently selected cell. < 0 means no selection.
      */

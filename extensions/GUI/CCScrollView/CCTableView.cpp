@@ -59,6 +59,7 @@ bool CCTableView::initWithViewSize(CCSize size, CCNode* container/* = NULL*/)
         m_pIndices        = new std::set<unsigned int>();
         m_pTableViewDelegate = NULL;
         m_eVordering      = kCCTableViewFillBottomUp;
+        m_eFisrtLinePosition = kCCTableViewFirstLinePositionTop;
         this->setDirection(kCCScrollViewDirectionVertical);
 
         setScrollBarsFlags(fVerticalScrollBar);
@@ -102,6 +103,21 @@ void CCTableView::setVerticalFillOrder(CCTableViewVerticalFillOrder fillOrder)
 CCTableViewVerticalFillOrder CCTableView::getVerticalFillOrder()
 {
     return m_eVordering;
+}
+
+void CCTableView::setFisrtLinePosition(CCTableViewFirstLinePosition position)
+{
+    if (m_eFisrtLinePosition != position) {
+        m_eFisrtLinePosition = position;
+        if (m_pCellsUsed->count() > 0) {
+            this->reloadData();
+        }
+    }
+}
+
+CCTableViewFirstLinePosition CCTableView::getFisrtLinePosition()
+{
+    return m_eFisrtLinePosition;
 }
 
 void CCTableView::reloadData(bool iKeepScrollPos)
@@ -157,6 +173,14 @@ void CCTableView::reloadData(bool iKeepScrollPos)
     else
     {
         updateContainerOffset();
+        
+        if (m_eFisrtLinePosition == kCCTableViewFirstLinePositionBottom)
+        {
+            CCPoint offset = getContentOffset();
+            offset.y = 0.f;
+            
+            setContentOffset(offset);
+        }
     }
 }
 
