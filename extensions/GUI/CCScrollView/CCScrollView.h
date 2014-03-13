@@ -188,11 +188,11 @@ public:
     /**
      * Returns the current container's minimum offset. You may want this while you animate scrolling by yourself
      */
-    CCPoint minContainerOffset();
+    virtual CCPoint minContainerOffset();
     /**
      * Returns the current container's maximum offset. You may want this while you animate scrolling by yourself
      */
-    CCPoint maxContainerOffset(); 
+    virtual CCPoint maxContainerOffset();
     /**
      * Determines if a given node's bounding box is in visible bounds
      *

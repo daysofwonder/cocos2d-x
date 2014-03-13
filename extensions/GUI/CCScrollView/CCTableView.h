@@ -260,6 +260,8 @@ public:
      */
     void selectCellByIndex(int iIndex, bool iAnimated = false); // Deselect all if iIndex < 0
 
+    virtual CCPoint minContainerOffset() override;
+    virtual CCPoint maxContainerOffset() override;
 
     virtual void scrollViewDidScroll(CCScrollView* view);
     virtual void scrollViewDidZoom(CCScrollView* view) {}
