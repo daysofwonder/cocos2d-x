@@ -635,7 +635,7 @@ CCPoint CCTableView::minContainerOffset()
     
     if (m_eFisrtLinePosition == kCCTableViewFirstLinePositionBottom)
     {
-        offset.y = 0.f;
+        offset.y = MIN(offset.y, 0.f);
     }
     
     return offset;
