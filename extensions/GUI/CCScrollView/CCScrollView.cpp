@@ -184,25 +184,34 @@ bool CCScrollView::wheel(const CCPoint& iWorldMouseLocation, float iDeltaX, floa
     if ((m_pContainer != NULL) && isTouchInside(iWorldMouseLocation))
     {
         CCPoint offset = getContentOffset();
+        float scale = 1.f;
+        
+        // Adjust the delta with the global scale
+        CCNode* parent = getParent();
+        if (parent != nullptr)
+        {
+            CCRect worldRect = CCRectApplyAffineTransform(boundingBox(), parent->nodeToWorldTransform());
+            scale = getContentSize().width / worldRect.size.width;
+        }
         
         switch (m_eDirection)
         {
             case kCCScrollViewDirectionBoth:
             {
-                offset.x += iDeltaX;
-                offset.y -= iDeltaY;
+                offset.x += iDeltaX * scale;
+                offset.y -= iDeltaY * scale;
                 break;
             }
-
+                
             case kCCScrollViewDirectionHorizontal:
             {
-                offset.x += iDeltaX;
+                offset.x += iDeltaX * scale;
                 break;
             }
-
+                
             case kCCScrollViewDirectionVertical:
             {
-                offset.y -= iDeltaY;
+                offset.y -= iDeltaY * scale;
                 break;
             }
                 
