@@ -172,7 +172,15 @@ void CCTableView::reloadData(bool iKeepScrollPos)
     }
     else
     {
-        updateContainerOffset();
+        //updateContainerOffset(); // the following lines is a variation of the implementation of CCScrollView::updateContainerOffset
+        if (m_pContainer != NULL)
+        {
+            CCPoint offset = (m_eFisrtLinePosition == kCCTableViewFirstLinePositionTop) ? minContainerOffset() : maxContainerOffset();
+            
+            updateInset();
+            setContentOffset(offset);
+            relocateContainer(false);
+        }
     }
 }
 
