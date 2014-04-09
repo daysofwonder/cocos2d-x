@@ -167,12 +167,12 @@ bool CCImage::initWithImageData(void * pData,
             bRet = _initWithJpgData(pData, nDataLen);
             break;
         }
+#if 0
         else if (kFmtTiff == eFmt)
         {
             bRet = _initWithTiffData(pData, nDataLen);
             break;
         }
-#if 0
         else if (kFmtWebp == eFmt)
         {
             bRet = _initWithWebpData(pData, nDataLen);
@@ -204,6 +204,7 @@ bool CCImage::initWithImageData(void * pData,
                 }
             }
 
+#if 0
             // if it is a tiff file buffer.
             if (nDataLen > 2)
             {
@@ -216,6 +217,7 @@ bool CCImage::initWithImageData(void * pData,
                     break;
                 }
             }
+#endif
 
             // if it is a jpeg file buffer.
             if (nDataLen > 2)
@@ -612,6 +614,7 @@ static void _tiffUnmapProc(thandle_t fd, void* base, toff_t size)
     CC_UNUSED_PARAM(size);
 }
 
+#if 0
 bool CCImage::_initWithTiffData(void* pData, int nDataLen)
 {
     bool bRet = false;
@@ -681,6 +684,7 @@ bool CCImage::_initWithTiffData(void* pData, int nDataLen)
     } while (0);
     return bRet;
 }
+#endif
 
 bool CCImage::_initWithRawData(void * pData, int nDatalen, int nWidth, int nHeight, int nBitsPerComponent, bool bPreMulti)
 {
