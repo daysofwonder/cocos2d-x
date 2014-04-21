@@ -101,14 +101,7 @@ static EAGLView *view;
 	
 	view = self;
     
-    [super initWithFrame:frameRect pixelFormat:format];
-
-    [self setWantsBestResolutionOpenGLSurface:YES];
-    NSRect backingRect = [self convertRectToBacking:frameRect];
-   
-    frameZoomFactor_ = backingRect.size.width / frameRect.size.width;
-    
-    return self;
+    return [super initWithFrame:frameRect pixelFormat:format];
 }
 
 - (void) update
@@ -541,6 +534,20 @@ static EAGLView *view;
     {
         [self discardCursorRects];
     }
+}
+
+-(void) setupForBestResolution
+{
+    [self setWantsBestResolutionOpenGLSurface:YES];
+    
+    frameZoomFactor_ = [self window].backingScaleFactor;
+}
+
+-(void) viewDidChangeBackingProperties
+{
+    frameZoomFactor_ = [self window].backingScaleFactor;
+    
+    [self reshape];
 }
 
 @end

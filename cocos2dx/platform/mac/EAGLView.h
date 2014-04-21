@@ -114,6 +114,8 @@ THE SOFTWARE.
 
 -(void) setFullScreen:(BOOL)fullscreen;
 
+-(void) setupForBestResolution;
+
 @end
 #endif // __EAGLVIEW_MAC_H__
 
