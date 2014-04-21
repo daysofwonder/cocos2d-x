@@ -98,13 +98,16 @@ static EAGLView *view;
     eventDelegate_ = [CCEventDispatcher sharedDispatcher];
     
     cocos2d::CCEGLView::sharedOpenGLView()->setFrameSize(frameRect.size.width, frameRect.size.height);
-    
-    frameZoomFactor_ = 1.0f;
 	
 	view = self;
     
     [super initWithFrame:frameRect pixelFormat:format];
 
+    [self setWantsBestResolutionOpenGLSurface:YES];
+    NSRect backingRect = [self convertRectToBacking:frameRect];
+   
+    frameZoomFactor_ = backingRect.size.width / frameRect.size.width;
+    
     return self;
 }
 
@@ -334,8 +337,8 @@ static EAGLView *view;
     float ys[1] = {0.0f};
     
 	ids[0] = [theEvent eventNumber];
-	xs[0] = x / frameZoomFactor_;
-	ys[0] = y / frameZoomFactor_;
+	xs[0] = x;
+	ys[0] = y;
 
 	cocos2d::CCDirector::sharedDirector()->getOpenGLView()->handleTouchesBegin(1, ids, xs, ys);
 }
@@ -347,9 +350,6 @@ static EAGLView *view;
 	
 	float x = local_point.x;
 	float y = /*[self getHeight] -*/ local_point.y;
-    
-	x /= frameZoomFactor_;
-	y /= frameZoomFactor_;
     
 	cocos2d::CCDirector::sharedDirector()->getOpenGLView()->handleMouseMoved(x, y);
     
@@ -369,8 +369,8 @@ static EAGLView *view;
     float ys[1] = {0.0f};
     
 	ids[0] = [theEvent eventNumber];
-	xs[0] = x / frameZoomFactor_;
-	ys[0] = y / frameZoomFactor_;
+	xs[0] = x;
+	ys[0] = y;
 
 	cocos2d::CCDirector::sharedDirector()->getOpenGLView()->handleTouchesMove(1, ids, xs, ys);
 }
@@ -388,8 +388,8 @@ static EAGLView *view;
     float ys[1] = {0.0f};
     
 	ids[0] = [theEvent eventNumber];
-	xs[0] = x / frameZoomFactor_;
-	ys[0] = y / frameZoomFactor_;
+	xs[0] = x;
+	ys[0] = y;
 
 	cocos2d::CCDirector::sharedDirector()->getOpenGLView()->handleTouchesEnd(1, ids, xs, ys);
 }
@@ -400,8 +400,8 @@ static EAGLView *view;
     NSPoint event_location = [theEvent locationInWindow];
 	NSPoint local_point = [self convertPoint:event_location fromView:nil];
 	
-	float x = local_point.x / frameZoomFactor_;
-	float y = (/*[self getHeight] - */local_point.y) / frameZoomFactor_;
+	float x = local_point.x;
+	float y = (/*[self getHeight] - */local_point.y);
 
     
 	cocos2d::CCDirector::sharedDirector()->getOpenGLView()->handleSecondaryButtonDown(x, y, 0);
@@ -418,8 +418,8 @@ static EAGLView *view;
     NSPoint event_location = [theEvent locationInWindow];
 	NSPoint local_point = [self convertPoint:event_location fromView:nil];
 	
-	float x = local_point.x / frameZoomFactor_;
-	float y = (/*[self getHeight] -*/ local_point.y) / frameZoomFactor_;
+	float x = local_point.x;
+	float y = (/*[self getHeight] -*/ local_point.y);
     
 	cocos2d::CCDirector::sharedDirector()->getOpenGLView()->handleSecondaryButtonUp(x, y, 0);
 }
@@ -454,8 +454,8 @@ static EAGLView *view;
     NSPoint event_location = [theEvent locationInWindow];
 	NSPoint local_point = [self convertPoint:event_location fromView:nil];
 	
-	const float x = local_point.x / frameZoomFactor_;
-	const float y = ([self getHeight] - local_point.y) / frameZoomFactor_;
+	const float x = local_point.x;
+	const float y = ([self getHeight] - local_point.y);
     
     const float dX = [theEvent deltaX];
     const float dY = [theEvent deltaY];
