@@ -405,7 +405,7 @@ bool CCImage::initWithString(
         m_nWidth    = (short)size.cx;
         m_nHeight   = (short)size.cy;
         m_bHasAlpha = true;
-        m_bPreMulti = false;
+        m_bPreMulti = true;
         m_nBitsPerComponent = 8;
         // copy pixed data
         bi.bmiHeader.biHeight = (bi.bmiHeader.biHeight > 0)
@@ -421,17 +421,16 @@ bool CCImage::initWithString(
             for (int x = 0; x < m_nWidth; ++x)
             {
                 COLORREF& clr = *pPixel;
-#if 1
-				const uint32_t level = GetRValue(clr);
-				if (level != 0) {
-					clr = (level << 24) | 0x00FFFFFF;
+
+				if (clr != 0)
+				{
+					const uint32_t a = GetRValue(clr);
+
+					// Should be premultiplied alpha
+					// ABGR
+					clr = (a << 24) | (a << 16) | (a << 8) | a;
 				}
-#else
-                if (GetRValue(clr) || GetGValue(clr) || GetBValue(clr))
-                {
-                    clr |= 0xff000000;
-                }
-#endif
+
                 ++pPixel;
             }
         }
