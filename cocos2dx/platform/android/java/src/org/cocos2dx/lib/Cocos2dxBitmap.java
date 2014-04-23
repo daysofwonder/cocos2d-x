@@ -455,8 +455,17 @@ public class Cocos2dxBitmap {
 				}
 
 				/* Remove spaces at the beginning of a new line. */
-				while (pString.charAt(i) == ' ') {
-					++i;
+				// keep for memory: the following lines can lead to an outOfBoundsException if i = charLength
+				// while (pString.charAt(i) == ' ') {
+				// 	++i;
+				// }
+				for (;;) {
+					if ((i < charLength) && (pString.charAt(i) == ' ')) {
+						++i;
+					}
+					else {
+						break;
+					}
 				}
 
 				start = i;

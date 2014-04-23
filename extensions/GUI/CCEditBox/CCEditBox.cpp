@@ -449,8 +449,8 @@ CCRect CCEditBox::inputLocalBounds() const
 
     const CCSize& cSize = getContentSize();
 
-    bounds.size.width = cSize.width - m_InputInsets.getMaxX();
-    bounds.size.height = cSize.height - m_InputInsets.getMaxY();
+    bounds.size.width = cSize.width - m_InputInsets.size.width;
+    bounds.size.height = cSize.height - m_InputInsets.size.height;
 
     return bounds;
 }

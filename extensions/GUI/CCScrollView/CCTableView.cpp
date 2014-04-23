@@ -172,14 +172,14 @@ void CCTableView::reloadData(bool iKeepScrollPos)
     }
     else
     {
-        updateContainerOffset();
-        
-        if (m_eFisrtLinePosition == kCCTableViewFirstLinePositionBottom)
+        //updateContainerOffset(); // the following lines is a variation of the implementation of CCScrollView::updateContainerOffset
+        if (m_pContainer != NULL)
         {
-            CCPoint offset = getContentOffset();
-            offset.y = 0.f;
+            CCPoint offset = (m_eFisrtLinePosition == kCCTableViewFirstLinePositionTop) ? minContainerOffset() : maxContainerOffset();
             
+            updateInset();
             setContentOffset(offset);
+            relocateContainer(false);
         }
     }
 }
@@ -635,6 +635,30 @@ void CCTableView::scrollViewDidScroll(CCScrollView* view)
 bool CCTableView::scrollEnabledOnTouch() const
 {
     return m_VerticalScrollBar == NULL;
+}
+
+CCPoint CCTableView::minContainerOffset()
+{
+    CCPoint offset = CCScrollView::minContainerOffset();
+    
+    if (m_eFisrtLinePosition == kCCTableViewFirstLinePositionBottom)
+    {
+        offset.y = MIN(offset.y, 0.f);
+    }
+    
+    return offset;
+}
+
+CCPoint CCTableView::maxContainerOffset()
+{
+    CCPoint offset = CCScrollView::maxContainerOffset();
+    
+    if (m_eFisrtLinePosition == kCCTableViewFirstLinePositionBottom)
+    {
+        offset.y = 0.f;
+    }
+    
+    return offset;
 }
 
 void CCTableView::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
