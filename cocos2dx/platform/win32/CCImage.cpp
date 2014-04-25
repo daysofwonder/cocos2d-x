@@ -23,6 +23,8 @@ THE SOFTWARE.
 ****************************************************************************/
 #define __CC_PLATFORM_IMAGE_CPP__
 #include "platform/CCImageCommon_cpp.h"
+#include "ccMacros.h"
+#include "CCDirector.h"
 
 NS_CC_BEGIN
 
@@ -211,7 +213,7 @@ public:
             HGDIOBJ hOld = SelectObject(m_hDC, m_hFont);
 
             // measure text size
-            DrawTextW(m_hDC, pszText, nLen, &rc, dwCalcFmt);
+            const int height = DrawTextW(m_hDC, pszText, nLen, &rc, dwCalcFmt);
             SelectObject(m_hDC, hOld);
 
             tRet.cx = rc.right;
@@ -465,22 +467,37 @@ void CCImage::calculateStringSize(const char* pText,
 	nLen = MultiByteToWideChar(CP_UTF8, 0, pText, nLen, pwszBuffer, nBufLen);
 
 	BitmapDC& dc = sharedBitmapDC();
-	SIZE calcSize;
-	while (nFontSize >= nMinFontSize) {
-		if (!dc.setFont(pFontName, nFontSize)) {
+
+	// GG: CCImage::calculateStringSize is mainly used to determine the size
+	// of a text to be drawn in a texture.
+	// On Windows fonts are not necessarily proportional, then we have to perform
+	// the computations in real target coordinates...
+	const float scale = CC_CONTENT_SCALE_FACTOR();
+	int fontSize = nFontSize * scale;
+	const int minFontSize = nMinFontSize * scale;
+	const int maxWidth = nWidth * scale;
+	const int maxHeight = nHeight * scale;
+
+	while (fontSize >= minFontSize) {
+		if (!dc.setFont(pFontName, fontSize)) {
 			CCLog("Can't found font(%s), use system default", pFontName);
 		}
-		const SIZE calcSize = dc.sizeWithText(pwszBuffer, nLen, 0, nWidth);
+		const SIZE calcSize = dc.sizeWithText(pwszBuffer, nLen, 0, maxWidth);
 		oComputedSize.width = calcSize.cx;
 		oComputedSize.height = calcSize.cy;
-		if ((nWidth != 0 && calcSize.cx>nWidth) || (nHeight != 0 && calcSize.cy>nHeight)) {
-			nFontSize--;
+		if ((maxWidth != 0 && calcSize.cx>maxWidth) || (maxHeight != 0 && calcSize.cy>maxHeight)) {
+			fontSize--;
 		}
 		else {
 			break;
 		}
 	}
-	oAdjustedFontSize = nFontSize;
+
+	// ... But at the end, we must convert back to original scale the output parameters.
+	oComputedSize.width /= scale;
+	oComputedSize.height /= scale;
+
+	oAdjustedFontSize = fontSize / scale;
 }
 
 
