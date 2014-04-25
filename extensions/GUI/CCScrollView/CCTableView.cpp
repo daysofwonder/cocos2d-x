@@ -435,9 +435,20 @@ int CCTableView::__indexFromOffset(CCPoint offset)
     switch (this->getDirection())
     {
         case kCCScrollViewDirectionHorizontal:
+			if (m_obContentSize.width <= 0)
+			{
+				return -1;
+			}
+
             search = offset.x;
             break;
+
         default:
+			if (m_obContentSize.height <= 0)
+			{
+				return -1;
+			}
+
             search = offset.y;
             break;
     }
