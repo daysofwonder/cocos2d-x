@@ -117,6 +117,27 @@ static bool _isNodeEligibleForHitDispatch(CCNode* iNode)
     return true;
 }
 
+static bool _isNodeEligibleForTouchDispatch(CCNode* iNode)
+{
+    if (iNode == NULL)
+    {
+        return false;
+    }
+    
+    if (!iNode->isVisible())
+    {
+        return false;
+    }
+    
+    HitTestProtocol* hitTestProto = dynamic_cast<HitTestProtocol*>(iNode);
+    if ((hitTestProto != NULL) && (!hitTestProto->isEnabled() || hitTestProto->isClickThrough()))
+    {
+        return false;
+    }
+    
+    return true;
+}
+
 bool
 CCSceneGraphTouchDispatcher::_dispatchPreTouchToTargetedDelegate(CCTouchDelegate* iDelegate, HitTestProtocol* iProtocol, CCSceneGraphTargetedTouchHandler* iHandler, unsigned int uIndex, CCTouch* iTouch, CCEvent* iEvent, CCSet* pMutableTouches, bool iSetACopy)
 {
@@ -166,7 +187,7 @@ CCSceneGraphTouchDispatcher::_dispatchPreTouchToTargetedDelegate(CCTouchDelegate
 bool
 CCSceneGraphTouchDispatcher::_dispatchTouchToTargetedDelegates(CCNode* iNode, unsigned int uIndex, CCTouch* iTouch, CCEvent* iEvent, CCSet *pMutableTouches, bool iSetACopy)
 {
-    if (!_isNodeEligibleForHitDispatch(iNode))
+    if (!_isNodeEligibleForTouchDispatch(iNode))
     {
         return false;
     }
@@ -281,7 +302,7 @@ CCSceneGraphTouchDispatcher::_dispatchTouchToTargetedHandlerOnly(CCTargetedTouch
 void
 CCSceneGraphTouchDispatcher::_dispatchTouchToStandardDelegates(CCNode* iNode, unsigned int uIndex, CCSet* pTouches, CCEvent* pEvent)
 {
-    if (!_isNodeEligibleForHitDispatch(iNode))
+    if (!_isNodeEligibleForTouchDispatch(iNode))
     {
         return;
     }
@@ -519,7 +540,7 @@ CCSceneGraphTouchDispatcher::setMouseTracker(CCTouchDelegate* iTracker)
 static
 bool _dispatchWheel(CCNode* iRoot, const CCPoint& iWorldMouseLocation, float iDeltaX, float iDeltaY, float iDeltaZ)
 {
-    if (!_isNodeEligibleForHitDispatch(iRoot))
+    if (!_isNodeEligibleForTouchDispatch(iRoot))
     {
         return false;
     }
@@ -696,7 +717,7 @@ CCSceneGraphTouchDispatcher::mouseMoved(const CCPoint& iWorldMousePosition)
 bool
 CCSceneGraphTouchDispatcher::_dispatchSecondaryButtonDown(CCNode* iRoot, const CCPoint& iWorldMousePosition, int iButtonID)
 {
-    if (!_isNodeEligibleForHitDispatch(iRoot))
+    if (!_isNodeEligibleForTouchDispatch(iRoot))
     {
         return false;
     }
@@ -752,7 +773,7 @@ CCSceneGraphTouchDispatcher::secondaryButtonDown(const CCPoint& iWorldMousePosit
 bool
 CCSceneGraphTouchDispatcher::_dispatchSecondaryButtonUp(CCNode* iRoot, const CCPoint& iWorldMousePosition, int iButtonID)
 {
-    if (!_isNodeEligibleForHitDispatch(iRoot))
+    if (!_isNodeEligibleForTouchDispatch(iRoot))
     {
         return false;
     }
@@ -808,7 +829,7 @@ CCSceneGraphTouchDispatcher::secondaryButtonUp(const CCPoint& iWorldMousePositio
 static
 CCTouchDelegate* _simulateTouchDown(CCNode* iRoot, CCTouch* iTouch, bool iIncludingRoot)
 {
-    if (!_isNodeEligibleForHitDispatch(iRoot))
+    if (!_isNodeEligibleForTouchDispatch(iRoot))
     {
         return NULL;
     }

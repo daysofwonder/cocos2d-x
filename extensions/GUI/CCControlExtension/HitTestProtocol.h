@@ -18,9 +18,13 @@ class HitTestProtocol
 {
 public:
     
+    // When enabled you receive touch (if click through property not set though) and mouse over
     virtual bool isEnabled() = 0; // Should be const but cocos2d-x is not that const friendly
     virtual void setIsEnabled(bool iEnabled) = 0;
     
+    // If true, then no click are propagated throught the entire hierarchy where this node is root
+    virtual bool isClickThrough()  { return false; }
+
     virtual bool isTouchInside(const CCPoint& iWorldLocation) = 0;
 
     // Default implementation tests against the bounding box
