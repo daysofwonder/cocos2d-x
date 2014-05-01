@@ -68,6 +68,9 @@ THE SOFTWARE.
  
  Only available for Mac OS X
  */
+
+typedef void (^TResolutionChangeBlock)();
+
 @interface EAGLView : NSOpenGLView {
 	id<MacEventDelegate> eventDelegate_;
 
@@ -78,6 +81,8 @@ THE SOFTWARE.
 	NSWindow		*windowGLView_;
     NSView          *superViewGLView_;
     NSRect          originalWinRect_; // Original size and position
+    
+    TResolutionChangeBlock resolutionChangeBlock;
 }
 
 @property (nonatomic, readwrite, assign) id<MacEventDelegate> eventDelegate;
@@ -108,7 +113,7 @@ THE SOFTWARE.
 
 -(void) setFullScreen:(BOOL)fullscreen;
 
--(void) setupForBestResolution;
+-(void) setupForBestResolution:(TResolutionChangeBlock)iCallback;
 -(float) frameBufferScale;
 
 @end

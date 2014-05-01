@@ -173,6 +173,8 @@ static EAGLView *view;
 - (void) dealloc
 {
 	CCLOGINFO(@"cocos2d: deallocing EAGLView %@", self);
+    [resolutionChangeBlock release];
+    
 	[super dealloc];
 }
 	
@@ -529,11 +531,11 @@ static EAGLView *view;
     }
 }
 
--(void) setupForBestResolution
+-(void) setupForBestResolution:(TResolutionChangeBlock)iCallback
 {
-    [self setWantsBestResolutionOpenGLSurface:YES];
+    resolutionChangeBlock = [iCallback copy];
     
-    //frameZoomFactor_ = [self window].backingScaleFactor;
+    [self setWantsBestResolutionOpenGLSurface:YES];
 }
 
 -(float) frameBufferScale
@@ -550,9 +552,10 @@ static EAGLView *view;
 
 -(void) viewDidChangeBackingProperties
 {
-    //frameZoomFactor_ = [self window].backingScaleFactor;
-    
-    [self reshape];
+    if (resolutionChangeBlock != nil)
+    {
+        resolutionChangeBlock();
+    }
 }
 
 @end
