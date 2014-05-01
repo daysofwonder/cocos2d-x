@@ -99,6 +99,7 @@ static EAGLView *view;
     
     cocos2d::CCEGLView::sharedOpenGLView()->setFrameSize(frameRect.size.width, frameRect.size.height);
 	
+    frameZoomFactor_ = 1.0f;
 	view = self;
     
     return [super initWithFrame:frameRect pixelFormat:format];
@@ -315,15 +316,31 @@ static EAGLView *view;
 
 #pragma mark EAGLView - Mouse events
 
+-(CGPoint) convertPointToPixels:(CGPoint)point flippingY:(BOOL)iFlip
+{
+    NSPoint p = [self convertPoint:point fromView:nil];
+    
+    if (iFlip)
+    {
+        p.y = [self getHeight] - p.y;
+    }
+    
+    const float s = [self frameBufferScale];
+    p.x *= s;
+    p.y *= s;
+    
+    return p;
+}
+
 - (void)mouseDown:(NSEvent *)theEvent
 {
     [[self window] makeFirstResponder:self];
     
 	NSPoint event_location = [theEvent locationInWindow];
-	NSPoint local_point = [self convertPoint:event_location fromView:nil];
-	
+	NSPoint local_point = [self convertPointToPixels:event_location flippingY:YES];
+    
 	float x = local_point.x;
-	float y = [self getHeight] - local_point.y;
+	float y = local_point.y;
 	
     int ids[1] = {0};
     float xs[1] = {0.0f};
@@ -339,10 +356,10 @@ static EAGLView *view;
 - (void)mouseMoved:(NSEvent *)theEvent
 {
     NSPoint event_location = [theEvent locationInWindow];
-	NSPoint local_point = [self convertPoint:event_location fromView:nil];
+	NSPoint local_point = [self convertPointToPixels:event_location flippingY:NO];
 	
 	float x = local_point.x;
-	float y = /*[self getHeight] -*/ local_point.y;
+	float y = local_point.y;
     
 	cocos2d::CCDirector::sharedDirector()->getOpenGLView()->handleMouseMoved(x, y);
     
@@ -352,10 +369,10 @@ static EAGLView *view;
 - (void)mouseDragged:(NSEvent *)theEvent
 {
 	NSPoint event_location = [theEvent locationInWindow];
-	NSPoint local_point = [self convertPoint:event_location fromView:nil];
+	NSPoint local_point = [self convertPointToPixels:event_location flippingY:YES];
 	
 	float x = local_point.x;
-	float y = [self getHeight] - local_point.y;
+	float y = local_point.y;
 
     int ids[1] = {0};
     float xs[1] = {0.0f};
@@ -371,10 +388,10 @@ static EAGLView *view;
 - (void)mouseUp:(NSEvent *)theEvent
 {
 	NSPoint event_location = [theEvent locationInWindow];
-	NSPoint local_point = [self convertPoint:event_location fromView:nil];
+	NSPoint local_point = [self convertPointToPixels:event_location flippingY:YES];
 	
 	float x = local_point.x;
-	float y = [self getHeight] - local_point.y;
+	float y = local_point.y;
 
     int ids[1] = {0};
     float xs[1] = {0.0f};
@@ -391,10 +408,10 @@ static EAGLView *view;
 	DISPATCH_EVENT(theEvent, _cmd);
 
     NSPoint event_location = [theEvent locationInWindow];
-	NSPoint local_point = [self convertPoint:event_location fromView:nil];
+	NSPoint local_point = [self convertPointToPixels:event_location flippingY:NO];
 	
 	float x = local_point.x;
-	float y = (/*[self getHeight] - */local_point.y);
+	float y = local_point.y;
 
     
 	cocos2d::CCDirector::sharedDirector()->getOpenGLView()->handleSecondaryButtonDown(x, y, 0);
@@ -409,10 +426,10 @@ static EAGLView *view;
 	DISPATCH_EVENT(theEvent, _cmd);
     
     NSPoint event_location = [theEvent locationInWindow];
-	NSPoint local_point = [self convertPoint:event_location fromView:nil];
+	NSPoint local_point = [self convertPointToPixels:event_location flippingY:NO];
 	
 	float x = local_point.x;
-	float y = (/*[self getHeight] -*/ local_point.y);
+	float y = local_point.y;
     
 	cocos2d::CCDirector::sharedDirector()->getOpenGLView()->handleSecondaryButtonUp(x, y, 0);
 }
@@ -445,14 +462,16 @@ static EAGLView *view;
 -(void) scrollWheel:(NSEvent *)theEvent {
     
     NSPoint event_location = [theEvent locationInWindow];
-	NSPoint local_point = [self convertPoint:event_location fromView:nil];
+	NSPoint local_point = [self convertPointToPixels:event_location flippingY:YES];
 	
 	const float x = local_point.x;
-	const float y = ([self getHeight] - local_point.y);
+	const float y = local_point.y;
     
-    const float dX = [theEvent deltaX];
-    const float dY = [theEvent deltaY];
-    const float dZ = [theEvent deltaZ];
+    const float scale = [self frameBufferScale];
+    
+    const float dX = [theEvent deltaX] * scale;
+    const float dY = [theEvent deltaY] * scale;
+    const float dZ = [theEvent deltaZ] * scale;
     
 	cocos2d::CCDirector::sharedDirector()->getOpenGLView()->handleWheel(x, y, dX, dY, dZ);
     
@@ -540,12 +559,24 @@ static EAGLView *view;
 {
     [self setWantsBestResolutionOpenGLSurface:YES];
     
-    frameZoomFactor_ = [self window].backingScaleFactor;
+    //frameZoomFactor_ = [self window].backingScaleFactor;
+}
+
+-(float) frameBufferScale
+{
+    if ([self wantsBestResolutionOpenGLSurface])
+    {
+        return self.window.backingScaleFactor;
+    }
+    else
+    {
+        return 1;
+    }
 }
 
 -(void) viewDidChangeBackingProperties
 {
-    frameZoomFactor_ = [self window].backingScaleFactor;
+    //frameZoomFactor_ = [self window].backingScaleFactor;
     
     [self reshape];
 }

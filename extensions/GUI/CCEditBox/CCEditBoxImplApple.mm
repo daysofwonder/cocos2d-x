@@ -69,10 +69,20 @@
 
     @end
 
+    static inline float getScreenDensity()
+    {
+        return 1;
+    }
+
 #else
 
     // Mac
     #define NativeTextFieldDelegate NSTextFieldDelegate
+
+    static inline float getScreenDensity()
+    {
+        return [[EAGLView sharedEGLView] frameBufferScale];
+    }
 
     static NSRect adjustedFrameToVerticallyCenterText(NSFont* font, const NSRect& frame)
     {
@@ -219,8 +229,9 @@
     // Mac
     cocos2d::CCEGLView* glView = cocos2d::CCEGLView::sharedOpenGLView();
     
-    size.width *= glView->getScaleX();
-    size.height *= glView->getScaleY();
+    const float density = getScreenDensity();
+    size.width *= glView->getScaleX() / density;
+    size.height *= glView->getScaleY() / density;
 #endif
     
     frame.size = size;
@@ -500,7 +511,8 @@ bool CCEditBoxImplApple::initWithSize(const CCSize& size)
     {
         CCEGLViewProtocol* eglView = CCEGLView::sharedOpenGLView();
 
-        CGRect rect = CGRectMake(0, 0, size.width * eglView->getScaleX(),size.height * eglView->getScaleY());
+        const float density = getScreenDensity();
+        CGRect rect = CGRectMake(0, 0, size.width * eglView->getScaleX() / density, size.height * eglView->getScaleY() / density);
 
         if (m_bInRetinaMode)
         {
@@ -598,7 +610,7 @@ void CCEditBoxImplApple::updateFontOfNativeTextField()
     
     NSString * fntName = [NSString stringWithUTF8String:fontName];
     
-    float scaleFactor = CCEGLView::sharedOpenGLView()->getScaleX();
+    float scaleFactor = CCEGLView::sharedOpenGLView()->getScaleX() / getScreenDensity();
     
 #if TARGET_OS_IPHONE
     float retinaFactor = m_bInRetinaMode ? 2.0f : 1.0f;
@@ -856,9 +868,10 @@ void CCEditBoxImplApple::setPlaceHolder(const char* pText)
 
 NativePoint CCEditBoxImplApple::convertDesignCoordToScreenCoord(const CCPoint& designCoord) const
 {
-    CCEGLViewProtocol* eglView = CCEGLView::sharedOpenGLView();
+    CCEGLView* eglView = CCEGLView::sharedOpenGLView();
     
-    CCPoint visiblePos = ccp(designCoord.x * eglView->getScaleX(), designCoord.y * eglView->getScaleY());
+    const float density = getScreenDensity();
+    CCPoint visiblePos = ccp(designCoord.x * eglView->getScaleX() / density, designCoord.y * eglView->getScaleY() / density);
     CCPoint screenGLPos = ccpAdd(visiblePos, eglView->getViewPortRect().origin);
     
 #if TARGET_OS_IPHONE

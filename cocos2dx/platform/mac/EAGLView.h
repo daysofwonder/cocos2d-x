@@ -115,6 +115,7 @@ THE SOFTWARE.
 -(void) setFullScreen:(BOOL)fullscreen;
 
 -(void) setupForBestResolution;
+-(float) frameBufferScale;
 
 @end
 #endif // __EAGLVIEW_MAC_H__
