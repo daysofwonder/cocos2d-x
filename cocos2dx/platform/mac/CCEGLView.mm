@@ -88,35 +88,20 @@ void CCEGLView::setIMEKeyboardState(bool bOpen)
     }
 }
 
-CCSize
-CCEGLView::globalScaleFactor() const
-{
-    CCSize s;
-    float z = [[EAGLView sharedEGLView] frameZoomFactor];
-    s.width = z * m_fScaleX;
-    s.height = z * m_fScaleY;
-    
-    return s;
-}
-
 void CCEGLView::setViewPortInPoints(float x , float y , float w , float h)
 {
-    const CCSize s = globalScaleFactor();
-    
-    glViewport((GLint)((x + m_obViewPortRect.origin.x) * s.width),
-               (GLint)((y + m_obViewPortRect.origin.y) * s.height),
-               (GLsizei)(w * s.width),
-               (GLsizei)(h * s.height));
+    glViewport((GLint)((x + m_obViewPortRect.origin.x) * m_fScaleX),
+               (GLint)((y + m_obViewPortRect.origin.y) * m_fScaleY),
+               (GLsizei)(w * m_fScaleX),
+               (GLsizei)(h * m_fScaleY));
 }
 
 void CCEGLView::setScissorInPoints(float x , float y , float w , float h)
 {
-    const CCSize s = globalScaleFactor();
-    
-    glScissor((GLint)((x + m_obViewPortRect.origin.x) * s.width),
-               (GLint)((y + m_obViewPortRect.origin.y) * s.height),
-               (GLsizei)(w * s.width),
-               (GLsizei)(h * s.height));
+    glScissor((GLint)((x + m_obViewPortRect.origin.x) * m_fScaleX),
+               (GLint)((y + m_obViewPortRect.origin.y) * m_fScaleY),
+               (GLsizei)(w * m_fScaleX),
+               (GLsizei)(h * m_fScaleY));
 }
 
 void CCEGLView::setMultiTouchMask(bool mask)

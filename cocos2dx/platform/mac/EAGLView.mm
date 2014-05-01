@@ -46,7 +46,7 @@ static EAGLView *view;
 
 @implementation EAGLView
 
-@synthesize eventDelegate = eventDelegate_, isFullScreen = isFullScreen_, frameZoomFactor=frameZoomFactor_;
+@synthesize eventDelegate = eventDelegate_, isFullScreen = isFullScreen_;
 
 +(id) sharedEGLView
 {
@@ -86,8 +86,6 @@ static EAGLView *view;
 	}
     
     cocos2d::CCEGLView::sharedOpenGLView()->setFrameSize(frameRect.size.width, frameRect.size.height);
-    
-    frameZoomFactor_ = 1.0f;
 	
 	view = self;
 	return self;
@@ -99,7 +97,6 @@ static EAGLView *view;
     
     cocos2d::CCEGLView::sharedOpenGLView()->setFrameSize(frameRect.size.width, frameRect.size.height);
 	
-    frameZoomFactor_ = 1.0f;
 	view = self;
     
     return [super initWithFrame:frameRect pixelFormat:format];
@@ -132,29 +129,6 @@ static EAGLView *view;
 - (NSUInteger) depthFormat
 {
 	return 24;
-}
-
-- (void) setFrameZoomFactor:(float)frameZoomFactor
-{
-    frameZoomFactor_ = frameZoomFactor;
-    
-    NSRect winRect = [[self window] frame];
-    NSRect viewRect = [self frame];
-    
-    // compute the margin width and margin height
-    float diffX = winRect.size.width - viewRect.size.width;
-    float diffY = winRect.size.height - viewRect.size.height;
-    
-    // new window width and height
-    float newWindowWidth = (int)(viewRect.size.width * frameZoomFactor + diffX);
-    float newWindowHeight = (int)(viewRect.size.height * frameZoomFactor + diffY);
-    
-    // display window in the center of the screen
-    NSRect screenRect = [[NSScreen mainScreen] frame];
-    float originX = (screenRect.size.width - newWindowWidth) / 2;
-    float originY = (screenRect.size.height - newWindowHeight) / 2;
-    
-    [[self window] setFrame:NSMakeRect(originX, originY, newWindowWidth, newWindowHeight) display:true];
 }
 
 - (void) reshape
