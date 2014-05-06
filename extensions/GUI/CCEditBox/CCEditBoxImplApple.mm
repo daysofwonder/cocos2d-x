@@ -749,6 +749,7 @@ void CCEditBoxImplApple::setInputFlag(EditBoxInputFlag inputFlag)
             m_systemControl.textField.autocorrectionType = UITextAutocorrectionTypeNo;
             break;
         default:
+            m_systemControl.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
             break;
     }
 #else
