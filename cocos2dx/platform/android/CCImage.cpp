@@ -340,6 +340,8 @@ void CCImage::calculateStringSize(const char* pText,
 	  oComputedSize.width = width;
 	  oComputedSize.height = height;
 	  oAdjustedFontSize = adjustedFontSize;
+
+	  methodInfo.env->DeleteLocalRef(obj);
 }
 
 NS_CC_END
