@@ -430,7 +430,10 @@ unsigned int CCTableView::_indexFromOffset(CCPoint offset)
 int CCTableView::__indexFromOffset(CCPoint offset)
 {
     int low = 0;
-    int high = m_pDataSource->numberOfCellsInTableView(this) - 1;
+    //int high = m_pDataSource->numberOfCellsInTableView(this) - 1;
+	assert(!m_vCellsPositions.empty());
+	int high = m_vCellsPositions.size() - 1 - 1;
+
     float search;
     switch (this->getDirection())
     {
