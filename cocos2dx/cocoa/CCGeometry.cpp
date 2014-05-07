@@ -202,6 +202,16 @@ CCRect& CCRect::operator= (const CCRect& other)
     return *this;
 }
 
+CCRect CCRect::operator+(const CCRect& other) const
+{
+    float topLeftX = MIN(origin.x, other.origin.x);
+    float topLeftY = MIN(origin.y, other.origin.y);
+    float bottomRightX = MAX(origin.x + size.width,  other.origin.x + other.size.width);
+    float bottomRightY = MAX(origin.y + size.height, other.origin.y + other.size.height);
+    
+    return CCRect(topLeftX, topLeftY, bottomRightX - topLeftX, bottomRightY - topLeftY);
+}
+
 void CCRect::setRect(float x, float y, float width, float height)
 {
     // CGRect can support width<0 or height<0

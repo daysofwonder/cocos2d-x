@@ -235,6 +235,7 @@ public:
     CCRect(float x, float y, float width, float height);
     CCRect(const CCRect& other);
     CCRect& operator= (const CCRect& other);
+    CCRect operator+(const CCRect& other) const;
     void setRect(float x, float y, float width, float height);
     float getMinX() const; /// return the leftmost x-value of current rect
     float getMidX() const; /// return the midpoint x-value of current rect
