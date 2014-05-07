@@ -40,6 +40,8 @@ THE SOFTWARE.
 #import "CCEventDispatcher.h"
 #import "CCEGLView.h"
 #import "platform/mac/CCCursorMac.h"
+#import "keypad_dispatcher/CCKeypadDispatcher.h"
+
 
 //USING_NS_CC;
 static EAGLView *view;
@@ -87,6 +89,8 @@ static EAGLView *view;
     
     cocos2d::CCEGLView::sharedOpenGLView()->setFrameSize(frameRect.size.width, frameRect.size.height);
 	
+    [[self window] setInitialFirstResponder:self];
+    
 	view = self;
 	return self;
 }
@@ -474,6 +478,11 @@ static EAGLView *view;
 
 - (void)keyDown:(NSEvent *)theEvent
 {
+    unsigned short key = [theEvent keyCode];
+    if (key == 36) {
+        cocos2d::CCDirector::sharedDirector()->getKeypadDispatcher()->dispatchKeypadMSG(cocos2d::kTypeEnterClicked);
+    }
+    
 	DISPATCH_EVENT(theEvent, _cmd);
 	
 	// pass the event along to the next responder (like your NSWindow subclass)

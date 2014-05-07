@@ -39,6 +39,7 @@ typedef enum {
     // the back key clicked msg
     kTypeBackClicked = 1,
     kTypeMenuClicked,
+    kTypeEnterClicked,
 } ccKeypadMSGType;
 
 struct _ccCArray;

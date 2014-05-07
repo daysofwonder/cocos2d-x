@@ -43,6 +43,8 @@ public:
 
     // The menu key clicked. only available on wophone & android
     virtual void keyMenuClicked() {};
+    
+    virtual void keyEnterClicked() {};
 };
 
 /**
