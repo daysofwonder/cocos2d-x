@@ -551,12 +551,16 @@ static EAGLView *view;
 {
     if ([self wantsBestResolutionOpenGLSurface])
     {
-        return self.window.backingScaleFactor;
+        NSWindow* w = self.window;
+        
+        if (w != nil)
+        {
+            return w.backingScaleFactor;
+        }
     }
-    else
-    {
-        return 1;
-    }
+    
+    
+    return 1;
 }
 
 -(void) viewDidChangeBackingProperties
