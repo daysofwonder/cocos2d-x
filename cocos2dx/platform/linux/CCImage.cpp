@@ -15,6 +15,8 @@
 
 #include "ft2build.h"
 #include "CCStdC.h"
+#include "ccMacros.h"
+#include "CCDirector.h"
 
 #include FT_FREETYPE_H
 
@@ -474,11 +476,45 @@ void CCImage::calculateStringSize(const char* pText,
                                     int             nHeight
                                     )
 {
-//TODO
-    std::string text(pText);
-    oComputedSize.height=nFontSize;
-    oComputedSize.width=nFontSize*text.size();
-    oAdjustedFontSize=nFontSize;
+	if(! pText) {
+		return;
+	}
+	BitmapDC &dc = sharedBitmapDC();
+
+	// GG: CCImage::calculateStringSize is mainly used to determine the size
+	// of a text to be drawn in a texture.
+	// On Windows fonts are not necessarily proportional, then we have to perform
+	// the computations in real target coordinates...
+	const float scale = CC_CONTENT_SCALE_FACTOR();
+	int fontSize = nFontSize * scale;
+	const int minFontSize = nMinFontSize * scale;
+	const int maxWidth = nWidth * scale;
+	const int maxHeight = nHeight * scale;
+
+	while (fontSize >= minFontSize) {
+		if(! dc.getBitmap(pText, maxWidth, maxHeight, kAlignTopLeft, pFontName, fontSize)) {
+			break;
+		}
+
+		const int calcWidth = dc.iMaxLineWidth;
+		const int calcHeight = dc.iMaxLineHeight;
+		oComputedSize.width = calcWidth;
+		oComputedSize.height = calcHeight;
+		if ((maxWidth != 0 && calcWidth>maxWidth) || (maxHeight != 0 && calcHeight>maxHeight)) {
+			fontSize--;
+		}
+		else {
+			break;
+		}
+	}
+
+	// ... But at the end, we must convert back to original scale the output parameters.
+	oComputedSize.width /= scale;
+	oComputedSize.height /= scale;
+
+	oAdjustedFontSize = fontSize / scale;
+
+	dc.reset();
 }
 
 NS_CC_END
