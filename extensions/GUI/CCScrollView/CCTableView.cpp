@@ -407,9 +407,15 @@ CCPoint CCTableView::__offsetFromIndex(unsigned int index)
 
 unsigned int CCTableView::_indexFromOffset(CCPoint offset)
 {
+    if (m_vCellsPositions.empty())
+    {
+        return CC_INVALID_INDEX;
+    }
+    
     int index = 0;
-    const int maxIdx = m_pDataSource->numberOfCellsInTableView(this)-1;
-
+    //const int maxIdx = m_pDataSource->numberOfCellsInTableView(this)-1;
+    const int maxIdx = m_vCellsPositions.size() - 1 - 1;
+    
     if (m_eVordering == kCCTableViewFillTopDown)
     {
         offset.y = this->getContainer()->getContentSize().height - offset.y;
