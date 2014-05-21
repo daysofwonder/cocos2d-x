@@ -30,17 +30,7 @@
 #import "SimpleAudioEngine.h"
 #import "CocosDenshion.h"
 
-NSString * const AVAudioSessionCategoryAmbient = @"AVAudioSessionCategoryAmbient";
-NSString *const AVAudioSessionCategorySoloAmbient = @"AVAudioSessionCategorySoloAmbient";
-NSString *const AVAudioSessionCategoryPlayback = @"AVAudioSessionCategoryPlayback";
-NSString *const AVAudioSessionCategoryRecord = @"AVAudioSessionCategoryRecord";
-NSString *const AVAudioSessionCategoryPlayAndRecord = @"AVAudioSessionCategoryPlayAndRecord";
-NSString *const AVAudioSessionCategoryAudioProcessing = @"AVAudioSessionCategoryAudioProcessing";
-
-OSStatus AudioSessionGetProperty(UInt32 inID, UInt32 *ioDataSize, void *outData) {
-	//TODO: set outData appropriately
-	return 0;
-}    
+#if !USE_SYSTEM_AVAUDIOPLAYER
 
 @implementation AVAudioPlayer
 
@@ -159,6 +149,20 @@ OSStatus AudioSessionGetProperty(UInt32 inID, UInt32 *ioDataSize, void *outData)
 - (float)averagePowerForChannel:(NSUInteger)channelNumber{return 0.0f;}
 @end
 
+#endif // !USE_SYSTEM_AVAUDIOPLAYER
+
+NSString * const AVAudioSessionCategoryAmbient = @"AVAudioSessionCategoryAmbient";
+NSString *const AVAudioSessionCategorySoloAmbient = @"AVAudioSessionCategorySoloAmbient";
+NSString *const AVAudioSessionCategoryPlayback = @"AVAudioSessionCategoryPlayback";
+NSString *const AVAudioSessionCategoryRecord = @"AVAudioSessionCategoryRecord";
+NSString *const AVAudioSessionCategoryPlayAndRecord = @"AVAudioSessionCategoryPlayAndRecord";
+NSString *const AVAudioSessionCategoryAudioProcessing = @"AVAudioSessionCategoryAudioProcessing";
+
+OSStatus AudioSessionGetProperty(UInt32 inID, UInt32 *ioDataSize, void *outData) {
+	//TODO: set outData appropriately
+	return 0;
+}
+
 /**
  A "do nothing" implementation - AVAudioSession is not really relevant to Mac OS X.
  */
@@ -177,4 +181,5 @@ OSStatus AudioSessionGetProperty(UInt32 inID, UInt32 *ioDataSize, void *outData)
 - (BOOL)setPreferredIOBufferDuration:(NSTimeInterval)duration error:(NSError**)outError {return YES;}
 
 @end
+
 #endif

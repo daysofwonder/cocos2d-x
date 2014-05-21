@@ -53,10 +53,20 @@ extern OSStatus AudioSessionGetProperty(UInt32 inID, UInt32 *ioDataSize, void *o
 #ifdef __cplusplus
 }
 #endif
+
+#define USE_SYSTEM_AVAUDIOPLAYER 1
+
 /**
  Based on AVAudioPlayer.h header in AVFoundation headers
  */
 @class NSData, NSURL, NSError, NSDictionary;
+
+#if USE_SYSTEM_AVAUDIOPLAYER
+
+#import <AVFoundation/AVFoundation.h>
+
+#else
+
 @protocol AVAudioPlayerDelegate;
 
 /* This class is available with iPhone 2.2 or later */
@@ -156,6 +166,7 @@ extern OSStatus AudioSessionGetProperty(UInt32 inID, UInt32 *ioDataSize, void *o
 - (void)audioPlayerEndInterruption:(AVAudioPlayer *)player;
 @end
 
+#endif // USE_SYSTEM_AVAUDIOPLAYER
 
 /**
  Taken from AVAudioSession.h header in AVFoundation headers
