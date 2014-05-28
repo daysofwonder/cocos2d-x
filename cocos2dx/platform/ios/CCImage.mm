@@ -433,9 +433,16 @@ static CGSize _calculateLinesSizeWithFont(NSArray* listItems, id font, CGSize *c
     CGSize dim = CGSizeZero;
     CGSize textRect = CGSizeZero;
     textRect.width = constrainSize->width > 0 ? constrainSize->width
-    : 0x7fffffff;
+    : CGFLOAT_MAX;
     textRect.height = constrainSize->height > 0 ? constrainSize->height
-    : 0x7fffffff;
+    : CGFLOAT_MAX;
+    
+    NSDictionary* attributes = nil;
+    
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+    {
+        attributes = @{ NSFontAttributeName: font};
+    }
     
     const int n = listItems.count;
     
@@ -448,7 +455,17 @@ static CGSize _calculateLinesSizeWithFont(NSArray* listItems, id font, CGSize *c
             s = @"A";
         }
         
-        CGSize tmp = [s sizeWithFont:font constrainedToSize:textRect];
+        CGSize tmp;
+        
+        if(attributes != nil)
+        {
+            CGSize boundingBox = [s boundingRectWithSize:textRect options: NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
+            tmp = CGSizeMake(ceil(boundingBox.width), ceil(boundingBox.height));
+        }
+        else
+        {
+            tmp = [s sizeWithFont:font constrainedToSize:textRect];
+        }
         
         if (tmp.width > dim.width)
         {
