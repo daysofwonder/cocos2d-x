@@ -764,9 +764,15 @@ void CCTexture2D::PVRImagesHavePremultipliedAlpha(bool haveAlphaPremultiplied)
 
 void CCTexture2D::generateMipmap()
 {
+    // Should check that glGenerateMipmap is available?
+    // doc says: GL_ARB_framebuffer_object or GL_EXT_framebuffer_object extension must be supported
+    
     CCAssert( m_uPixelsWide == ccNextPOT(m_uPixelsWide) && m_uPixelsHigh == ccNextPOT(m_uPixelsHigh), "Mipmap texture only works in POT textures");
     ccGLBindTexture2D( m_uName );
+    
+    glHint(GL_GENERATE_MIPMAP_HINT, GL_NICEST);
     glGenerateMipmap(GL_TEXTURE_2D);
+    
     m_bHasMipmaps = true;
 }
 
@@ -822,10 +828,11 @@ void CCTexture2D::setAntiAliasTexParameters()
     }
     else
     {
-        glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST );
+        glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
     }
 
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+    
 #if CC_ENABLE_CACHE_TEXTURE_DATA
     ccTexParams texParams = {m_bHasMipmaps?GL_LINEAR_MIPMAP_NEAREST:GL_LINEAR,GL_LINEAR,GL_NONE,GL_NONE};
     VolatileTexture::setTexParameters(this, &texParams);
