@@ -26,6 +26,8 @@ THE SOFTWARE.
 #define __CC_IMAGE_H__
 
 #include "cocoa/CCObject.h"
+#include "ccTypes.h"
+#include "ccMacros.h"
 
 NS_CC_BEGIN
 
@@ -115,7 +117,16 @@ public:
         ETextAlign      eAlignMask = kAlignCenter,
         const char *    pFontName = 0,
         int             nSize = 0);
-   
+
+    bool initWithStringAndAlignments(
+                        const char *    pText,
+                        int             nWidth,
+                        int             nHeight,
+                        CCTextAlignment eHorizontalAlignment,
+                        CCVerticalTextAlignment eVerticalAlignment,
+                        const char *    pFontName,
+                        int             nSize);
+    
     /**
      @brief    Calculates the string size and adjusts font size to fit string to dimensions constraints.
      @param  pText       the text to calculate its size (cannot be nil).
@@ -214,6 +225,43 @@ private:
 
 // end of platform group
 /// @}
+
+inline
+bool
+CCImage::initWithStringAndAlignments(
+                                 const char *    pText,
+                                 int             nWidth,
+                                 int             nHeight,
+                                 CCTextAlignment eHorizontalAlignment,
+                                 CCVerticalTextAlignment eVerticalAlignment,
+                                 const char *    pFontName,
+                                 int             nSize)
+{
+    CCImage::ETextAlign eAlign;
+    
+    if (kCCVerticalTextAlignmentTop == eVerticalAlignment)
+    {
+        eAlign = (kCCTextAlignmentCenter == eHorizontalAlignment) ? CCImage::kAlignTop
+        : (kCCTextAlignmentLeft == eHorizontalAlignment) ? CCImage::kAlignTopLeft : CCImage::kAlignTopRight;
+    }
+    else if (kCCVerticalTextAlignmentCenter == eVerticalAlignment)
+    {
+        eAlign = (kCCTextAlignmentCenter == eHorizontalAlignment) ? CCImage::kAlignCenter
+        : (kCCTextAlignmentLeft == eHorizontalAlignment) ? CCImage::kAlignLeft : CCImage::kAlignRight;
+    }
+    else if (kCCVerticalTextAlignmentBottom == eVerticalAlignment)
+    {
+        eAlign = (kCCTextAlignmentCenter == eHorizontalAlignment) ? CCImage::kAlignBottom
+        : (kCCTextAlignmentLeft == eHorizontalAlignment) ? CCImage::kAlignBottomLeft : CCImage::kAlignBottomRight;
+    }
+    else
+    {
+        CCAssert(false, "Not supported alignment format!");
+        return false;
+    }
+    
+    return initWithString(pText, nWidth, nHeight, eAlign, pFontName, nSize);
+}
 
 NS_CC_END
 
