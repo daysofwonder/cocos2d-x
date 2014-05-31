@@ -27,7 +27,6 @@ THE SOFTWARE.
 
 #include "cocoa/CCObject.h"
 #include "ccTypes.h"
-#include "ccMacros.h"
 
 NS_CC_BEGIN
 
@@ -256,7 +255,6 @@ CCImage::initWithStringAndAlignments(
     }
     else
     {
-        CCAssert(false, "Not supported alignment format!");
         return false;
     }
     
