@@ -2,6 +2,8 @@
 #define __CCCURSORWIN32_H__
 
 #include "platform/CCCursor.h"
+#include <gdk/gdkcursor.h>
+#include <gtk/gtk.h>
 
 NS_CC_BEGIN
 
@@ -14,18 +16,18 @@ class CCCursorLinux : public CCCursor
 public:
     virtual ~CCCursorLinux();
 
-    void set();
-
     CCCursorLinux(CCImage* iImage, const CCPoint& iHotspot);
-//    CCCursorWin32() {}
+    GdkCursor* getCursor() { return cursor; }
 
-
+protected:
+    GdkCursor* cursor;
 };
 
 class CCCursorManagerLinux : public CCCursorManager
 {
 public:
-    CCCursorManagerLinux() {}
+    CCCursorManagerLinux(GdkWindow* w) : window(w)
+    {}
     virtual ~CCCursorManagerLinux() {}
 
     virtual void showCurrentCursor();
@@ -33,11 +35,13 @@ public:
 
     virtual CCCursor* createCursorFromImage(CCImage* iImage, const CCPoint& iHotspot);
 
+    CCCursor* createCursorFromImageFile(const std::string& iImageName, const CCPoint& iHotspot);
+
     void updateCurrentCursor() { _updateCurrentCursor(); }
 
 
 protected:
-
+    GdkWindow* window = nullptr;
     virtual void _updateCurrentCursor();
 };
 
