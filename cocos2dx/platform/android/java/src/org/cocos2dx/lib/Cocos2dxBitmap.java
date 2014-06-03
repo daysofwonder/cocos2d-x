@@ -446,9 +446,15 @@ public class Cocos2dxBitmap {
 				} else {
 					/* Should not exceed the width. */
 					if (tempWidth > pMaxWidth) {
-						strList.add(pString.substring(start, i - 1));
-						/* Compute from previous char. */
-						--i;
+						int nbrCharCut = start - (i - 1);
+						if (nbrCharCut > 0) {
+							strList.add(pString.substring(start, i - 1));
+							/* Compute from previous char. */
+							--i;
+						}
+						else {
+							strList.add(pString.substring(start, i));
+						}
 					} else {
 						strList.add(pString.substring(start, i));
 					}
