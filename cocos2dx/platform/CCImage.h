@@ -115,7 +115,8 @@ public:
         int             nHeight = 0,
         ETextAlign      eAlignMask = kAlignCenter,
         const char *    pFontName = 0,
-        int             nSize = 0);
+        int             nSize = 0,
+        const ccColor3B* iTextColor = NULL);
 
     bool initWithStringAndAlignments(
                         const char *    pText,

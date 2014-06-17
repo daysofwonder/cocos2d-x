@@ -677,7 +677,8 @@ bool CCImage::initWithString(
                             int         nHeight /* = 0 */,
                             ETextAlign eAlignMask /* = kAlignCenter */,
                             const char * pFontName /* = nil */,
-                            int         nSize /* = 0 */)
+                            int         nSize /* = 0 */,
+                            const ccColor3B* iTextColor /* = NULL */)
 {
     return initWithStringShadowStroke(pText, nWidth, nHeight, eAlignMask , pFontName, nSize);
 }

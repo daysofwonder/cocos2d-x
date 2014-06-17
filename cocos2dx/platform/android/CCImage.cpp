@@ -156,8 +156,11 @@ bool CCImage::initWithString(
                                int             nHeight/* = 0*/,
                                ETextAlign      eAlignMask/* = kAlignCenter*/,
                                const char *    pFontName/* = nil*/,
-                               int             nSize/* = 0*/)
+                               int             nSize/* = 0*/,
+                             const ccColor3B* iColor)
 {
+    // IGNORE iColor for now
+    // Just not to break build on Android
     bool bRet = false;
 
     do 
