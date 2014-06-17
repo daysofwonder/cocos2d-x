@@ -175,8 +175,8 @@ public:
             }
             m_hFont = NULL;
 
-            // disable Cleartype
-            tNewFont.lfQuality = ANTIALIASED_QUALITY;
+            // enable Cleartype
+			tNewFont.lfQuality = CLEARTYPE_QUALITY;
 
             // create new font
             m_hFont = CreateFontIndirectA(&tNewFont);
