@@ -439,7 +439,7 @@ bool CCTexture2D::initWithString(const char *text, const char *fontName, float f
     return initWithString(text,  fontName, fontSize, CCSizeMake(0,0), kCCTextAlignmentCenter, kCCVerticalTextAlignmentTop);
 }
 
-bool CCTexture2D::initWithString(const char *text, const char *fontName, float fontSize, const CCSize& dimensions, CCTextAlignment hAlignment, CCVerticalTextAlignment vAlignment, const ccColor3B* iTextColor)
+bool CCTexture2D::initWithString(const char *text, const char *fontName, float fontSize, const CCSize& dimensions, CCTextAlignment hAlignment, CCVerticalTextAlignment vAlignment)
 {
     #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) || (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     
@@ -454,8 +454,7 @@ bool CCTexture2D::initWithString(const char *text, const char *fontName, float f
         tempDef.m_dimensions    = dimensions;
         tempDef.m_alignment     = hAlignment;
         tempDef.m_vertAlignment = vAlignment;
-    
-        tempDef.m_fontFillColor = (iTextColor != NULL) ? *iTextColor : ccWHITE;
+        tempDef.m_fontFillColor = ccWHITE;
     
         return initWithString(text, &tempDef);
     
@@ -496,7 +495,7 @@ bool CCTexture2D::initWithString(const char *text, const char *fontName, float f
         {
             CCImage* pImage = new CCImage();
             CC_BREAK_IF(NULL == pImage);
-            bRet = pImage->initWithString(text, (int)dimensions.width, (int)dimensions.height, eAlign, fontName, (int)fontSize, iTextColor);
+            bRet = pImage->initWithString(text, (int)dimensions.width, (int)dimensions.height, eAlign, fontName, (int)fontSize);
             CC_BREAK_IF(!bRet);
             bRet = initWithImage(pImage);
             CC_SAFE_RELEASE(pImage);

@@ -432,8 +432,7 @@ bool CCImage::initWithString(
 		int nHeight/* = 0*/,
 		ETextAlign eAlignMask/* = kAlignCenter*/,
 		const char * pFontName/* = nil*/,
-		int nSize/* = 0*/,
-        const ccColor3B* iColor)
+		int nSize/* = 0*/)
 {
 	bool bRet = false;
 	do

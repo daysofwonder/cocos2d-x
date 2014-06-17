@@ -365,7 +365,7 @@ static NSString* wordWrap(float iWidth, NSString* string, NSDictionary* attribut
     return lineBreak;
 }
 
-static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAlign, const char * pFontName, int nSize, tImageInfo* pInfo, const cocos2d::ccColor3B* pStrokeColor)
+static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAlign, const char * pFontName, int nSize, tImageInfo* pInfo, cocos2d::ccColor3B* pStrokeColor)
 {
     bool bRet = false;
 
@@ -910,14 +910,13 @@ bool CCImage::initWithString(
 	int             nHeight,
 	ETextAlign      eAlignMask,
 	const char *    pFontName,
-	int             nSize,
-    const ccColor3B* iTextColor)
+	int             nSize)
 {
     tImageInfo info = {0};
     info.width = nWidth;
     info.height = nHeight;
 	
-    if (! _initWithString(pText, eAlignMask, pFontName, nSize, &info, iTextColor))
+    if (! _initWithString(pText, eAlignMask, pFontName, nSize, &info, NULL)) //pStrokeColor))
     {
         return false;
     }
