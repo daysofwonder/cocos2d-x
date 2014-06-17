@@ -472,9 +472,16 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
         // patch for mac retina display and lableTTF
         [[NSAffineTransform transform] set];
 		
-		//[stringWithAttributes drawAtPoint:NSMakePoint(xPadding, offsetY)]; // draw at offset position	
+        // RED Background for debug
+#if 0
+        [[NSColor redColor] setFill];
+        NSRect fullRect = NSMakeRect(0, 0, dimensions.width, dimensions.height);
+        NSRectFill(fullRect);
+#endif
+        
+		
 		[stringWithAttributes drawInRect:textRect];
-		//[stringWithAttributes drawInRect:textRect withAttributes:tokenAttributesDict];
+
 		NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect (0.0f, 0.0f, POTWide, POTHigh)];
 		[image unlockFocus];
 		
