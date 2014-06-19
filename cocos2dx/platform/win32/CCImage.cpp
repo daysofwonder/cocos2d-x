@@ -429,7 +429,7 @@ DirectWriteManager::renderText
 
 	props.dpiX = props.dpiY = 0;
 
-	props.usage = D2D1_RENDER_TARGET_USAGE_GDI_COMPATIBLE;
+	props.usage = D2D1_RENDER_TARGET_USAGE_NONE;
 	props.minLevel = D2D1_FEATURE_LEVEL_DEFAULT;
 
 	CComPtr<ID2D1RenderTarget> renderTarget;
