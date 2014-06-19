@@ -78,7 +78,9 @@ public:
 		int				nMinFontSize,
 		int             nWidth,
 		int             nHeight,
-		float			scale
+		float			scale,
+
+		CCImage::ETextAlign  eAlignMask = CCImage::kAlignCenter
 		);
 
 	bool renderText
@@ -103,7 +105,7 @@ private:
 		return (points / 72.0f)*96.0f;
 	}
 
-	CComPtr<IDWriteTextLayout> _createLayout(const std::wstring& pText, const std::wstring& pFontName, int fontSize, int maxWidth, int maxHeight, float iScale, DWRITE_TEXT_RANGE* oRange = NULL);
+	CComPtr<IDWriteTextLayout> _createLayout(const std::wstring& pText, const std::wstring& pFontName, int fontSize, int maxWidth, int maxHeight, float iScale, DWRITE_TEXT_RANGE* oRange = NULL, CCImage::ETextAlign eAlignMask = CCImage::kAlignCenter);
 
 	CComPtr<IDWriteFactory> fDwriteFactory;
 	CComPtr<ID2D1Factory> fD2dFactory;
@@ -227,7 +229,7 @@ DirectWriteManager::dipToPixel(const CCSize& iDip) const
 }
 
 CComPtr<IDWriteTextLayout>
-DirectWriteManager::_createLayout(const std::wstring& pText, const std::wstring& pFontName, int nFontSize, int nWidth, int nHeight, float scale, DWRITE_TEXT_RANGE* oRange)
+DirectWriteManager::_createLayout(const std::wstring& pText, const std::wstring& pFontName, int nFontSize, int nWidth, int nHeight, float scale, DWRITE_TEXT_RANGE* oRange, CCImage::ETextAlign eAlignMask)
 {
 	int fontSize = nFontSize * scale;
 	const int maxWidth = nWidth * scale;
@@ -239,7 +241,78 @@ DirectWriteManager::_createLayout(const std::wstring& pText, const std::wstring&
 
 	if (SUCCEEDED(hr))
 	{
-		format->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
+		DWRITE_TEXT_ALIGNMENT textAlignment;
+		DWRITE_PARAGRAPH_ALIGNMENT paragraphAlignment;
+		switch (eAlignMask)
+		{
+			case CCImage::kAlignTop:
+			{
+				textAlignment = DWRITE_TEXT_ALIGNMENT_CENTER;
+				paragraphAlignment = DWRITE_PARAGRAPH_ALIGNMENT_NEAR;
+				break;
+			}
+
+			case CCImage::kAlignTopRight:
+			{
+				textAlignment = DWRITE_TEXT_ALIGNMENT_TRAILING;
+				paragraphAlignment = DWRITE_PARAGRAPH_ALIGNMENT_FAR;
+				break;
+			}
+
+			case CCImage::kAlignRight:
+			{
+				textAlignment = DWRITE_TEXT_ALIGNMENT_TRAILING;
+				paragraphAlignment = DWRITE_PARAGRAPH_ALIGNMENT_CENTER;
+				break;
+			}
+
+			case CCImage::kAlignBottomRight:
+			{
+				textAlignment = DWRITE_TEXT_ALIGNMENT_TRAILING;
+				paragraphAlignment = DWRITE_PARAGRAPH_ALIGNMENT_NEAR;
+				break;
+			}
+
+			case CCImage::kAlignBottom:
+			{
+				textAlignment = DWRITE_TEXT_ALIGNMENT_CENTER;
+				paragraphAlignment = DWRITE_PARAGRAPH_ALIGNMENT_NEAR;
+				break;
+			}
+
+			case CCImage::kAlignBottomLeft:
+			{
+				textAlignment = DWRITE_TEXT_ALIGNMENT_LEADING;
+				paragraphAlignment = DWRITE_PARAGRAPH_ALIGNMENT_NEAR;
+				break;
+			}
+
+			case CCImage::kAlignLeft:
+			{
+				textAlignment = DWRITE_TEXT_ALIGNMENT_LEADING;
+				paragraphAlignment = DWRITE_PARAGRAPH_ALIGNMENT_CENTER;
+				break;
+			}
+
+			case CCImage::kAlignTopLeft:
+			{
+				textAlignment = DWRITE_TEXT_ALIGNMENT_LEADING;
+				paragraphAlignment = DWRITE_PARAGRAPH_ALIGNMENT_FAR;
+				break;
+			}
+
+			case CCImage::kAlignCenter:
+			default:
+			{
+				textAlignment = DWRITE_TEXT_ALIGNMENT_CENTER;
+				paragraphAlignment = DWRITE_PARAGRAPH_ALIGNMENT_CENTER;
+				break;
+			}
+		}
+
+		format->SetTextAlignment(textAlignment);
+		format->SetParagraphAlignment(paragraphAlignment);
+
 		format->SetReadingDirection(DWRITE_READING_DIRECTION_LEFT_TO_RIGHT);
 	}
 
@@ -277,11 +350,13 @@ DirectWriteManager::calculateStringSize(const std::wstring& pText,
 										int            nMinFontSize,
 										int             nWidth,
 										int             nHeight,
-										float scale
+										float			scale,
+
+										CCImage::ETextAlign  eAlignMask
 )
 {
 	DWRITE_TEXT_RANGE range;
-	CComPtr<IDWriteTextLayout> layout = _createLayout(pText, pFontName, nFontSize, nWidth, nHeight, scale, &range);
+	CComPtr<IDWriteTextLayout> layout = _createLayout(pText, pFontName, nFontSize, nWidth, nHeight, scale, &range, eAlignMask);
 	if (layout == NULL)
 	{
 		return;
@@ -376,13 +451,15 @@ DirectWriteManager::renderText
 		return false;
 	}
 
+	renderTarget->SetTextAntialiasMode(D2D1_TEXT_ANTIALIAS_MODE_GRAYSCALE);
+
 	renderTarget->BeginDraw();
 	{
 		renderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 
 		renderTarget->Clear(D2D1::ColorF(0, 0, 0, 0));
 
-		CComPtr<IDWriteTextLayout> layout = _createLayout(pText, pFontName, fontSize, nWidth, nHeight, 1.f);
+		CComPtr<IDWriteTextLayout> layout = _createLayout(pText, pFontName, fontSize, nWidth, nHeight, 1.f, NULL, eAlignMask);
 		D2D_POINT_2F origin;
 		origin.x = origin.y = 0;
 
