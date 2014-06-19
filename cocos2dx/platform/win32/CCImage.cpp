@@ -117,7 +117,10 @@ private:
 // Direct Write Support
 DirectWriteManager* DirectWriteManager::instance()
 {
-	return NULL; // Disable for now
+	if (!CCImage::isDirectWriteTextRenderingEnabled())
+	{
+		return NULL;
+	}
 
 	static DirectWriteManager* s_Instance = NULL;
 	static bool s_InstanceInited = false;
@@ -447,16 +450,6 @@ DirectWriteManager::renderText
 
 	iDstImage->setIsPremultipliedAlpha(true);
 
-	/*
-	m_pData = new unsigned char[bufferSize];
-	memcpy(m_pData, buffer, bufferSize);
-
-	m_nWidth = bitmapWidth;
-	m_nHeight = bitmapHeight;
-	m_bHasAlpha = true;
-	m_bPreMulti = true;
-	m_nBitsPerComponent = 8;*/
-
 	return true;
 }
 
@@ -776,6 +769,19 @@ static BitmapDC& sharedBitmapDC()
 {
     static BitmapDC s_BmpDC;
     return s_BmpDC;
+}
+
+static bool s_IsDirectWriteTextRenderingEnabled = false;
+bool
+CCImage::isDirectWriteTextRenderingEnabled()
+{
+	return s_IsDirectWriteTextRenderingEnabled;
+}
+
+void
+CCImage::enableDirectWriteTextRendering(bool iEnable)
+{
+	s_IsDirectWriteTextRenderingEnabled = iEnable;
 }
 
 bool CCImage::initWithString(
