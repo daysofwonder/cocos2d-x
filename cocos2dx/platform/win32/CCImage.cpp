@@ -25,8 +25,440 @@ THE SOFTWARE.
 #include "platform/CCImageCommon_cpp.h"
 #include "ccMacros.h"
 #include "CCDirector.h"
+#include "Dwrite.h"
+#include "d2d1.h"
+#include "atlbase.h"
+#include "Wincodec.h"
 
 NS_CC_BEGIN
+
+wchar_t * utf8ToUtf16(const std::string& nString)
+{
+	wchar_t * pwszBuffer = NULL;
+	do
+	{
+		if (nString.size() < 0)
+		{
+			break;
+		}
+		// utf-8 to utf-16
+		int nLen = nString.size();
+		int nBufLen = nLen + 1;
+		pwszBuffer = new wchar_t[nBufLen];
+		CC_BREAK_IF(!pwszBuffer);
+		memset(pwszBuffer, 0, nBufLen);
+		nLen = MultiByteToWideChar(CP_UTF8, 0, nString.c_str(), nLen, pwszBuffer, nBufLen);
+		pwszBuffer[nLen] = '\0';
+	} while (0);
+	return pwszBuffer;
+
+}
+
+std::wstring utf8ToUtf16String(const std::string& nString)
+{
+	wchar_t* s = utf8ToUtf16(nString);
+	std::wstring utf16Str = s;
+	delete[] s;
+
+	return utf16Str;
+}
+
+class DirectWriteManager
+{
+public:
+	static DirectWriteManager* instance();
+
+	void calculateStringSize(const wchar_t* pText,
+		const char *    pFontName,
+		int             nFontSize,
+
+		CCSize&         oComputedSize,
+		int&            oAdjustedFontSize,
+
+		int            nMinFontSize = 10,
+		int             nWidth = 0,
+		int             nHeight = 0,
+		float scale = CC_CONTENT_SCALE_FACTOR()
+		);
+
+	bool renderText
+	(
+		CCImage*		iDstImage,
+		const char *    pText,
+		int             nWidth/* = 0*/,
+		int             nHeight/* = 0*/,
+		CCImage::ETextAlign      eAlignMask/* = kAlignCenter*/,
+		const char *    pFontName/* = nil*/,
+		int             nSize/* = 0*/);
+
+	CCSize dipToPixel(const CCSize& iDip) const;
+
+private:
+	DirectWriteManager(IDWriteFactory* idwriteFactory, ID2D1Factory* id2dFactory, IWICImagingFactory* iWICFactory);
+	~DirectWriteManager();
+
+	FLOAT ConvertPointSizeToDIP(FLOAT points)
+	{
+		return (points / 72.0f)*96.0f;
+	}
+
+	CComPtr<IDWriteTextLayout> _createLayout(const wchar_t* pText, const char* pFontName, int fontSize, int maxWidth, int maxHeight, float iScale, DWRITE_TEXT_RANGE* oRange = NULL);
+
+	CComPtr<IDWriteFactory> fDwriteFactory;
+	CComPtr<ID2D1Factory> fD2dFactory;
+	CComPtr<IWICImagingFactory> fWICFactory;
+
+	CComPtr<ID2D1HwndRenderTarget> fRenderTarget;
+
+	FLOAT fDPiRatioX = 0;
+	FLOAT fDPiRatioY = 0;
+};
+
+// Direct Write Support
+DirectWriteManager* DirectWriteManager::instance()
+{
+	return NULL; // Disable for now
+
+	static DirectWriteManager* s_Instance = NULL;
+	static bool s_InstanceInited = false;
+	if (!s_InstanceInited)
+	{
+		assert(s_Instance == NULL);
+		s_InstanceInited = true;
+
+		CComPtr<IDWriteFactory> dwriteFactory;
+		CComPtr<ID2D1Factory> d2dFactory;
+
+		// DirectWrite
+		HMODULE dwriteModule = LoadLibrary(L"Dwrite.dll");
+		if (dwriteModule != NULL)
+		{
+			/* EXTERN_C HRESULT DWRITE_EXPORT DWriteCreateFactory(
+			__in DWRITE_FACTORY_TYPE factoryType,
+				__in REFIID iid,
+				__out IUnknown **factory
+				);*/
+
+			typedef HRESULT(WINAPI *TCreateFactory)(DWRITE_FACTORY_TYPE factoryType, _In_   REFIID iid, _Out_  IUnknown **factory);
+			TCreateFactory createFactory = (TCreateFactory)GetProcAddress(dwriteModule, "DWriteCreateFactory");
+			if (createFactory != NULL)
+			{
+				CComPtr<IUnknown> baseInterface;
+				HRESULT hr = createFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), &baseInterface);
+				if ((hr == S_OK) && (baseInterface != NULL))
+				{
+					baseInterface->QueryInterface(__uuidof(IDWriteFactory), (void**)&dwriteFactory);
+				}
+			}
+		}
+
+		// Direct2D
+		HMODULE d2dModule = LoadLibrary(L"D2d1.dll");
+		if (d2dModule != NULL)
+		{
+			/*     HRESULT WINAPI
+			D2D1CreateFactory(
+				__in D2D1_FACTORY_TYPE factoryType,
+				__in REFIID riid,
+				__in_opt CONST D2D1_FACTORY_OPTIONS *pFactoryOptions,
+				__out void **ppIFactory
+				);*/
+
+			typedef HRESULT(WINAPI *TCreateFactory)(__in D2D1_FACTORY_TYPE factoryType,
+				__in REFIID riid,
+				__in_opt CONST D2D1_FACTORY_OPTIONS *pFactoryOptions,
+				__out void **ppIFactory);
+
+			TCreateFactory createFactory = (TCreateFactory)GetProcAddress(d2dModule, "D2D1CreateFactory");
+			if (createFactory != NULL)
+			{
+				CComPtr<IUnknown> baseInterface;
+
+				D2D1_FACTORY_OPTIONS options;
+				options.debugLevel = D2D1_DEBUG_LEVEL_INFORMATION;
+
+				HRESULT hr = createFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, __uuidof(ID2D1Factory), &options, reinterpret_cast<void **> (&baseInterface));
+				if ((hr == S_OK) && (baseInterface != NULL))
+				{
+					baseInterface->QueryInterface(__uuidof(ID2D1Factory), (void**)&d2dFactory);
+				}
+			}
+		}
+
+		// WIC Factory
+		CComPtr<IWICImagingFactory> wicFactory;
+		HRESULT hr = CoCreateInstance(CLSID_WICImagingFactory, nullptr,
+			CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&wicFactory));
+
+		if ((dwriteFactory != NULL) && (d2dFactory != NULL) && (wicFactory != NULL))
+		{
+			s_Instance = new DirectWriteManager(dwriteFactory, d2dFactory, wicFactory);
+		}
+	}
+
+	return s_Instance;
+}
+
+DirectWriteManager::DirectWriteManager(IDWriteFactory* iDwriteFactory, ID2D1Factory* id2dFactory, IWICImagingFactory* iWICFactory)
+: fDwriteFactory(iDwriteFactory), fD2dFactory(id2dFactory), fWICFactory(iWICFactory)
+{
+	fD2dFactory->GetDesktopDpi(&fDPiRatioX, &fDPiRatioY);
+	fDPiRatioX /= 96;
+	fDPiRatioY /= 96;
+}
+
+DirectWriteManager::~DirectWriteManager()
+{
+}
+
+
+CCSize
+DirectWriteManager::dipToPixel(const CCSize& iDip) const
+{
+	CCSize s;
+	s.width = iDip.width * fDPiRatioX;
+	s.height = iDip.height * fDPiRatioY;
+
+	return s;
+}
+
+CComPtr<IDWriteTextLayout>
+DirectWriteManager::_createLayout(const wchar_t* pText, const char* pFontName, int nFontSize, int nWidth, int nHeight, float scale, DWRITE_TEXT_RANGE* oRange)
+{
+	int fontSize = nFontSize * scale;
+	const int maxWidth = nWidth * scale;
+	const int maxHeight = nHeight * scale;
+
+	CComPtr<IDWriteTextFormat> format;
+	HRESULT hr = fDwriteFactory->CreateTextFormat(utf8ToUtf16String(pFontName).c_str(), NULL, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL,
+		ConvertPointSizeToDIP(fontSize), L"en-US", &format);
+
+	if (SUCCEEDED(hr))
+	{
+		format->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
+		format->SetReadingDirection(DWRITE_READING_DIRECTION_LEFT_TO_RIGHT);
+	}
+
+	DWRITE_TEXT_RANGE range;
+	range.startPosition = 0;
+	range.length = wcslen(pText);
+
+	CComPtr<IDWriteTextLayout> layout;
+
+	const FLOAT kMaxWidthOrInfinite = (maxWidth > 0) ? maxWidth : 1e6f;
+	const FLOAT kMaxHeightOrInfinite = (maxHeight > 0) ? maxHeight : 1e6f;
+
+	hr = fDwriteFactory->CreateTextLayout(pText, range.length, format, kMaxWidthOrInfinite, kMaxHeightOrInfinite, &layout);
+	if (FAILED(hr))
+	{
+		return NULL;
+	}
+
+	if (oRange != NULL)
+	{
+		*oRange = range;
+	}
+
+	return layout;
+}
+
+void
+DirectWriteManager::calculateStringSize(const wchar_t* pText,
+										const char *    pFontName,
+										int             nFontSize,
+
+										CCSize&         oComputedSize,
+										int&            oAdjustedFontSize,
+
+										int            nMinFontSize,
+										int             nWidth,
+										int             nHeight,
+										float scale
+)
+{
+	DWRITE_TEXT_RANGE range;
+	CComPtr<IDWriteTextLayout> layout = _createLayout(pText, pFontName, nFontSize, nWidth, nHeight, scale, &range);
+	if (layout == NULL)
+	{
+		return;
+	}
+
+	range.startPosition = 0;
+	range.length = wcslen(pText);
+
+	int fontSize = nFontSize * scale;
+	const int minFontSize = nMinFontSize * scale;
+	const int maxWidth = nWidth * scale;
+	const int maxHeight = nHeight * scale;
+
+	while (fontSize >= minFontSize)
+	{
+		HRESULT hr = layout->SetFontSize(ConvertPointSizeToDIP(fontSize), range);
+		if (FAILED(hr))
+		{
+			break;
+		}
+
+		DWRITE_TEXT_METRICS metrics;
+		hr = layout->GetMetrics(&metrics);
+		if (SUCCEEDED(hr))
+		{
+			oComputedSize.width = metrics.width;
+			oComputedSize.height = metrics.height;
+
+			oComputedSize = dipToPixel(oComputedSize);
+		}
+
+		if ((maxWidth != 0 && oComputedSize.width > maxWidth) || (maxHeight != 0 && oComputedSize.height > maxHeight)) {
+			fontSize--;
+		}
+		else {
+			break;
+		}
+	}
+
+	// ... But at the end, we must convert back to original scale the output parameters.
+	oComputedSize.width /= scale;
+	oComputedSize.height /= scale;
+
+	oAdjustedFontSize = fontSize / scale;
+}
+
+bool
+DirectWriteManager::renderText
+						(
+						CCImage*		iDstImage,
+						const char *    pText,
+						int             nWidth/* = 0*/,
+						int             nHeight/* = 0*/,
+						CCImage::ETextAlign  eAlignMask/* = kAlignCenter*/,
+						const char *    pFontName/* = nil*/,
+						int             fontSize/* = 0*/)
+{
+	if ((nWidth == 0) || (nHeight == 0))
+	{
+		CCSize imageSize;
+		int adjustedFontSize = 0;
+		calculateStringSize(utf8ToUtf16String(pText).c_str(), pFontName, fontSize, imageSize, adjustedFontSize, fontSize, nWidth, nHeight, 1.f);
+
+		nWidth = imageSize.width;
+		nHeight = imageSize.height;
+	}
+
+	if ((nWidth == 0) || (nHeight == 0))
+	{
+		// Still empty ? Render nothing
+		return true;
+	}
+
+	CComPtr<IWICBitmap> bitmap;
+	if (FAILED(fWICFactory->CreateBitmap(nWidth, nHeight, GUID_WICPixelFormat32bppPBGRA, WICBitmapCacheOnDemand, &bitmap)))
+	{
+		return false;
+	}
+
+	D2D1_RENDER_TARGET_PROPERTIES props;
+	props.type = D2D1_RENDER_TARGET_TYPE_DEFAULT;
+	
+	props.pixelFormat.format = DXGI_FORMAT_B8G8R8A8_UNORM;
+	props.pixelFormat.alphaMode = D2D1_ALPHA_MODE_PREMULTIPLIED;
+
+	props.dpiX = props.dpiY = 0;
+
+	props.usage = D2D1_RENDER_TARGET_USAGE_GDI_COMPATIBLE;
+	props.minLevel = D2D1_FEATURE_LEVEL_DEFAULT;
+
+	CComPtr<ID2D1RenderTarget> renderTarget;
+	HRESULT hr = fD2dFactory->CreateWicBitmapRenderTarget(bitmap, props, &renderTarget);
+	if (FAILED(hr))
+	{
+		return false;
+	}
+
+	renderTarget->BeginDraw();
+	{
+		renderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+
+		renderTarget->Clear(D2D1::ColorF(0, 0, 0, 0));
+
+		CComPtr<IDWriteTextLayout> layout = _createLayout(utf8ToUtf16String(pText).c_str(), pFontName, fontSize, nWidth, nHeight, 1.f);
+		D2D_POINT_2F origin;
+		origin.x = origin.y = 0;
+
+		D2D1_COLOR_F brushColor;
+		brushColor.r = brushColor.g = brushColor.b = 1;
+		brushColor.a = 1;
+
+		CComPtr<ID2D1SolidColorBrush> brush;
+		hr = renderTarget->CreateSolidColorBrush(brushColor, &brush);
+		if (FAILED(hr))
+		{
+			return false;
+		}
+
+		renderTarget->DrawTextLayout(origin, layout, brush);
+	}
+	hr = renderTarget->EndDraw();
+	if (FAILED(hr))
+	{
+		return false;
+	}
+
+	// Now extract the data from the bitmap
+	UINT bitmapWidth, bitmapHeight;
+	hr = bitmap->GetSize(&bitmapWidth, &bitmapHeight);
+	if (FAILED(hr))
+	{
+		return false;
+	}
+
+	WICRect rect;
+	rect.X = rect.Y = 0;
+	rect.Width = bitmapWidth;
+	rect.Height = bitmapHeight;
+
+	CComPtr<IWICBitmapLock> lock;
+	hr = bitmap->Lock(&rect, WICBitmapLockRead, &lock);
+	if (FAILED(hr))
+	{
+		return false;
+	}
+
+	UINT cbStride = 0;
+	hr = lock->GetStride(&cbStride);
+	if (FAILED(hr))
+	{
+		return false;
+	}
+
+	UINT bufferSize = 0;
+	BYTE* buffer = NULL;
+
+	hr = lock->GetDataPointer(&bufferSize, &buffer);
+	if (FAILED(hr))
+	{
+		return false;
+	}
+
+	if (!iDstImage->initWithImageData(buffer, bufferSize, CCImage::kFmtRawData, bitmapWidth, bitmapHeight, 8))
+	{
+		return false;
+	}
+
+	iDstImage->setIsPremultipliedAlpha(true);
+
+	/*
+	m_pData = new unsigned char[bufferSize];
+	memcpy(m_pData, buffer, bufferSize);
+
+	m_nWidth = bitmapWidth;
+	m_nHeight = bitmapHeight;
+	m_bHasAlpha = true;
+	m_bPreMulti = true;
+	m_nBitsPerComponent = 8;*/
+
+	return true;
+}
 
 /**
 @brief    A memory DC which uses to draw text on bitmap.
@@ -72,28 +504,6 @@ public:
 			}
 		}
     }
-
-	wchar_t * utf8ToUtf16(std::string nString)
-	{
-		wchar_t * pwszBuffer = NULL;
-		do 
-		{
-			if (nString.size() < 0)
-			{
-				break;
-			}
-			// utf-8 to utf-16
-			int nLen = nString.size();
-			int nBufLen  = nLen + 1;			
-			pwszBuffer = new wchar_t[nBufLen];
-			CC_BREAK_IF(! pwszBuffer);
-			memset(pwszBuffer,0,nBufLen);
-			nLen = MultiByteToWideChar(CP_UTF8, 0, nString.c_str(), nLen, pwszBuffer, nBufLen);		
-			pwszBuffer[nLen] = '\0';
-		} while (0);	
-		return pwszBuffer;
-
-	}
 
     bool setFont(const char * pFontName = NULL, int nSize = 0)
     {
@@ -376,6 +786,12 @@ bool CCImage::initWithString(
                                const char *    pFontName/* = nil*/,
                                int             nSize/* = 0*/)
 {
+	DirectWriteManager* manager = DirectWriteManager::instance();
+	if (manager != NULL)
+	{
+		return manager->renderText(this, pText, nWidth, nHeight, eAlignMask, pFontName, nSize);
+	}
+
     bool bRet = false;
     do 
     {
@@ -465,6 +881,13 @@ void CCImage::calculateStringSize(const char* pText,
 	}
 	memset(pwszBuffer, 0, sizeof(wchar_t) *nBufLen);
 	nLen = MultiByteToWideChar(CP_UTF8, 0, pText, nLen, pwszBuffer, nBufLen);
+
+	DirectWriteManager* manager = DirectWriteManager::instance();
+	if (manager != NULL)
+	{
+		manager->calculateStringSize(pwszBuffer, pFontName, nFontSize, oComputedSize, oAdjustedFontSize, nMinFontSize, nWidth, nHeight);
+		return;
+	}
 
 	BitmapDC& dc = sharedBitmapDC();
 

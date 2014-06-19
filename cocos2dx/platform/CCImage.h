@@ -187,7 +187,7 @@ public:
 
     bool hasAlpha()                     { return m_bHasAlpha;   }
     bool isPremultipliedAlpha()         { return m_bPreMulti;   }
-
+	void setIsPremultipliedAlpha(bool iEnable) { m_bPreMulti = iEnable;  }
 
     /**
     @brief    Save CCImage data to the specified file, with specified format.
