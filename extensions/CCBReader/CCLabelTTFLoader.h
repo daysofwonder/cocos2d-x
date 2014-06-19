@@ -10,6 +10,8 @@ class CCBReader;
 
 class CCLabelTTFLoader : public CCNodeLoader {
     public:
+        typedef CCNodeLoader SuperClass;
+    
         virtual ~CCLabelTTFLoader() {};
         CCB_STATIC_NEW_AUTORELEASE_OBJECT_METHOD(CCLabelTTFLoader, loader);
 
@@ -24,6 +26,8 @@ class CCLabelTTFLoader : public CCNodeLoader {
         virtual void onHandlePropTypeFloatScale(CCNode * pNode, CCNode * pParent, const char * pPropertyName, float pFloatScale, CCBReader * pCCBReader);
         virtual void onHandlePropTypeIntegerLabeled(CCNode * pNode, CCNode * pParent, const char * pPropertyName, int pIntegerLabeled, CCBReader * pCCBReader);
         virtual void onHandlePropTypeSize(CCNode * pNode, CCNode * pParent, const char * pPropertyName, CCSize pSize, CCBReader * pCCBReader);
+    
+        virtual void onHandlePropTypeFloat(CCNode * pNode, CCNode * pParent, const char* pPropertyName, float pFloat, CCBReader * pCCBReader) override;
 };
 
 NS_CC_EXT_END

@@ -80,4 +80,20 @@ void CCLabelTTFLoader::onHandlePropTypeSize(CCNode * pNode, CCNode * pParent, co
     }
 }
 
+void
+CCLabelTTFLoader::onHandlePropTypeFloat(CCNode * pNode, CCNode * pParent, const char* pPropertyName, float pFloat, CCBReader * pCCBReader)
+{
+    CCLabelTTF* label = static_cast<CCLabelTTF*>(pNode);
+    assert(dynamic_cast<CCLabelTTF*>(pNode) != nullptr);
+    
+    if (::strcmp(pPropertyName, "minimumFontSize") == 0)
+    {
+        label->setMinimumFontSize(pFloat);
+    }
+    else
+    {
+        SuperClass::onHandlePropTypeFloat(pNode, pParent, pPropertyName, pFloat, pCCBReader);
+    }
+}
+
 NS_CC_EXT_END

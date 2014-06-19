@@ -59,6 +59,7 @@ THE SOFTWARE.
 #include "cocoa/CCAffineTransform.h"
 #include "cocoa/CCDictionary.h"
 #include "cocoa/CCObject.h"
+#include "cocoa/CCObjectPtr.h"
 #include "cocoa/CCArray.h"
 #include "cocoa/CCGeometry.h"
 #include "cocoa/CCSet.h"

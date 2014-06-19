@@ -27,6 +27,9 @@ THE SOFTWARE.
 #include "shaders/CCGLProgram.h"
 #include "shaders/CCShaderCache.h"
 #include "CCApplication.h"
+#include "platform/CCImage.h"
+#include "cocoa/CCObjectPtr.h"
+#include "CCEGLView.h"
 
 NS_CC_BEGIN
 
@@ -48,6 +51,7 @@ CCLabelTTF::CCLabelTTF()
 , m_shadowEnabled(false)
 , m_strokeEnabled(false)
 , m_textFillColor(ccWHITE)
+, fMinimumFontSize(10 /*default value*/)
 {
 }
 
@@ -295,7 +299,7 @@ void CCLabelTTF::setFontName(const char *fontName)
 }
 
 // Helper
-bool CCLabelTTF::updateTexture()
+bool CCLabelTTF::_updateTextureSimple()
 {
     CCTexture2D *tex;
     tex = new CCTexture2D();
@@ -333,12 +337,81 @@ bool CCLabelTTF::updateTexture()
     return true;
 }
 
+bool
+CCLabelTTF::updateTexture()
+{
+    if (fMinimumFontSize <= 0)
+    {
+        return _updateTextureSimple();
+    }
+    else
+    {
+        const float s = (s_RenderingMethod == ScreenSpace) ? fGlobalScale : 1.f;
+        CCSize adjustedSize;
+        
+        CCSize dimInPoints = m_tDimensions;
+        dimInPoints.width *= s;
+        dimInPoints.height *= s;
+        
+        int adjustedFontSize;
+        CCImage::calculateStringSize(getString(), getFontName(), getFontSize() * s, adjustedSize, adjustedFontSize, fMinimumFontSize, dimInPoints.width, dimInPoints.height);
+        
+        CCSize sizeInPixels = CC_SIZE_POINTS_TO_PIXELS(dimInPoints);
+        
+        if (m_string.empty() || (s_RenderingMethod == LocalSpace) || (s_RenderingMethod == ScreenSpace))
+        {
+            // let system compute label's width or height when its value is 0
+            // refer to cocos2d-x issue #1430
+            CCObjectPtr<CCTexture2D> tex;
+            tex << new CCTexture2D();
+            
+            tex->initWithString( m_string.c_str(),
+                                m_pFontName->c_str(),
+                                adjustedFontSize * CC_CONTENT_SCALE_FACTOR(),
+                                sizeInPixels,
+                                m_hAlignment,
+                                m_vAlignment);
+            
+            SuperClass::setTexture(tex);
+            
+            CCRect rect;
+            rect.size = m_pobTexture->getContentSize();
+            
+            setTextureRect(rect);
+        }
+        else if (s_RenderingMethod == MipMap)
+        {
+            // Mipmap the texture to have better font rendering
+            CCObjectPtr<CCImage> srcImage;
+            srcImage << new CCImage;
+            srcImage->initWithStringAndAlignments(m_string.c_str(), sizeInPixels.width, sizeInPixels.height, m_hAlignment, m_vAlignment, m_pFontName->c_str(), adjustedFontSize * CC_CONTENT_SCALE_FACTOR());
+            
+            CCRect contentRect;
+            CCObjectPtr<CCTexture2D> tex = CCTexture2D::POTTextureAndContentRect(srcImage, contentRect);
+            
+            tex->generateMipmap();
+            tex->setAntiAliasTexParameters();
+            
+            SuperClass::setTexture(tex);
+            
+            setTextureRect(contentRect);
+        }
+        else
+        {
+            assert(false);
+        }
+        
+        return true;
+    }
+}
+
+
 void CCLabelTTF::enableShadow(const CCSize &shadowOffset, float shadowOpacity, float shadowBlur, bool updateTexture)
 {
     #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) || (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     
         bool valueChanged = false;
-        
+    
         if (false == m_shadowEnabled)
         {
             m_shadowEnabled = true;
@@ -570,6 +643,126 @@ ccFontDefinition CCLabelTTF::_prepareTextDefinition(bool adjustForResolution)
     texDef.m_fontFillColor = m_textFillColor;
     
     return texDef;
+}
+
+void
+CCLabelTTF::setMinimumFontSize(float iMinimumFontSize)
+{
+    if (fMinimumFontSize != iMinimumFontSize)
+    {
+        fMinimumFontSize = iMinimumFontSize;
+        
+        updateTexture();
+    }
+}
+
+CCLabelTTF::RenderingMethod CCLabelTTF::s_RenderingMethod = CCLabelTTF::DefaultRenderingMethod;
+
+CCLabelTTF::RenderingMethod
+CCLabelTTF::renderingMethod()
+{
+    return s_RenderingMethod;
+}
+
+void
+CCLabelTTF::setRenderingMethod(RenderingMethod iMethod)
+{
+    s_RenderingMethod = iMethod;
+}
+
+void CCLabelTTF::setTextureRect(const CCRect& rect, bool rotated, const CCSize& untrimmedSize)
+{
+    m_bRectRotated = rotated;
+    
+    CCSize scaledContentSize = untrimmedSize;
+    
+    const float kInvGlobalScale = 1.f / fGlobalScale;
+    
+    if (kInvGlobalScale != 1.f)
+    {
+        scaledContentSize.width *= kInvGlobalScale;
+        scaledContentSize.height *= kInvGlobalScale;
+    }
+    
+    setContentSize(scaledContentSize);
+    
+    setVertexRect(rect);
+    setTextureCoords(rect);
+    
+    CCPoint relativeOffset = m_obUnflippedOffsetPositionFromCenter;
+    
+    // issue #732
+    if (m_bFlipX)
+    {
+        relativeOffset.x = -relativeOffset.x;
+    }
+    if (m_bFlipY)
+    {
+        relativeOffset.y = -relativeOffset.y;
+    }
+    
+    m_obOffsetPosition.x = relativeOffset.x + (untrimmedSize.width - m_obRect.size.width) / 2;
+    m_obOffsetPosition.y = relativeOffset.y + (untrimmedSize.height - m_obRect.size.height) / 2;
+    
+    // rendering using batch node
+    if (m_pobBatchNode)
+    {
+        // update dirty_, don't update recursiveDirty_
+        setDirty(true);
+    }
+    else
+    {
+        // self rendering
+        
+        // Atlas: Vertex
+        float x1 = 0 + m_obOffsetPosition.x;
+        float y1 = 0 + m_obOffsetPosition.y;
+        float x2 = x1 + (m_obRect.size.width * kInvGlobalScale);
+        float y2 = y1 + (m_obRect.size.height * kInvGlobalScale);
+        
+        // Don't update Z.
+        m_sQuad.bl.vertices = vertex3(x1, y1, 0);
+        m_sQuad.br.vertices = vertex3(x2, y1, 0);
+        m_sQuad.tl.vertices = vertex3(x1, y2, 0);
+        m_sQuad.tr.vertices = vertex3(x2, y2, 0);
+    }
+}
+
+float CCLabelTTF::s_SharpnessRatio = 1.f;
+
+float
+CCLabelTTF::_computeGlobalScale()
+{
+    float s = CCEGLView::sharedOpenGLView()->getScaleX() * s_SharpnessRatio;
+    
+    CCNode* node = this;
+    
+    while (node != nullptr)
+    {
+        s *= node->getScaleX();
+        
+        node = node->getParent();
+    }
+    
+    return s;
+}
+
+void
+CCLabelTTF::draw(void)
+{
+    if (renderingMethod() == ScreenSpace)
+    {
+        const float globalScale = _computeGlobalScale();
+        const float diff = fabsf(globalScale - fGlobalScale);
+        
+        if (diff > 1e-4f)
+        {
+            fGlobalScale = globalScale;
+            updateTexture();
+        }
+    }
+    
+    SuperClass::draw();
 }
 
 NS_CC_END

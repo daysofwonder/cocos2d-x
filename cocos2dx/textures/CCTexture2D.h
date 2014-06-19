@@ -34,6 +34,8 @@ THE SOFTWARE.
 #include "base_nodes/CCGLBufferedNode.h"
 #endif // EMSCRIPTEN
 
+#include "cocoa/CCObjectPtr.h"
+
 NS_CC_BEGIN
 
 class CCImage;
@@ -244,6 +246,9 @@ public:
     
     bool hasPremultipliedAlpha();
     bool hasMipmaps();
+    
+    static CCObjectPtr<CCTexture2D> POTTextureAndContentRect(CCImage* iSourceImage, CCRect& oContentRect);
+
 private:
     bool initPremultipliedATextureWithImage(CCImage * image, unsigned int pixelsWide, unsigned int pixelsHigh);
     

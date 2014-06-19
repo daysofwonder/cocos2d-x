@@ -947,5 +947,102 @@ unsigned int CCTexture2D::bitsPerPixelForFormat()
 	return this->bitsPerPixelForFormat(m_ePixelFormat);
 }
 
+static bool _copyImage(CCImage* iSrcImage, CCImage* iDstImage, const CCSize& iDstSize)
+{
+    assert(iSrcImage->getBitsPerComponent() == 8);
+    
+    const int srcWidth = iSrcImage->getWidth();
+    const int srcHeight = iSrcImage->getHeight();
+    
+    assert(srcWidth <= iDstSize.width);
+    assert(srcHeight <= iDstSize.height);
+    
+    const uint32_t* srcData = (const uint32_t*) iSrcImage->getData();
+    
+    const int dstLength = iDstSize.width * iDstSize.height * 4;
+    uint32_t* const dstData = (uint32_t* const) malloc(dstLength);
+    uint32_t* const dstEnd = dstData + (int(iDstSize.width * iDstSize.height));
+    
+    uint32_t* dst = dstData;
+    
+    const int nbPaddingPixels = iDstSize.width - srcWidth;
+    assert(nbPaddingPixels >= 0);
+    
+    for (int nbLines = srcHeight; --nbLines >= 0;)
+    {
+        assert(dst == (dstData + ((srcHeight - nbLines - 1)) * int(iDstSize.width)));
+        
+        for (int i = srcWidth; --i >= 0;)
+        {
+            assert(dst < dstEnd);
+            
+            *(dst++) = *(srcData++);
+            //*(dst++) = 0xFFFFFFFF;
+        }
+        
+        // End of raster
+        for (int i = nbPaddingPixels; --i >= 0;)
+        {
+            assert(dst < dstEnd);
+            *(dst++) = 0;
+        }
+    }
+    
+    // Fill the bottom raster lines with transparent pixels
+    while (dst < dstEnd)
+    {
+        *(dst++) = 0;
+    }
+    
+    const bool ok = iDstImage->initWithImageData(dstData, dstLength, CCImage::kFmtRawData, iDstSize.width, iDstSize.height, 8);
+    
+    free(dstData);
+    
+    return ok;
+}
+
+CCObjectPtr<CCTexture2D>
+CCTexture2D::POTTextureAndContentRect(CCImage* iSourceImage, CCRect& oContentRect)
+{
+    const int originalW = iSourceImage->getWidth();
+    const int powW = ccNextPOT(originalW);
+    
+    const int originalH = iSourceImage->getHeight();
+    const int powH = ccNextPOT(originalH);
+    
+    oContentRect = CCRectMake(0, 0, originalW, originalH);
+    oContentRect = CC_RECT_PIXELS_TO_POINTS(oContentRect);
+    
+    if ((powW == originalW) && (powH == originalH))
+    {
+        // Use this image
+        CCObjectPtr<CCTexture2D> tex;
+        tex << new CCTexture2D;
+        if (!tex->initWithImage(iSourceImage))
+        {
+            return nullptr;
+        }
+        
+        return tex;
+    }
+    
+    // We need to create a POT Image from the original image
+    CCObjectPtr<CCImage> potImage;
+    potImage << new CCImage;
+    
+    if (!_copyImage(iSourceImage, potImage, CCSizeMake(powW, powH)))
+    {
+        return nullptr;
+    }
+    
+    CCObjectPtr<CCTexture2D> tex;
+    tex << new CCTexture2D;
+    if (!tex->initWithImage(potImage))
+    {
+        return nullptr;
+    }
+    
+    return tex;
+}
 
 NS_CC_END

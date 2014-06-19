@@ -57,6 +57,8 @@ NS_CC_BEGIN
 class CC_DLL CCLabelTTF : public CCSprite, public CCLabelProtocol
 {
 public:
+    typedef CCSprite SuperClass;
+    
     CCLabelTTF();
     virtual ~CCLabelTTF();
     const char* description();    
@@ -151,9 +153,37 @@ public:
     const char* getFontName();
     void setFontName(const char *fontName);
     
+    // Adjusted font size
+    float minimumFontSize() const { return fMinimumFontSize; }
+    void setMinimumFontSize(float iMinimumFontSize);
+    
+    // Rendering Method
+    enum RenderingMethod
+    {
+        LocalSpace,
+        MipMap,
+        ScreenSpace,
+        
+        DefaultRenderingMethod = LocalSpace
+    };
+    
+    static RenderingMethod renderingMethod();
+    static void setRenderingMethod(RenderingMethod iMethod);
+    
+    static float sharpnessRatio() { return s_SharpnessRatio;  }
+    static void setSharpnessRatio(float iRatio) { s_SharpnessRatio = iRatio;  }
+    
+    using SuperClass::setTextureRect;
+    virtual void setTextureRect(const CCRect& rect, bool rotated, const CCSize& untrimmedSize) override;
+
+    virtual void draw(void) override;
+    
 protected:
     virtual bool updateTexture();
+    bool _updateTextureSimple();
     
+    float _computeGlobalScale();
+
     /** set the text definition for this label */
     void                _updateWithTextDefinition(ccFontDefinition & textDefinition, bool mustUpdateTexture = true);
     ccFontDefinition    _prepareTextDefinition(bool adjustForResolution = false);
@@ -185,8 +215,12 @@ protected:
         
     /** font tint */
     ccColor3B   m_textFillColor;
-
     
+    float       fMinimumFontSize;
+    float       fGlobalScale = 1.f;
+    
+    static RenderingMethod s_RenderingMethod;
+    static float s_SharpnessRatio;
 };
 
 
