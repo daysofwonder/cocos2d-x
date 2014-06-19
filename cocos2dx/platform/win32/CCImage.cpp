@@ -404,6 +404,9 @@ DirectWriteManager::renderText
 
 		nWidth = imageSize.width;
 		nHeight = imageSize.height;
+
+		nWidth = ConvertPointSizeToDIP(nWidth);
+		nHeight = ConvertPointSizeToDIP(nHeight);
 	}
 
 	if ((nWidth == 0) || (nHeight == 0))
