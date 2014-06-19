@@ -78,7 +78,6 @@ public:
 		int				nMinFontSize,
 		int             nWidth,
 		int             nHeight,
-		float			scale,
 
 		CCImage::ETextAlign  eAlignMask = CCImage::kAlignCenter
 		);
@@ -105,7 +104,7 @@ private:
 		return (points / 72.0f)*96.0f;
 	}
 
-	CComPtr<IDWriteTextLayout> _createLayout(const std::wstring& pText, const std::wstring& pFontName, int fontSize, int maxWidth, int maxHeight, float iScale, DWRITE_TEXT_RANGE* oRange = NULL, CCImage::ETextAlign eAlignMask = CCImage::kAlignCenter);
+	CComPtr<IDWriteTextLayout> _createLayout(const std::wstring& pText, const std::wstring& pFontName, int fontSize, int maxWidth, int maxHeight, DWRITE_TEXT_RANGE* oRange = NULL, CCImage::ETextAlign eAlignMask = CCImage::kAlignCenter);
 
 	CComPtr<IDWriteFactory> fDwriteFactory;
 	CComPtr<ID2D1Factory> fD2dFactory;
@@ -229,15 +228,11 @@ DirectWriteManager::dipToPixel(const CCSize& iDip) const
 }
 
 CComPtr<IDWriteTextLayout>
-DirectWriteManager::_createLayout(const std::wstring& pText, const std::wstring& pFontName, int nFontSize, int nWidth, int nHeight, float scale, DWRITE_TEXT_RANGE* oRange, CCImage::ETextAlign eAlignMask)
+DirectWriteManager::_createLayout(const std::wstring& pText, const std::wstring& pFontName, int fontSize, int maxWidth, int maxHeight, DWRITE_TEXT_RANGE* oRange, CCImage::ETextAlign eAlignMask)
 {
-	int fontSize = nFontSize * scale;
-	const int maxWidth = nWidth * scale;
-	const int maxHeight = nHeight * scale;
-
 	CComPtr<IDWriteTextFormat> format;
 	HRESULT hr = fDwriteFactory->CreateTextFormat(pFontName.c_str(), NULL, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL,
-		ConvertPointSizeToDIP(fontSize), L"en-US", &format);
+		fontSize, L"en-US", &format);
 
 	if (SUCCEEDED(hr))
 	{
@@ -342,34 +337,28 @@ DirectWriteManager::_createLayout(const std::wstring& pText, const std::wstring&
 void
 DirectWriteManager::calculateStringSize(const std::wstring& pText,
 										const std::wstring&    pFontName,
-										int             nFontSize,
+										int             fontSize,
 
 										CCSize&         oComputedSize,
 										int&            oAdjustedFontSize,
 
-										int            nMinFontSize,
-										int             nWidth,
-										int             nHeight,
-										float			scale,
+										int            minFontSize,
+										int             maxWidth,
+										int             maxHeight,
 
 										CCImage::ETextAlign  eAlignMask
 )
 {
 	DWRITE_TEXT_RANGE range;
-	CComPtr<IDWriteTextLayout> layout = _createLayout(pText, pFontName, nFontSize, nWidth, nHeight, scale, &range, eAlignMask);
+	CComPtr<IDWriteTextLayout> layout = _createLayout(pText, pFontName, fontSize, maxWidth, maxHeight, &range, eAlignMask);
 	if (layout == NULL)
 	{
 		return;
 	}
 
-	int fontSize = nFontSize * scale;
-	const int minFontSize = nMinFontSize * scale;
-	const int maxWidth = nWidth * scale;
-	const int maxHeight = nHeight * scale;
-
 	while (fontSize >= minFontSize)
 	{
-		HRESULT hr = layout->SetFontSize(ConvertPointSizeToDIP(fontSize), range);
+		HRESULT hr = layout->SetFontSize(fontSize, range);
 		if (FAILED(hr))
 		{
 			break;
@@ -393,11 +382,7 @@ DirectWriteManager::calculateStringSize(const std::wstring& pText,
 		}
 	}
 
-	// ... But at the end, we must convert back to original scale the output parameters.
-	oComputedSize.width /= scale;
-	oComputedSize.height /= scale;
-
-	oAdjustedFontSize = fontSize / scale;
+	oAdjustedFontSize = fontSize;
 }
 
 bool
@@ -415,7 +400,7 @@ DirectWriteManager::renderText
 	{
 		CCSize imageSize;
 		int adjustedFontSize = 0;
-		calculateStringSize(pText, pFontName, fontSize, imageSize, adjustedFontSize, fontSize, nWidth, nHeight, 1.f);
+		calculateStringSize(pText, pFontName, fontSize, imageSize, adjustedFontSize, fontSize, nWidth, nHeight, eAlignMask);
 
 		nWidth = imageSize.width;
 		nHeight = imageSize.height;
@@ -459,7 +444,7 @@ DirectWriteManager::renderText
 
 		renderTarget->Clear(D2D1::ColorF(0, 0, 0, 0));
 
-		CComPtr<IDWriteTextLayout> layout = _createLayout(pText, pFontName, fontSize, nWidth, nHeight, 1.f, NULL, eAlignMask);
+		CComPtr<IDWriteTextLayout> layout = _createLayout(pText, pFontName, fontSize, nWidth, nHeight, NULL, eAlignMask);
 		D2D_POINT_2F origin;
 		origin.x = origin.y = 0;
 
@@ -953,13 +938,12 @@ void CCImage::calculateStringSize(const char* pText,
 {
 	assert(pText);
 	
-	const float scale = CC_CONTENT_SCALE_FACTOR();
 	const std::wstring text = utf8ToUtf16String(pText);
 
 	DirectWriteManager* manager = DirectWriteManager::instance();
 	if (manager != NULL)
 	{
-		manager->calculateStringSize(text, utf8ToUtf16String(pFontName), nFontSize, oComputedSize, oAdjustedFontSize, nMinFontSize, nWidth, nHeight, scale);
+		manager->calculateStringSize(text, utf8ToUtf16String(pFontName), nFontSize, oComputedSize, oAdjustedFontSize, nMinFontSize, nWidth, nHeight);
 		return;
 	}
 
@@ -969,6 +953,8 @@ void CCImage::calculateStringSize(const char* pText,
 	// of a text to be drawn in a texture.
 	// On Windows fonts are not necessarily proportional, then we have to perform
 	// the computations in real target coordinates...
+	const float scale = CC_CONTENT_SCALE_FACTOR();
+
 	int fontSize = nFontSize * scale;
 	const int minFontSize = nMinFontSize * scale;
 	const int maxWidth = nWidth * scale;
