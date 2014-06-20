@@ -733,18 +733,32 @@ float CCLabelTTF::s_SuperSamplingRatio = 1.f;
 float
 CCLabelTTF::_computeGlobalScale()
 {
-	float s = CCEGLView::sharedOpenGLView()->getScaleX() * s_SuperSamplingRatio;
+    auto* glView = CCEGLView::sharedOpenGLView();
+	float sX = glView->getScaleX();
+	float sY = glView->getScaleY();
     
     CCNode* node = this;
     
     while (node != nullptr)
     {
-        s *= node->getScaleX();
+        sX *= node->getScaleX();
+        sY *= node->getScaleY();
         
         node = node->getParent();
     }
     
-    return s;
+    sX = fabsf(sX);
+    sY = fabsf(sY);
+    
+    if (sX == sY)
+    {
+        return sX * s_SuperSamplingRatio;
+    }
+    else
+    {
+        // Quadratic mean
+        return s_SuperSamplingRatio * sqrtf((sX * sX) + (sY * sY));
+    }
 }
 
 void
