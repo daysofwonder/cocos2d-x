@@ -250,7 +250,7 @@ DirectWriteManager::_createLayout(const std::wstring& pText, const std::wstring&
 			case CCImage::kAlignTopRight:
 			{
 				textAlignment = DWRITE_TEXT_ALIGNMENT_TRAILING;
-				paragraphAlignment = DWRITE_PARAGRAPH_ALIGNMENT_FAR;
+				paragraphAlignment = DWRITE_PARAGRAPH_ALIGNMENT_NEAR;
 				break;
 			}
 
@@ -264,21 +264,21 @@ DirectWriteManager::_createLayout(const std::wstring& pText, const std::wstring&
 			case CCImage::kAlignBottomRight:
 			{
 				textAlignment = DWRITE_TEXT_ALIGNMENT_TRAILING;
-				paragraphAlignment = DWRITE_PARAGRAPH_ALIGNMENT_NEAR;
+				paragraphAlignment = DWRITE_PARAGRAPH_ALIGNMENT_FAR;
 				break;
 			}
 
 			case CCImage::kAlignBottom:
 			{
 				textAlignment = DWRITE_TEXT_ALIGNMENT_CENTER;
-				paragraphAlignment = DWRITE_PARAGRAPH_ALIGNMENT_NEAR;
+				paragraphAlignment = DWRITE_PARAGRAPH_ALIGNMENT_FAR;
 				break;
 			}
 
 			case CCImage::kAlignBottomLeft:
 			{
 				textAlignment = DWRITE_TEXT_ALIGNMENT_LEADING;
-				paragraphAlignment = DWRITE_PARAGRAPH_ALIGNMENT_NEAR;
+				paragraphAlignment = DWRITE_PARAGRAPH_ALIGNMENT_FAR;
 				break;
 			}
 
@@ -292,7 +292,7 @@ DirectWriteManager::_createLayout(const std::wstring& pText, const std::wstring&
 			case CCImage::kAlignTopLeft:
 			{
 				textAlignment = DWRITE_TEXT_ALIGNMENT_LEADING;
-				paragraphAlignment = DWRITE_PARAGRAPH_ALIGNMENT_FAR;
+				paragraphAlignment = DWRITE_PARAGRAPH_ALIGNMENT_NEAR;
 				break;
 			}
 
