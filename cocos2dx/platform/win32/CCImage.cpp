@@ -180,8 +180,11 @@ DirectWriteManager* DirectWriteManager::instance()
 				CComPtr<IUnknown> baseInterface;
 
 				D2D1_FACTORY_OPTIONS options;
+#if NDEBUG
+				options.debugLevel = D2D1_DEBUG_LEVEL_NONE;
+#else
 				options.debugLevel = D2D1_DEBUG_LEVEL_INFORMATION;
-
+#endif
 				HRESULT hr = createFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, __uuidof(ID2D1Factory), &options, reinterpret_cast<void **> (&baseInterface));
 				if ((hr == S_OK) && (baseInterface != NULL))
 				{
