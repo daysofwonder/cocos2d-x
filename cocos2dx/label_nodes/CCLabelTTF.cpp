@@ -728,12 +728,12 @@ void CCLabelTTF::setTextureRect(const CCRect& rect, bool rotated, const CCSize& 
     }
 }
 
-float CCLabelTTF::s_SharpnessRatio = 1.f;
+float CCLabelTTF::s_SuperSamplingRatio = 1.f;
 
 float
 CCLabelTTF::_computeGlobalScale()
 {
-    float s = CCEGLView::sharedOpenGLView()->getScaleX() * s_SharpnessRatio;
+	float s = CCEGLView::sharedOpenGLView()->getScaleX() * s_SuperSamplingRatio;
     
     CCNode* node = this;
     

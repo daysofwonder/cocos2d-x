@@ -170,8 +170,9 @@ public:
     static RenderingMethod renderingMethod();
     static void setRenderingMethod(RenderingMethod iMethod);
     
-    static float sharpnessRatio() { return s_SharpnessRatio;  }
-    static void setSharpnessRatio(float iRatio) { s_SharpnessRatio = iRatio;  }
+	// Only used in conjunction with ScreenSpace Rendering
+    static float superSamplingRatio() { return s_SuperSamplingRatio;  }
+	static void setSuperSamplingRatio(float iRatio) { s_SuperSamplingRatio = iRatio; }
     
     using SuperClass::setTextureRect;
     virtual void setTextureRect(const CCRect& rect, bool rotated, const CCSize& untrimmedSize) override;
@@ -220,7 +221,7 @@ protected:
     float       fGlobalScale = 1.f;
     
     static RenderingMethod s_RenderingMethod;
-    static float s_SharpnessRatio;
+	static float s_SuperSamplingRatio;
 };
 
 
