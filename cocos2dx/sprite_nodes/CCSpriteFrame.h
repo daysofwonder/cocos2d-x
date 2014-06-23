@@ -115,6 +115,8 @@ public:
      */
     static CCSpriteFrame* createWithTexture(CCTexture2D* pobTexture, const CCRect& rect, bool rotated, const CCPoint& offset, const CCSize& originalSize);
 
+    static CCSpriteFrame* spriteFrameWithName(const std::string& iName);
+
 public:
     /** Initializes a CCSpriteFrame with a texture, rect in points.
      It is assumed that the frame was not trimmed.

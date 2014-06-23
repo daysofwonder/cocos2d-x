@@ -487,6 +487,9 @@ public:
     
     /// @} End of Sprite properties getter/setters
     
+    // Create CCSprite with Mipmap Rendering from any arbitrary image sizes
+    static CCSprite* mipMappedSpriteWithName(const std::string& iName);
+
 protected:
     void updateColor(void);
     virtual void setTextureCoords(CCRect rect);

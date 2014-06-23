@@ -49,6 +49,9 @@ THE SOFTWARE.
 
 NS_CC_BEGIN
 
+const std::string kShouldDiscardNonDescendantNativeNodesNotifID = "shouldDiscardNonDescendantNativeNodes";
+const std::string kShouldRestoreNonDescendantNativeNodesNotifID = "shouldRestoreNonDescendantNativeNodes";
+
 // XXX: Yes, nodes might have a sort problem once every 15 days if the game runs at 60 FPS and each frame sprites are reordered.
 static int s_globalOrderOfArrival = 1;
 
@@ -1431,5 +1434,221 @@ void CCNodeRGBA::setCascadeColorEnabled(bool cascadeColorEnabled)
 {
     _cascadeColorEnabled = cascadeColorEnabled;
 }
+
+CCPoint
+CCNode::convertToNodeSpace(CCNode* iDstNode, CCNode* iSrcNode, const CCPoint& iPoint)
+{
+    assert(iDstNode);
+    assert(iSrcNode);
+    assert(&iPoint);
+    CCPoint worldPoint = iSrcNode->convertToWorldSpace(iPoint);
+    return iDstNode->convertToNodeSpace(worldPoint);
+}
+
+CCRect
+CCNode::convertToNodeSpace(CCNode* iDstNode, CCNode* iSrcNode, const CCRect& iRect)
+{
+    CCRect worldRect = CCRectApplyAffineTransform(iRect, iSrcNode->nodeToWorldTransform());
+    CCRect localRect = CCRectApplyAffineTransform(worldRect, iDstNode->worldToNodeTransform());
+    
+    return localRect;
+}
+
+CCPoint
+CCNode::positionFromBottomLeftOfBoundingBox(const CCPoint& iBottomLeft)
+{
+    const float sx = getScaleX();
+    const float sy = getScaleY();
+    
+    float ax = 0;
+    float ay = 0;
+    if (!isIgnoreAnchorPointForPosition())
+    {
+        const CCPoint& anchorPoint = getAnchorPointInPoints();
+        ax = anchorPoint.x;
+        ay = anchorPoint.y;
+    }
+    
+    CCPoint newPos;
+    newPos.x = iBottomLeft.x + (ax * sx);
+    newPos.y = iBottomLeft.y + (ay * sy);
+    
+    return newPos;
+}
+
+void
+CCNode::setBottomLeftOfBoundingBox(const CCPoint& iBottomLeft)
+{
+    setPosition(positionFromBottomLeftOfBoundingBox(iBottomLeft));
+}
+
+CCPoint
+CCNode::positionFromTopLeftOfBoundingBox(const CCPoint& iTopLeft)
+{
+    const float sx = getScaleX();
+    const float sy = getScaleY();
+    
+    float ax = 0;
+    float ay = 0;
+    if (!isIgnoreAnchorPointForPosition())
+    {
+        const CCPoint& anchorPoint = getAnchorPointInPoints();
+        ax = anchorPoint.x;
+        ay = anchorPoint.y;
+    }
+    
+    const float height = boundingBox().size.height;
+    
+    CCPoint newPos;
+    newPos.x = iTopLeft.x + (ax * sx);
+    newPos.y = iTopLeft.y + (ay * sy) - height;
+    
+    return newPos;
+}
+
+void
+CCNode::setTopLeftOfBoundingBox(const CCPoint& iTopLeft)
+{
+    setPosition(positionFromTopLeftOfBoundingBox(iTopLeft));
+}
+
+float
+CCNode::scaleForBoundingBoxWidth(float iWidth)
+{
+    assert(iWidth > 0);
+    assert(getContentSize().width > 0);
+    
+    float s = iWidth / getContentSize().width;
+    return s;
+}
+void
+CCNode::setBoundingBoxWidth(float iWidth)
+{
+    setScale(scaleForBoundingBoxWidth(iWidth));
+}
+
+float
+CCNode::scaleForBoundingBoxHeight(float iHeight)
+{
+    assert(iHeight > 0);
+    assert(getContentSize().height > 0);
+    
+    float s = iHeight / getContentSize().height;
+    return s;
+}
+
+void
+CCNode::setBoundingBoxHeight(float iHeight)
+{
+    setScale(scaleForBoundingBoxHeight(iHeight));
+}
+
+CCPoint
+CCNode::center()
+{
+    CCRect box = boundingBox();
+    return CCPoint(box.getMidX(), box.getMidY());
+}
+
+void
+CCNode::addChildSafe(CCNode* iChild)
+{
+    CCNode* oldParent = iChild->getParent();
+    if (oldParent != this)
+    {
+        CCObjectPtr<CCNode> sentinel = iChild;
+        iChild->removeFromParentAndCleanup(false);
+        
+        addChild(iChild);
+    }
+}
+
+void
+CCNode::addChildSafe(CCNode* iChild, int iZOrder)
+{
+    CCNode* oldParent = iChild->getParent();
+    if (oldParent != this)
+    {
+        CCObjectPtr<CCNode> sentinel = iChild;
+        iChild->removeFromParentAndCleanup(false);
+        
+        addChild(iChild, iZOrder);
+    }
+}
+
+bool
+CCNode::isAncestor(CCNode* iDescendant)
+{
+    CCNode* node = iDescendant;
+    while (node != nullptr)
+    {
+        if (node == this)
+        {
+            return true;
+        }
+        
+        node = node->getParent();
+    }
+    
+    return false;
+}
+
+bool
+CCNode::isVisibleOnScreen()
+{
+    if (!isRunning())
+    {
+        return false;
+    }
+    
+    CCNode* n = this;
+    while (n != nullptr)
+    {
+        if (!n->isVisible())
+        {
+            return false;
+        }
+        
+        n = n->getParent();
+    }
+    
+    return true;
+}
+
+float
+CCNode::globalRotation()
+{
+    float rotation = 0;
+    
+    CCNode* n = this;
+    while (n != nullptr)
+    {
+        rotation += n->getRotation();
+        
+        n = n->getParent();
+    }
+    
+    rotation = fmod(rotation, 360.f);
+    return rotation;
+}
+
+GLubyte
+CCNode::opacity(CCNode* iNode)
+{
+    CCRGBAProtocol* proto = dynamic_cast<CCRGBAProtocol*>(iNode);
+    return (proto != nullptr) ? proto->getOpacity() : 255;
+}
+
+void
+CCNode::setOpacity(CCNode* iNode, GLubyte iOpacity)
+{
+    CCRGBAProtocol* proto = dynamic_cast<CCRGBAProtocol*>(iNode);
+    if (proto != nullptr)
+    {
+        proto->setOpacity(iOpacity);
+    }
+}
+
+
 
 NS_CC_END

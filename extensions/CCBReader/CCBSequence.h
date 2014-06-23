@@ -6,6 +6,12 @@
 #include "ExtensionMacros.h"
 #include "CCBSequenceProperty.h"
 
+NS_CC_BEGIN
+
+class CCNode;
+
+NS_CC_END
+
 NS_CC_EXT_BEGIN
 
 class CCBSequence : public CCObject
@@ -38,6 +44,9 @@ public:
     
     int getChainedSequenceId();
     void setChainedSequenceId(int nChainedSequenceId);
+    
+    // CCB Animations
+    static CCBSequence* animSequence(CCNode* iNode, const std::string& iAnimName);
 };
 
 

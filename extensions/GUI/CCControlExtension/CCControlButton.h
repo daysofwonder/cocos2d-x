@@ -249,6 +249,12 @@ public:
      */
     virtual void setBackgroundSpriteFrameForState(CCSpriteFrame * spriteFrame, CCControlState state);
 
+    void setBackground(CCSpriteFrame* iFrame);
+    void setBackground(const std::string& iImageName);
+    void setTitle(const std::string& iTitle);
+    
+    void setupToggle();
+
     static CCControlButton* create();
 };
 

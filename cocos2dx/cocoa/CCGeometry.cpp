@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 #include "CCGeometry.h"
 #include "ccMacros.h"
+#include "CCDirector.h"
 
 // implementation of CCPoint
 NS_CC_BEGIN
@@ -279,6 +280,34 @@ bool CCRect::intersectsRect(const CCRect& rect) const
              rect.getMaxX() <      getMinX() ||
                   getMaxY() < rect.getMinY() ||
              rect.getMaxY() <      getMinY());
+}
+
+CCRect
+CCRect::constrainBoundsInScreen() const
+{
+    CCSize screenSize = CCDirector::sharedDirector()->getWinSize();
+    
+    CCRect bounds = *this;
+    
+    if (bounds.origin.x < 0)
+    {
+        bounds.origin.x = 0;
+    }
+    else if (bounds.getMaxX() > screenSize.width)
+    {
+        bounds.origin.x = screenSize.width - bounds.size.width;
+    }
+    
+    if (bounds.origin.y < 0)
+    {
+        bounds.origin.y = 0;
+    }
+    else if (bounds.getMaxY() > screenSize.height)
+    {
+        bounds.origin.y = screenSize.height - bounds.size.height;
+    }
+    
+    return bounds;
 }
 
 NS_CC_END

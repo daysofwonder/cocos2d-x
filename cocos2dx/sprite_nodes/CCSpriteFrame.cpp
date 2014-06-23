@@ -26,6 +26,7 @@ THE SOFTWARE.
 #include "textures/CCTextureCache.h"
 #include "CCSpriteFrame.h"
 #include "CCDirector.h"
+#include "CCSpriteFrameCache.h"
 
 NS_CC_BEGIN
 
@@ -185,6 +186,28 @@ CCTexture2D* CCSpriteFrame::getTexture(void)
     // no texture or texture filename
     return NULL;
 }
+
+
+CCSpriteFrame*
+CCSpriteFrame::spriteFrameWithName(const std::string& iName)
+{
+    CCSpriteFrame* frame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(iName.c_str());
+    if (frame == nullptr)
+    {
+        CCTexture2D* tex = CCTextureCache::sharedTextureCache()->addImage(iName.c_str());
+        if (tex != nullptr)
+        {
+            CCRect r;
+            r.size = tex->getContentSize();
+            
+            frame = CCSpriteFrame::createWithTexture(tex, r);
+            assert(frame != nullptr);
+        }
+    }
+    
+    return frame;
+}
+
 
 NS_CC_END
 

@@ -33,6 +33,7 @@
 #include "actions/CCAction.h"
 #include "actions/CCActionInterval.h"
 
+
 using namespace std;
 
 NS_CC_EXT_BEGIN
@@ -801,5 +802,58 @@ CCControlButton* CCControlButton::create()
     CC_SAFE_DELETE(pControlButton);
     return NULL;
 }
+
+void
+CCControlButton::setBackground(CCSpriteFrame* iFrame)
+{
+    assert(iFrame != nullptr);
+    
+    setBackgroundSpriteFrameForState(iFrame, CCControlStateNormal);
+    setBackgroundSpriteFrameForState(iFrame, CCControlStateDisabled);
+    setBackgroundSpriteFrameForState(iFrame, CCControlStateHighlighted);
+}
+
+void
+CCControlButton::setBackground(const std::string& iName)
+{
+    CCSpriteFrame* frame = CCSpriteFrame::spriteFrameWithName(iName);
+    
+    assert(frame != nullptr);
+    setBackground(frame);
+}
+
+void
+CCControlButton::setTitle(const std::string& iTitle)
+{
+    CCString* title = CCString::create(iTitle);
+    
+    setTitleForState(title, CCControlStateNormal);
+    setTitleForState(title, CCControlStateDisabled);
+    setTitleForState(title, CCControlStateHighlighted);
+    setTitleForState(title, CCControlStateSelected);
+}
+
+void
+CCControlButton::setupToggle()
+{
+    // Sprite
+    CCObjectPtr<CCScale9Sprite> selectedSprite = getBackgroundSpriteForState(CCControlStateHighlighted);
+    assert(selectedSprite != nullptr);
+    
+    CCObjectPtr<CCScale9Sprite> notSelectedSprite = getBackgroundSpriteForState(CCControlStateNormal);
+    
+    setBackgroundSpriteForState(notSelectedSprite, CCControlStateNormal);
+    setBackgroundSpriteForState(notSelectedSprite, CCControlStateHighlighted);
+    setBackgroundSpriteForState(selectedSprite, CCControlStateSelected);
+    
+    // Text color
+    const ccColor3B selectedColor = getTitleColorForState(CCControlStateHighlighted);
+    const ccColor3B notSelectedColor = getTitleColorForState(CCControlStateNormal);
+    
+    setTitleColorForState(notSelectedColor, CCControlStateNormal);
+    setTitleColorForState(selectedColor, CCControlStateHighlighted);
+    setTitleColorForState(selectedColor, CCControlStateSelected);
+}
+
 
 NS_CC_EXT_END

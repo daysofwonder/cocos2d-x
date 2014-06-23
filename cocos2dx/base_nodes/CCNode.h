@@ -1327,6 +1327,36 @@ public:
     virtual void removeAllComponents();
     /// @} end of component functions
 
+    // Helpers
+    static CCPoint convertToNodeSpace(CCNode* iDstNode, CCNode* iSrcNode, const CCPoint& iPoint);
+    static CCRect convertToNodeSpace(CCNode* iDstNode, CCNode* iSrcNode, const CCRect& iRect);
+    
+    CCPoint positionFromBottomLeftOfBoundingBox(const CCPoint& iBottomLeft);
+    void setBottomLeftOfBoundingBox(const CCPoint& iBottomLeft);
+    
+    CCPoint positionFromTopLeftOfBoundingBox(const CCPoint& iTopLeft);
+    void setTopLeftOfBoundingBox(const CCPoint& iTopLeft);
+    
+    float scaleForBoundingBoxWidth(float iWidth);
+    void setBoundingBoxWidth(float iWidth);
+    
+    float scaleForBoundingBoxHeight(float iHeight);
+    void setBoundingBoxHeight(float iHeight);
+    
+    CCPoint center();
+
+    void addChildSafe(CCNode* iChild);
+    void addChildSafe(CCNode* iChild, int iZOrder);
+    
+    bool isAncestor(CCNode* iDescendant);
+    
+    bool isVisibleOnScreen();
+    float globalRotation();
+
+    // Opacities on common nodes
+    static GLubyte opacity(CCNode* iNode);
+    static void setOpacity(CCNode* iNode, GLubyte iOpacity);
+    
 private:
     /// lazy allocs
     void childrenAlloc(void);
@@ -1452,6 +1482,10 @@ protected:
 	bool		_cascadeColorEnabled;
     bool        _cascadeOpacityEnabled;
 };
+
+// Notifications with object=CCNode
+extern const std::string kShouldDiscardNonDescendantNativeNodesNotifID;
+extern const std::string kShouldRestoreNonDescendantNativeNodesNotifID;
 
 // end of base_node group
 /// @}

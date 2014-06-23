@@ -1,4 +1,5 @@
 #include "CCBSequence.h"
+#include "CCBAnimationManager.h"
 
 using namespace cocos2d;
 using namespace std;
@@ -85,5 +86,27 @@ void CCBSequence::setChainedSequenceId(int nChainedSequenceId)
 {
     mChainedSequenceId = nChainedSequenceId;
 }
+
+CCBSequence*
+CCBSequence::animSequence(CCNode* iNode, const std::string& iAnimName)
+{
+    auto* animManager = dynamic_cast<CCBAnimationManager*>(iNode->getUserObject());
+    if (animManager == nullptr)
+    {
+        return nullptr;
+    }
+    
+    CCObject *pElement = NULL;
+    CCARRAY_FOREACH(animManager->getSequences(), pElement)
+    {
+        CCBSequence *seq = (CCBSequence*)pElement;
+        if (iAnimName.compare(seq->getName()) == 0)
+        {
+            return seq;
+        }
+    }
+    return nullptr;
+}
+
 
 NS_CC_EXT_END

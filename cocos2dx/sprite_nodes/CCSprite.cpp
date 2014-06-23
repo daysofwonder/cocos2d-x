@@ -1126,4 +1126,31 @@ CCTexture2D* CCSprite::getTexture(void)
     return m_pobTexture;
 }
 
+CCSprite*
+CCSprite::mipMappedSpriteWithName(const std::string& iName)
+{
+    CCObjectPtr<CCImage> originalImage;
+    originalImage << new CCImage;
+    if (!originalImage->initWithImageFile(iName.c_str()))
+    {
+        return nullptr;
+    }
+    
+    CCRect contentRect;
+    CCObjectPtr<CCTexture2D> texture = CCTexture2D::POTTextureAndContentRect(originalImage, contentRect);
+    if (texture == nullptr)
+    {
+        return nullptr;
+    }
+    
+    CCSprite* sprite = CCSprite::createWithTexture(texture, contentRect);
+    if (sprite != nullptr)
+    {
+        texture->generateMipmap();
+        texture->setAntiAliasTexParameters();
+    }
+    
+    return sprite;
+}
+
 NS_CC_END
