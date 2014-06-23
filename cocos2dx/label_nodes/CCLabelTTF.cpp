@@ -767,9 +767,8 @@ CCLabelTTF::draw(void)
     if (renderingMethod() == ScreenSpace)
     {
         const float globalScale = _computeGlobalScale();
-        const float diff = fabsf(globalScale - fGlobalScale);
         
-        if (diff > 1e-4f)
+        if (globalScale != fGlobalScale)
         {
             fGlobalScale = globalScale;
             updateTexture();
