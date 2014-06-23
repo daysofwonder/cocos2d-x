@@ -50,6 +50,8 @@ THE SOFTWARE.
 #include "actions/CCActionInstant.h"
 #include "actions/CCActionTween.h"
 #include "actions/CCActionCatmullRom.h"
+#include "actions/CCCallLambda.h"
+#include "actions/CCLambdaAction.h"
 
 // base_nodes
 #include "base_nodes/CCNode.h"

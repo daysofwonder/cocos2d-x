@@ -629,6 +629,20 @@
 		747481C31888A4CF00AFFE89 /* CCCursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 747481C11888A4CF00AFFE89 /* CCCursor.cpp */; };
 		747481C41888A4CF00AFFE89 /* CCCursor.h in Headers */ = {isa = PBXBuildFile; fileRef = 747481C21888A4CF00AFFE89 /* CCCursor.h */; };
 		747481C51888A6DD00AFFE89 /* CCCursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 747481C11888A4CF00AFFE89 /* CCCursor.cpp */; };
+		7498D4D01958A9D8004A8FBA /* CCObjectPtr.h in Headers */ = {isa = PBXBuildFile; fileRef = 7498D4CD1958A9D8004A8FBA /* CCObjectPtr.h */; };
+		7498D4D11958A9D8004A8FBA /* CCObjectPtr.h in Headers */ = {isa = PBXBuildFile; fileRef = 7498D4CD1958A9D8004A8FBA /* CCObjectPtr.h */; };
+		7498D4D21958A9D8004A8FBA /* cocos2d-GeometryHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 7498D4CE1958A9D8004A8FBA /* cocos2d-GeometryHelpers.h */; };
+		7498D4D31958A9D8004A8FBA /* cocos2d-GeometryHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 7498D4CE1958A9D8004A8FBA /* cocos2d-GeometryHelpers.h */; };
+		7498D4D41958A9D8004A8FBA /* cocos2d-GeometryHelpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7498D4CF1958A9D8004A8FBA /* cocos2d-GeometryHelpers.cpp */; };
+		7498D4D51958A9D8004A8FBA /* cocos2d-GeometryHelpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7498D4CF1958A9D8004A8FBA /* cocos2d-GeometryHelpers.cpp */; };
+		7498D4D81958AA3D004A8FBA /* CCCallLambda.h in Headers */ = {isa = PBXBuildFile; fileRef = 7498D4D61958AA3D004A8FBA /* CCCallLambda.h */; };
+		7498D4D91958AA3D004A8FBA /* CCCallLambda.h in Headers */ = {isa = PBXBuildFile; fileRef = 7498D4D61958AA3D004A8FBA /* CCCallLambda.h */; };
+		7498D4DA1958AA3D004A8FBA /* CCCallLambda.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7498D4D71958AA3D004A8FBA /* CCCallLambda.cpp */; };
+		7498D4DB1958AA3D004A8FBA /* CCCallLambda.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7498D4D71958AA3D004A8FBA /* CCCallLambda.cpp */; };
+		7498D4DE1958AC1E004A8FBA /* CCLambdaAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 7498D4DC1958AC1E004A8FBA /* CCLambdaAction.h */; };
+		7498D4DF1958AC1E004A8FBA /* CCLambdaAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 7498D4DC1958AC1E004A8FBA /* CCLambdaAction.h */; };
+		7498D4E01958AC1E004A8FBA /* CCLambdaAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7498D4DD1958AC1E004A8FBA /* CCLambdaAction.cpp */; };
+		7498D4E11958AC1E004A8FBA /* CCLambdaAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7498D4DD1958AC1E004A8FBA /* CCLambdaAction.cpp */; };
 		D43F7F8A15C7D8BA00D713FC /* CCTouch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D43F7F8915C7D8BA00D713FC /* CCTouch.cpp */; };
 /* End PBXBuildFile section */
 
@@ -706,7 +720,7 @@
 		1551A3EB158F2ADE00E66CFE /* ccMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ccMacros.h; sourceTree = "<group>"; };
 		1551A3EC158F2ADE00E66CFE /* CCProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCProtocols.h; sourceTree = "<group>"; };
 		1551A3ED158F2ADE00E66CFE /* ccTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ccTypes.h; sourceTree = "<group>"; };
-		1551A3EE158F2ADE00E66CFE /* cocos2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2d.h; sourceTree = "<group>"; };
+		1551A3EE158F2ADE00E66CFE /* cocos2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = cocos2d.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1551A3F3158F2ADE00E66CFE /* aabb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aabb.h; sourceTree = "<group>"; };
 		1551A3F5158F2ADE00E66CFE /* mat4stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mat4stack.h; sourceTree = "<group>"; };
 		1551A3F6158F2ADE00E66CFE /* matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix.h; sourceTree = "<group>"; };
@@ -948,6 +962,13 @@
 		7421E4A717D7E41F00884070 /* libcocos2dxC++11.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libcocos2dxC++11.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		747481C11888A4CF00AFFE89 /* CCCursor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCursor.cpp; sourceTree = "<group>"; };
 		747481C21888A4CF00AFFE89 /* CCCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCursor.h; sourceTree = "<group>"; };
+		7498D4CD1958A9D8004A8FBA /* CCObjectPtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCObjectPtr.h; sourceTree = "<group>"; };
+		7498D4CE1958A9D8004A8FBA /* cocos2d-GeometryHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cocos2d-GeometryHelpers.h"; sourceTree = "<group>"; };
+		7498D4CF1958A9D8004A8FBA /* cocos2d-GeometryHelpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "cocos2d-GeometryHelpers.cpp"; sourceTree = "<group>"; };
+		7498D4D61958AA3D004A8FBA /* CCCallLambda.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCallLambda.h; sourceTree = "<group>"; };
+		7498D4D71958AA3D004A8FBA /* CCCallLambda.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = CCCallLambda.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		7498D4DC1958AC1E004A8FBA /* CCLambdaAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLambdaAction.h; sourceTree = "<group>"; };
+		7498D4DD1958AC1E004A8FBA /* CCLambdaAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = CCLambdaAction.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		D43F7F8915C7D8BA00D713FC /* CCTouch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCTouch.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1045,6 +1066,10 @@
 		1551A354158F2ADE00E66CFE /* actions */ = {
 			isa = PBXGroup;
 			children = (
+				7498D4DC1958AC1E004A8FBA /* CCLambdaAction.h */,
+				7498D4DD1958AC1E004A8FBA /* CCLambdaAction.cpp */,
+				7498D4D61958AA3D004A8FBA /* CCCallLambda.h */,
+				7498D4D71958AA3D004A8FBA /* CCCallLambda.cpp */,
 				1551A355158F2ADE00E66CFE /* CCAction.cpp */,
 				1551A356158F2ADE00E66CFE /* CCAction.h */,
 				1551A357158F2ADE00E66CFE /* CCActionCamera.cpp */,
@@ -1089,6 +1114,9 @@
 		1551A37F158F2ADE00E66CFE /* cocoa */ = {
 			isa = PBXGroup;
 			children = (
+				7498D4CD1958A9D8004A8FBA /* CCObjectPtr.h */,
+				7498D4CE1958A9D8004A8FBA /* cocos2d-GeometryHelpers.h */,
+				7498D4CF1958A9D8004A8FBA /* cocos2d-GeometryHelpers.cpp */,
 				1551A380158F2ADE00E66CFE /* CCAffineTransform.cpp */,
 				1551A381158F2ADE00E66CFE /* CCAffineTransform.h */,
 				1551A382158F2ADE00E66CFE /* CCArray.cpp */,
@@ -1644,6 +1672,7 @@
 				1551A63D158F2ADE00E66CFE /* CCActionProgressTimer.h in Headers */,
 				1551A63F158F2ADE00E66CFE /* CCActionTiledGrid.h in Headers */,
 				1551A641158F2ADE00E66CFE /* CCActionTween.h in Headers */,
+				7498D4D81958AA3D004A8FBA /* CCCallLambda.h in Headers */,
 				1551A643158F2ADE00E66CFE /* CCAtlasNode.h in Headers */,
 				1551A645158F2ADE00E66CFE /* CCNode.h in Headers */,
 				1551A647158F2ADE00E66CFE /* CCCamera.h in Headers */,
@@ -1716,6 +1745,7 @@
 				1551A72A158F2ADE00E66CFE /* CCAccelerometer.h in Headers */,
 				1551A72C158F2ADE00E66CFE /* CCApplication.h in Headers */,
 				1551A72F158F2ADE00E66CFE /* CCDirectorCaller.h in Headers */,
+				7498D4D21958A9D8004A8FBA /* cocos2d-GeometryHelpers.h in Headers */,
 				1551A731158F2ADE00E66CFE /* CCEGLView.h in Headers */,
 				1551A733158F2ADE00E66CFE /* CCES2Renderer.h in Headers */,
 				1551A735158F2ADE00E66CFE /* CCESRenderer.h in Headers */,
@@ -1749,6 +1779,7 @@
 				1551A82F158F2ADF00E66CFE /* CCAnimation.h in Headers */,
 				1551A831158F2ADF00E66CFE /* CCAnimationCache.h in Headers */,
 				1551A833158F2ADF00E66CFE /* CCSprite.h in Headers */,
+				7498D4D01958A9D8004A8FBA /* CCObjectPtr.h in Headers */,
 				1551A835158F2ADF00E66CFE /* CCSpriteBatchNode.h in Headers */,
 				1551A837158F2ADF00E66CFE /* CCSpriteFrame.h in Headers */,
 				1551A839158F2ADF00E66CFE /* CCSpriteFrameCache.h in Headers */,
@@ -1799,6 +1830,7 @@
 				4EF8999B16E207E70040A527 /* CCTMXXMLParser.h in Headers */,
 				46A393F716E5D01B00210B16 /* CCUserDefault.h in Headers */,
 				1A5B48EA16F084CC008568FC /* CCBool.h in Headers */,
+				7498D4DE1958AC1E004A8FBA /* CCLambdaAction.h in Headers */,
 				1A5B48EB16F084CC008568FC /* CCDouble.h in Headers */,
 				1A5B48EC16F084CC008568FC /* CCFloat.h in Headers */,
 				1A5429001720F0650074EC5C /* CCDataVisitor.h in Headers */,
@@ -1821,6 +1853,7 @@
 				7421E3FC17D7E41F00884070 /* CCActionGrid3D.h in Headers */,
 				7421E3FD17D7E41F00884070 /* CCActionInstant.h in Headers */,
 				7421E3FE17D7E41F00884070 /* CCActionInterval.h in Headers */,
+				7498D4D31958A9D8004A8FBA /* cocos2d-GeometryHelpers.h in Headers */,
 				7421E3FF17D7E41F00884070 /* CCActionManager.h in Headers */,
 				7421E40017D7E41F00884070 /* CCActionPageTurn3D.h in Headers */,
 				7421E40117D7E41F00884070 /* CCActionProgressTimer.h in Headers */,
@@ -1849,6 +1882,7 @@
 				7421E41817D7E41F00884070 /* CCEventType.h in Headers */,
 				7421E41917D7E41F00884070 /* ccMacros.h in Headers */,
 				7421E41A17D7E41F00884070 /* CCProtocols.h in Headers */,
+				7498D4DF1958AC1E004A8FBA /* CCLambdaAction.h in Headers */,
 				7421E41B17D7E41F00884070 /* ccTypes.h in Headers */,
 				7421E41C17D7E41F00884070 /* cocos2d.h in Headers */,
 				7421E41D17D7E41F00884070 /* aabb.h in Headers */,
@@ -1865,6 +1899,7 @@
 				7421E42817D7E41F00884070 /* vec2.h in Headers */,
 				7421E42917D7E41F00884070 /* vec3.h in Headers */,
 				7421E42A17D7E41F00884070 /* vec4.h in Headers */,
+				7498D4D11958A9D8004A8FBA /* CCObjectPtr.h in Headers */,
 				7421E42B17D7E41F00884070 /* CCKeypadDelegate.h in Headers */,
 				7421E42C17D7E41F00884070 /* CCKeypadDispatcher.h in Headers */,
 				7421E42D17D7E41F00884070 /* CCLabelAtlas.h in Headers */,
@@ -1971,6 +2006,7 @@
 				7421E49217D7E41F00884070 /* tinyxml2.h in Headers */,
 				7421E49317D7E41F00884070 /* CCDevice.h in Headers */,
 				7421E49417D7E41F00884070 /* ccFPSImages.h in Headers */,
+				7498D4D91958AA3D004A8FBA /* CCCallLambda.h in Headers */,
 				7421E49517D7E41F00884070 /* ccUTF8.h in Headers */,
 				7421E49617D7E41F00884070 /* CCParallaxNode.h in Headers */,
 				7421E49717D7E41F00884070 /* CCTileMapAtlas.h in Headers */,
@@ -2064,6 +2100,7 @@
 				1551A62C158F2ADE00E66CFE /* CCActionCatmullRom.cpp in Sources */,
 				1551A62E158F2ADE00E66CFE /* CCActionEase.cpp in Sources */,
 				1551A630158F2ADE00E66CFE /* CCActionGrid.cpp in Sources */,
+				7498D4D41958A9D8004A8FBA /* cocos2d-GeometryHelpers.cpp in Sources */,
 				1551A632158F2ADE00E66CFE /* CCActionGrid3D.cpp in Sources */,
 				1551A634158F2ADE00E66CFE /* CCActionInstant.cpp in Sources */,
 				1551A636158F2ADE00E66CFE /* CCActionInterval.cpp in Sources */,
@@ -2126,6 +2163,7 @@
 				1551A71C158F2ADE00E66CFE /* CCEGLViewProtocol.cpp in Sources */,
 				1551A724158F2ADE00E66CFE /* CCSAXParser.cpp in Sources */,
 				1551A729158F2ADE00E66CFE /* AccelerometerDelegateWrapper.mm in Sources */,
+				7498D4E01958AC1E004A8FBA /* CCLambdaAction.cpp in Sources */,
 				1551A72B158F2ADE00E66CFE /* CCAccelerometer.mm in Sources */,
 				1551A72D158F2ADE00E66CFE /* CCApplication.mm in Sources */,
 				1551A72E158F2ADE00E66CFE /* CCCommon.mm in Sources */,
@@ -2137,6 +2175,7 @@
 				1551A739158F2ADE00E66CFE /* CCLock.cpp in Sources */,
 				1551A73D158F2ADE00E66CFE /* CCThread.mm in Sources */,
 				1551A73F158F2ADE00E66CFE /* EAGLView.mm in Sources */,
+				7498D4DA1958AA3D004A8FBA /* CCCallLambda.cpp in Sources */,
 				1551A74D158F2ADE00E66CFE /* AccelerometerSimulation.m in Sources */,
 				1551A74E158F2ADE00E66CFE /* platform.cpp in Sources */,
 				1551A816158F2ADF00E66CFE /* CCScriptSupport.cpp in Sources */,
@@ -2206,6 +2245,7 @@
 				7421E36F17D7E41F00884070 /* CCActionCatmullRom.cpp in Sources */,
 				7421E37017D7E41F00884070 /* CCActionEase.cpp in Sources */,
 				7421E37117D7E41F00884070 /* CCActionGrid.cpp in Sources */,
+				7498D4D51958A9D8004A8FBA /* cocos2d-GeometryHelpers.cpp in Sources */,
 				7421E37217D7E41F00884070 /* CCActionGrid3D.cpp in Sources */,
 				7421E37317D7E41F00884070 /* CCActionInstant.cpp in Sources */,
 				7421E37417D7E41F00884070 /* CCActionInterval.cpp in Sources */,
@@ -2268,6 +2308,7 @@
 				7421E3AD17D7E41F00884070 /* CCEGLViewProtocol.cpp in Sources */,
 				7421E3AE17D7E41F00884070 /* CCSAXParser.cpp in Sources */,
 				7421E3AF17D7E41F00884070 /* AccelerometerDelegateWrapper.mm in Sources */,
+				7498D4E11958AC1E004A8FBA /* CCLambdaAction.cpp in Sources */,
 				7421E3B017D7E41F00884070 /* CCAccelerometer.mm in Sources */,
 				7421E3B117D7E41F00884070 /* CCApplication.mm in Sources */,
 				7421E3B217D7E41F00884070 /* CCCommon.mm in Sources */,
@@ -2279,6 +2320,7 @@
 				7421E3B817D7E41F00884070 /* CCLock.cpp in Sources */,
 				7421E3B917D7E41F00884070 /* CCThread.mm in Sources */,
 				7421E3BA17D7E41F00884070 /* EAGLView.mm in Sources */,
+				7498D4DB1958AA3D004A8FBA /* CCCallLambda.cpp in Sources */,
 				7421E3BB17D7E41F00884070 /* AccelerometerSimulation.m in Sources */,
 				7421E3BC17D7E41F00884070 /* platform.cpp in Sources */,
 				7421E3BD17D7E41F00884070 /* CCScriptSupport.cpp in Sources */,

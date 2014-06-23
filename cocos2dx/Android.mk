@@ -24,10 +24,13 @@ actions/CCActionPageTurn3D.cpp \
 actions/CCActionProgressTimer.cpp \
 actions/CCActionTiledGrid.cpp \
 actions/CCActionTween.cpp \
+actions/CCCallLambda.cpp \
+actions/CCLambdaAction.cpp \
 base_nodes/CCAtlasNode.cpp \
 base_nodes/CCNode.cpp \
 cocoa/CCAffineTransform.cpp \
 cocoa/CCGeometry.cpp \
+cocoa/cocos2d-GeometryHelpers.cpp \
 cocoa/CCAutoreleasePool.cpp \
 cocoa/CCDictionary.cpp \
 cocoa/CCNS.cpp \
