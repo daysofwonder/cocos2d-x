@@ -31,6 +31,7 @@ CCBReader/CCBSequenceProperty.cpp \
 CCBReader/CCBValue.cpp \
 CCBReader/CCData.cpp \
 CCBReader/CCNode+CCBRelativePositioning.cpp \
+CCBReader/CCBAnimationManagerDelegateHandler.cpp \
 GUI/CCControlExtension/CCControl.cpp \
 GUI/CCControlExtension/CCControlButton.cpp \
 GUI/CCControlExtension/CCControlColourPicker.cpp \
