@@ -9,9 +9,9 @@
 #include "CCStringPool.h"
 #include "platform/CCSAXParser.h"
 #include "ccMacros.h"
-#include "CCArray.h"
-#include "CCString.h"
-#include "CCFileUtils.h"
+#include "cocoa/CCArray.h"
+#include "cocoa/CCString.h"
+#include "platform/CCFileUtils.h"
 #include <cassert>
 
 NS_CC_BEGIN
