@@ -52,6 +52,7 @@ THE SOFTWARE.
 #include "actions/CCActionCatmullRom.h"
 #include "actions/CCCallLambda.h"
 #include "actions/CCLambdaAction.h"
+#include "actions/CCMoveAnchorPointTo.h"
 
 // base_nodes
 #include "base_nodes/CCNode.h"

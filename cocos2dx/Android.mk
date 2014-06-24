@@ -27,6 +27,7 @@ actions/CCActionTiledGrid.cpp \
 actions/CCActionTween.cpp \
 actions/CCCallLambda.cpp \
 actions/CCLambdaAction.cpp \
+actions/CCMoveAnchorPointTo.cpp \
 base_nodes/CCAtlasNode.cpp \
 base_nodes/CCNode.cpp \
 cocoa/CCAffineTransform.cpp \

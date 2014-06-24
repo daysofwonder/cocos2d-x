@@ -633,6 +633,10 @@
 		747482B11959F32B003AF40E /* CCMultiPassSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 747482AE1959F32B003AF40E /* CCMultiPassSprite.cpp */; };
 		747482B21959F32B003AF40E /* CCMultiPassSprite.h in Headers */ = {isa = PBXBuildFile; fileRef = 747482AF1959F32B003AF40E /* CCMultiPassSprite.h */; };
 		747482B31959F32B003AF40E /* CCMultiPassSprite.h in Headers */ = {isa = PBXBuildFile; fileRef = 747482AF1959F32B003AF40E /* CCMultiPassSprite.h */; };
+		747482C11959FCE5003AF40E /* CCMoveAnchorPointTo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 747482BF1959FCE5003AF40E /* CCMoveAnchorPointTo.cpp */; };
+		747482C21959FCE5003AF40E /* CCMoveAnchorPointTo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 747482BF1959FCE5003AF40E /* CCMoveAnchorPointTo.cpp */; };
+		747482C31959FCE5003AF40E /* CCMoveAnchorPointTo.h in Headers */ = {isa = PBXBuildFile; fileRef = 747482C01959FCE5003AF40E /* CCMoveAnchorPointTo.h */; };
+		747482C41959FCE5003AF40E /* CCMoveAnchorPointTo.h in Headers */ = {isa = PBXBuildFile; fileRef = 747482C01959FCE5003AF40E /* CCMoveAnchorPointTo.h */; };
 		7498D4D01958A9D8004A8FBA /* CCObjectPtr.h in Headers */ = {isa = PBXBuildFile; fileRef = 7498D4CD1958A9D8004A8FBA /* CCObjectPtr.h */; };
 		7498D4D11958A9D8004A8FBA /* CCObjectPtr.h in Headers */ = {isa = PBXBuildFile; fileRef = 7498D4CD1958A9D8004A8FBA /* CCObjectPtr.h */; };
 		7498D4D21958A9D8004A8FBA /* cocos2d-GeometryHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 7498D4CE1958A9D8004A8FBA /* cocos2d-GeometryHelpers.h */; };
@@ -972,6 +976,8 @@
 		747481C21888A4CF00AFFE89 /* CCCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCursor.h; sourceTree = "<group>"; };
 		747482AE1959F32B003AF40E /* CCMultiPassSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCMultiPassSprite.cpp; sourceTree = "<group>"; };
 		747482AF1959F32B003AF40E /* CCMultiPassSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMultiPassSprite.h; sourceTree = "<group>"; };
+		747482BF1959FCE5003AF40E /* CCMoveAnchorPointTo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCMoveAnchorPointTo.cpp; sourceTree = "<group>"; };
+		747482C01959FCE5003AF40E /* CCMoveAnchorPointTo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMoveAnchorPointTo.h; sourceTree = "<group>"; };
 		7498D4CD1958A9D8004A8FBA /* CCObjectPtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCObjectPtr.h; sourceTree = "<group>"; };
 		7498D4CE1958A9D8004A8FBA /* cocos2d-GeometryHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cocos2d-GeometryHelpers.h"; sourceTree = "<group>"; };
 		7498D4CF1958A9D8004A8FBA /* cocos2d-GeometryHelpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "cocos2d-GeometryHelpers.cpp"; sourceTree = "<group>"; };
@@ -1080,6 +1086,8 @@
 		1551A354158F2ADE00E66CFE /* actions */ = {
 			isa = PBXGroup;
 			children = (
+				747482BF1959FCE5003AF40E /* CCMoveAnchorPointTo.cpp */,
+				747482C01959FCE5003AF40E /* CCMoveAnchorPointTo.h */,
 				7498D4DC1958AC1E004A8FBA /* CCLambdaAction.h */,
 				7498D4DD1958AC1E004A8FBA /* CCLambdaAction.cpp */,
 				7498D4D61958AA3D004A8FBA /* CCCallLambda.h */,
@@ -1723,6 +1731,7 @@
 				1551A6BD158F2ADE00E66CFE /* mat4.h in Headers */,
 				1551A6BE158F2ADE00E66CFE /* neon_matrix_impl.h in Headers */,
 				1551A6BF158F2ADE00E66CFE /* plane.h in Headers */,
+				747482C31959FCE5003AF40E /* CCMoveAnchorPointTo.h in Headers */,
 				1551A6C0158F2ADE00E66CFE /* quaternion.h in Headers */,
 				1551A6C1158F2ADE00E66CFE /* ray2.h in Headers */,
 				1551A6C2158F2ADE00E66CFE /* utility.h in Headers */,
@@ -1900,6 +1909,7 @@
 				7421E41817D7E41F00884070 /* CCEventType.h in Headers */,
 				7421E41917D7E41F00884070 /* ccMacros.h in Headers */,
 				7421E41A17D7E41F00884070 /* CCProtocols.h in Headers */,
+				747482C41959FCE5003AF40E /* CCMoveAnchorPointTo.h in Headers */,
 				7498D4DF1958AC1E004A8FBA /* CCLambdaAction.h in Headers */,
 				7421E41B17D7E41F00884070 /* ccTypes.h in Headers */,
 				74C1D9D01958FF8B001F4913 /* CCOperationPool.h in Headers */,
@@ -2205,6 +2215,7 @@
 				1551A829158F2ADF00E66CFE /* CCShaderCache.cpp in Sources */,
 				1551A82C158F2ADF00E66CFE /* ccShaders.cpp in Sources */,
 				1551A82E158F2ADF00E66CFE /* CCAnimation.cpp in Sources */,
+				747482C11959FCE5003AF40E /* CCMoveAnchorPointTo.cpp in Sources */,
 				1551A830158F2ADF00E66CFE /* CCAnimationCache.cpp in Sources */,
 				1551A832158F2ADF00E66CFE /* CCSprite.cpp in Sources */,
 				1551A834158F2ADF00E66CFE /* CCSpriteBatchNode.cpp in Sources */,
@@ -2352,6 +2363,7 @@
 				7421E3C017D7E41F00884070 /* CCShaderCache.cpp in Sources */,
 				7421E3C117D7E41F00884070 /* ccShaders.cpp in Sources */,
 				7421E3C217D7E41F00884070 /* CCAnimation.cpp in Sources */,
+				747482C21959FCE5003AF40E /* CCMoveAnchorPointTo.cpp in Sources */,
 				7421E3C317D7E41F00884070 /* CCAnimationCache.cpp in Sources */,
 				7421E3C417D7E41F00884070 /* CCSprite.cpp in Sources */,
 				7421E3C517D7E41F00884070 /* CCSpriteBatchNode.cpp in Sources */,
