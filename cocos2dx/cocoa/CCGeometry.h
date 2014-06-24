@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include "platform/CCPlatformMacros.h"
 #include "CCObject.h"
 #include <math.h>
+#include <string>
 
 NS_CC_BEGIN
 
@@ -201,6 +202,8 @@ public:
     {
     	return CCPoint(cosf(a), sinf(a));
     }
+    
+    static CCPoint interpolate(const CCPoint& iStart, const CCPoint& iEnd, float iCoeff);
 };
 
 class CC_DLL CCSize
@@ -222,6 +225,10 @@ public:
     CCSize operator/(float a) const;
     void setSize(float width, float height);
     bool equals(const CCSize& target) const;
+    
+    // Helpers
+    static CCSize decode(const std::string& iSizeAsString);
+    static CCSize interpolate(const CCSize& iStart, const CCSize& iEnd, float iCoeff);
 };
 
 class CC_DLL CCRect
@@ -248,6 +255,10 @@ public:
     bool intersectsRect(const CCRect& rect) const;
     
     CCRect constrainBoundsInScreen() const;
+    
+    // Helpers
+    static CCRect decode(const std::string& iRectAsString);
+    static CCRect interpolate(const CCRect& iStart, const CCRect& iEnd, float iCoeff);
 };
 
 
@@ -266,6 +277,18 @@ const CCRect CCRectZero = CCRectMake(0,0,0,0);
 
 // end of data_structure group
 /// @}
+
+inline float
+interpolate(float iStart, float iEnd, float iCoeff)
+{
+    return (iStart * (1.f - iCoeff)) + (iEnd * iCoeff);
+}
+
+inline unsigned char
+interpolate(unsigned char iStart, unsigned char iEnd, float iCoeff)
+{
+    return (iStart * (1.f - iCoeff)) + (iEnd * iCoeff);
+}
 
 NS_CC_END
 

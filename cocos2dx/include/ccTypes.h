@@ -31,18 +31,22 @@ THE SOFTWARE.
 #include "cocoa/CCGeometry.h"
 #include "CCGL.h"
 
+#include <string>
 
 NS_CC_BEGIN
 
 /** RGB color composed of bytes 3 bytes
 @since v0.8
  */
-typedef struct _ccColor3B
+struct ccColor3B
 {
     GLubyte r;
     GLubyte g;
     GLubyte b;
-} ccColor3B;
+    
+    static ccColor3B decode(const std::string& iColorAsString);
+
+};
 
 //! helper macro that creates an ccColor3B type
 static inline ccColor3B
@@ -82,13 +86,18 @@ static const ccColor3B ccGRAY={166,166,166};
 /** RGBA color composed of 4 bytes
 @since v0.8
 */
-typedef struct _ccColor4B
+struct ccColor4B
 {
     GLubyte r;
     GLubyte g;
     GLubyte b;
     GLubyte a;
-} ccColor4B;
+    
+    // decoding from string
+    static ccColor4B decode(const std::string& iColorAsString);
+
+};
+
 //! helper macro that creates an ccColor4B type
 static inline ccColor4B
 ccc4(const GLubyte r, const GLubyte g, const GLubyte b, const GLubyte o)

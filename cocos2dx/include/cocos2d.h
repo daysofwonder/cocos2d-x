@@ -279,6 +279,7 @@ THE SOFTWARE.
 #include "support/component/CCComponent.h"
 #include "support/component/CCComponentContainer.h"
 
+
 NS_CC_BEGIN
 
 CC_DLL const char* cocos2dVersion();

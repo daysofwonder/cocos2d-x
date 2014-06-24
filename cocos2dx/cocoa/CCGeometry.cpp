@@ -26,6 +26,10 @@ THE SOFTWARE.
 #include "ccMacros.h"
 #include "CCDirector.h"
 
+#include <vector>
+#include "DOWFoundation/StringUtils.h"
+#include "DOWFoundation/Exception.h"
+
 // implementation of CCPoint
 NS_CC_BEGIN
 
@@ -309,5 +313,107 @@ CCRect::constrainBoundsInScreen() const
     
     return bounds;
 }
+
+CCSize
+CCSize::decode(const std::string& iSizeAsString)
+{
+    // In the form of x, y
+    std::vector<std::string> components = DOW::StringUtils::componentsSeparatedByString(iSizeAsString, ",");
+    if (components.size() != 2)
+    {
+        std::string msg;
+        DOW::StringUtils::format(msg, "Wrong format for size: %s", iSizeAsString.c_str());
+        throw DOW::Exception(msg);
+    }
+    
+    CCSize size;
+    size.width = DOW::StringUtils::readFloat(components[0]);
+    size.height = DOW::StringUtils::readFloat(components[1]);
+    
+    return size;
+}
+
+CCRect
+CCRect::decode(const std::string& iRectAsString)
+{
+    std::vector<std::string> components = DOW::StringUtils::componentsSeparatedByString(iRectAsString, ",");
+    if (components.size() != 4)
+    {
+        throw DOW::Exception("Could not decode Rect from %s", iRectAsString.c_str());
+    }
+    
+    CCRect r;
+    r.origin.x = DOW::StringUtils::readFloat(components[0]);
+    r.origin.y = DOW::StringUtils::readFloat(components[1]);
+    r.size.width = DOW::StringUtils::readFloat(components[2]);
+    r.size.height = DOW::StringUtils::readFloat(components[3]);
+    
+    return r;
+}
+
+ccColor3B
+ccColor3B::decode(const std::string& iColorAsString)
+{
+    // In the form of r, g, b (0-255)
+    std::vector<std::string> components = DOW::StringUtils::componentsSeparatedByString(iColorAsString, ",");
+    if (components.size() != 3)
+    {
+        std::string msg;
+        DOW::StringUtils::format(msg, "Wrong format for color3B: %s", iColorAsString.c_str());
+        throw DOW::Exception(msg);
+    }
+    
+    ccColor3B color;
+    color.r = DOW::StringUtils::readFloat(components[0]);
+    color.g = DOW::StringUtils::readFloat(components[1]);
+    color.b = DOW::StringUtils::readFloat(components[2]);
+    
+    return color;
+}
+
+ccColor4B
+ccColor4B::decode(const std::string& iColorAsString)
+{
+    // In the form of r, g, b, a (0-255)
+    std::vector<std::string> components = DOW::StringUtils::componentsSeparatedByString(iColorAsString, ",");
+    if (components.size() != 4)
+    {
+        std::string msg;
+        DOW::StringUtils::format(msg, "Wrong format for color 4B: %s", iColorAsString.c_str());
+        throw DOW::Exception(msg);
+    }
+    
+    ccColor4B color;
+    color.r = DOW::StringUtils::readFloat(components[0]);
+    color.g = DOW::StringUtils::readFloat(components[1]);
+    color.b = DOW::StringUtils::readFloat(components[2]);
+    color.a = DOW::StringUtils::readFloat(components[3]);
+    
+    return color;
+}
+
+CCPoint
+CCPoint::interpolate(const CCPoint& iStart, const CCPoint& iEnd, float iCoeff)
+{
+    return CCPoint(cocos2d::interpolate(iStart.x, iEnd.x, iCoeff), cocos2d::interpolate(iStart.y, iEnd.y, iCoeff));
+}
+
+CCSize
+CCSize::interpolate(const CCSize& iStart, const CCSize& iEnd, float iCoeff)
+{
+    return CCSize(cocos2d::interpolate(iStart.width, iEnd.width, iCoeff), cocos2d::interpolate(iStart.height, iEnd.height, iCoeff));
+}
+
+
+CCRect
+CCRect::interpolate(const CCRect& iStart, const CCRect& iEnd, float iCoeff)
+{
+    CCRect r;
+    r.origin = CCPoint::interpolate(iStart.origin, iEnd.origin, iCoeff);
+    r.size = CCSize::interpolate(iStart.size, iEnd.size, iCoeff);
+    
+    return r;
+}
+
 
 NS_CC_END
