@@ -643,6 +643,10 @@
 		7498D4DF1958AC1E004A8FBA /* CCLambdaAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 7498D4DC1958AC1E004A8FBA /* CCLambdaAction.h */; };
 		7498D4E01958AC1E004A8FBA /* CCLambdaAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7498D4DD1958AC1E004A8FBA /* CCLambdaAction.cpp */; };
 		7498D4E11958AC1E004A8FBA /* CCLambdaAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7498D4DD1958AC1E004A8FBA /* CCLambdaAction.cpp */; };
+		74C1D9CD1958FF8B001F4913 /* CCOperationPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74C1D9CB1958FF8B001F4913 /* CCOperationPool.cpp */; };
+		74C1D9CE1958FF8B001F4913 /* CCOperationPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74C1D9CB1958FF8B001F4913 /* CCOperationPool.cpp */; };
+		74C1D9CF1958FF8B001F4913 /* CCOperationPool.h in Headers */ = {isa = PBXBuildFile; fileRef = 74C1D9CC1958FF8B001F4913 /* CCOperationPool.h */; };
+		74C1D9D01958FF8B001F4913 /* CCOperationPool.h in Headers */ = {isa = PBXBuildFile; fileRef = 74C1D9CC1958FF8B001F4913 /* CCOperationPool.h */; };
 		D43F7F8A15C7D8BA00D713FC /* CCTouch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D43F7F8915C7D8BA00D713FC /* CCTouch.cpp */; };
 /* End PBXBuildFile section */
 
@@ -969,6 +973,8 @@
 		7498D4D71958AA3D004A8FBA /* CCCallLambda.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = CCCallLambda.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		7498D4DC1958AC1E004A8FBA /* CCLambdaAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLambdaAction.h; sourceTree = "<group>"; };
 		7498D4DD1958AC1E004A8FBA /* CCLambdaAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = CCLambdaAction.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		74C1D9CB1958FF8B001F4913 /* CCOperationPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCOperationPool.cpp; sourceTree = "<group>"; };
+		74C1D9CC1958FF8B001F4913 /* CCOperationPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCOperationPool.h; sourceTree = "<group>"; };
 		D43F7F8915C7D8BA00D713FC /* CCTouch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCTouch.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1037,6 +1043,8 @@
 				1A4646D816DC8FB700DE131F /* ccFPSImages.h */,
 				1551A37D158F2ADE00E66CFE /* CCScheduler.cpp */,
 				1551A37E158F2ADE00E66CFE /* CCScheduler.h */,
+				74C1D9CB1958FF8B001F4913 /* CCOperationPool.cpp */,
+				74C1D9CC1958FF8B001F4913 /* CCOperationPool.h */,
 				1551A37F158F2ADE00E66CFE /* cocoa */,
 				1551A395158F2ADE00E66CFE /* cocos2d.cpp */,
 				15FBEE65164BBA97008CB2C3 /* draw_nodes */,
@@ -1743,6 +1751,7 @@
 				1551A727158F2ADE00E66CFE /* CCThread.h in Headers */,
 				1551A728158F2ADE00E66CFE /* AccelerometerDelegateWrapper.h in Headers */,
 				1551A72A158F2ADE00E66CFE /* CCAccelerometer.h in Headers */,
+				74C1D9CF1958FF8B001F4913 /* CCOperationPool.h in Headers */,
 				1551A72C158F2ADE00E66CFE /* CCApplication.h in Headers */,
 				1551A72F158F2ADE00E66CFE /* CCDirectorCaller.h in Headers */,
 				7498D4D21958A9D8004A8FBA /* cocos2d-GeometryHelpers.h in Headers */,
@@ -1884,6 +1893,7 @@
 				7421E41A17D7E41F00884070 /* CCProtocols.h in Headers */,
 				7498D4DF1958AC1E004A8FBA /* CCLambdaAction.h in Headers */,
 				7421E41B17D7E41F00884070 /* ccTypes.h in Headers */,
+				74C1D9D01958FF8B001F4913 /* CCOperationPool.h in Headers */,
 				7421E41C17D7E41F00884070 /* cocos2d.h in Headers */,
 				7421E41D17D7E41F00884070 /* aabb.h in Headers */,
 				7421E41E17D7E41F00884070 /* mat4stack.h in Headers */,
@@ -2197,6 +2207,7 @@
 				1551A846158F2ADF00E66CFE /* ccCArray.cpp in Sources */,
 				1551A84A158F2ADF00E66CFE /* TGAlib.cpp in Sources */,
 				1551A84C158F2ADF00E66CFE /* TransformUtils.cpp in Sources */,
+				74C1D9CD1958FF8B001F4913 /* CCOperationPool.cpp in Sources */,
 				1551A84E158F2ADF00E66CFE /* ioapi.cpp in Sources */,
 				1551A850158F2ADF00E66CFE /* unzip.cpp in Sources */,
 				1551A852158F2ADF00E66CFE /* ZipUtils.cpp in Sources */,
@@ -2342,6 +2353,7 @@
 				7421E3CD17D7E41F00884070 /* ccCArray.cpp in Sources */,
 				7421E3CE17D7E41F00884070 /* TGAlib.cpp in Sources */,
 				7421E3CF17D7E41F00884070 /* TransformUtils.cpp in Sources */,
+				74C1D9CE1958FF8B001F4913 /* CCOperationPool.cpp in Sources */,
 				7421E3D017D7E41F00884070 /* ioapi.cpp in Sources */,
 				7421E3D117D7E41F00884070 /* unzip.cpp in Sources */,
 				7421E3D217D7E41F00884070 /* ZipUtils.cpp in Sources */,

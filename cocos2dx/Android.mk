@@ -9,6 +9,7 @@ LOCAL_MODULE_FILENAME := libcocos2d
 LOCAL_SRC_FILES := \
 CCConfiguration.cpp \
 CCScheduler.cpp \
+CCOperationPool.cpp \
 CCCamera.cpp \
 ccFPSImages.c \
 actions/CCAction.cpp \
