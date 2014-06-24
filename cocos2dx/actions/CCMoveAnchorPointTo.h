@@ -2,6 +2,7 @@
 //  CCMoveAnchorPointTo.h
 //
 //  Created by Gérald Guyomard on 21/11/12.
+// Copyright (c) 2013 Days of Wonder Inc.
 //
 //
 
