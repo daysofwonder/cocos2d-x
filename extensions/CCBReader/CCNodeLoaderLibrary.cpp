@@ -6,6 +6,7 @@
 #include "CCLabelBMFontLoader.h"
 #include "CCLabelTTFLoader.h"
 #include "CCSpriteLoader.h"
+#include "CCMultiPassSpriteLoader.h"
 #include "CCScale9SpriteLoader.h"
 #include "CCBFileLoader.h"
 #include "CCMenuLoader.h"
@@ -43,6 +44,8 @@ void CCNodeLoaderLibrary::registerDefaultCCNodeLoaders() {
     this->registerCCNodeLoader("CCControlButton", CCControlButtonLoader::loader());
     this->registerCCNodeLoader("CCParticleSystemQuad", CCParticleSystemQuadLoader::loader());
     this->registerCCNodeLoader("CCControlSlider", CCControlSliderLoader::loader());
+    
+    this->registerCCNodeLoader("CCMultiPassSprite", CCMultiPassSpriteLoader::loader());
 }
 
 void CCNodeLoaderLibrary::registerCCNodeLoader(const char * pClassName, CCNodeLoader * pCCNodeLoader) {
