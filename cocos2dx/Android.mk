@@ -32,7 +32,6 @@ base_nodes/CCAtlasNode.cpp \
 base_nodes/CCNode.cpp \
 cocoa/CCAffineTransform.cpp \
 cocoa/CCGeometry.cpp \
-cocoa/cocos2d-GeometryHelpers.cpp \
 cocoa/CCAutoreleasePool.cpp \
 cocoa/CCDictionary.cpp \
 cocoa/CCNS.cpp \
@@ -66,6 +65,8 @@ keypad_dispatcher/CCKeypadDispatcher.cpp \
 label_nodes/CCLabelAtlas.cpp \
 label_nodes/CCLabelBMFont.cpp \
 label_nodes/CCLabelTTF.cpp \
+label_nodes/CCEnhancedLabelTTF.cpp \
+label_nodes/CCStylesProtocol.cpp \
 layers_scenes_transitions_nodes/CCLayer.cpp \
 layers_scenes_transitions_nodes/CCScene.cpp \
 layers_scenes_transitions_nodes/CCTransitionPageTurn.cpp \
@@ -77,6 +78,8 @@ misc_nodes/CCClippingNode.cpp \
 misc_nodes/CCMotionStreak.cpp \
 misc_nodes/CCProgressTimer.cpp \
 misc_nodes/CCRenderTexture.cpp \
+misc_nodes/RenderTexture.cpp \
+misc_nodes/CCTooltip.cpp \
 particle_nodes/CCParticleExamples.cpp \
 particle_nodes/CCParticleSystem.cpp \
 particle_nodes/CCParticleBatchNode.cpp \
@@ -162,7 +165,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH) \
                     $(LOCAL_PATH)/kazmath/include \
                     $(LOCAL_PATH)/platform/android \
                     $(LOCAL_PATH)/../../DOWFoundation/include \
-
+                    $(LOCAL_PATH)/../extensions \
 
 LOCAL_LDLIBS := -lGLESv2 \
                 -llog \

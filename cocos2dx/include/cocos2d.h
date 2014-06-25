@@ -102,6 +102,7 @@ THE SOFTWARE.
 #include "label_nodes/CCLabelAtlas.h"
 #include "label_nodes/CCLabelTTF.h"
 #include "label_nodes/CCLabelBMFont.h"
+#include "label_nodes/CCEnhancedLabelTTF.h"
 
 // layers_scenes_transitions_nodes
 #include "layers_scenes_transitions_nodes/CCLayer.h"
@@ -119,6 +120,8 @@ THE SOFTWARE.
 #include "misc_nodes/CCMotionStreak.h"
 #include "misc_nodes/CCProgressTimer.h"
 #include "misc_nodes/CCRenderTexture.h"
+#include "misc_nodes/RenderTexture.h"
+#include "misc_nodes/CCTooltip.h"
 
 // particle_nodes
 #include "particle_nodes/CCParticleBatchNode.h"

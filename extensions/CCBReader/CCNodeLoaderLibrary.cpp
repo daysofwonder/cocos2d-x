@@ -15,8 +15,12 @@
 #include "CCControlButtonLoader.h"
 #include "CCParticleSystemQuadLoader.h"
 #include "CCScrollViewLoader.h"
+#include "CCEnhancedLabelTTFLoader.h"
 #include "GUI/CCControlExtension/CCControlSlider.h"
-
+#include "CCTableViewLoader.h"
+#include "GUI/CCScrollView/CCEnhancedTableView.h"
+#include "GUI/CCControlExtension/CCEnhancedControlButton.h"
+#include "GUI/CCControlExtension/CCGenericButton.h"
 
 NS_CC_EXT_BEGIN
 
@@ -27,6 +31,9 @@ CCNodeLoaderLibrary::CCNodeLoaderLibrary() {
 CCNodeLoaderLibrary::~CCNodeLoaderLibrary() {
     this->purge(true);
 }
+
+static std::vector<CCNodeLoaderLibrary::TRegistrationCallback> s_RegistrationCallbacks;
+
 
 void CCNodeLoaderLibrary::registerDefaultCCNodeLoaders() {
     this->registerCCNodeLoader("CCNode", CCNodeLoader::loader());
@@ -46,6 +53,23 @@ void CCNodeLoaderLibrary::registerDefaultCCNodeLoaders() {
     this->registerCCNodeLoader("CCControlSlider", CCControlSliderLoader::loader());
     
     this->registerCCNodeLoader("CCMultiPassSprite", CCMultiPassSpriteLoader::loader());
+    this->registerCCNodeLoader("CCTableView", CCTableViewLoader::loader());
+    this->registerCCNodeLoader("CCEnhancedTableView", CCEnhancedTableViewLoader::loader());
+
+    this->registerCCNodeLoader("CCEnhancedLabelTTF", CCEnhancedLabelTTFLoader::loader());
+    this->registerCCNodeLoader("CCEnhancedControlButton", CCEnhancedControlButtonLoader::loader());
+    this->registerCCNodeLoader("CCGenericButton", CCGenericButtonLoader::loader());
+    
+    for (const auto& cb : s_RegistrationCallbacks)
+    {
+        cb(*this);
+    }
+}
+
+void
+CCNodeLoaderLibrary::addRegistrationCallback(const TRegistrationCallback& iCallback)
+{
+    s_RegistrationCallbacks.push_back(iCallback);
 }
 
 void CCNodeLoaderLibrary::registerCCNodeLoader(const char * pClassName, CCNodeLoader * pCCNodeLoader) {

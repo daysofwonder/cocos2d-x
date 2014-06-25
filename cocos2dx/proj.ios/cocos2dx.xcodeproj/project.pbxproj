@@ -430,9 +430,34 @@
 		74748413195A1997003AF40E /* CCTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 747483AD195A1997003AF40E /* CCTableView.h */; };
 		74748415195A1997003AF40E /* CCTableViewCell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 747483AE195A1997003AF40E /* CCTableViewCell.cpp */; };
 		74748417195A1997003AF40E /* CCTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 747483AF195A1997003AF40E /* CCTableViewCell.h */; };
+		7474841A195A2132003AF40E /* CCTableViewLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74748418195A2132003AF40E /* CCTableViewLoader.cpp */; };
+		7474841B195A2132003AF40E /* CCTableViewLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 74748419195A2132003AF40E /* CCTableViewLoader.h */; };
+		7474841F195A2245003AF40E /* CCStylesProtocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7474841D195A2245003AF40E /* CCStylesProtocol.cpp */; };
+		74748420195A2245003AF40E /* CCStylesProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 7474841E195A2245003AF40E /* CCStylesProtocol.h */; };
+		74748424195A235B003AF40E /* CCEnhancedLabelTTF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74748422195A235B003AF40E /* CCEnhancedLabelTTF.cpp */; };
+		74748425195A235B003AF40E /* CCEnhancedLabelTTF.h in Headers */ = {isa = PBXBuildFile; fileRef = 74748423195A235B003AF40E /* CCEnhancedLabelTTF.h */; };
+		74748427195A25A8003AF40E /* CCEnhancedControlButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74748426195A25A8003AF40E /* CCEnhancedControlButton.cpp */; };
+		74748429195A2617003AF40E /* CCEnhancedControlButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 74748428195A2617003AF40E /* CCEnhancedControlButton.h */; };
+		7474842C195A27B9003AF40E /* RenderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7474842A195A27B9003AF40E /* RenderTexture.cpp */; };
+		7474842D195A27B9003AF40E /* RenderTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = 7474842B195A27B9003AF40E /* RenderTexture.h */; };
+		74748430195A2863003AF40E /* CCTooltip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7474842E195A2863003AF40E /* CCTooltip.cpp */; };
+		74748431195A2863003AF40E /* CCTooltip.h in Headers */ = {isa = PBXBuildFile; fileRef = 7474842F195A2863003AF40E /* CCTooltip.h */; };
+		74748433195A295C003AF40E /* CCOverallScaleProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 74748432195A295C003AF40E /* CCOverallScaleProtocol.h */; };
+		7474844E195A2F2B003AF40E /* MemberVariableAssigner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74748446195A2F2B003AF40E /* MemberVariableAssigner.cpp */; };
+		7474844F195A2F2B003AF40E /* MemberVariableAssigner.h in Headers */ = {isa = PBXBuildFile; fileRef = 74748447195A2F2B003AF40E /* MemberVariableAssigner.h */; };
+		74748450195A2F2B003AF40E /* NodeController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74748448195A2F2B003AF40E /* NodeController.cpp */; };
+		74748451195A2F2B003AF40E /* NodeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 74748449195A2F2B003AF40E /* NodeController.h */; };
+		74748452195A2F2B003AF40E /* NodeLoadingFacilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7474844A195A2F2B003AF40E /* NodeLoadingFacilities.cpp */; };
+		74748453195A2F2B003AF40E /* NodeLoadingFacilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 7474844B195A2F2B003AF40E /* NodeLoadingFacilities.h */; };
+		74748454195A2F2B003AF40E /* SelectorResolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7474844C195A2F2B003AF40E /* SelectorResolver.cpp */; };
+		74748455195A2F2B003AF40E /* SelectorResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 7474844D195A2F2B003AF40E /* SelectorResolver.h */; };
+		74748458195A4A12003AF40E /* CCEnhancedLabelTTFLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74748456195A4A12003AF40E /* CCEnhancedLabelTTFLoader.cpp */; };
+		74748459195A4A12003AF40E /* CCEnhancedLabelTTFLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 74748457195A4A12003AF40E /* CCEnhancedLabelTTFLoader.h */; };
+		7474845C195A4BE9003AF40E /* CCGenericButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 7474845A195A4BE9003AF40E /* CCGenericButton.h */; };
+		7474845D195A4BE9003AF40E /* CCGenericButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7474845B195A4BE9003AF40E /* CCGenericButton.cpp */; };
+		74748460195A4C87003AF40E /* CCEnhancedTableView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7474845E195A4C87003AF40E /* CCEnhancedTableView.cpp */; };
+		74748461195A4C87003AF40E /* CCEnhancedTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7474845F195A4C87003AF40E /* CCEnhancedTableView.h */; };
 		7498D4D11958A9D8004A8FBA /* CCObjectPtr.h in Headers */ = {isa = PBXBuildFile; fileRef = 7498D4CD1958A9D8004A8FBA /* CCObjectPtr.h */; };
-		7498D4D31958A9D8004A8FBA /* cocos2d-GeometryHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 7498D4CE1958A9D8004A8FBA /* cocos2d-GeometryHelpers.h */; };
-		7498D4D51958A9D8004A8FBA /* cocos2d-GeometryHelpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7498D4CF1958A9D8004A8FBA /* cocos2d-GeometryHelpers.cpp */; };
 		7498D4D91958AA3D004A8FBA /* CCCallLambda.h in Headers */ = {isa = PBXBuildFile; fileRef = 7498D4D61958AA3D004A8FBA /* CCCallLambda.h */; };
 		7498D4DB1958AA3D004A8FBA /* CCCallLambda.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7498D4D71958AA3D004A8FBA /* CCCallLambda.cpp */; };
 		7498D4DF1958AC1E004A8FBA /* CCLambdaAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 7498D4DC1958AC1E004A8FBA /* CCLambdaAction.h */; };
@@ -868,9 +893,36 @@
 		747483AD195A1997003AF40E /* CCTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTableView.h; sourceTree = "<group>"; };
 		747483AE195A1997003AF40E /* CCTableViewCell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCTableViewCell.cpp; sourceTree = "<group>"; };
 		747483AF195A1997003AF40E /* CCTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTableViewCell.h; sourceTree = "<group>"; };
+		74748418195A2132003AF40E /* CCTableViewLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCTableViewLoader.cpp; sourceTree = "<group>"; };
+		74748419195A2132003AF40E /* CCTableViewLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTableViewLoader.h; sourceTree = "<group>"; };
+		7474841C195A21DD003AF40E /* Android.mk */ = {isa = PBXFileReference; lastKnownFileType = text; name = Android.mk; path = ../../extensions/Android.mk; sourceTree = "<group>"; };
+		7474841D195A2245003AF40E /* CCStylesProtocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStylesProtocol.cpp; sourceTree = "<group>"; };
+		7474841E195A2245003AF40E /* CCStylesProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStylesProtocol.h; sourceTree = "<group>"; };
+		74748421195A22D1003AF40E /* Android.mk */ = {isa = PBXFileReference; lastKnownFileType = text; path = Android.mk; sourceTree = "<group>"; };
+		74748422195A235B003AF40E /* CCEnhancedLabelTTF.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCEnhancedLabelTTF.cpp; sourceTree = "<group>"; };
+		74748423195A235B003AF40E /* CCEnhancedLabelTTF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEnhancedLabelTTF.h; sourceTree = "<group>"; };
+		74748426195A25A8003AF40E /* CCEnhancedControlButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = CCEnhancedControlButton.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		74748428195A2617003AF40E /* CCEnhancedControlButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEnhancedControlButton.h; sourceTree = "<group>"; };
+		7474842A195A27B9003AF40E /* RenderTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = RenderTexture.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		7474842B195A27B9003AF40E /* RenderTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderTexture.h; sourceTree = "<group>"; };
+		7474842E195A2863003AF40E /* CCTooltip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = CCTooltip.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		7474842F195A2863003AF40E /* CCTooltip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTooltip.h; sourceTree = "<group>"; };
+		74748432195A295C003AF40E /* CCOverallScaleProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCOverallScaleProtocol.h; sourceTree = "<group>"; };
+		74748446195A2F2B003AF40E /* MemberVariableAssigner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MemberVariableAssigner.cpp; sourceTree = "<group>"; };
+		74748447195A2F2B003AF40E /* MemberVariableAssigner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberVariableAssigner.h; sourceTree = "<group>"; };
+		74748448195A2F2B003AF40E /* NodeController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = NodeController.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		74748449195A2F2B003AF40E /* NodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeController.h; sourceTree = "<group>"; };
+		7474844A195A2F2B003AF40E /* NodeLoadingFacilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NodeLoadingFacilities.cpp; sourceTree = "<group>"; };
+		7474844B195A2F2B003AF40E /* NodeLoadingFacilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeLoadingFacilities.h; sourceTree = "<group>"; };
+		7474844C195A2F2B003AF40E /* SelectorResolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SelectorResolver.cpp; sourceTree = "<group>"; };
+		7474844D195A2F2B003AF40E /* SelectorResolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectorResolver.h; sourceTree = "<group>"; };
+		74748456195A4A12003AF40E /* CCEnhancedLabelTTFLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCEnhancedLabelTTFLoader.cpp; sourceTree = "<group>"; };
+		74748457195A4A12003AF40E /* CCEnhancedLabelTTFLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEnhancedLabelTTFLoader.h; sourceTree = "<group>"; };
+		7474845A195A4BE9003AF40E /* CCGenericButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCGenericButton.h; sourceTree = "<group>"; };
+		7474845B195A4BE9003AF40E /* CCGenericButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCGenericButton.cpp; sourceTree = "<group>"; };
+		7474845E195A4C87003AF40E /* CCEnhancedTableView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCEnhancedTableView.cpp; sourceTree = "<group>"; };
+		7474845F195A4C87003AF40E /* CCEnhancedTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEnhancedTableView.h; sourceTree = "<group>"; };
 		7498D4CD1958A9D8004A8FBA /* CCObjectPtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCObjectPtr.h; sourceTree = "<group>"; };
-		7498D4CE1958A9D8004A8FBA /* cocos2d-GeometryHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cocos2d-GeometryHelpers.h"; sourceTree = "<group>"; };
-		7498D4CF1958A9D8004A8FBA /* cocos2d-GeometryHelpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "cocos2d-GeometryHelpers.cpp"; sourceTree = "<group>"; };
 		7498D4D61958AA3D004A8FBA /* CCCallLambda.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCallLambda.h; sourceTree = "<group>"; };
 		7498D4D71958AA3D004A8FBA /* CCCallLambda.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = CCCallLambda.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		7498D4DC1958AC1E004A8FBA /* CCLambdaAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLambdaAction.h; sourceTree = "<group>"; };
@@ -924,6 +976,7 @@
 		1551A353158F2ADE00E66CFE /* cocos2dx */ = {
 			isa = PBXGroup;
 			children = (
+				74748421195A22D1003AF40E /* Android.mk */,
 				1551A354158F2ADE00E66CFE /* actions */,
 				1551A370158F2ADE00E66CFE /* base_nodes */,
 				1551A375158F2ADE00E66CFE /* CCCamera.cpp */,
@@ -1018,8 +1071,6 @@
 			isa = PBXGroup;
 			children = (
 				7498D4CD1958A9D8004A8FBA /* CCObjectPtr.h */,
-				7498D4CE1958A9D8004A8FBA /* cocos2d-GeometryHelpers.h */,
-				7498D4CF1958A9D8004A8FBA /* cocos2d-GeometryHelpers.cpp */,
 				1551A380158F2ADE00E66CFE /* CCAffineTransform.cpp */,
 				1551A381158F2ADE00E66CFE /* CCAffineTransform.h */,
 				1551A382158F2ADE00E66CFE /* CCArray.cpp */,
@@ -1165,6 +1216,10 @@
 		1551A418158F2ADE00E66CFE /* label_nodes */ = {
 			isa = PBXGroup;
 			children = (
+				74748422195A235B003AF40E /* CCEnhancedLabelTTF.cpp */,
+				74748423195A235B003AF40E /* CCEnhancedLabelTTF.h */,
+				7474841D195A2245003AF40E /* CCStylesProtocol.cpp */,
+				7474841E195A2245003AF40E /* CCStylesProtocol.h */,
 				1551A419158F2ADE00E66CFE /* CCLabelAtlas.cpp */,
 				1551A41A158F2ADE00E66CFE /* CCLabelAtlas.h */,
 				1551A41B158F2ADE00E66CFE /* CCLabelBMFont.cpp */,
@@ -1206,6 +1261,11 @@
 		1551A42F158F2ADE00E66CFE /* misc_nodes */ = {
 			isa = PBXGroup;
 			children = (
+				74748432195A295C003AF40E /* CCOverallScaleProtocol.h */,
+				7474842E195A2863003AF40E /* CCTooltip.cpp */,
+				7474842F195A2863003AF40E /* CCTooltip.h */,
+				7474842A195A27B9003AF40E /* RenderTexture.cpp */,
+				7474842B195A27B9003AF40E /* RenderTexture.h */,
 				1551A430158F2ADE00E66CFE /* CCMotionStreak.cpp */,
 				1551A431158F2ADE00E66CFE /* CCMotionStreak.h */,
 				1551A432158F2ADE00E66CFE /* CCProgressTimer.cpp */,
@@ -1562,8 +1622,10 @@
 		747482CE195A1947003AF40E /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				7474841C195A21DD003AF40E /* Android.mk */,
 				74748378195A1997003AF40E /* GUI */,
 				747482CF195A196E003AF40E /* CCBReader */,
+				74748445195A2F2B003AF40E /* NodeControllers */,
 			);
 			name = extensions;
 			sourceTree = "<group>";
@@ -1571,6 +1633,8 @@
 		747482CF195A196E003AF40E /* CCBReader */ = {
 			isa = PBXGroup;
 			children = (
+				74748418195A2132003AF40E /* CCTableViewLoader.cpp */,
+				74748419195A2132003AF40E /* CCTableViewLoader.h */,
 				747482D0195A196E003AF40E /* CCBAnimationManager.cpp */,
 				747482D1195A196E003AF40E /* CCBAnimationManager.h */,
 				747482D2195A196E003AF40E /* CCBAnimationManagerDelegateHandler.cpp */,
@@ -1627,6 +1691,8 @@
 				74748305195A196E003AF40E /* CCScrollViewLoader.h */,
 				74748306195A196E003AF40E /* CCSpriteLoader.cpp */,
 				74748307195A196E003AF40E /* CCSpriteLoader.h */,
+				74748456195A4A12003AF40E /* CCEnhancedLabelTTFLoader.cpp */,
+				74748457195A4A12003AF40E /* CCEnhancedLabelTTFLoader.h */,
 			);
 			name = CCBReader;
 			path = ../../extensions/CCBReader;
@@ -1646,6 +1712,10 @@
 		74748379195A1997003AF40E /* CCControlExtension */ = {
 			isa = PBXGroup;
 			children = (
+				7474845A195A4BE9003AF40E /* CCGenericButton.h */,
+				7474845B195A4BE9003AF40E /* CCGenericButton.cpp */,
+				74748428195A2617003AF40E /* CCEnhancedControlButton.h */,
+				74748426195A25A8003AF40E /* CCEnhancedControlButton.cpp */,
 				7474837A195A1997003AF40E /* CCControl.cpp */,
 				7474837B195A1997003AF40E /* CCControl.h */,
 				7474837C195A1997003AF40E /* CCControlButton.cpp */,
@@ -1702,6 +1772,8 @@
 		747483A7195A1997003AF40E /* CCScrollView */ = {
 			isa = PBXGroup;
 			children = (
+				7474845E195A4C87003AF40E /* CCEnhancedTableView.cpp */,
+				7474845F195A4C87003AF40E /* CCEnhancedTableView.h */,
 				747483A8195A1997003AF40E /* CCScrollView.cpp */,
 				747483A9195A1997003AF40E /* CCScrollView.h */,
 				747483AA195A1997003AF40E /* CCSorting.cpp */,
@@ -1712,6 +1784,22 @@
 				747483AF195A1997003AF40E /* CCTableViewCell.h */,
 			);
 			path = CCScrollView;
+			sourceTree = "<group>";
+		};
+		74748445195A2F2B003AF40E /* NodeControllers */ = {
+			isa = PBXGroup;
+			children = (
+				74748446195A2F2B003AF40E /* MemberVariableAssigner.cpp */,
+				74748447195A2F2B003AF40E /* MemberVariableAssigner.h */,
+				74748448195A2F2B003AF40E /* NodeController.cpp */,
+				74748449195A2F2B003AF40E /* NodeController.h */,
+				7474844A195A2F2B003AF40E /* NodeLoadingFacilities.cpp */,
+				7474844B195A2F2B003AF40E /* NodeLoadingFacilities.h */,
+				7474844C195A2F2B003AF40E /* SelectorResolver.cpp */,
+				7474844D195A2F2B003AF40E /* SelectorResolver.h */,
+			);
+			name = NodeControllers;
+			path = ../../extensions/NodeControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1727,12 +1815,13 @@
 				7421E3FA17D7E41F00884070 /* CCActionEase.h in Headers */,
 				7474840B195A1997003AF40E /* CCScrollView.h in Headers */,
 				7421E3FB17D7E41F00884070 /* CCActionGrid.h in Headers */,
+				7474844F195A2F2B003AF40E /* MemberVariableAssigner.h in Headers */,
 				7421E3FC17D7E41F00884070 /* CCActionGrid3D.h in Headers */,
+				74748453195A2F2B003AF40E /* NodeLoadingFacilities.h in Headers */,
 				747483FD195A1997003AF40E /* CCEditBoxImplMac.h in Headers */,
 				7421E3FD17D7E41F00884070 /* CCActionInstant.h in Headers */,
 				747483B3195A1997003AF40E /* CCControl.h in Headers */,
 				7421E3FE17D7E41F00884070 /* CCActionInterval.h in Headers */,
-				7498D4D31958A9D8004A8FBA /* cocos2d-GeometryHelpers.h in Headers */,
 				7421E3FF17D7E41F00884070 /* CCActionManager.h in Headers */,
 				7421E40017D7E41F00884070 /* CCActionPageTurn3D.h in Headers */,
 				747483D5195A1997003AF40E /* CCControlSwitch.h in Headers */,
@@ -1751,6 +1840,7 @@
 				7421E40A17D7E41F00884070 /* CCAffineTransform.h in Headers */,
 				7421E40B17D7E41F00884070 /* CCArray.h in Headers */,
 				7421E40C17D7E41F00884070 /* CCAutoreleasePool.h in Headers */,
+				74748451195A2F2B003AF40E /* NodeController.h in Headers */,
 				7421E40D17D7E41F00884070 /* CCDictionary.h in Headers */,
 				7421E40E17D7E41F00884070 /* CCGeometry.h in Headers */,
 				747483D1195A1997003AF40E /* CCControlStepper.h in Headers */,
@@ -1768,9 +1858,11 @@
 				7421E41617D7E41F00884070 /* CCGrid.h in Headers */,
 				7421E41717D7E41F00884070 /* ccConfig.h in Headers */,
 				74748367195A196E003AF40E /* CCNodeLoaderListener.h in Headers */,
+				7474842D195A27B9003AF40E /* RenderTexture.h in Headers */,
 				7421E41817D7E41F00884070 /* CCEventType.h in Headers */,
 				7474831D195A196E003AF40E /* CCBReader.h in Headers */,
 				7474832B195A196E003AF40E /* CCBValue.h in Headers */,
+				7474841B195A2132003AF40E /* CCTableViewLoader.h in Headers */,
 				7474834B195A196E003AF40E /* CCLayerLoader.h in Headers */,
 				7421E41917D7E41F00884070 /* ccMacros.h in Headers */,
 				74748361195A196E003AF40E /* CCNodeLoader.h in Headers */,
@@ -1779,12 +1871,15 @@
 				747482C41959FCE5003AF40E /* CCMoveAnchorPointTo.h in Headers */,
 				7498D4DF1958AC1E004A8FBA /* CCLambdaAction.h in Headers */,
 				7421E41B17D7E41F00884070 /* ccTypes.h in Headers */,
+				7474845C195A4BE9003AF40E /* CCGenericButton.h in Headers */,
 				74C1D9D01958FF8B001F4913 /* CCOperationPool.h in Headers */,
 				7421E41C17D7E41F00884070 /* cocos2d.h in Headers */,
 				7421E41D17D7E41F00884070 /* aabb.h in Headers */,
+				74748431195A2863003AF40E /* CCTooltip.h in Headers */,
 				74748417195A1997003AF40E /* CCTableViewCell.h in Headers */,
 				7421E41E17D7E41F00884070 /* mat4stack.h in Headers */,
 				7421E41F17D7E41F00884070 /* matrix.h in Headers */,
+				74748429195A2617003AF40E /* CCEnhancedControlButton.h in Headers */,
 				747482B31959F32B003AF40E /* CCMultiPassSprite.h in Headers */,
 				7421E42017D7E41F00884070 /* kazmath.h in Headers */,
 				7421E42117D7E41F00884070 /* mat3.h in Headers */,
@@ -1795,6 +1890,7 @@
 				7421E42517D7E41F00884070 /* quaternion.h in Headers */,
 				7421E42617D7E41F00884070 /* ray2.h in Headers */,
 				747483DD195A1997003AF40E /* CCInvocation.h in Headers */,
+				74748425195A235B003AF40E /* CCEnhancedLabelTTF.h in Headers */,
 				7421E42717D7E41F00884070 /* utility.h in Headers */,
 				7474836B195A196E003AF40E /* CCParticleSystemQuadLoader.h in Headers */,
 				7421E42817D7E41F00884070 /* vec2.h in Headers */,
@@ -1848,10 +1944,12 @@
 				7421E44A17D7E41F00884070 /* CCDirectorCaller.h in Headers */,
 				7474830B195A196E003AF40E /* CCBAnimationManager.h in Headers */,
 				7421E44B17D7E41F00884070 /* CCEGLView.h in Headers */,
+				74748433195A295C003AF40E /* CCOverallScaleProtocol.h in Headers */,
 				7421E44C17D7E41F00884070 /* CCES2Renderer.h in Headers */,
 				7421E44D17D7E41F00884070 /* CCESRenderer.h in Headers */,
 				74748413195A1997003AF40E /* CCTableView.h in Headers */,
 				74748323195A196E003AF40E /* CCBSequence.h in Headers */,
+				74748420195A2245003AF40E /* CCStylesProtocol.h in Headers */,
 				7421E44E17D7E41F00884070 /* CCGL.h in Headers */,
 				747483E5195A1997003AF40E /* CCSceneGraphTouchDispatcher.h in Headers */,
 				7421E44F17D7E41F00884070 /* CCLock.h in Headers */,
@@ -1859,6 +1957,7 @@
 				7421E45117D7E41F00884070 /* CCStdC.h in Headers */,
 				747483BD195A1997003AF40E /* CCControlExtensions.h in Headers */,
 				7421E45217D7E41F00884070 /* EAGLView.h in Headers */,
+				74748461195A4C87003AF40E /* CCEnhancedTableView.h in Headers */,
 				7421E45317D7E41F00884070 /* OpenGL_Internal.h in Headers */,
 				7421E45417D7E41F00884070 /* AccelerometerSimulation.h in Headers */,
 				74748359195A196E003AF40E /* CCMultiPassSpriteLoader.h in Headers */,
@@ -1867,6 +1966,7 @@
 				7421E45717D7E41F00884070 /* CCGLProgram.h in Headers */,
 				7421E45817D7E41F00884070 /* ccGLStateCache.h in Headers */,
 				7421E45917D7E41F00884070 /* ccShader_Position_uColor_frag.h in Headers */,
+				74748459195A4A12003AF40E /* CCEnhancedLabelTTFLoader.h in Headers */,
 				7421E45A17D7E41F00884070 /* ccShader_Position_uColor_vert.h in Headers */,
 				74748407195A1997003AF40E /* CCEditBoxImplWin.h in Headers */,
 				7421E45B17D7E41F00884070 /* ccShader_PositionColor_frag.h in Headers */,
@@ -1955,6 +2055,7 @@
 				7421E4A017D7E41F00884070 /* CCDataVisitor.h in Headers */,
 				7421E4A117D7E41F00884070 /* CCTextureETC.h in Headers */,
 				7421E4A217D7E41F00884070 /* CCComponent.h in Headers */,
+				74748455195A2F2B003AF40E /* SelectorResolver.h in Headers */,
 				7421E4A317D7E41F00884070 /* CCComponentContainer.h in Headers */,
 				747483CD195A1997003AF40E /* CCControlSlider.h in Headers */,
 				740F8E2B17E3CDDD009961C7 /* Cocos2DNativeView.h in Headers */,
@@ -2021,8 +2122,8 @@
 				7421E37017D7E41F00884070 /* CCActionEase.cpp in Sources */,
 				7421E37117D7E41F00884070 /* CCActionGrid.cpp in Sources */,
 				74748351195A196E003AF40E /* CCMenuItemLoader.cpp in Sources */,
-				7498D4D51958A9D8004A8FBA /* cocos2d-GeometryHelpers.cpp in Sources */,
 				74748411195A1997003AF40E /* CCTableView.cpp in Sources */,
+				74748427195A25A8003AF40E /* CCEnhancedControlButton.cpp in Sources */,
 				7421E37217D7E41F00884070 /* CCActionGrid3D.cpp in Sources */,
 				7474835F195A196E003AF40E /* CCNodeLoader.cpp in Sources */,
 				7421E37317D7E41F00884070 /* CCActionInstant.cpp in Sources */,
@@ -2056,6 +2157,7 @@
 				7421E38817D7E41F00884070 /* CCString.cpp in Sources */,
 				7421E38917D7E41F00884070 /* CCZone.cpp in Sources */,
 				7421E38A17D7E41F00884070 /* cocos2d.cpp in Sources */,
+				7474845D195A4BE9003AF40E /* CCGenericButton.cpp in Sources */,
 				747483C3195A1997003AF40E /* CCControlPotentiometer.cpp in Sources */,
 				7421E38B17D7E41F00884070 /* CCGrabber.cpp in Sources */,
 				74748339195A196E003AF40E /* CCLabelBMFontLoader.cpp in Sources */,
@@ -2084,6 +2186,7 @@
 				7421E39D17D7E41F00884070 /* CCLabelBMFont.cpp in Sources */,
 				7421E39E17D7E41F00884070 /* CCLabelTTF.cpp in Sources */,
 				74748349195A196E003AF40E /* CCLayerLoader.cpp in Sources */,
+				7474842C195A27B9003AF40E /* RenderTexture.cpp in Sources */,
 				7421E39F17D7E41F00884070 /* CCLayer.cpp in Sources */,
 				747483D7195A1997003AF40E /* CCControlUtils.cpp in Sources */,
 				7421E3A017D7E41F00884070 /* CCScene.cpp in Sources */,
@@ -2091,12 +2194,14 @@
 				7421E3A117D7E41F00884070 /* CCTransition.cpp in Sources */,
 				7421E3A217D7E41F00884070 /* CCTransitionPageTurn.cpp in Sources */,
 				7421E3A317D7E41F00884070 /* CCTransitionProgress.cpp in Sources */,
+				74748430195A2863003AF40E /* CCTooltip.cpp in Sources */,
 				7421E3A417D7E41F00884070 /* CCMenu.cpp in Sources */,
 				7421E3A517D7E41F00884070 /* CCMenuItem.cpp in Sources */,
 				7421E3A617D7E41F00884070 /* CCMotionStreak.cpp in Sources */,
 				7421E3A717D7E41F00884070 /* CCProgressTimer.cpp in Sources */,
 				7421E3A817D7E41F00884070 /* CCRenderTexture.cpp in Sources */,
 				74748375195A196E003AF40E /* CCSpriteLoader.cpp in Sources */,
+				7474841A195A2132003AF40E /* CCTableViewLoader.cpp in Sources */,
 				74748315195A196E003AF40E /* CCBKeyframe.cpp in Sources */,
 				7474832D195A196E003AF40E /* CCControlButtonLoader.cpp in Sources */,
 				7421E3A917D7E41F00884070 /* CCParticleBatchNode.cpp in Sources */,
@@ -2109,7 +2214,10 @@
 				7421E3AF17D7E41F00884070 /* AccelerometerDelegateWrapper.mm in Sources */,
 				7498D4E11958AC1E004A8FBA /* CCLambdaAction.cpp in Sources */,
 				7421E3B017D7E41F00884070 /* CCAccelerometer.mm in Sources */,
+				7474844E195A2F2B003AF40E /* MemberVariableAssigner.cpp in Sources */,
+				74748450195A2F2B003AF40E /* NodeController.cpp in Sources */,
 				7421E3B117D7E41F00884070 /* CCApplication.mm in Sources */,
+				74748460195A4C87003AF40E /* CCEnhancedTableView.cpp in Sources */,
 				7421E3B217D7E41F00884070 /* CCCommon.mm in Sources */,
 				7421E3B317D7E41F00884070 /* CCDirectorCaller.mm in Sources */,
 				7421E3B417D7E41F00884070 /* CCEGLView.mm in Sources */,
@@ -2129,6 +2237,7 @@
 				74748329195A196E003AF40E /* CCBValue.cpp in Sources */,
 				7421E3BE17D7E41F00884070 /* CCGLProgram.cpp in Sources */,
 				7421E3BF17D7E41F00884070 /* ccGLStateCache.cpp in Sources */,
+				7474841F195A2245003AF40E /* CCStylesProtocol.cpp in Sources */,
 				7421E3C017D7E41F00884070 /* CCShaderCache.cpp in Sources */,
 				7421E3C117D7E41F00884070 /* ccShaders.cpp in Sources */,
 				7421E3C217D7E41F00884070 /* CCAnimation.cpp in Sources */,
@@ -2137,6 +2246,7 @@
 				747483C7195A1997003AF40E /* CCControlSaturationBrightnessPicker.cpp in Sources */,
 				7421E3C417D7E41F00884070 /* CCSprite.cpp in Sources */,
 				74748309195A196E003AF40E /* CCBAnimationManager.cpp in Sources */,
+				74748458195A4A12003AF40E /* CCEnhancedLabelTTFLoader.cpp in Sources */,
 				74748341195A196E003AF40E /* CCLayerColorLoader.cpp in Sources */,
 				74748357195A196E003AF40E /* CCMultiPassSpriteLoader.cpp in Sources */,
 				747483F1195A1997003AF40E /* CCEditBoxImplAndroid.cpp in Sources */,
@@ -2166,6 +2276,7 @@
 				7421E3D717D7E41F00884070 /* CCTextureCache.cpp in Sources */,
 				7421E3D817D7E41F00884070 /* CCTexturePVR.cpp in Sources */,
 				7421E3D917D7E41F00884070 /* CCTouchDispatcher.cpp in Sources */,
+				74748424195A235B003AF40E /* CCEnhancedLabelTTF.cpp in Sources */,
 				7474834D195A196E003AF40E /* CCMenuItemImageLoader.cpp in Sources */,
 				7421E3DA17D7E41F00884070 /* CCTouchHandler.cpp in Sources */,
 				7421E3DB17D7E41F00884070 /* CCNotificationCenter.cpp in Sources */,
@@ -2179,6 +2290,7 @@
 				7421E3E217D7E41F00884070 /* tinyxml2.cpp in Sources */,
 				7421E3E317D7E41F00884070 /* CCDevice.mm in Sources */,
 				7421E3E417D7E41F00884070 /* ccFPSImages.c in Sources */,
+				74748454195A2F2B003AF40E /* SelectorResolver.cpp in Sources */,
 				7421E3E517D7E41F00884070 /* ccUTF8.cpp in Sources */,
 				7421E3E617D7E41F00884070 /* CCParallaxNode.cpp in Sources */,
 				7421E3E717D7E41F00884070 /* CCTileMapAtlas.cpp in Sources */,
@@ -2201,6 +2313,7 @@
 				747483DF195A1997003AF40E /* CCScale9Sprite.cpp in Sources */,
 				747483B9195A1997003AF40E /* CCControlColourPicker.cpp in Sources */,
 				7421E3EF17D7E41F00884070 /* CCDataVisitor.cpp in Sources */,
+				74748452195A2F2B003AF40E /* NodeLoadingFacilities.cpp in Sources */,
 				747483D3195A1997003AF40E /* CCControlSwitch.cpp in Sources */,
 				7421E3F017D7E41F00884070 /* CCTextureETC.cpp in Sources */,
 				7421E3F117D7E41F00884070 /* CCComponent.cpp in Sources */,

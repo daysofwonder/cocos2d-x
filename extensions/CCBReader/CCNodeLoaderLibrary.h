@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "CCBReader.h"
+#include <functional>
 
 NS_CC_EXT_BEGIN
 
@@ -23,12 +24,16 @@ class CCNodeLoaderLibrary : public CCObject {
 
         void registerDefaultCCNodeLoaders();
         void registerCCNodeLoader(const char * pClassName, CCNodeLoader * pCCNodeLoader);
-        //void registerCCNodeLoader(CCString * pClassName, CCNodeLoader * pCCNodeLoader);
+    
         void unregisterCCNodeLoader(const char * pClassName);
-        //void unregisterCCNodeLoader(CCString * pClassName);
+    
         CCNodeLoader * getCCNodeLoader(const char * pClassName);
-        //CCNodeLoader * getCCNodeLoader(CCString * pClassName);
+    
         void purge(bool pDelete);
+    
+        typedef std::function<void(CCNodeLoaderLibrary&)> TRegistrationCallback;
+    
+        static void addRegistrationCallback(const TRegistrationCallback& iCallback);
 
     public:
         static CCNodeLoaderLibrary * sharedCCNodeLoaderLibrary();

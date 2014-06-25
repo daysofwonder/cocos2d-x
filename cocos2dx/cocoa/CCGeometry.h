@@ -198,6 +198,16 @@ public:
      */
     CCPoint rotateByAngle(const CCPoint& pivot, float angle) const;
 
+    inline bool operator==(const CCPoint& iOther) const
+    {
+        return (x == iOther.x) && (y == iOther.y);
+    }
+
+    inline bool operator!=(const CCPoint& iOther) const
+    {
+        return !(*this == iOther);
+    }
+
     static inline CCPoint forAngle(const float a)
     {
     	return CCPoint(cosf(a), sinf(a));
@@ -226,6 +236,16 @@ public:
     void setSize(float width, float height);
     bool equals(const CCSize& target) const;
     
+    bool operator==(const CCSize& iS2) const
+    {
+        return (width == iS2.width) && (height == iS2.height);
+    }
+    
+    bool operator!=(const CCSize& iS2) const
+    {
+        return !(*this == iS2);
+    }
+
     // Helpers
     static CCSize decode(const std::string& iSizeAsString);
     static CCSize interpolate(const CCSize& iStart, const CCSize& iEnd, float iCoeff);

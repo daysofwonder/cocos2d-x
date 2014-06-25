@@ -46,6 +46,15 @@ struct ccColor3B
     
     static ccColor3B decode(const std::string& iColorAsString);
 
+    bool operator==(const ccColor3B& iC2) const
+    {
+        return (r == iC2.r) && (g == iC2.g) && (b == iC2.b);
+    }
+    
+    bool operator!=(const ccColor3B& iC2) const
+    {
+        return !(*this == iC2);
+    }
 };
 
 //! helper macro that creates an ccColor3B type
@@ -96,6 +105,15 @@ struct ccColor4B
     // decoding from string
     static ccColor4B decode(const std::string& iColorAsString);
 
+    bool operator==(const ccColor4B& iC2) const
+    {
+        return (r == iC2.r) && (g == iC2.g) && (b == iC2.b) && (a == iC2.a);
+    }
+    
+    bool operator!=(const ccColor4B& iC2) const
+    {
+        return !(*this == iC2);
+    }
 };
 
 //! helper macro that creates an ccColor4B type
