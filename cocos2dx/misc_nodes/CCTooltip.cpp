@@ -11,7 +11,9 @@
 #include "NodeControllers/NodeController.h"
 
 #include "misc_nodes/CCOverallScaleProtocol.h"
+
 #include <algorithm> // for std::min
+#undef min
 
 NS_CC_BEGIN
 
