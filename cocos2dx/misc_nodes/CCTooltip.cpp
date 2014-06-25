@@ -7,7 +7,7 @@
 //
 
 #include "CCTooltip.h"
-#include "GUI/CCControlExtension/HitTestProtocol.h"
+#include "touch_dispatcher/HitTestProtocol.h"
 #include "NodeControllers/NodeController.h"
 
 #include "misc_nodes/CCOverallScaleProtocol.h"

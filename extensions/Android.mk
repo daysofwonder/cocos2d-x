@@ -34,6 +34,7 @@ CCBReader/CCNode+CCBRelativePositioning.cpp \
 CCBReader/CCBAnimationManagerDelegateHandler.cpp \
 CCBReader/CCTableViewLoader.cpp \
 CCBReader/CCEnhancedLabelTTFLoader.cpp \
+CCBReader/CCSmartLayerLoader.cpp \
 GUI/CCControlExtension/CCControl.cpp \
 GUI/CCControlExtension/CCControlButton.cpp \
 GUI/CCControlExtension/CCControlColourPicker.cpp \
@@ -46,8 +47,6 @@ GUI/CCControlExtension/CCInvocation.cpp \
 GUI/CCControlExtension/CCScale9Sprite.cpp \
 GUI/CCControlExtension/CCControlPotentiometer.cpp \
 GUI/CCControlExtension/CCControlStepper.cpp \
-GUI/CCControlExtension/CCSceneGraphTouchDispatcher.cpp \
-GUI/CCControlExtension/HitTestProtocol.cpp \
 GUI/CCControlExtension/CCEnhancedControlButton.cpp \
 GUI/CCControlExtension/CCGenericButton.cpp \
 GUI/CCScrollView/CCScrollView.cpp \
@@ -61,6 +60,7 @@ NodeControllers/MemberVariableAssigner.cpp \
 NodeControllers/NodeController.cpp \
 NodeControllers/NodeLoadingFacilities.cpp \
 NodeControllers/SelectorResolver.cpp \
+NodeControllers/MessageBoxController.cpp \
 network/HttpClient.cpp \
 network/WebSocket.cpp \
 physics_nodes/CCPhysicsDebugNode.cpp \
@@ -135,7 +135,18 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                            $(LOCAL_PATH)/GUI/CCScrollView \
                            $(LOCAL_PATH)/network \
                            $(LOCAL_PATH)/LocalStorage \
-						   $(LOCAL_PATH)/CCArmature
+						   $(LOCAL_PATH)/CCArmature \
+						   $(LOCAL_PATH)/../../boost-1.55.0/include \
+
+LOCAL_C_INCLUDES := $(LOCAL_PATH) \
+                           $(LOCAL_PATH)/CCBReader \
+                           $(LOCAL_PATH)/GUI/CCControlExtension \
+                           $(LOCAL_PATH)/GUI/CCScrollView \
+                           $(LOCAL_PATH)/network \
+                           $(LOCAL_PATH)/LocalStorage \
+						   $(LOCAL_PATH)/CCArmature \
+						   $(LOCAL_PATH)/../../boost-1.55.0/include \
+
 
 LOCAL_CFLAGS := -fexceptions
                     

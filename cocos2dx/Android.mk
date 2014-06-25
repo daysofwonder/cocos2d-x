@@ -68,6 +68,7 @@ label_nodes/CCLabelTTF.cpp \
 label_nodes/CCEnhancedLabelTTF.cpp \
 label_nodes/CCStylesProtocol.cpp \
 layers_scenes_transitions_nodes/CCLayer.cpp \
+layers_scenes_transitions_nodes/CCSmartLayer.cpp \
 layers_scenes_transitions_nodes/CCScene.cpp \
 layers_scenes_transitions_nodes/CCTransitionPageTurn.cpp \
 layers_scenes_transitions_nodes/CCTransition.cpp \
@@ -151,13 +152,18 @@ tilemap_parallax_nodes/CCTMXXMLParser.cpp \
 tilemap_parallax_nodes/CCTileMapAtlas.cpp \
 touch_dispatcher/CCTouchDispatcher.cpp \
 touch_dispatcher/CCTouchHandler.cpp \
-touch_dispatcher/CCTouch.cpp
+touch_dispatcher/CCTouch.cpp \
+touch_dispatcher/CCSceneGraphTouchDispatcher.cpp \
+touch_dispatcher/HitTestProtocol.cpp \
+misc/FakeInAppPurchaseManager.cpp \
+
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                     $(LOCAL_PATH)/include \
                     $(LOCAL_PATH)/kazmath/include \
                     $(LOCAL_PATH)/platform/android \
                     $(LOCAL_PATH)/../../DOWFoundation/include \
+                    $(LOCAL_PATH)/../../boost-1.55.0/include \
 
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH) \
@@ -166,6 +172,8 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH) \
                     $(LOCAL_PATH)/platform/android \
                     $(LOCAL_PATH)/../../DOWFoundation/include \
                     $(LOCAL_PATH)/../extensions \
+                    $(LOCAL_PATH)/../../boost-1.55.0/include \
+
 
 LOCAL_LDLIBS := -lGLESv2 \
                 -llog \

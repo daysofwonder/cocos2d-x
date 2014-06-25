@@ -21,6 +21,7 @@
 #include "GUI/CCScrollView/CCEnhancedTableView.h"
 #include "GUI/CCControlExtension/CCEnhancedControlButton.h"
 #include "GUI/CCControlExtension/CCGenericButton.h"
+#include "CCSmartLayerLoader.h"
 
 NS_CC_EXT_BEGIN
 
@@ -60,6 +61,8 @@ void CCNodeLoaderLibrary::registerDefaultCCNodeLoaders() {
     this->registerCCNodeLoader("CCEnhancedControlButton", CCEnhancedControlButtonLoader::loader());
     this->registerCCNodeLoader("CCGenericButton", CCGenericButtonLoader::loader());
     
+    this->registerCCNodeLoader("CCSmartLayer", CCSmartLayerLoader::loader());
+
     for (const auto& cb : s_RegistrationCallbacks)
     {
         cb(*this);

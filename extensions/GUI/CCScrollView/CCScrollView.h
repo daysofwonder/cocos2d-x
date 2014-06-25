@@ -28,7 +28,7 @@
 
 #include "cocos2d.h"
 #include "ExtensionMacros.h"
-#include "GUI/CCControlExtension/HitTestProtocol.h"
+#include "touch_dispatcher/HitTestProtocol.h"
 #include "GUI/CCControlExtension/CCControl.h"
 
 NS_CC_EXT_BEGIN

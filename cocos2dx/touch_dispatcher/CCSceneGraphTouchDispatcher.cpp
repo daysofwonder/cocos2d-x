@@ -2,13 +2,14 @@
 //  CCSceneGraphTouchDispatcher.cpp
 //
 //  Created by Gérald Guyomard on 11/10/12.
+// Copyright (c) 2013 Days of Wonder Inc.
 //
 //
 
 #include "CCSceneGraphTouchDispatcher.h"
-#include "HitTestProtocol.h"
+#include "touch_dispatcher/HitTestProtocol.h"
 
-NS_CC_EXT_BEGIN
+NS_CC_BEGIN
 
 class CCSceneGraphTargetedTouchHandler : public CCTargetedTouchHandler
 {
@@ -874,5 +875,5 @@ CCSceneGraphTouchDispatcher::simulateTouchDown(CCTouch* iTouch)
     return _simulateTouchDown(CCDirector::sharedDirector()->getRunningScene(), iTouch, false);
 }
 
-NS_CC_EXT_END
+NS_CC_END
 

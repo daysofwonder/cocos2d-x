@@ -2,6 +2,7 @@
 //  CCSceneGraphTouchDispatcher.h
 //
 //  Created by Gérald Guyomard on 11/10/12.
+// Copyright (c) 2013 Days of Wonder Inc.
 //
 //
 
@@ -10,9 +11,8 @@
 
 #include <cocos2d.h>
 #include "touch_dispatcher/CCTouchDispatcher.h"
-#include "ExtensionMacros.h"
 
-NS_CC_EXT_BEGIN
+NS_CC_BEGIN
 
 class HitTestProtocol;
 class CCSceneGraphTargetedTouchHandler;
@@ -69,6 +69,6 @@ protected:
     CCTouchDelegate*        m_MouseOverDelegate;
 };
 
-NS_CC_EXT_END
+NS_CC_END
 
 #endif /* defined(__CCSceneGraphTouchDispatcher__) */

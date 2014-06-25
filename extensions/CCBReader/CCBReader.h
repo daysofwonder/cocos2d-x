@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 #include "CCBSequence.h"
-
+#include "CCNodeLoaderListener.h"
 
 #define CCB_STATIC_NEW_AUTORELEASE_OBJECT_METHOD(T, METHOD) static T * METHOD() { \
     T * ptr = new T(); \
@@ -105,26 +105,6 @@ enum
     kCCBKeyframeEasingBackInOut,
 };
 
-enum CCBPositionType
-{
-    kCCBPositionTypeRelativeBottomLeft,
-    kCCBPositionTypeRelativeTopLeft,
-    kCCBPositionTypeRelativeTopRight,
-    kCCBPositionTypeRelativeBottomRight,
-    kCCBPositionTypePercent,
-    kCCBPositionTypeMultiplyResolution,
-};
-
-enum CCBSizeType
-{
-    kCCBSizeTypeAbsolute,
-    kCCBSizeTypePercent,
-    kCCBSizeTypeRelativeContainer,
-    kCCBSizeTypeHorizontalPercent,
-    kCCBSizeTypeVerticalPercent,
-    kCCBSizeTypeMultiplyResolution,
-};
-
 enum
 {
     kCCBScaleTypeAbsolute,
@@ -156,7 +136,6 @@ public:
 /* Forward declaration. */
 class CCNodeLoader;
 class CCNodeLoaderLibrary;
-class CCNodeLoaderListener;
 class CCBMemberVariableAssigner;
 class CCBSelectorResolver;
 class CCBAnimationManager;

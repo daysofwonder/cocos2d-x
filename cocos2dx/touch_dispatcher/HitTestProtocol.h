@@ -1,8 +1,8 @@
 //
 //  HitTestProtocol.h
-//  SmallWorld2
 //
 //  Created by Gérald Guyomard on 11/10/12.
+// Copyright (c) 2013 Days of Wonder Inc.
 //
 //
 
@@ -10,9 +10,8 @@
 #define __HitTestProtocol__
 
 #include <cocos2d.h>
-#include "ExtensionMacros.h"
 
-NS_CC_EXT_BEGIN
+NS_CC_BEGIN
 
 class HitTestProtocol
 {
@@ -43,6 +42,6 @@ protected:
     
 };
 
-NS_CC_EXT_END
+NS_CC_END
 
 #endif /* defined(__HitTestProtocol__) */

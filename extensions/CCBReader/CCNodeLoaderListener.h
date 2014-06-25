@@ -1,12 +1,37 @@
 #ifndef _CCB_CCNODELOADERLISTENER_H_
 #define _CCB_CCNODELOADERLISTENER_H_
 
-#include "cocos2d.h"
-#include "CCBReader.h" // For CCBPositionType, CCBSizeType
+#include "platform/CCPlatformMacros.h"
+#include "cocoa/CCGeometry.h"
+#include "ExtensionMacros.h"
+
+NS_CC_BEGIN
+class CCNode;
+NS_CC_END
 
 NS_CC_EXT_BEGIN
 
 class CCNodeLoader;
+
+enum CCBPositionType
+{
+    kCCBPositionTypeRelativeBottomLeft,
+    kCCBPositionTypeRelativeTopLeft,
+    kCCBPositionTypeRelativeTopRight,
+    kCCBPositionTypeRelativeBottomRight,
+    kCCBPositionTypePercent,
+    kCCBPositionTypeMultiplyResolution,
+};
+
+enum CCBSizeType
+{
+    kCCBSizeTypeAbsolute,
+    kCCBSizeTypePercent,
+    kCCBSizeTypeRelativeContainer,
+    kCCBSizeTypeHorizontalPercent,
+    kCCBSizeTypeVerticalPercent,
+    kCCBSizeTypeMultiplyResolution,
+};
 
 class CCNodeLoaderListener {
     public:
