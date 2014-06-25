@@ -256,4 +256,7 @@ extern unsigned int CC_DLL g_uNumberOfDraws;
  */
 #define CCAnimationFrameDisplayedNotification "CCAnimationFrameDisplayedNotification"
 
+// For Windows,  no override of min/max
+#define NOMINMAX 1
+
 #endif // __CCMACROS_H__

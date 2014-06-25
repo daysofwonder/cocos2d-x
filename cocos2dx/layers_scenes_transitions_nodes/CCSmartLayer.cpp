@@ -11,6 +11,9 @@
 
 #include "DOWFoundation/NotificationCenter.h"
 #include <algorithm>
+#undef min
+#undef max
+
 #include "misc_nodes/CCTooltip.h"
 #include "platform/CCCursor.h"
 
