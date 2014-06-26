@@ -55,6 +55,7 @@ GUI/CCScrollView/CCTableViewCell.cpp \
 GUI/CCScrollView/CCLoadableTableViewCell.cpp \
 GUI/CCScrollView/CCSorting.cpp \
 GUI/CCScrollView/CCEnhancedTableView.cpp \
+GUI/CCScrollView/StdScrollBar.cpp \
 GUI/CCEditBox/CCEditBox.cpp \
 GUI/CCEditBox/android/CCEditBoxImplAndroid.cpp \
 GUI/NativeNodes/CCMultilineTextBox.cpp \

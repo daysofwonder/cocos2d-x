@@ -317,6 +317,8 @@
 		7421E4A117D7E41F00884070 /* CCTextureETC.h in Headers */ = {isa = PBXBuildFile; fileRef = 4698CFA8174CBB700066A57B /* CCTextureETC.h */; };
 		7421E4A217D7E41F00884070 /* CCComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 37EEEBF5175DDF3A003C1193 /* CCComponent.h */; };
 		7421E4A317D7E41F00884070 /* CCComponentContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 37EEEBF7175DDF3A003C1193 /* CCComponentContainer.h */; };
+		744442F6195CD90900053F91 /* StdScrollBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 744442F4195CD90900053F91 /* StdScrollBar.cpp */; };
+		744442F7195CD90900053F91 /* StdScrollBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 744442F5195CD90900053F91 /* StdScrollBar.h */; };
 		747481C51888A6DD00AFFE89 /* CCCursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 747481C11888A4CF00AFFE89 /* CCCursor.cpp */; };
 		747482B11959F32B003AF40E /* CCMultiPassSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 747482AE1959F32B003AF40E /* CCMultiPassSprite.cpp */; };
 		747482B31959F32B003AF40E /* CCMultiPassSprite.h in Headers */ = {isa = PBXBuildFile; fileRef = 747482AF1959F32B003AF40E /* CCMultiPassSprite.h */; };
@@ -841,6 +843,8 @@
 		744442F1195CCE7000053F91 /* CCWebViewImplLinux.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCWebViewImplLinux.h; sourceTree = "<group>"; };
 		744442F2195CCE7000053F91 /* CCYoutubeImplLinux.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCYoutubeImplLinux.cpp; sourceTree = "<group>"; };
 		744442F3195CCE7000053F91 /* CCYoutubeImplLinux.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCYoutubeImplLinux.h; sourceTree = "<group>"; };
+		744442F4195CD90900053F91 /* StdScrollBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StdScrollBar.cpp; sourceTree = "<group>"; };
+		744442F5195CD90900053F91 /* StdScrollBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StdScrollBar.h; sourceTree = "<group>"; };
 		747481C11888A4CF00AFFE89 /* CCCursor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCursor.cpp; sourceTree = "<group>"; };
 		747481C21888A4CF00AFFE89 /* CCCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCursor.h; sourceTree = "<group>"; };
 		747482AE1959F32B003AF40E /* CCMultiPassSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCMultiPassSprite.cpp; sourceTree = "<group>"; };
@@ -1940,6 +1944,8 @@
 				7474845F195A4C87003AF40E /* CCEnhancedTableView.h */,
 				747483A8195A1997003AF40E /* CCScrollView.cpp */,
 				747483A9195A1997003AF40E /* CCScrollView.h */,
+				744442F4195CD90900053F91 /* StdScrollBar.cpp */,
+				744442F5195CD90900053F91 /* StdScrollBar.h */,
 				747483AA195A1997003AF40E /* CCSorting.cpp */,
 				747483AB195A1997003AF40E /* CCSorting.h */,
 				747483AC195A1997003AF40E /* CCTableView.cpp */,
@@ -2164,6 +2170,7 @@
 				7421E43D17D7E41F00884070 /* CCParticleSystemQuad.h in Headers */,
 				74748343195A196E003AF40E /* CCLayerColorLoader.h in Headers */,
 				747483E1195A1997003AF40E /* CCScale9Sprite.h in Headers */,
+				744442F7195CD90900053F91 /* StdScrollBar.h in Headers */,
 				7421E43E17D7E41F00884070 /* CCAccelerometerDelegate.h in Headers */,
 				7421E43F17D7E41F00884070 /* CCApplicationProtocol.h in Headers */,
 				7421E44017D7E41F00884070 /* CCCommon.h in Headers */,
@@ -2522,6 +2529,7 @@
 				7421E3CF17D7E41F00884070 /* TransformUtils.cpp in Sources */,
 				74C1D9CE1958FF8B001F4913 /* CCOperationPool.cpp in Sources */,
 				7421E3D017D7E41F00884070 /* ioapi.cpp in Sources */,
+				744442F6195CD90900053F91 /* StdScrollBar.cpp in Sources */,
 				7421E3D117D7E41F00884070 /* unzip.cpp in Sources */,
 				7421E3D217D7E41F00884070 /* ZipUtils.cpp in Sources */,
 				747483EB195A1997003AF40E /* CCEditBox.cpp in Sources */,
