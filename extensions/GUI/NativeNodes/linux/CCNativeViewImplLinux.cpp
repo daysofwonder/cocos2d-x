@@ -1,7 +1,7 @@
 #include "CCNativeViewImplLinux.h"
 #include "CCDirector.h"
 #include "CCScheduler.h"
-#include "linux/SW2EGLView.h"
+#include "platform/linux/SW2EGLView.h"
 #include "DOWFoundation/NotificationCenter.h"
 #include <boost/log/trivial.hpp>
 

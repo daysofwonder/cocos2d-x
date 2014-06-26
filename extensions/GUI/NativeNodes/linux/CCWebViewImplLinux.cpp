@@ -4,7 +4,7 @@
 #include <boost/log/trivial.hpp>
 #include <webkit/webkit.h>
 #include "CCOperationPool.h"
-#include "linux/SW2EGLView.h"
+#include "platform/linux/SW2EGLView.h"
 #include "DOWFoundation/Library.h"
 
 // to finish move with SW2EGLView...

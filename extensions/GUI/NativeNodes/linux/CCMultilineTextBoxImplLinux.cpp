@@ -1,6 +1,6 @@
 //
 #include "CCMultilineTextBoxImplLinux.h"
-#include "linux/SW2EGLView.h"
+#include "platform/linux/SW2EGLView.h"
 #include "DOWFoundation/NotificationCenter.h"
 #include <webkit/webkit.h>
 #include <boost/log/trivial.hpp>

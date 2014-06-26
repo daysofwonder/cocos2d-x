@@ -1,7 +1,7 @@
 //
 #include "CCYoutubeImplLinux.h"
 #include "GUI/NativeNodes/CCYoutubeView.h"
-#include "linux/SW2EGLView.h"
+#include "platform/linux/SW2EGLView.h"
 #include <boost/log/trivial.hpp>
 
 // to finish move with SW2EGLView...

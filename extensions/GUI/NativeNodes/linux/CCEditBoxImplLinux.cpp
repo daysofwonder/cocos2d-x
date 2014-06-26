@@ -1,7 +1,7 @@
 //
 #include "CCEditBoxImplLinux.h"
 #include <cassert>
-#include "linux/SW2EGLView.h"
+#include "platform/linux/SW2EGLView.h"
 #include <boost/log/trivial.hpp>
 #include <webkit/webkit.h>
 #include <sstream>
