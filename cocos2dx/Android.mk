@@ -73,6 +73,11 @@ layers_scenes_transitions_nodes/CCScene.cpp \
 layers_scenes_transitions_nodes/CCTransitionPageTurn.cpp \
 layers_scenes_transitions_nodes/CCTransition.cpp \
 layers_scenes_transitions_nodes/CCTransitionProgress.cpp \
+layers_scenes_transitions_nodes/CCNativeSmartLayer.cpp \
+layers_scenes_transitions_nodes/CCNativeViewImpl.cpp \
+layers_scenes_transitions_nodes/CCAutoScrollableEditBoxContainer.cpp \
+layers_scenes_transitions_nodes/CCDoubleSidedLayer.cpp \
+layers_scenes_transitions_nodes/CCLayout.cpp \
 menu_nodes/CCMenu.cpp \
 menu_nodes/CCMenuItem.cpp \
 misc_nodes/CCClippingNode.cpp \
@@ -116,6 +121,7 @@ sprite_nodes/CCAnimation.cpp \
 sprite_nodes/CCAnimationCache.cpp \
 sprite_nodes/CCSprite.cpp \
 sprite_nodes/CCSpriteBatchNode.cpp \
+sprite_nodes/CCLoadableSpriteBatchNode.cpp \
 sprite_nodes/CCSpriteFrame.cpp \
 sprite_nodes/CCSpriteFrameCache.cpp \
 sprite_nodes/CCMultiPassSprite.cpp \

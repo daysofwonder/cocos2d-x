@@ -408,16 +408,6 @@
 		747483EB195A1997003AF40E /* CCEditBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74748398195A1997003AF40E /* CCEditBox.cpp */; };
 		747483ED195A1997003AF40E /* CCEditBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 74748399195A1997003AF40E /* CCEditBox.h */; };
 		747483EF195A1997003AF40E /* CCEditBoxImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 7474839A195A1997003AF40E /* CCEditBoxImpl.h */; };
-		747483F1195A1997003AF40E /* CCEditBoxImplAndroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7474839B195A1997003AF40E /* CCEditBoxImplAndroid.cpp */; };
-		747483F3195A1997003AF40E /* CCEditBoxImplAndroid.h in Headers */ = {isa = PBXBuildFile; fileRef = 7474839C195A1997003AF40E /* CCEditBoxImplAndroid.h */; };
-		747483F9195A1997003AF40E /* CCEditBoxImplIOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 7474839F195A1997003AF40E /* CCEditBoxImplIOS.h */; };
-		747483FB195A1997003AF40E /* CCEditBoxImplIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 747483A0195A1997003AF40E /* CCEditBoxImplIOS.mm */; };
-		747483FD195A1997003AF40E /* CCEditBoxImplMac.h in Headers */ = {isa = PBXBuildFile; fileRef = 747483A1195A1997003AF40E /* CCEditBoxImplMac.h */; };
-		747483FF195A1997003AF40E /* CCEditBoxImplNone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 747483A2195A1997003AF40E /* CCEditBoxImplNone.cpp */; };
-		74748401195A1997003AF40E /* CCEditBoxImplTizen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 747483A3195A1997003AF40E /* CCEditBoxImplTizen.cpp */; };
-		74748403195A1997003AF40E /* CCEditBoxImplTizen.h in Headers */ = {isa = PBXBuildFile; fileRef = 747483A4195A1997003AF40E /* CCEditBoxImplTizen.h */; };
-		74748405195A1997003AF40E /* CCEditBoxImplWin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 747483A5195A1997003AF40E /* CCEditBoxImplWin.cpp */; };
-		74748407195A1997003AF40E /* CCEditBoxImplWin.h in Headers */ = {isa = PBXBuildFile; fileRef = 747483A6195A1997003AF40E /* CCEditBoxImplWin.h */; };
 		74748409195A1997003AF40E /* CCScrollView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 747483A8195A1997003AF40E /* CCScrollView.cpp */; };
 		7474840B195A1997003AF40E /* CCScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 747483A9195A1997003AF40E /* CCScrollView.h */; };
 		7474840D195A1997003AF40E /* CCSorting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 747483AA195A1997003AF40E /* CCSorting.cpp */; };
@@ -472,6 +462,41 @@
 		74CA9FCF195B3CC700A604EC /* CCSceneGraphTouchDispatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 74CA9FCD195B3CC700A604EC /* CCSceneGraphTouchDispatcher.h */; };
 		74CA9FD2195B3DBB00A604EC /* CCSmartLayerLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74CA9FD0195B3DBB00A604EC /* CCSmartLayerLoader.cpp */; };
 		74CA9FD3195B3DBB00A604EC /* CCSmartLayerLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 74CA9FD1195B3DBB00A604EC /* CCSmartLayerLoader.h */; };
+		74CA9FD6195B885100A604EC /* CCLoadableSpriteBatchNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74CA9FD4195B885100A604EC /* CCLoadableSpriteBatchNode.cpp */; };
+		74CA9FD7195B885100A604EC /* CCLoadableSpriteBatchNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 74CA9FD5195B885100A604EC /* CCLoadableSpriteBatchNode.h */; };
+		74CA9FDE195B8D5E00A604EC /* CCLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 74CA9FD8195B8D5E00A604EC /* CCLayout.h */; };
+		74CA9FDF195B8D5E00A604EC /* CCAutoScrollableEditBoxContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 74CA9FD9195B8D5E00A604EC /* CCAutoScrollableEditBoxContainer.h */; };
+		74CA9FE0195B8D5E00A604EC /* CCDoubleSidedLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 74CA9FDA195B8D5E00A604EC /* CCDoubleSidedLayer.h */; };
+		74CA9FE1195B8D5E00A604EC /* CCDoubleSidedLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74CA9FDB195B8D5E00A604EC /* CCDoubleSidedLayer.cpp */; };
+		74CA9FE2195B8D5E00A604EC /* CCAutoScrollableEditBoxContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74CA9FDC195B8D5E00A604EC /* CCAutoScrollableEditBoxContainer.cpp */; };
+		74CA9FE3195B8D5E00A604EC /* CCLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74CA9FDD195B8D5E00A604EC /* CCLayout.cpp */; };
+		74CA9FE8195B8F9400A604EC /* CCNativeSmartLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 74CA9FE4195B8F9400A604EC /* CCNativeSmartLayer.h */; };
+		74CA9FE9195B8F9400A604EC /* CCNativeSmartLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74CA9FE5195B8F9400A604EC /* CCNativeSmartLayer.cpp */; };
+		74CA9FEA195B8F9400A604EC /* CCNativeViewImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 74CA9FE6195B8F9400A604EC /* CCNativeViewImpl.h */; };
+		74CA9FEB195B8F9400A604EC /* CCNativeViewImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74CA9FE7195B8F9400A604EC /* CCNativeViewImpl.cpp */; };
+		74CA9FF4195B9C3C00A604EC /* CCEditBoxImplIOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 74CA9FF2195B9C3C00A604EC /* CCEditBoxImplIOS.h */; };
+		74CA9FF5195B9C3C00A604EC /* CCEditBoxImplIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 74CA9FF3195B9C3C00A604EC /* CCEditBoxImplIOS.mm */; };
+		74CA9FF8195B9C5A00A604EC /* CCLoadableTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 74CA9FF6195B9C5A00A604EC /* CCLoadableTableViewCell.h */; };
+		74CA9FF9195B9C5A00A604EC /* CCLoadableTableViewCell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74CA9FF7195B9C5A00A604EC /* CCLoadableTableViewCell.cpp */; };
+		74CAA02F195B9C6A00A604EC /* CCMultilineTextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74CAA007195B9C6A00A604EC /* CCMultilineTextBox.cpp */; };
+		74CAA030195B9C6A00A604EC /* CCMultilineTextBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 74CAA008195B9C6A00A604EC /* CCMultilineTextBox.h */; };
+		74CAA031195B9C6A00A604EC /* CCMultilineTextBoxImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74CAA009195B9C6A00A604EC /* CCMultilineTextBoxImpl.cpp */; };
+		74CAA032195B9C6A00A604EC /* CCMultilineTextBoxImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 74CAA00A195B9C6A00A604EC /* CCMultilineTextBoxImpl.h */; };
+		74CAA033195B9C6A00A604EC /* CCWebView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74CAA00B195B9C6A00A604EC /* CCWebView.cpp */; };
+		74CAA034195B9C6A00A604EC /* CCWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 74CAA00C195B9C6A00A604EC /* CCWebView.h */; };
+		74CAA035195B9C6A00A604EC /* CCWebViewImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 74CAA00D195B9C6A00A604EC /* CCWebViewImpl.h */; };
+		74CAA036195B9C6A00A604EC /* CCYoutubeView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74CAA00E195B9C6A00A604EC /* CCYoutubeView.cpp */; };
+		74CAA037195B9C6A00A604EC /* CCYoutubeView.h in Headers */ = {isa = PBXBuildFile; fileRef = 74CAA00F195B9C6A00A604EC /* CCYoutubeView.h */; };
+		74CAA038195B9C6A00A604EC /* CCYoutubeViewImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74CAA010195B9C6A00A604EC /* CCYoutubeViewImpl.cpp */; };
+		74CAA039195B9C6A00A604EC /* CCYoutubeViewImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 74CAA011195B9C6A00A604EC /* CCYoutubeViewImpl.h */; };
+		74CAA03E195B9C6A00A604EC /* CCMultilineTextBoxImplIOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 74CAA018195B9C6A00A604EC /* CCMultilineTextBoxImplIOS.h */; };
+		74CAA03F195B9C6A00A604EC /* CCMultilineTextBoxImplIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 74CAA019195B9C6A00A604EC /* CCMultilineTextBoxImplIOS.mm */; };
+		74CAA040195B9C6A00A604EC /* CCWebViewImplIOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 74CAA01A195B9C6A00A604EC /* CCWebViewImplIOS.h */; };
+		74CAA041195B9C6A00A604EC /* CCWebViewImplIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 74CAA01B195B9C6A00A604EC /* CCWebViewImplIOS.mm */; };
+		74CAA042195B9C6A00A604EC /* CCYoutubeViewImplIOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 74CAA01C195B9C6A00A604EC /* CCYoutubeViewImplIOS.h */; };
+		74CAA043195B9C6A00A604EC /* CCYoutubeViewImplIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 74CAA01D195B9C6A00A604EC /* CCYoutubeViewImplIOS.mm */; };
+		74CAA052195BAC6100A604EC /* CCNativeViewImplApple.h in Headers */ = {isa = PBXBuildFile; fileRef = 74CAA04C195BAC6100A604EC /* CCNativeViewImplApple.h */; };
+		74CAA053195BAC6100A604EC /* CCNativeViewImplApple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 74CAA04D195BAC6100A604EC /* CCNativeViewImplApple.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -787,6 +812,25 @@
 		4EF8998F16E207E70040A527 /* CCTMXXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTMXXMLParser.h; sourceTree = "<group>"; };
 		740F8E2917E3CDDD009961C7 /* Cocos2DNativeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cocos2DNativeView.h; sourceTree = "<group>"; };
 		7421E4A717D7E41F00884070 /* libcocos2dxC++11.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libcocos2dxC++11.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		744442C2195C9BFC00053F91 /* CCMultilineTextBoxImplAndroid.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCMultilineTextBoxImplAndroid.cpp; sourceTree = "<group>"; };
+		744442C3195C9BFC00053F91 /* CCMultilineTextBoxImplAndroid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCMultilineTextBoxImplAndroid.h; sourceTree = "<group>"; };
+		744442C4195C9BFC00053F91 /* CCNativeViewImplAndroid.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCNativeViewImplAndroid.cpp; sourceTree = "<group>"; };
+		744442C5195C9BFC00053F91 /* CCNativeViewImplAndroid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCNativeViewImplAndroid.h; sourceTree = "<group>"; };
+		744442C6195C9BFC00053F91 /* CCWebViewImplAndroid.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCWebViewImplAndroid.cpp; sourceTree = "<group>"; };
+		744442C7195C9BFC00053F91 /* CCWebViewImplAndroid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCWebViewImplAndroid.h; sourceTree = "<group>"; };
+		744442C8195C9BFC00053F91 /* CCYoutubeViewImplAndroid.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCYoutubeViewImplAndroid.cpp; sourceTree = "<group>"; };
+		744442C9195C9BFC00053F91 /* CCYoutubeViewImplAndroid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCYoutubeViewImplAndroid.h; sourceTree = "<group>"; };
+		744442CB195C9C3000053F91 /* CCEditBoxImplAndroid.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCEditBoxImplAndroid.cpp; sourceTree = "<group>"; };
+		744442CC195C9C3000053F91 /* CCEditBoxImplAndroid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCEditBoxImplAndroid.h; sourceTree = "<group>"; };
+		744442CE195CB75600053F91 /* CCEditBoxImplWinDow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCEditBoxImplWinDow.cpp; sourceTree = "<group>"; };
+		744442CF195CB75600053F91 /* CCEditBoxImplWinDow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCEditBoxImplWinDow.h; sourceTree = "<group>"; };
+		744442D0195CB75600053F91 /* CCMultilineTextBoxImplWindows.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCMultilineTextBoxImplWindows.cpp; sourceTree = "<group>"; };
+		744442D1195CB75600053F91 /* CCWebViewImplWindows.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCWebViewImplWindows.cpp; sourceTree = "<group>"; };
+		744442D2195CB75600053F91 /* CCWebViewImplWindows.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCWebViewImplWindows.h; sourceTree = "<group>"; };
+		744442D3195CB75600053F91 /* CCYoutubeViewImplWindows.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCYoutubeViewImplWindows.cpp; sourceTree = "<group>"; };
+		744442D4195CB75600053F91 /* FunctionObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FunctionObject.h; sourceTree = "<group>"; };
+		744442D5195CB9C900053F91 /* CCNativeViewImplWindows.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCNativeViewImplWindows.cpp; sourceTree = "<group>"; };
+		744442D6195CB9C900053F91 /* CCNativeViewImplWindows.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCNativeViewImplWindows.h; sourceTree = "<group>"; };
 		747481C11888A4CF00AFFE89 /* CCCursor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCursor.cpp; sourceTree = "<group>"; };
 		747481C21888A4CF00AFFE89 /* CCCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCursor.h; sourceTree = "<group>"; };
 		747482AE1959F32B003AF40E /* CCMultiPassSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCMultiPassSprite.cpp; sourceTree = "<group>"; };
@@ -879,16 +923,6 @@
 		74748398195A1997003AF40E /* CCEditBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCEditBox.cpp; sourceTree = "<group>"; };
 		74748399195A1997003AF40E /* CCEditBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEditBox.h; sourceTree = "<group>"; };
 		7474839A195A1997003AF40E /* CCEditBoxImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEditBoxImpl.h; sourceTree = "<group>"; };
-		7474839B195A1997003AF40E /* CCEditBoxImplAndroid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCEditBoxImplAndroid.cpp; sourceTree = "<group>"; };
-		7474839C195A1997003AF40E /* CCEditBoxImplAndroid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEditBoxImplAndroid.h; sourceTree = "<group>"; };
-		7474839F195A1997003AF40E /* CCEditBoxImplIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEditBoxImplIOS.h; sourceTree = "<group>"; };
-		747483A0195A1997003AF40E /* CCEditBoxImplIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCEditBoxImplIOS.mm; sourceTree = "<group>"; };
-		747483A1195A1997003AF40E /* CCEditBoxImplMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEditBoxImplMac.h; sourceTree = "<group>"; };
-		747483A2195A1997003AF40E /* CCEditBoxImplNone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCEditBoxImplNone.cpp; sourceTree = "<group>"; };
-		747483A3195A1997003AF40E /* CCEditBoxImplTizen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCEditBoxImplTizen.cpp; sourceTree = "<group>"; };
-		747483A4195A1997003AF40E /* CCEditBoxImplTizen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEditBoxImplTizen.h; sourceTree = "<group>"; };
-		747483A5195A1997003AF40E /* CCEditBoxImplWin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCEditBoxImplWin.cpp; sourceTree = "<group>"; };
-		747483A6195A1997003AF40E /* CCEditBoxImplWin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEditBoxImplWin.h; sourceTree = "<group>"; };
 		747483A8195A1997003AF40E /* CCScrollView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCScrollView.cpp; sourceTree = "<group>"; };
 		747483A9195A1997003AF40E /* CCScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCScrollView.h; sourceTree = "<group>"; };
 		747483AA195A1997003AF40E /* CCSorting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCSorting.cpp; sourceTree = "<group>"; };
@@ -945,6 +979,41 @@
 		74CA9FCD195B3CC700A604EC /* CCSceneGraphTouchDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSceneGraphTouchDispatcher.h; sourceTree = "<group>"; };
 		74CA9FD0195B3DBB00A604EC /* CCSmartLayerLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCSmartLayerLoader.cpp; sourceTree = "<group>"; };
 		74CA9FD1195B3DBB00A604EC /* CCSmartLayerLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSmartLayerLoader.h; sourceTree = "<group>"; };
+		74CA9FD4195B885100A604EC /* CCLoadableSpriteBatchNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLoadableSpriteBatchNode.cpp; sourceTree = "<group>"; };
+		74CA9FD5195B885100A604EC /* CCLoadableSpriteBatchNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLoadableSpriteBatchNode.h; sourceTree = "<group>"; };
+		74CA9FD8195B8D5E00A604EC /* CCLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLayout.h; sourceTree = "<group>"; };
+		74CA9FD9195B8D5E00A604EC /* CCAutoScrollableEditBoxContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAutoScrollableEditBoxContainer.h; sourceTree = "<group>"; };
+		74CA9FDA195B8D5E00A604EC /* CCDoubleSidedLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDoubleSidedLayer.h; sourceTree = "<group>"; };
+		74CA9FDB195B8D5E00A604EC /* CCDoubleSidedLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCDoubleSidedLayer.cpp; sourceTree = "<group>"; };
+		74CA9FDC195B8D5E00A604EC /* CCAutoScrollableEditBoxContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCAutoScrollableEditBoxContainer.cpp; sourceTree = "<group>"; };
+		74CA9FDD195B8D5E00A604EC /* CCLayout.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLayout.cpp; sourceTree = "<group>"; };
+		74CA9FE4195B8F9400A604EC /* CCNativeSmartLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNativeSmartLayer.h; sourceTree = "<group>"; };
+		74CA9FE5195B8F9400A604EC /* CCNativeSmartLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCNativeSmartLayer.cpp; sourceTree = "<group>"; };
+		74CA9FE6195B8F9400A604EC /* CCNativeViewImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNativeViewImpl.h; sourceTree = "<group>"; };
+		74CA9FE7195B8F9400A604EC /* CCNativeViewImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCNativeViewImpl.cpp; sourceTree = "<group>"; };
+		74CA9FF2195B9C3C00A604EC /* CCEditBoxImplIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEditBoxImplIOS.h; sourceTree = "<group>"; };
+		74CA9FF3195B9C3C00A604EC /* CCEditBoxImplIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCEditBoxImplIOS.mm; sourceTree = "<group>"; };
+		74CA9FF6195B9C5A00A604EC /* CCLoadableTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLoadableTableViewCell.h; sourceTree = "<group>"; };
+		74CA9FF7195B9C5A00A604EC /* CCLoadableTableViewCell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLoadableTableViewCell.cpp; sourceTree = "<group>"; };
+		74CAA007195B9C6A00A604EC /* CCMultilineTextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCMultilineTextBox.cpp; sourceTree = "<group>"; };
+		74CAA008195B9C6A00A604EC /* CCMultilineTextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMultilineTextBox.h; sourceTree = "<group>"; };
+		74CAA009195B9C6A00A604EC /* CCMultilineTextBoxImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCMultilineTextBoxImpl.cpp; sourceTree = "<group>"; };
+		74CAA00A195B9C6A00A604EC /* CCMultilineTextBoxImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMultilineTextBoxImpl.h; sourceTree = "<group>"; };
+		74CAA00B195B9C6A00A604EC /* CCWebView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCWebView.cpp; sourceTree = "<group>"; };
+		74CAA00C195B9C6A00A604EC /* CCWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCWebView.h; sourceTree = "<group>"; };
+		74CAA00D195B9C6A00A604EC /* CCWebViewImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCWebViewImpl.h; sourceTree = "<group>"; };
+		74CAA00E195B9C6A00A604EC /* CCYoutubeView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCYoutubeView.cpp; sourceTree = "<group>"; };
+		74CAA00F195B9C6A00A604EC /* CCYoutubeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCYoutubeView.h; sourceTree = "<group>"; };
+		74CAA010195B9C6A00A604EC /* CCYoutubeViewImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCYoutubeViewImpl.cpp; sourceTree = "<group>"; };
+		74CAA011195B9C6A00A604EC /* CCYoutubeViewImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCYoutubeViewImpl.h; sourceTree = "<group>"; };
+		74CAA018195B9C6A00A604EC /* CCMultilineTextBoxImplIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMultilineTextBoxImplIOS.h; sourceTree = "<group>"; };
+		74CAA019195B9C6A00A604EC /* CCMultilineTextBoxImplIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCMultilineTextBoxImplIOS.mm; sourceTree = "<group>"; };
+		74CAA01A195B9C6A00A604EC /* CCWebViewImplIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCWebViewImplIOS.h; sourceTree = "<group>"; };
+		74CAA01B195B9C6A00A604EC /* CCWebViewImplIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCWebViewImplIOS.mm; sourceTree = "<group>"; };
+		74CAA01C195B9C6A00A604EC /* CCYoutubeViewImplIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCYoutubeViewImplIOS.h; sourceTree = "<group>"; };
+		74CAA01D195B9C6A00A604EC /* CCYoutubeViewImplIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCYoutubeViewImplIOS.mm; sourceTree = "<group>"; };
+		74CAA04C195BAC6100A604EC /* CCNativeViewImplApple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNativeViewImplApple.h; sourceTree = "<group>"; };
+		74CAA04D195BAC6100A604EC /* CCNativeViewImplApple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCNativeViewImplApple.mm; sourceTree = "<group>"; };
 		D43F7F8915C7D8BA00D713FC /* CCTouch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCTouch.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1250,6 +1319,16 @@
 		1551A41F158F2ADE00E66CFE /* layers_scenes_transitions_nodes */ = {
 			isa = PBXGroup;
 			children = (
+				74CA9FE4195B8F9400A604EC /* CCNativeSmartLayer.h */,
+				74CA9FE5195B8F9400A604EC /* CCNativeSmartLayer.cpp */,
+				74CA9FE6195B8F9400A604EC /* CCNativeViewImpl.h */,
+				74CA9FE7195B8F9400A604EC /* CCNativeViewImpl.cpp */,
+				74CA9FD8195B8D5E00A604EC /* CCLayout.h */,
+				74CA9FDD195B8D5E00A604EC /* CCLayout.cpp */,
+				74CA9FD9195B8D5E00A604EC /* CCAutoScrollableEditBoxContainer.h */,
+				74CA9FDC195B8D5E00A604EC /* CCAutoScrollableEditBoxContainer.cpp */,
+				74CA9FDA195B8D5E00A604EC /* CCDoubleSidedLayer.h */,
+				74CA9FDB195B8D5E00A604EC /* CCDoubleSidedLayer.cpp */,
 				74CA9FC4195B3BFD00A604EC /* CCSmartLayer.h */,
 				74CA9FC5195B3BFD00A604EC /* CCSmartLayer.cpp */,
 				1551A420158F2ADE00E66CFE /* CCLayer.cpp */,
@@ -1426,6 +1505,8 @@
 		1551A5DA158F2ADE00E66CFE /* sprite_nodes */ = {
 			isa = PBXGroup;
 			children = (
+				74CA9FD4195B885100A604EC /* CCLoadableSpriteBatchNode.cpp */,
+				74CA9FD5195B885100A604EC /* CCLoadableSpriteBatchNode.h */,
 				1551A5DB158F2ADE00E66CFE /* CCAnimation.cpp */,
 				1551A5DC158F2ADE00E66CFE /* CCAnimation.h */,
 				1551A5DD158F2ADE00E66CFE /* CCAnimationCache.cpp */,
@@ -1642,6 +1723,46 @@
 			path = user_default;
 			sourceTree = "<group>";
 		};
+		744442C1195C9BFC00053F91 /* android */ = {
+			isa = PBXGroup;
+			children = (
+				744442C2195C9BFC00053F91 /* CCMultilineTextBoxImplAndroid.cpp */,
+				744442C3195C9BFC00053F91 /* CCMultilineTextBoxImplAndroid.h */,
+				744442C4195C9BFC00053F91 /* CCNativeViewImplAndroid.cpp */,
+				744442C5195C9BFC00053F91 /* CCNativeViewImplAndroid.h */,
+				744442C6195C9BFC00053F91 /* CCWebViewImplAndroid.cpp */,
+				744442C7195C9BFC00053F91 /* CCWebViewImplAndroid.h */,
+				744442C8195C9BFC00053F91 /* CCYoutubeViewImplAndroid.cpp */,
+				744442C9195C9BFC00053F91 /* CCYoutubeViewImplAndroid.h */,
+			);
+			path = android;
+			sourceTree = "<group>";
+		};
+		744442CA195C9C3000053F91 /* android */ = {
+			isa = PBXGroup;
+			children = (
+				744442CB195C9C3000053F91 /* CCEditBoxImplAndroid.cpp */,
+				744442CC195C9C3000053F91 /* CCEditBoxImplAndroid.h */,
+			);
+			path = android;
+			sourceTree = "<group>";
+		};
+		744442CD195CB75600053F91 /* windows */ = {
+			isa = PBXGroup;
+			children = (
+				744442D5195CB9C900053F91 /* CCNativeViewImplWindows.cpp */,
+				744442D6195CB9C900053F91 /* CCNativeViewImplWindows.h */,
+				744442CE195CB75600053F91 /* CCEditBoxImplWinDow.cpp */,
+				744442CF195CB75600053F91 /* CCEditBoxImplWinDow.h */,
+				744442D0195CB75600053F91 /* CCMultilineTextBoxImplWindows.cpp */,
+				744442D1195CB75600053F91 /* CCWebViewImplWindows.cpp */,
+				744442D2195CB75600053F91 /* CCWebViewImplWindows.h */,
+				744442D3195CB75600053F91 /* CCYoutubeViewImplWindows.cpp */,
+				744442D4195CB75600053F91 /* FunctionObject.h */,
+			);
+			path = windows;
+			sourceTree = "<group>";
+		};
 		747482CE195A1947003AF40E /* extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -1729,6 +1850,7 @@
 				74748379195A1997003AF40E /* CCControlExtension */,
 				74748397195A1997003AF40E /* CCEditBox */,
 				747483A7195A1997003AF40E /* CCScrollView */,
+				74CA9FFA195B9C6A00A604EC /* NativeNodes */,
 			);
 			name = GUI;
 			path = ../../extensions/GUI;
@@ -1773,19 +1895,11 @@
 		74748397195A1997003AF40E /* CCEditBox */ = {
 			isa = PBXGroup;
 			children = (
+				744442CA195C9C3000053F91 /* android */,
+				74CA9FF1195B9C3C00A604EC /* ios */,
 				74748398195A1997003AF40E /* CCEditBox.cpp */,
 				74748399195A1997003AF40E /* CCEditBox.h */,
 				7474839A195A1997003AF40E /* CCEditBoxImpl.h */,
-				7474839B195A1997003AF40E /* CCEditBoxImplAndroid.cpp */,
-				7474839C195A1997003AF40E /* CCEditBoxImplAndroid.h */,
-				7474839F195A1997003AF40E /* CCEditBoxImplIOS.h */,
-				747483A0195A1997003AF40E /* CCEditBoxImplIOS.mm */,
-				747483A1195A1997003AF40E /* CCEditBoxImplMac.h */,
-				747483A2195A1997003AF40E /* CCEditBoxImplNone.cpp */,
-				747483A3195A1997003AF40E /* CCEditBoxImplTizen.cpp */,
-				747483A4195A1997003AF40E /* CCEditBoxImplTizen.h */,
-				747483A5195A1997003AF40E /* CCEditBoxImplWin.cpp */,
-				747483A6195A1997003AF40E /* CCEditBoxImplWin.h */,
 			);
 			path = CCEditBox;
 			sourceTree = "<group>";
@@ -1793,6 +1907,8 @@
 		747483A7195A1997003AF40E /* CCScrollView */ = {
 			isa = PBXGroup;
 			children = (
+				74CA9FF6195B9C5A00A604EC /* CCLoadableTableViewCell.h */,
+				74CA9FF7195B9C5A00A604EC /* CCLoadableTableViewCell.cpp */,
 				7474845E195A4C87003AF40E /* CCEnhancedTableView.cpp */,
 				7474845F195A4C87003AF40E /* CCEnhancedTableView.h */,
 				747483A8195A1997003AF40E /* CCScrollView.cpp */,
@@ -1834,6 +1950,59 @@
 			path = misc;
 			sourceTree = "<group>";
 		};
+		74CA9FF1195B9C3C00A604EC /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				74CA9FF2195B9C3C00A604EC /* CCEditBoxImplIOS.h */,
+				74CA9FF3195B9C3C00A604EC /* CCEditBoxImplIOS.mm */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
+		74CA9FFA195B9C6A00A604EC /* NativeNodes */ = {
+			isa = PBXGroup;
+			children = (
+				74CAA007195B9C6A00A604EC /* CCMultilineTextBox.cpp */,
+				74CAA008195B9C6A00A604EC /* CCMultilineTextBox.h */,
+				74CAA009195B9C6A00A604EC /* CCMultilineTextBoxImpl.cpp */,
+				74CAA00A195B9C6A00A604EC /* CCMultilineTextBoxImpl.h */,
+				74CAA00B195B9C6A00A604EC /* CCWebView.cpp */,
+				74CAA00C195B9C6A00A604EC /* CCWebView.h */,
+				74CAA00D195B9C6A00A604EC /* CCWebViewImpl.h */,
+				74CAA00E195B9C6A00A604EC /* CCYoutubeView.cpp */,
+				74CAA00F195B9C6A00A604EC /* CCYoutubeView.h */,
+				74CAA010195B9C6A00A604EC /* CCYoutubeViewImpl.cpp */,
+				74CAA011195B9C6A00A604EC /* CCYoutubeViewImpl.h */,
+				74CAA04A195BAC6100A604EC /* apple */,
+				74CAA017195B9C6A00A604EC /* ios */,
+				744442C1195C9BFC00053F91 /* android */,
+				744442CD195CB75600053F91 /* windows */,
+			);
+			path = NativeNodes;
+			sourceTree = "<group>";
+		};
+		74CAA017195B9C6A00A604EC /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				74CAA018195B9C6A00A604EC /* CCMultilineTextBoxImplIOS.h */,
+				74CAA019195B9C6A00A604EC /* CCMultilineTextBoxImplIOS.mm */,
+				74CAA01A195B9C6A00A604EC /* CCWebViewImplIOS.h */,
+				74CAA01B195B9C6A00A604EC /* CCWebViewImplIOS.mm */,
+				74CAA01C195B9C6A00A604EC /* CCYoutubeViewImplIOS.h */,
+				74CAA01D195B9C6A00A604EC /* CCYoutubeViewImplIOS.mm */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
+		74CAA04A195BAC6100A604EC /* apple */ = {
+			isa = PBXGroup;
+			children = (
+				74CAA04C195BAC6100A604EC /* CCNativeViewImplApple.h */,
+				74CAA04D195BAC6100A604EC /* CCNativeViewImplApple.mm */,
+			);
+			path = apple;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1845,12 +2014,12 @@
 				7421E3F817D7E41F00884070 /* CCActionCamera.h in Headers */,
 				7421E3F917D7E41F00884070 /* CCActionCatmullRom.h in Headers */,
 				7421E3FA17D7E41F00884070 /* CCActionEase.h in Headers */,
+				74CA9FDF195B8D5E00A604EC /* CCAutoScrollableEditBoxContainer.h in Headers */,
 				7474840B195A1997003AF40E /* CCScrollView.h in Headers */,
 				7421E3FB17D7E41F00884070 /* CCActionGrid.h in Headers */,
 				7474844F195A2F2B003AF40E /* MemberVariableAssigner.h in Headers */,
 				7421E3FC17D7E41F00884070 /* CCActionGrid3D.h in Headers */,
 				74748453195A2F2B003AF40E /* NodeLoadingFacilities.h in Headers */,
-				747483FD195A1997003AF40E /* CCEditBoxImplMac.h in Headers */,
 				7421E3FD17D7E41F00884070 /* CCActionInstant.h in Headers */,
 				747483B3195A1997003AF40E /* CCControl.h in Headers */,
 				7421E3FE17D7E41F00884070 /* CCActionInterval.h in Headers */,
@@ -1871,7 +2040,9 @@
 				74748373195A196E003AF40E /* CCScrollViewLoader.h in Headers */,
 				7421E40A17D7E41F00884070 /* CCAffineTransform.h in Headers */,
 				7421E40B17D7E41F00884070 /* CCArray.h in Headers */,
+				74CA9FE8195B8F9400A604EC /* CCNativeSmartLayer.h in Headers */,
 				7421E40C17D7E41F00884070 /* CCAutoreleasePool.h in Headers */,
+				74CAA034195B9C6A00A604EC /* CCWebView.h in Headers */,
 				74748451195A2F2B003AF40E /* NodeController.h in Headers */,
 				74CA9FD3195B3DBB00A604EC /* CCSmartLayerLoader.h in Headers */,
 				7421E40D17D7E41F00884070 /* CCDictionary.h in Headers */,
@@ -1883,6 +2054,7 @@
 				7474840F195A1997003AF40E /* CCSorting.h in Headers */,
 				7421E41117D7E41F00884070 /* CCObject.h in Headers */,
 				7421E41217D7E41F00884070 /* CCSet.h in Headers */,
+				74CA9FD7195B885100A604EC /* CCLoadableSpriteBatchNode.h in Headers */,
 				747482CA195A0154003AF40E /* CCStringPool.h in Headers */,
 				74748365195A196E003AF40E /* CCNodeLoaderLibrary.h in Headers */,
 				7421E41317D7E41F00884070 /* CCString.h in Headers */,
@@ -1896,6 +2068,7 @@
 				7421E41817D7E41F00884070 /* CCEventType.h in Headers */,
 				7474831D195A196E003AF40E /* CCBReader.h in Headers */,
 				7474832B195A196E003AF40E /* CCBValue.h in Headers */,
+				74CAA030195B9C6A00A604EC /* CCMultilineTextBox.h in Headers */,
 				7474841B195A2132003AF40E /* CCTableViewLoader.h in Headers */,
 				7474834B195A196E003AF40E /* CCLayerLoader.h in Headers */,
 				7421E41917D7E41F00884070 /* ccMacros.h in Headers */,
@@ -1911,6 +2084,7 @@
 				74CA9FC6195B3BFD00A604EC /* CCSmartLayer.h in Headers */,
 				7421E41C17D7E41F00884070 /* cocos2d.h in Headers */,
 				7421E41D17D7E41F00884070 /* aabb.h in Headers */,
+				74CA9FF4195B9C3C00A604EC /* CCEditBoxImplIOS.h in Headers */,
 				74748431195A2863003AF40E /* CCTooltip.h in Headers */,
 				74748417195A1997003AF40E /* CCTableViewCell.h in Headers */,
 				7421E41E17D7E41F00884070 /* mat4stack.h in Headers */,
@@ -1925,6 +2099,8 @@
 				7421E42317D7E41F00884070 /* neon_matrix_impl.h in Headers */,
 				74748317195A196E003AF40E /* CCBKeyframe.h in Headers */,
 				7421E42417D7E41F00884070 /* plane.h in Headers */,
+				74CAA035195B9C6A00A604EC /* CCWebViewImpl.h in Headers */,
+				74CAA039195B9C6A00A604EC /* CCYoutubeViewImpl.h in Headers */,
 				7421E42517D7E41F00884070 /* quaternion.h in Headers */,
 				7421E42617D7E41F00884070 /* ray2.h in Headers */,
 				747483DD195A1997003AF40E /* CCInvocation.h in Headers */,
@@ -1949,9 +2125,9 @@
 				7421E43517D7E41F00884070 /* CCMenu.h in Headers */,
 				7474830F195A196E003AF40E /* CCBAnimationManagerDelegateHandler.h in Headers */,
 				7421E43617D7E41F00884070 /* CCMenuItem.h in Headers */,
-				747483F9195A1997003AF40E /* CCEditBoxImplIOS.h in Headers */,
 				7421E43717D7E41F00884070 /* CCMotionStreak.h in Headers */,
 				7421E43817D7E41F00884070 /* CCProgressTimer.h in Headers */,
+				74CAA032195B9C6A00A604EC /* CCMultilineTextBoxImpl.h in Headers */,
 				7421E43917D7E41F00884070 /* CCRenderTexture.h in Headers */,
 				7421E43A17D7E41F00884070 /* CCParticleBatchNode.h in Headers */,
 				7421E43B17D7E41F00884070 /* CCParticleExamples.h in Headers */,
@@ -1964,10 +2140,12 @@
 				7421E43F17D7E41F00884070 /* CCApplicationProtocol.h in Headers */,
 				7421E44017D7E41F00884070 /* CCCommon.h in Headers */,
 				74748327195A196E003AF40E /* CCBSequenceProperty.h in Headers */,
+				74CA9FDE195B8D5E00A604EC /* CCLayout.h in Headers */,
 				7421E44117D7E41F00884070 /* CCEGLViewProtocol.h in Headers */,
 				7421E44217D7E41F00884070 /* CCImage.h in Headers */,
 				74748313195A196E003AF40E /* CCBFileLoader.h in Headers */,
 				747483C9195A1997003AF40E /* CCControlSaturationBrightnessPicker.h in Headers */,
+				74CAA037195B9C6A00A604EC /* CCYoutubeView.h in Headers */,
 				74748347195A196E003AF40E /* CCLayerGradientLoader.h in Headers */,
 				7421E44317D7E41F00884070 /* CCPlatformConfig.h in Headers */,
 				74748377195A196E003AF40E /* CCSpriteLoader.h in Headers */,
@@ -2005,7 +2183,6 @@
 				7421E45917D7E41F00884070 /* ccShader_Position_uColor_frag.h in Headers */,
 				74748459195A4A12003AF40E /* CCEnhancedLabelTTFLoader.h in Headers */,
 				7421E45A17D7E41F00884070 /* ccShader_Position_uColor_vert.h in Headers */,
-				74748407195A1997003AF40E /* CCEditBoxImplWin.h in Headers */,
 				7421E45B17D7E41F00884070 /* ccShader_PositionColor_frag.h in Headers */,
 				747483C1195A1997003AF40E /* CCControlHuePicker.h in Headers */,
 				7421E45C17D7E41F00884070 /* ccShader_PositionColor_vert.h in Headers */,
@@ -2024,12 +2201,12 @@
 				7421E46717D7E41F00884070 /* ccShaderEx_SwitchMask_frag.h in Headers */,
 				7421E46817D7E41F00884070 /* ccShaders.h in Headers */,
 				7421E46917D7E41F00884070 /* CCAnimation.h in Headers */,
+				74CA9FEA195B8F9400A604EC /* CCNativeViewImpl.h in Headers */,
 				7421E46A17D7E41F00884070 /* CCAnimationCache.h in Headers */,
 				7421E46B17D7E41F00884070 /* CCSprite.h in Headers */,
 				7421E46C17D7E41F00884070 /* CCSpriteBatchNode.h in Headers */,
 				747483C5195A1997003AF40E /* CCControlPotentiometer.h in Headers */,
 				747483ED195A1997003AF40E /* CCEditBox.h in Headers */,
-				74748403195A1997003AF40E /* CCEditBoxImplTizen.h in Headers */,
 				7421E46D17D7E41F00884070 /* CCSpriteFrame.h in Headers */,
 				7421E46E17D7E41F00884070 /* CCSpriteFrameCache.h in Headers */,
 				7421E46F17D7E41F00884070 /* base64.h in Headers */,
@@ -2053,6 +2230,7 @@
 				7421E48017D7E41F00884070 /* CCTextureAtlas.h in Headers */,
 				7421E48117D7E41F00884070 /* CCTextureCache.h in Headers */,
 				7421E48217D7E41F00884070 /* CCTexturePVR.h in Headers */,
+				74CAA03E195B9C6A00A604EC /* CCMultilineTextBoxImplIOS.h in Headers */,
 				7421E48317D7E41F00884070 /* CCTouch.h in Headers */,
 				7421E48417D7E41F00884070 /* CCTouchDelegateProtocol.h in Headers */,
 				7421E48517D7E41F00884070 /* CCTouchDispatcher.h in Headers */,
@@ -2077,11 +2255,12 @@
 				7498D4D91958AA3D004A8FBA /* CCCallLambda.h in Headers */,
 				7421E49517D7E41F00884070 /* ccUTF8.h in Headers */,
 				7421E49617D7E41F00884070 /* CCParallaxNode.h in Headers */,
-				747483F3195A1997003AF40E /* CCEditBoxImplAndroid.h in Headers */,
+				74CA9FE0195B8D5E00A604EC /* CCDoubleSidedLayer.h in Headers */,
 				7421E49717D7E41F00884070 /* CCTileMapAtlas.h in Headers */,
 				7421E49817D7E41F00884070 /* CCTMXLayer.h in Headers */,
 				7421E49917D7E41F00884070 /* CCTMXObjectGroup.h in Headers */,
 				7421E49A17D7E41F00884070 /* CCTMXTiledMap.h in Headers */,
+				74CA9FF8195B9C5A00A604EC /* CCLoadableTableViewCell.h in Headers */,
 				7421E49B17D7E41F00884070 /* CCTMXXMLParser.h in Headers */,
 				7421E49C17D7E41F00884070 /* CCUserDefault.h in Headers */,
 				7421E49D17D7E41F00884070 /* CCBool.h in Headers */,
@@ -2090,10 +2269,13 @@
 				7421E49F17D7E41F00884070 /* CCFloat.h in Headers */,
 				7421E4A017D7E41F00884070 /* CCDataVisitor.h in Headers */,
 				7421E4A117D7E41F00884070 /* CCTextureETC.h in Headers */,
+				74CAA042195B9C6A00A604EC /* CCYoutubeViewImplIOS.h in Headers */,
 				7421E4A217D7E41F00884070 /* CCComponent.h in Headers */,
+				74CAA040195B9C6A00A604EC /* CCWebViewImplIOS.h in Headers */,
 				74748455195A2F2B003AF40E /* SelectorResolver.h in Headers */,
 				7421E4A317D7E41F00884070 /* CCComponentContainer.h in Headers */,
 				747483CD195A1997003AF40E /* CCControlSlider.h in Headers */,
+				74CAA052195BAC6100A604EC /* CCNativeViewImplApple.h in Headers */,
 				740F8E2B17E3CDDD009961C7 /* Cocos2DNativeView.h in Headers */,
 				7474836F195A196E003AF40E /* CCScale9SpriteLoader.h in Headers */,
 			);
@@ -2154,23 +2336,23 @@
 				7421E36E17D7E41F00884070 /* CCActionCamera.cpp in Sources */,
 				7421E36F17D7E41F00884070 /* CCActionCatmullRom.cpp in Sources */,
 				74748311195A196E003AF40E /* CCBFileLoader.cpp in Sources */,
-				747483FF195A1997003AF40E /* CCEditBoxImplNone.cpp in Sources */,
 				7421E37017D7E41F00884070 /* CCActionEase.cpp in Sources */,
 				7421E37117D7E41F00884070 /* CCActionGrid.cpp in Sources */,
 				74748351195A196E003AF40E /* CCMenuItemLoader.cpp in Sources */,
 				74CA9FD2195B3DBB00A604EC /* CCSmartLayerLoader.cpp in Sources */,
 				74748411195A1997003AF40E /* CCTableView.cpp in Sources */,
 				74748427195A25A8003AF40E /* CCEnhancedControlButton.cpp in Sources */,
+				74CAA043195B9C6A00A604EC /* CCYoutubeViewImplIOS.mm in Sources */,
 				7421E37217D7E41F00884070 /* CCActionGrid3D.cpp in Sources */,
 				7474835F195A196E003AF40E /* CCNodeLoader.cpp in Sources */,
 				7421E37317D7E41F00884070 /* CCActionInstant.cpp in Sources */,
-				74748401195A1997003AF40E /* CCEditBoxImplTizen.cpp in Sources */,
 				7421E37417D7E41F00884070 /* CCActionInterval.cpp in Sources */,
 				7421E37517D7E41F00884070 /* CCActionManager.cpp in Sources */,
 				7421E37617D7E41F00884070 /* CCActionPageTurn3D.cpp in Sources */,
 				747483DB195A1997003AF40E /* CCInvocation.cpp in Sources */,
 				7421E37717D7E41F00884070 /* CCActionProgressTimer.cpp in Sources */,
 				747483CF195A1997003AF40E /* CCControlStepper.cpp in Sources */,
+				74CA9FE3195B8D5E00A604EC /* CCLayout.cpp in Sources */,
 				7421E37817D7E41F00884070 /* CCActionTiledGrid.cpp in Sources */,
 				7421E37917D7E41F00884070 /* CCActionTween.cpp in Sources */,
 				747483B1195A1997003AF40E /* CCControl.cpp in Sources */,
@@ -2183,13 +2365,13 @@
 				7421E37F17D7E41F00884070 /* CCScheduler.cpp in Sources */,
 				7421E38017D7E41F00884070 /* CCAffineTransform.cpp in Sources */,
 				7421E38117D7E41F00884070 /* CCArray.cpp in Sources */,
-				74748405195A1997003AF40E /* CCEditBoxImplWin.cpp in Sources */,
 				7421E38217D7E41F00884070 /* CCAutoreleasePool.cpp in Sources */,
 				7421E38317D7E41F00884070 /* CCDictionary.cpp in Sources */,
 				7421E38417D7E41F00884070 /* CCGeometry.cpp in Sources */,
 				74748345195A196E003AF40E /* CCLayerGradientLoader.cpp in Sources */,
 				7421E38517D7E41F00884070 /* CCNS.cpp in Sources */,
 				7421E38617D7E41F00884070 /* CCObject.cpp in Sources */,
+				74CAA031195B9C6A00A604EC /* CCMultilineTextBoxImpl.cpp in Sources */,
 				7421E38717D7E41F00884070 /* CCSet.cpp in Sources */,
 				7421E38817D7E41F00884070 /* CCString.cpp in Sources */,
 				7421E38917D7E41F00884070 /* CCZone.cpp in Sources */,
@@ -2205,6 +2387,7 @@
 				7421E38F17D7E41F00884070 /* matrix.c in Sources */,
 				7421E39017D7E41F00884070 /* mat3.c in Sources */,
 				747482B11959F32B003AF40E /* CCMultiPassSprite.cpp in Sources */,
+				74CA9FD6195B885100A604EC /* CCLoadableSpriteBatchNode.cpp in Sources */,
 				74CA9FBE195B391600A604EC /* FakeInAppPurchaseManager.cpp in Sources */,
 				7421E39117D7E41F00884070 /* mat4.c in Sources */,
 				7421E39217D7E41F00884070 /* neon_matrix_impl.c in Sources */,
@@ -2214,6 +2397,7 @@
 				747483BF195A1997003AF40E /* CCControlHuePicker.cpp in Sources */,
 				7421E39617D7E41F00884070 /* utility.c in Sources */,
 				7421E39717D7E41F00884070 /* vec2.c in Sources */,
+				74CAA053195BAC6100A604EC /* CCNativeViewImplApple.mm in Sources */,
 				7421E39817D7E41F00884070 /* vec3.c in Sources */,
 				7421E39917D7E41F00884070 /* vec4.c in Sources */,
 				7421E39A17D7E41F00884070 /* CCKeypadDelegate.cpp in Sources */,
@@ -2228,6 +2412,7 @@
 				747483D7195A1997003AF40E /* CCControlUtils.cpp in Sources */,
 				7421E3A017D7E41F00884070 /* CCScene.cpp in Sources */,
 				74748335195A196E003AF40E /* CCData.cpp in Sources */,
+				74CAA038195B9C6A00A604EC /* CCYoutubeViewImpl.cpp in Sources */,
 				7421E3A117D7E41F00884070 /* CCTransition.cpp in Sources */,
 				7421E3A217D7E41F00884070 /* CCTransitionPageTurn.cpp in Sources */,
 				7421E3A317D7E41F00884070 /* CCTransitionProgress.cpp in Sources */,
@@ -2243,10 +2428,14 @@
 				7474832D195A196E003AF40E /* CCControlButtonLoader.cpp in Sources */,
 				7421E3A917D7E41F00884070 /* CCParticleBatchNode.cpp in Sources */,
 				7421E3AA17D7E41F00884070 /* CCParticleExamples.cpp in Sources */,
+				74CA9FEB195B8F9400A604EC /* CCNativeViewImpl.cpp in Sources */,
 				7421E3AB17D7E41F00884070 /* CCParticleSystem.cpp in Sources */,
+				74CA9FE9195B8F9400A604EC /* CCNativeSmartLayer.cpp in Sources */,
+				74CAA02F195B9C6A00A604EC /* CCMultilineTextBox.cpp in Sources */,
 				7474835B195A196E003AF40E /* CCNode+CCBRelativePositioning.cpp in Sources */,
 				7421E3AC17D7E41F00884070 /* CCParticleSystemQuad.cpp in Sources */,
 				7421E3AD17D7E41F00884070 /* CCEGLViewProtocol.cpp in Sources */,
+				74CA9FE1195B8D5E00A604EC /* CCDoubleSidedLayer.cpp in Sources */,
 				7421E3AE17D7E41F00884070 /* CCSAXParser.cpp in Sources */,
 				7421E3AF17D7E41F00884070 /* AccelerometerDelegateWrapper.mm in Sources */,
 				7498D4E11958AC1E004A8FBA /* CCLambdaAction.cpp in Sources */,
@@ -2257,6 +2446,7 @@
 				74748460195A4C87003AF40E /* CCEnhancedTableView.cpp in Sources */,
 				7421E3B217D7E41F00884070 /* CCCommon.mm in Sources */,
 				7421E3B317D7E41F00884070 /* CCDirectorCaller.mm in Sources */,
+				74CA9FF9195B9C5A00A604EC /* CCLoadableTableViewCell.cpp in Sources */,
 				7421E3B417D7E41F00884070 /* CCEGLView.mm in Sources */,
 				7421E3B517D7E41F00884070 /* CCES2Renderer.m in Sources */,
 				7421E3B617D7E41F00884070 /* CCFileUtilsIOS.mm in Sources */,
@@ -2287,7 +2477,6 @@
 				74748458195A4A12003AF40E /* CCEnhancedLabelTTFLoader.cpp in Sources */,
 				74748341195A196E003AF40E /* CCLayerColorLoader.cpp in Sources */,
 				74748357195A196E003AF40E /* CCMultiPassSpriteLoader.cpp in Sources */,
-				747483F1195A1997003AF40E /* CCEditBoxImplAndroid.cpp in Sources */,
 				7421E3C517D7E41F00884070 /* CCSpriteBatchNode.cpp in Sources */,
 				7421E3C617D7E41F00884070 /* CCSpriteFrame.cpp in Sources */,
 				74CA9FCA195B3CAC00A604EC /* HitTestProtocol.cpp in Sources */,
@@ -2312,6 +2501,7 @@
 				7421E3D417D7E41F00884070 /* CCTextFieldTTF.cpp in Sources */,
 				7421E3D517D7E41F00884070 /* CCTexture2D.cpp in Sources */,
 				7421E3D617D7E41F00884070 /* CCTextureAtlas.cpp in Sources */,
+				74CAA041195B9C6A00A604EC /* CCWebViewImplIOS.mm in Sources */,
 				7421E3D717D7E41F00884070 /* CCTextureCache.cpp in Sources */,
 				74CA9FC3195B3A8400A604EC /* MessageBoxController.cpp in Sources */,
 				7421E3D817D7E41F00884070 /* CCTexturePVR.cpp in Sources */,
@@ -2321,9 +2511,9 @@
 				7421E3DA17D7E41F00884070 /* CCTouchHandler.cpp in Sources */,
 				7421E3DB17D7E41F00884070 /* CCNotificationCenter.cpp in Sources */,
 				7421E3DC17D7E41F00884070 /* CCTouch.cpp in Sources */,
-				747483FB195A1997003AF40E /* CCEditBoxImplIOS.mm in Sources */,
 				7421E3DD17D7E41F00884070 /* CCClippingNode.cpp in Sources */,
 				7421E3DE17D7E41F00884070 /* CCDrawingPrimitives.cpp in Sources */,
+				74CAA03F195B9C6A00A604EC /* CCMultilineTextBoxImplIOS.mm in Sources */,
 				7421E3DF17D7E41F00884070 /* CCDrawNode.cpp in Sources */,
 				74CA9FC7195B3BFD00A604EC /* CCSmartLayer.cpp in Sources */,
 				7421E3E017D7E41F00884070 /* CCFileUtils.cpp in Sources */,
@@ -2336,13 +2526,16 @@
 				7421E3E617D7E41F00884070 /* CCParallaxNode.cpp in Sources */,
 				7421E3E717D7E41F00884070 /* CCTileMapAtlas.cpp in Sources */,
 				74748363195A196E003AF40E /* CCNodeLoaderLibrary.cpp in Sources */,
+				74CA9FF5195B9C3C00A604EC /* CCEditBoxImplIOS.mm in Sources */,
 				7421E3E817D7E41F00884070 /* CCTMXLayer.cpp in Sources */,
 				74748331195A196E003AF40E /* CCControlLoader.cpp in Sources */,
 				7474840D195A1997003AF40E /* CCSorting.cpp in Sources */,
 				747482C8195A0154003AF40E /* CCStringPool.cpp in Sources */,
+				74CAA036195B9C6A00A604EC /* CCYoutubeView.cpp in Sources */,
 				747481C51888A6DD00AFFE89 /* CCCursor.cpp in Sources */,
 				7421E3E917D7E41F00884070 /* CCTMXObjectGroup.cpp in Sources */,
 				74748409195A1997003AF40E /* CCScrollView.cpp in Sources */,
+				74CAA033195B9C6A00A604EC /* CCWebView.cpp in Sources */,
 				7421E3EA17D7E41F00884070 /* CCTMXTiledMap.cpp in Sources */,
 				7474836D195A196E003AF40E /* CCScale9SpriteLoader.cpp in Sources */,
 				7421E3EB17D7E41F00884070 /* CCTMXXMLParser.cpp in Sources */,
@@ -2353,6 +2546,7 @@
 				747483DF195A1997003AF40E /* CCScale9Sprite.cpp in Sources */,
 				747483B9195A1997003AF40E /* CCControlColourPicker.cpp in Sources */,
 				7421E3EF17D7E41F00884070 /* CCDataVisitor.cpp in Sources */,
+				74CA9FE2195B8D5E00A604EC /* CCAutoScrollableEditBoxContainer.cpp in Sources */,
 				74748452195A2F2B003AF40E /* NodeLoadingFacilities.cpp in Sources */,
 				747483D3195A1997003AF40E /* CCControlSwitch.cpp in Sources */,
 				7421E3F017D7E41F00884070 /* CCTextureETC.cpp in Sources */,

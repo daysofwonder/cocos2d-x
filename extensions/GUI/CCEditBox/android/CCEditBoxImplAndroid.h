@@ -31,7 +31,7 @@
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 
 #include "ExtensionMacros.h"
-#include "CCEditBoxImpl.h"
+#include "GUI/CCEditBox/CCEditBoxImpl.h"
 
 NS_CC_EXT_BEGIN
 

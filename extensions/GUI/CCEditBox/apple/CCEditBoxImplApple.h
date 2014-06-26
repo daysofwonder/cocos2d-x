@@ -32,7 +32,7 @@
 #include <TargetConditionals.h>
 
 #include "ExtensionMacros.h"
-#include "CCEditBoxImpl.h"
+#include "GUI/CCEditBox/CCEditBoxImpl.h"
 
 #import <Foundation/Foundation.h>
 #import "Cocos2DNativeView.h"

@@ -22,6 +22,15 @@
 #include "GUI/CCControlExtension/CCEnhancedControlButton.h"
 #include "GUI/CCControlExtension/CCGenericButton.h"
 #include "CCSmartLayerLoader.h"
+#include "sprite_nodes/CCLoadableSpriteBatchNode.h"
+#include "layers_scenes_transitions_nodes/CCAutoScrollableEditBoxContainer.h"
+#include "layers_scenes_transitions_nodes/CCLayout.h"
+#include "layers_scenes_transitions_nodes/CCDoubleSidedLayer.h"
+
+#include "GUI/NativeNodes/CCWebView.h"
+#include "GUI/NativeNodes/CCYoutubeView.h"
+#include "GUI/NativeNodes/CCMultilineTextBox.h"
+
 
 NS_CC_EXT_BEGIN
 
@@ -62,6 +71,15 @@ void CCNodeLoaderLibrary::registerDefaultCCNodeLoaders() {
     this->registerCCNodeLoader("CCGenericButton", CCGenericButtonLoader::loader());
     
     this->registerCCNodeLoader("CCSmartLayer", CCSmartLayerLoader::loader());
+    this->registerCCNodeLoader("CCLoadableSpriteBatchNode", CCLoadableSpriteBatchNodeLoader::loader());
+
+    this->registerCCNodeLoader("CCAutoScrollableEditBoxContainer", CCAutoScrollableEditBoxContainerLoader::loader());
+
+    this->registerCCNodeLoader("CCWebView", CCWebViewLoader::loader());
+    this->registerCCNodeLoader("CCYoutubeView", CCYoutubeViewLoader::loader());
+    this->registerCCNodeLoader("CCMultilineTextBox", CCMultilineTextBoxLoader::loader());
+    this->registerCCNodeLoader("CCLayout", CCLayoutLoader::loader());
+    this->registerCCNodeLoader("CCDoubleSidedLayer", CCDoubleSidedLayerLoader::loader());
 
     for (const auto& cb : s_RegistrationCallbacks)
     {

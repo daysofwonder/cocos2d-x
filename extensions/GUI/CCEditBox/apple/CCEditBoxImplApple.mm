@@ -29,7 +29,7 @@
 
 #define kLabelZOrder  9999
 
-#include "CCEditBox.h"
+#include "GUI/CCEditBox/CCEditBox.h"
 #import "EAGLView.h"
 
 @class EditBoxImplApple;
