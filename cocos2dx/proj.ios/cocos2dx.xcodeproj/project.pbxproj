@@ -831,6 +831,16 @@
 		744442D4195CB75600053F91 /* FunctionObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FunctionObject.h; sourceTree = "<group>"; };
 		744442D5195CB9C900053F91 /* CCNativeViewImplWindows.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCNativeViewImplWindows.cpp; sourceTree = "<group>"; };
 		744442D6195CB9C900053F91 /* CCNativeViewImplWindows.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCNativeViewImplWindows.h; sourceTree = "<group>"; };
+		744442EA195CCE7000053F91 /* CCEditBoxImplLinux.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCEditBoxImplLinux.cpp; sourceTree = "<group>"; };
+		744442EB195CCE7000053F91 /* CCEditBoxImplLinux.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCEditBoxImplLinux.h; sourceTree = "<group>"; };
+		744442EC195CCE7000053F91 /* CCMultilineTextBoxImplLinux.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCMultilineTextBoxImplLinux.cpp; sourceTree = "<group>"; };
+		744442ED195CCE7000053F91 /* CCMultilineTextBoxImplLinux.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCMultilineTextBoxImplLinux.h; sourceTree = "<group>"; };
+		744442EE195CCE7000053F91 /* CCNativeViewImplLinux.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCNativeViewImplLinux.cpp; sourceTree = "<group>"; };
+		744442EF195CCE7000053F91 /* CCNativeViewImplLinux.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCNativeViewImplLinux.h; sourceTree = "<group>"; };
+		744442F0195CCE7000053F91 /* CCWebViewImplLinux.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCWebViewImplLinux.cpp; sourceTree = "<group>"; };
+		744442F1195CCE7000053F91 /* CCWebViewImplLinux.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCWebViewImplLinux.h; sourceTree = "<group>"; };
+		744442F2195CCE7000053F91 /* CCYoutubeImplLinux.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCYoutubeImplLinux.cpp; sourceTree = "<group>"; };
+		744442F3195CCE7000053F91 /* CCYoutubeImplLinux.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCYoutubeImplLinux.h; sourceTree = "<group>"; };
 		747481C11888A4CF00AFFE89 /* CCCursor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCursor.cpp; sourceTree = "<group>"; };
 		747481C21888A4CF00AFFE89 /* CCCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCursor.h; sourceTree = "<group>"; };
 		747482AE1959F32B003AF40E /* CCMultiPassSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCMultiPassSprite.cpp; sourceTree = "<group>"; };
@@ -1763,6 +1773,23 @@
 			path = windows;
 			sourceTree = "<group>";
 		};
+		744442E9195CCE7000053F91 /* linux */ = {
+			isa = PBXGroup;
+			children = (
+				744442EA195CCE7000053F91 /* CCEditBoxImplLinux.cpp */,
+				744442EB195CCE7000053F91 /* CCEditBoxImplLinux.h */,
+				744442EC195CCE7000053F91 /* CCMultilineTextBoxImplLinux.cpp */,
+				744442ED195CCE7000053F91 /* CCMultilineTextBoxImplLinux.h */,
+				744442EE195CCE7000053F91 /* CCNativeViewImplLinux.cpp */,
+				744442EF195CCE7000053F91 /* CCNativeViewImplLinux.h */,
+				744442F0195CCE7000053F91 /* CCWebViewImplLinux.cpp */,
+				744442F1195CCE7000053F91 /* CCWebViewImplLinux.h */,
+				744442F2195CCE7000053F91 /* CCYoutubeImplLinux.cpp */,
+				744442F3195CCE7000053F91 /* CCYoutubeImplLinux.h */,
+			);
+			path = linux;
+			sourceTree = "<group>";
+		};
 		747482CE195A1947003AF40E /* extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -1977,6 +2004,7 @@
 				74CAA017195B9C6A00A604EC /* ios */,
 				744442C1195C9BFC00053F91 /* android */,
 				744442CD195CB75600053F91 /* windows */,
+				744442E9195CCE7000053F91 /* linux */,
 			);
 			path = NativeNodes;
 			sourceTree = "<group>";
