@@ -31,6 +31,9 @@
 #include "GUI/NativeNodes/CCYoutubeView.h"
 #include "GUI/NativeNodes/CCMultilineTextBox.h"
 
+#include "GUI/CCSpinner.h"
+#include "GUI/CCRadioButtonGroup.h"
+#include "GUI/CCPopupRadioButtonGroup.h"
 
 NS_CC_EXT_BEGIN
 
@@ -80,6 +83,10 @@ void CCNodeLoaderLibrary::registerDefaultCCNodeLoaders() {
     this->registerCCNodeLoader("CCMultilineTextBox", CCMultilineTextBoxLoader::loader());
     this->registerCCNodeLoader("CCLayout", CCLayoutLoader::loader());
     this->registerCCNodeLoader("CCDoubleSidedLayer", CCDoubleSidedLayerLoader::loader());
+    
+    this->registerCCNodeLoader("CCRadioButtonGroup", CCRadioButtonGroupLoader::loader());
+    this->registerCCNodeLoader("CCPopupRadioButtonGroup", CCPopupRadioButtonGroupLoader::loader());
+    this->registerCCNodeLoader("CCSpinner", CCSpinnerLoader::loader());
 
     for (const auto& cb : s_RegistrationCallbacks)
     {

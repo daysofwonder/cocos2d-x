@@ -35,6 +35,9 @@ CCBReader/CCBAnimationManagerDelegateHandler.cpp \
 CCBReader/CCTableViewLoader.cpp \
 CCBReader/CCEnhancedLabelTTFLoader.cpp \
 CCBReader/CCSmartLayerLoader.cpp \
+GUI/CCSpinner.cpp \
+GUI/CCRadioButtonGroup.cpp \
+GUI/CCPopupRadioButtonGroup.cpp \
 GUI/CCControlExtension/CCControl.cpp \
 GUI/CCControlExtension/CCControlButton.cpp \
 GUI/CCControlExtension/CCControlColourPicker.cpp \

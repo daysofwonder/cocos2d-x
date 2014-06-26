@@ -319,6 +319,12 @@
 		7421E4A317D7E41F00884070 /* CCComponentContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 37EEEBF7175DDF3A003C1193 /* CCComponentContainer.h */; };
 		744442F6195CD90900053F91 /* StdScrollBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 744442F4195CD90900053F91 /* StdScrollBar.cpp */; };
 		744442F7195CD90900053F91 /* StdScrollBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 744442F5195CD90900053F91 /* StdScrollBar.h */; };
+		744442FE195CDBB800053F91 /* CCSpinner.h in Headers */ = {isa = PBXBuildFile; fileRef = 744442F8195CDBB800053F91 /* CCSpinner.h */; };
+		744442FF195CDBB800053F91 /* CCPopupRadioButtonGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 744442F9195CDBB800053F91 /* CCPopupRadioButtonGroup.h */; };
+		74444300195CDBB800053F91 /* CCRadioButtonGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 744442FA195CDBB800053F91 /* CCRadioButtonGroup.h */; };
+		74444301195CDBB800053F91 /* CCSpinner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 744442FB195CDBB800053F91 /* CCSpinner.cpp */; };
+		74444302195CDBB800053F91 /* CCPopupRadioButtonGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 744442FC195CDBB800053F91 /* CCPopupRadioButtonGroup.cpp */; };
+		74444303195CDBB800053F91 /* CCRadioButtonGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 744442FD195CDBB800053F91 /* CCRadioButtonGroup.cpp */; };
 		747481C51888A6DD00AFFE89 /* CCCursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 747481C11888A4CF00AFFE89 /* CCCursor.cpp */; };
 		747482B11959F32B003AF40E /* CCMultiPassSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 747482AE1959F32B003AF40E /* CCMultiPassSprite.cpp */; };
 		747482B31959F32B003AF40E /* CCMultiPassSprite.h in Headers */ = {isa = PBXBuildFile; fileRef = 747482AF1959F32B003AF40E /* CCMultiPassSprite.h */; };
@@ -845,6 +851,12 @@
 		744442F3195CCE7000053F91 /* CCYoutubeImplLinux.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCYoutubeImplLinux.h; sourceTree = "<group>"; };
 		744442F4195CD90900053F91 /* StdScrollBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StdScrollBar.cpp; sourceTree = "<group>"; };
 		744442F5195CD90900053F91 /* StdScrollBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StdScrollBar.h; sourceTree = "<group>"; };
+		744442F8195CDBB800053F91 /* CCSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSpinner.h; sourceTree = "<group>"; };
+		744442F9195CDBB800053F91 /* CCPopupRadioButtonGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPopupRadioButtonGroup.h; sourceTree = "<group>"; };
+		744442FA195CDBB800053F91 /* CCRadioButtonGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCRadioButtonGroup.h; sourceTree = "<group>"; };
+		744442FB195CDBB800053F91 /* CCSpinner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCSpinner.cpp; sourceTree = "<group>"; };
+		744442FC195CDBB800053F91 /* CCPopupRadioButtonGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPopupRadioButtonGroup.cpp; sourceTree = "<group>"; };
+		744442FD195CDBB800053F91 /* CCRadioButtonGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCRadioButtonGroup.cpp; sourceTree = "<group>"; };
 		747481C11888A4CF00AFFE89 /* CCCursor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCursor.cpp; sourceTree = "<group>"; };
 		747481C21888A4CF00AFFE89 /* CCCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCursor.h; sourceTree = "<group>"; };
 		747482AE1959F32B003AF40E /* CCMultiPassSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCMultiPassSprite.cpp; sourceTree = "<group>"; };
@@ -1878,6 +1890,12 @@
 		74748378195A1997003AF40E /* GUI */ = {
 			isa = PBXGroup;
 			children = (
+				744442F8195CDBB800053F91 /* CCSpinner.h */,
+				744442FB195CDBB800053F91 /* CCSpinner.cpp */,
+				744442F9195CDBB800053F91 /* CCPopupRadioButtonGroup.h */,
+				744442FC195CDBB800053F91 /* CCPopupRadioButtonGroup.cpp */,
+				744442FA195CDBB800053F91 /* CCRadioButtonGroup.h */,
+				744442FD195CDBB800053F91 /* CCRadioButtonGroup.cpp */,
 				74748379195A1997003AF40E /* CCControlExtension */,
 				74748397195A1997003AF40E /* CCEditBox */,
 				747483A7195A1997003AF40E /* CCScrollView */,
@@ -2084,6 +2102,7 @@
 				747483D1195A1997003AF40E /* CCControlStepper.h in Headers */,
 				74CA9FCF195B3CC700A604EC /* CCSceneGraphTouchDispatcher.h in Headers */,
 				7421E40F17D7E41F00884070 /* CCInteger.h in Headers */,
+				74444300195CDBB800053F91 /* CCRadioButtonGroup.h in Headers */,
 				7421E41017D7E41F00884070 /* CCNS.h in Headers */,
 				7474840F195A1997003AF40E /* CCSorting.h in Headers */,
 				7421E41117D7E41F00884070 /* CCObject.h in Headers */,
@@ -2118,6 +2137,7 @@
 				74CA9FC6195B3BFD00A604EC /* CCSmartLayer.h in Headers */,
 				7421E41C17D7E41F00884070 /* cocos2d.h in Headers */,
 				7421E41D17D7E41F00884070 /* aabb.h in Headers */,
+				744442FE195CDBB800053F91 /* CCSpinner.h in Headers */,
 				74CA9FF4195B9C3C00A604EC /* CCEditBoxImplIOS.h in Headers */,
 				74748431195A2863003AF40E /* CCTooltip.h in Headers */,
 				74748417195A1997003AF40E /* CCTableViewCell.h in Headers */,
@@ -2256,6 +2276,7 @@
 				7421E47817D7E41F00884070 /* TransformUtils.h in Headers */,
 				7421E47917D7E41F00884070 /* ioapi.h in Headers */,
 				7421E47A17D7E41F00884070 /* unzip.h in Headers */,
+				744442FF195CDBB800053F91 /* CCPopupRadioButtonGroup.h in Headers */,
 				7421E47B17D7E41F00884070 /* ZipUtils.h in Headers */,
 				7474833B195A196E003AF40E /* CCLabelBMFontLoader.h in Headers */,
 				7421E47C17D7E41F00884070 /* CCIMEDelegate.h in Headers */,
@@ -2381,6 +2402,7 @@
 				7421E37217D7E41F00884070 /* CCActionGrid3D.cpp in Sources */,
 				7474835F195A196E003AF40E /* CCNodeLoader.cpp in Sources */,
 				7421E37317D7E41F00884070 /* CCActionInstant.cpp in Sources */,
+				74444302195CDBB800053F91 /* CCPopupRadioButtonGroup.cpp in Sources */,
 				7421E37417D7E41F00884070 /* CCActionInterval.cpp in Sources */,
 				7421E37517D7E41F00884070 /* CCActionManager.cpp in Sources */,
 				7421E37617D7E41F00884070 /* CCActionPageTurn3D.cpp in Sources */,
@@ -2400,6 +2422,7 @@
 				7421E37F17D7E41F00884070 /* CCScheduler.cpp in Sources */,
 				7421E38017D7E41F00884070 /* CCAffineTransform.cpp in Sources */,
 				7421E38117D7E41F00884070 /* CCArray.cpp in Sources */,
+				74444301195CDBB800053F91 /* CCSpinner.cpp in Sources */,
 				7421E38217D7E41F00884070 /* CCAutoreleasePool.cpp in Sources */,
 				7421E38317D7E41F00884070 /* CCDictionary.cpp in Sources */,
 				7421E38417D7E41F00884070 /* CCGeometry.cpp in Sources */,
@@ -2434,6 +2457,7 @@
 				7421E39717D7E41F00884070 /* vec2.c in Sources */,
 				74CAA053195BAC6100A604EC /* CCNativeViewImplApple.mm in Sources */,
 				7421E39817D7E41F00884070 /* vec3.c in Sources */,
+				74444303195CDBB800053F91 /* CCRadioButtonGroup.cpp in Sources */,
 				7421E39917D7E41F00884070 /* vec4.c in Sources */,
 				7421E39A17D7E41F00884070 /* CCKeypadDelegate.cpp in Sources */,
 				7421E39B17D7E41F00884070 /* CCKeypadDispatcher.cpp in Sources */,
