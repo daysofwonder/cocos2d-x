@@ -8,6 +8,8 @@
 #include <algorithm>
 #include <boost/log/trivial.hpp>
 
+using namespace DOW;
+
 namespace
 {
 
@@ -325,26 +327,31 @@ NS_CC_EXT_BEGIN
 		}
     }
 
-	cocos2d::CCNode* nodeWithKeyboardFocus()
-	{
-		HWND focussedWindow = GetFocus();
-		if (focussedWindow) {
-			CHAR className[255];
-			GetClassName(focussedWindow, className, 255);
-			HWND cocosWindow = CCEGLView::sharedOpenGLView()->getHWnd();
-			if (focussedWindow == cocosWindow) {
-				return CCDirector::sharedDirector()->getRunningScene();
-			}
-			HWND parent = GetParent(focussedWindow);
-			CHAR parentName[255];
-			GetClassName(parent, parentName, 255);
-			for (const WinAndNode& pair : gHWinToNode) {
-				if ((pair.window == focussedWindow) || (pair.window == parent)) {
-					return pair.node;
-				}
+NS_CC_EXT_END
+
+NS_CC_BEGIN
+
+cocos2d::CCNode* nodeWithKeyboardFocus()
+{
+	HWND focussedWindow = GetFocus();
+	if (focussedWindow) {
+		CHAR className[255];
+		GetClassName(focussedWindow, className, 255);
+		HWND cocosWindow = CCEGLView::sharedOpenGLView()->getHWnd();
+		if (focussedWindow == cocosWindow) {
+			return CCDirector::sharedDirector()->getRunningScene();
+		}
+		HWND parent = GetParent(focussedWindow);
+		CHAR parentName[255];
+		GetClassName(parent, parentName, 255);
+		for (const WinAndNode& pair : gHWinToNode) {
+			if ((pair.window == focussedWindow) || (pair.window == parent)) {
+				return pair.node;
 			}
 		}
-		return NULL;
 	}
+	return NULL;
+}
 
-NS_CC_EXT_END
+NS_CC_END
+

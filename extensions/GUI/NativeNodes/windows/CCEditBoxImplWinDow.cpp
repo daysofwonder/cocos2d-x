@@ -19,7 +19,7 @@ namespace cocos2d
 	{
 		CCEditBoxImpl* __createSystemEditBox(CCEditBox* pEditBox)
 		{
-			return new swapp::CCEditBoxImplWinDow(pEditBox);
+			return new cocos2d::extension::CCEditBoxImplWinDow(pEditBox);
 		}
 	}
 }

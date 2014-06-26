@@ -1,8 +1,8 @@
 
-#include "CCMultilineTextBox.h"
-#include "CCMultilineTextBoxImpl.h"
-#include "CCNativeViewImpl.h"
-#include "CCNativeViewImplWindows.h"
+#include "GUI/NativeNodes/CCMultilineTextBox.h"
+#include "GUI/NativeNodes/CCMultilineTextBoxImpl.h"
+#include "layers_scenes_transitions_nodes/CCNativeViewImpl.h"
+#include "GUI/NativeNodes/windows/CCNativeViewImplWindows.h"
 #include "FunctionObject.h"
 #include "DOWFoundation/Logger.h"
 

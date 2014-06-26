@@ -9,7 +9,7 @@
 #include "CCDoubleSidedLayer.h"
 #include <algorithm>
 #undef min
-#undef mac
+#undef max
 
 NS_CC_BEGIN
     

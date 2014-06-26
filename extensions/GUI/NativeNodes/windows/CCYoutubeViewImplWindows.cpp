@@ -1,7 +1,7 @@
 //
-#include "CCYoutubeView.h"
-#include "CCYoutubeViewImpl.h"
-#include "CCNativeViewImplWindows.h"
+#include "GUI/NativeNodes/CCYoutubeView.h"
+#include "GUI/NativeNodes/CCYoutubeViewImpl.h"
+#include "GUI/NativeNodes/windows/CCNativeViewImplWindows.h"
 
 #include <atlbase.h> 
 #include <atlwin.h>

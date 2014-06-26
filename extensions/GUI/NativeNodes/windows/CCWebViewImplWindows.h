@@ -2,9 +2,9 @@
 #ifndef __CCWEBVIEW_IMPL_WINDOWS_H__
 #define __CCWEBVIEW_IMPL_WINDOWS_H__
 
-#include "CCWebViewImpl.h"
-#include "CCNativeViewImplWindows.h"
-#include "CCWebView.h"
+#include "GUI/NativeNodes/CCWebViewImpl.h"
+#include "GUI/NativeNodes/windows/CCNativeViewImplWindows.h"
+#include "GUI/NativeNodes/CCWebView.h"
 
 #include <string>
 
