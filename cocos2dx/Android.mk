@@ -163,6 +163,7 @@ touch_dispatcher/CCSceneGraphTouchDispatcher.cpp \
 touch_dispatcher/HitTestProtocol.cpp \
 misc/FakeInAppPurchaseManager.cpp \
 misc/NumberRasterizer.cpp \
+misc/DurationFormatter.cpp \
 
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \

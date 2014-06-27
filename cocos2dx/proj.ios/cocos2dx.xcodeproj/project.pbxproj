@@ -343,6 +343,8 @@
 		74444328195DDB4B00053F91 /* RankScoreIndicatorController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74444326195DDB4B00053F91 /* RankScoreIndicatorController.cpp */; };
 		7444432B195DEA3E00053F91 /* BadgeController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74444329195DEA3E00053F91 /* BadgeController.cpp */; };
 		7444432C195DEA3E00053F91 /* BadgeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7444432A195DEA3E00053F91 /* BadgeController.h */; };
+		7444432F195DEEAC00053F91 /* DurationFormatter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7444432D195DEEAC00053F91 /* DurationFormatter.cpp */; };
+		74444330195DEEAC00053F91 /* DurationFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7444432E195DEEAC00053F91 /* DurationFormatter.h */; };
 		747481C51888A6DD00AFFE89 /* CCCursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 747481C11888A4CF00AFFE89 /* CCCursor.cpp */; };
 		747482B11959F32B003AF40E /* CCMultiPassSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 747482AE1959F32B003AF40E /* CCMultiPassSprite.cpp */; };
 		747482B31959F32B003AF40E /* CCMultiPassSprite.h in Headers */ = {isa = PBXBuildFile; fileRef = 747482AF1959F32B003AF40E /* CCMultiPassSprite.h */; };
@@ -893,6 +895,8 @@
 		74444326195DDB4B00053F91 /* RankScoreIndicatorController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RankScoreIndicatorController.cpp; sourceTree = "<group>"; };
 		74444329195DEA3E00053F91 /* BadgeController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BadgeController.cpp; sourceTree = "<group>"; };
 		7444432A195DEA3E00053F91 /* BadgeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadgeController.h; sourceTree = "<group>"; };
+		7444432D195DEEAC00053F91 /* DurationFormatter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DurationFormatter.cpp; sourceTree = "<group>"; };
+		7444432E195DEEAC00053F91 /* DurationFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DurationFormatter.h; sourceTree = "<group>"; };
 		747481C11888A4CF00AFFE89 /* CCCursor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCursor.cpp; sourceTree = "<group>"; };
 		747481C21888A4CF00AFFE89 /* CCCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCursor.h; sourceTree = "<group>"; };
 		747482AE1959F32B003AF40E /* CCMultiPassSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCMultiPassSprite.cpp; sourceTree = "<group>"; };
@@ -2047,6 +2051,8 @@
 		74CA9FBB195B391600A604EC /* misc */ = {
 			isa = PBXGroup;
 			children = (
+				7444432D195DEEAC00053F91 /* DurationFormatter.cpp */,
+				7444432E195DEEAC00053F91 /* DurationFormatter.h */,
 				74444321195DD96000053F91 /* NumberRasterizer.cpp */,
 				74444322195DD96000053F91 /* NumberRasterizer.h */,
 				74CA9FBC195B391600A604EC /* FakeInAppPurchaseManager.cpp */,
@@ -2127,6 +2133,7 @@
 				7421E3FC17D7E41F00884070 /* CCActionGrid3D.h in Headers */,
 				74748453195A2F2B003AF40E /* NodeLoadingFacilities.h in Headers */,
 				7421E3FD17D7E41F00884070 /* CCActionInstant.h in Headers */,
+				74444330195DEEAC00053F91 /* DurationFormatter.h in Headers */,
 				747483B3195A1997003AF40E /* CCControl.h in Headers */,
 				7421E3FE17D7E41F00884070 /* CCActionInterval.h in Headers */,
 				7421E3FF17D7E41F00884070 /* CCActionManager.h in Headers */,
@@ -2617,6 +2624,7 @@
 				7421E3CA17D7E41F00884070 /* CCProfiling.cpp in Sources */,
 				747483B5195A1997003AF40E /* CCControlButton.cpp in Sources */,
 				7421E3CB17D7E41F00884070 /* ccUtils.cpp in Sources */,
+				7444432F195DEEAC00053F91 /* DurationFormatter.cpp in Sources */,
 				7421E3CC17D7E41F00884070 /* CCVertex.cpp in Sources */,
 				7421E3CD17D7E41F00884070 /* ccCArray.cpp in Sources */,
 				7421E3CE17D7E41F00884070 /* TGAlib.cpp in Sources */,
