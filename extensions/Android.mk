@@ -82,6 +82,7 @@ NodeControllers/NbGamesIndicatorController.cpp \
 NodeControllers/LanguageIndicatorController.cpp \
 NodeControllers/KarmaIndicatorController.cpp \
 NodeControllers/RankScoreIndicatorController.cpp \
+NodeControllers/BadgeController.cpp \
 network/HttpClient.cpp \
 network/WebSocket.cpp \
 physics_nodes/CCPhysicsDebugNode.cpp \
