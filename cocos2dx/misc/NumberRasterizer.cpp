@@ -10,6 +10,9 @@
 #include "misc/NumberRasterizer.h"
 #include "DOWFoundation/StringUtils.h"
 #include <algorithm>
+#undef min
+#undef max
+
 #include "sprite_nodes/CCSpriteFrameCache.h"
 #include "sprite_nodes/CCSpriteBatchNode.h"
 #include "sprite_nodes/CCSprite.h"
