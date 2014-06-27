@@ -28,6 +28,11 @@ actions/CCActionTween.cpp \
 actions/CCCallLambda.cpp \
 actions/CCLambdaAction.cpp \
 actions/CCMoveAnchorPointTo.cpp \
+animations/Animation.cpp \
+animations/AnimationQueue.cpp \
+animations/LambdaAnimation.cpp \
+animations/SequenceAnimation.cpp \
+animations/SpawnAnimation.cpp \
 base_nodes/CCAtlasNode.cpp \
 base_nodes/CCNode.cpp \
 cocoa/CCAffineTransform.cpp \
