@@ -75,6 +75,12 @@ NodeControllers/NodeController.cpp \
 NodeControllers/NodeLoadingFacilities.cpp \
 NodeControllers/SelectorResolver.cpp \
 NodeControllers/MessageBoxController.cpp \
+NodeControllers/ControlSwitchController.cpp \
+NodeControllers/EditBoxController.cpp \
+NodeControllers/StdEditBoxController.cpp \
+NodeControllers/NbGamesIndicatorController.cpp \
+NodeControllers/LanguageIndicatorController.cpp \
+NodeControllers/KarmaIndicatorController.cpp \
 network/HttpClient.cpp \
 network/WebSocket.cpp \
 physics_nodes/CCPhysicsDebugNode.cpp \
