@@ -162,6 +162,7 @@ touch_dispatcher/CCTouch.cpp \
 touch_dispatcher/CCSceneGraphTouchDispatcher.cpp \
 touch_dispatcher/HitTestProtocol.cpp \
 misc/FakeInAppPurchaseManager.cpp \
+misc/NumberRasterizer.cpp \
 
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \

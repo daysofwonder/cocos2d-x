@@ -81,6 +81,7 @@ NodeControllers/StdEditBoxController.cpp \
 NodeControllers/NbGamesIndicatorController.cpp \
 NodeControllers/LanguageIndicatorController.cpp \
 NodeControllers/KarmaIndicatorController.cpp \
+NodeControllers/RankScoreIndicatorController.cpp \
 network/HttpClient.cpp \
 network/WebSocket.cpp \
 physics_nodes/CCPhysicsDebugNode.cpp \

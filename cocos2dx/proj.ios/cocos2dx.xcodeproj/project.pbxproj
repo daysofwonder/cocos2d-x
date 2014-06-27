@@ -337,6 +337,10 @@
 		74444319195CE2D800053F91 /* EditBoxController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7444430F195CE2D800053F91 /* EditBoxController.cpp */; };
 		7444431F195CE62200053F91 /* StdEditBoxController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7444431D195CE62200053F91 /* StdEditBoxController.h */; };
 		74444320195CE62200053F91 /* StdEditBoxController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7444431E195CE62200053F91 /* StdEditBoxController.cpp */; };
+		74444323195DD96000053F91 /* NumberRasterizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74444321195DD96000053F91 /* NumberRasterizer.cpp */; };
+		74444324195DD96000053F91 /* NumberRasterizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 74444322195DD96000053F91 /* NumberRasterizer.h */; };
+		74444327195DDB4B00053F91 /* RankScoreIndicatorController.h in Headers */ = {isa = PBXBuildFile; fileRef = 74444325195DDB4B00053F91 /* RankScoreIndicatorController.h */; };
+		74444328195DDB4B00053F91 /* RankScoreIndicatorController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74444326195DDB4B00053F91 /* RankScoreIndicatorController.cpp */; };
 		747481C51888A6DD00AFFE89 /* CCCursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 747481C11888A4CF00AFFE89 /* CCCursor.cpp */; };
 		747482B11959F32B003AF40E /* CCMultiPassSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 747482AE1959F32B003AF40E /* CCMultiPassSprite.cpp */; };
 		747482B31959F32B003AF40E /* CCMultiPassSprite.h in Headers */ = {isa = PBXBuildFile; fileRef = 747482AF1959F32B003AF40E /* CCMultiPassSprite.h */; };
@@ -881,6 +885,10 @@
 		7444430F195CE2D800053F91 /* EditBoxController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EditBoxController.cpp; sourceTree = "<group>"; };
 		7444431D195CE62200053F91 /* StdEditBoxController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StdEditBoxController.h; sourceTree = "<group>"; };
 		7444431E195CE62200053F91 /* StdEditBoxController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StdEditBoxController.cpp; sourceTree = "<group>"; };
+		74444321195DD96000053F91 /* NumberRasterizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NumberRasterizer.cpp; sourceTree = "<group>"; };
+		74444322195DD96000053F91 /* NumberRasterizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberRasterizer.h; sourceTree = "<group>"; };
+		74444325195DDB4B00053F91 /* RankScoreIndicatorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankScoreIndicatorController.h; sourceTree = "<group>"; };
+		74444326195DDB4B00053F91 /* RankScoreIndicatorController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RankScoreIndicatorController.cpp; sourceTree = "<group>"; };
 		747481C11888A4CF00AFFE89 /* CCCursor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCursor.cpp; sourceTree = "<group>"; };
 		747481C21888A4CF00AFFE89 /* CCCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCursor.h; sourceTree = "<group>"; };
 		747482AE1959F32B003AF40E /* CCMultiPassSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCMultiPassSprite.cpp; sourceTree = "<group>"; };
@@ -2001,6 +2009,8 @@
 		74748445195A2F2B003AF40E /* NodeControllers */ = {
 			isa = PBXGroup;
 			children = (
+				74444325195DDB4B00053F91 /* RankScoreIndicatorController.h */,
+				74444326195DDB4B00053F91 /* RankScoreIndicatorController.cpp */,
 				74444306195CE2D800053F91 /* ControlSwitchController.h */,
 				7444430E195CE2D800053F91 /* ControlSwitchController.cpp */,
 				74444307195CE2D800053F91 /* EditBoxController.h */,
@@ -2031,6 +2041,8 @@
 		74CA9FBB195B391600A604EC /* misc */ = {
 			isa = PBXGroup;
 			children = (
+				74444321195DD96000053F91 /* NumberRasterizer.cpp */,
+				74444322195DD96000053F91 /* NumberRasterizer.h */,
 				74CA9FBC195B391600A604EC /* FakeInAppPurchaseManager.cpp */,
 				74CA9FBD195B391600A604EC /* FakeInAppPurchaseManager.h */,
 			);
@@ -2143,6 +2155,7 @@
 				7474840F195A1997003AF40E /* CCSorting.h in Headers */,
 				7421E41117D7E41F00884070 /* CCObject.h in Headers */,
 				7421E41217D7E41F00884070 /* CCSet.h in Headers */,
+				74444327195DDB4B00053F91 /* RankScoreIndicatorController.h in Headers */,
 				74CA9FD7195B885100A604EC /* CCLoadableSpriteBatchNode.h in Headers */,
 				747482CA195A0154003AF40E /* CCStringPool.h in Headers */,
 				74748365195A196E003AF40E /* CCNodeLoaderLibrary.h in Headers */,
@@ -2362,6 +2375,7 @@
 				7421E49C17D7E41F00884070 /* CCUserDefault.h in Headers */,
 				7421E49D17D7E41F00884070 /* CCBool.h in Headers */,
 				7421E49E17D7E41F00884070 /* CCDouble.h in Headers */,
+				74444324195DD96000053F91 /* NumberRasterizer.h in Headers */,
 				74748337195A196E003AF40E /* CCData.h in Headers */,
 				7421E49F17D7E41F00884070 /* CCFloat.h in Headers */,
 				7421E4A017D7E41F00884070 /* CCDataVisitor.h in Headers */,
@@ -2498,6 +2512,7 @@
 				7421E39517D7E41F00884070 /* ray2.c in Sources */,
 				747483BF195A1997003AF40E /* CCControlHuePicker.cpp in Sources */,
 				7421E39617D7E41F00884070 /* utility.c in Sources */,
+				74444328195DDB4B00053F91 /* RankScoreIndicatorController.cpp in Sources */,
 				7421E39717D7E41F00884070 /* vec2.c in Sources */,
 				74444315195CE2D800053F91 /* KarmaIndicatorController.cpp in Sources */,
 				74CAA053195BAC6100A604EC /* CCNativeViewImplApple.mm in Sources */,
@@ -2626,6 +2641,7 @@
 				74444317195CE2D800053F91 /* NbGamesIndicatorController.cpp in Sources */,
 				7421E3E017D7E41F00884070 /* CCFileUtils.cpp in Sources */,
 				7421E3E117D7E41F00884070 /* CCImageCommonWebp.cpp in Sources */,
+				74444323195DD96000053F91 /* NumberRasterizer.cpp in Sources */,
 				7421E3E217D7E41F00884070 /* tinyxml2.cpp in Sources */,
 				7421E3E317D7E41F00884070 /* CCDevice.mm in Sources */,
 				7421E3E417D7E41F00884070 /* ccFPSImages.c in Sources */,
