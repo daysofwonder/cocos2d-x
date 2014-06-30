@@ -12,6 +12,7 @@
 #include "animations/Animation.h"
 #include <functional>
 #include <vector>
+#include <cstdint>
 
 NS_CC_BEGIN
 
